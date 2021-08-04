@@ -1,7 +1,7 @@
 import {FunctionComponent} from "react";
 import {NavContainer, NavTitle, NavList, NavListItem} from "../../style/elements/homePage/navigation";
 
-export const Navigation: FunctionComponent = () => {
+export const Navigation : FunctionComponent = () => {
     return <NavContainer>
 
         <NavTitle>DOMINO LEARN</NavTitle>

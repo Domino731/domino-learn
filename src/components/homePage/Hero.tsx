@@ -5,7 +5,8 @@ import {
 } from "../../style/elements/homePage/hero";
 import figure from "../../images/welcome_figure_full.png"
 import monitor from "../../images/monitor1.png"
-export const Hero = () => {
+import {FunctionComponent} from "react";
+export const Hero : FunctionComponent = () => {
     return <HeroContainer>
         <HeroFigure>
             <HeroImg src={figure} alt="figure"/>
