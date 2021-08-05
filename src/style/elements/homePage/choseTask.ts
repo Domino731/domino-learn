@@ -9,7 +9,7 @@ export const TasksBoardContainer = styled.div`
   width: 30%;
   height: 100%;
   background: ${props => props.theme.color.blue};
-  
+
 `
 const an__TasksBoardTitle = keyframes`
   100% {
@@ -88,4 +88,69 @@ export const TasksPlanet1 = styled(TasksPlanet)`
 export const TasksPlanet2 = styled(TasksPlanet)`
   bottom: -214px;
   right: -114px;
+`
+
+export const TasksSelect = styled.form`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 70%;
+  height: 100%;
+`
+
+export const TasksSelectWrapper = styled.div`
+  width: 25%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 4px solid ${props => props.theme.color.black};
+  border-radius: 34px;
+
+  transition: 0.3s;
+  &:hover{
+    width: 28%;
+    transition: 0.3s;
+    box-shadow: 0 262px ${props => props.theme.color.blue} inset;
+  }
+  
+  input {
+    appearance: none;
+    position: absolute;
+    border-radius: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+   &:hover{
+     cursor: pointer;
+   }
+  }
+  input:checked ~ span {
+    font-size: 44px;
+  }
+`
+export const TasksSelectTitle = styled.div`
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  label{
+    margin-left: 9px;
+    font-size: 2.75rem;
+    text-transform: uppercase;
+  }
+`
+export const TasksSelectFigure = styled.img`
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin-top: -10px;
+`
+export const TasksSelectIcon = styled.img`
+  width: 30px;
+  height: auto;
+  object-fit: cover;
 `
