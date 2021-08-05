@@ -109,12 +109,12 @@ export const TasksSelectWrapper = styled.div`
   overflow: hidden;
   border: 4px solid ${props => props.theme.color.black};
   border-radius: 34px;
-
+  box-shadow: 8px 8px ${props => props.theme.color.gray};
   transition: 0.3s;
   &:hover{
-    width: 28%;
     transition: 0.3s;
-    box-shadow: 0 262px ${props => props.theme.color.blue} inset;
+    box-shadow: 0 262px ${props => props.theme.color.blue} inset,
+    23px 23px ${props => props.theme.color.gray};
   }
   
   input {
