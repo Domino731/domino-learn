@@ -1,24 +1,33 @@
 import styled from "styled-components";
 
+interface DscReverseProps  {
+    reverse: boolean
+}
+
 export const DscContainer = styled.section`
   background: ${props => props.theme.color.purple};
-  padding: 93px 0;
+  padding-top: 93px;
 `
 
-export const DscItem = styled.section`
+export const DscItemContainer = styled.section<DscReverseProps>`
   display: flex;
+ justify-content: ${props => props.reverse ? "flex-end" : "flex-start"};
+`
+export const DscItem = styled.div<DscReverseProps>`
+  display: flex;
+  flex-direction: ${props => props.reverse ? "row-reverse" : "row"};
   width: 1270px;
   height: 514px;
   padding: 33px;
-  border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px;
+  margin-bottom: 105px;
+  border-radius: ${props => props.reverse ? "100px 0 0 100px" : "0 100px 100px 0"};
   background: white;
   box-shadow: 20px 20px ${props => props.theme.color.gray};
   transition: 0.3s;
 
   &:hover {
     transition: 0.4s;
-    box-shadow: -20px 30px ${props => props.theme.color.yellow};
+    box-shadow: ${props => props.reverse ? "40px 30px" : "-20px 30px"} ${props => props.theme.color.yellow};
   }
 `
 export const DscContent = styled.div`
@@ -79,6 +88,7 @@ export const DscExemplaryCodeBtn = styled.button`
 `
 
 export const DscFigure = styled.div`
+
   width: 841px;
   display: flex;
   justify-content: center;
@@ -91,24 +101,23 @@ width: 296px;
 `
 export const DscCodeContainer = styled.div`
 width: 100%;
- border: 3px solid blue;
 `
 export const DscCodeItem = styled.div`
   width: 472px;
-  border: 2px solid red;
 `
 export const DscCodeTitle = styled.h2`
   font-size: 44px;
   text-align: center;
 `
-export const DscCodeExample = styled.div`
+export const DscCodeExample = styled.div<DscReverseProps>`
   width: 841px;
   display: flex;
   justify-content: center;
   img{
-    width: 336px;
+    width: 420px;
+    height: 448px;
     object-fit: cover;
-    height: auto;
+    margin-left: ${props => props.reverse ? "101px" : "0"};
   }
 `
 export {}

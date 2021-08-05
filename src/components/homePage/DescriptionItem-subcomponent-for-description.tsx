@@ -3,7 +3,7 @@ import {DscItem, DscContent,
     DscTitleContainer, DscTitle
     , DscTitleImg,
     DscDescription, DscExemplaryCodeBtn, DscFigure,
-DscFigureImg, DscCodeContainer, DscCodeItem, DscCodeTitle, DscCodeExample} from "../../style/elements/homePage/description";
+DscFigureImg, DscCodeContainer, DscCodeItem, DscCodeTitle, DscCodeExample, DscItemContainer} from "../../style/elements/homePage/description";
 
 type DescriptionItemProps = {
     language: {
@@ -14,16 +14,18 @@ type DescriptionItemProps = {
         getFigureSrc: () => string,
         getFigureAlt: () => string,
         getCodeSrc: () => string,
-        getCodeAlt: () => string
-    }
+        getCodeAlt: () => string,
+    },
+    reverse?: boolean
 }
 
-export const DescriptionItem: FunctionComponent<DescriptionItemProps> = ({language}) => {
+export const DescriptionItem: FunctionComponent<DescriptionItemProps> = ({language, reverse= false}) => {
     const [flag, setFlag] = useState<boolean>(false)
 
     const handleChangeFlag = () => setFlag(!flag)
 
-    return <DscItem>
+    return <DscItemContainer reverse={reverse}>
+        <DscItem reverse={reverse}>
             <DscContent>
                 <DscTitleContainer>
                     <DscTitleImg src={language.getIconSrc()} alt={language.getIconAlt()}/>
@@ -39,10 +41,12 @@ export const DescriptionItem: FunctionComponent<DescriptionItemProps> = ({langua
                 <DscFigureImg src={language.getFigureSrc()} alt={language.getFigureAlt()} />
             </DscFigure>}
             {
-                flag &&  <DscCodeExample>
+                flag &&  <DscCodeExample reverse={reverse}>
                     <img src={language.getCodeSrc()} alt={language.getCodeAlt()}/>
                 </DscCodeExample>
             }
-    </DscItem>
+        </DscItem>
+    </DscItemContainer>
+
 }
 
