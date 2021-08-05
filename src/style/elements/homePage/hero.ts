@@ -20,6 +20,8 @@ export const HeroIntroduction = styled.div`
   width: 70%;
   height: 100%;
   background: ${props => props.theme.color.blue};
+  position: relative;
+  overflow: hidden;
 `
 export const HeroTitleH2 = styled.h2`
   margin-top: 76px;
@@ -46,9 +48,19 @@ export const HeroTitleH3 = styled.h3`
   }
 `
 export const HeroIntroductionImg = styled.img`
+  position: absolute;
  width: 950px;
   display: block;
   margin: 90px  auto 0;
   height: auto;
   object-fit: cover;
+  z-index: 4;
+`
+export const HeroPlanet = styled.img`
+  position: absolute;
+  width: 799px;
+  height: auto;
+  object-fit: cover;
+  right: -205px;
+  bottom: -265px;
 `

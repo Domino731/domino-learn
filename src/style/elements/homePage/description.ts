@@ -7,13 +7,39 @@ interface DscReverseProps  {
 export const DscContainer = styled.section`
   background: ${props => props.theme.color.purple};
   padding-top: 93px;
+  position: relative;
+`
+export const DscPlanetColorful = styled.img`
+  position: absolute;
+  width: 799px;
+  height: auto;
+  object-fit: cover;
+  top: -535px;
+  right: -205px;
 `
 
+export const DscPlanetJupiter = styled.img`
+  position: absolute;
+  width: 482px;
+  height: auto;
+  object-fit: cover;
+  top: 817px;
+  left: -201px;
+`
+export const DscPlanetMercury = styled.img`
+  position: absolute;
+  width: 618px;
+  height: auto;
+  object-fit: cover;
+  bottom: -93px;
+  right: -107px;
+`
 export const DscItemContainer = styled.section<DscReverseProps>`
   display: flex;
  justify-content: ${props => props.reverse ? "flex-end" : "flex-start"};
 `
 export const DscItem = styled.div<DscReverseProps>`
+  z-index: 3;
   display: flex;
   flex-direction: ${props => props.reverse ? "row-reverse" : "row"};
   width: 1270px;
