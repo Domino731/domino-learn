@@ -3,7 +3,7 @@ import styled, {keyframes} from "styled-components";
 export const ChoseTaskContainer = styled.section`
   display: flex;
   height: 600px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 `
 export const TasksBoardContainer = styled.div`
   width: 30%;
@@ -98,6 +98,7 @@ export const TasksSelect = styled.form`
   height: 100%;
 `
 
+
 export const TasksSelectWrapper = styled.div`
   width: 25%;
   height: 90%;
@@ -106,7 +107,6 @@ export const TasksSelectWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
   border: 4px solid ${props => props.theme.color.black};
   border-radius: 34px;
   box-shadow: 8px 8px ${props => props.theme.color.gray};
@@ -125,12 +125,23 @@ export const TasksSelectWrapper = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 2;
    &:hover{
      cursor: pointer;
    }
   }
+  span{
+    display: block;
+    position: absolute;
+    z-index: -1;
+    top: -2px;
+    width: 100%;
+    height: 100%;
+    border-radius: 34px;
+  }
   input:checked ~ span {
     font-size: 44px;
+    box-shadow: 0 262px ${props => props.theme.color.blue} inset;
   }
 `
 export const TasksSelectTitle = styled.div`

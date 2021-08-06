@@ -23,8 +23,10 @@ export const TaskSelectSingle: FunctionComponent<TaskSelectProps> = ({
         setTasks(e)
     }
     return <TasksSelectWrapper>
+
         <TasksSelectFigure src={language.getFigureSrc()} alt={language.getFigureAlt()}/>
         <input type="radio" value={task} onChange={changeTasks} checked={chosenTask === task}/>
+        <span/>
         <TasksSelectTitle>
             <TasksSelectIcon src={language.getIconSrc()} alt={language.getIconAlt()}/>
             <label>{language.getLanguageName()}</label>

@@ -4,6 +4,7 @@ import {Navigation} from "./Navigation";
 import {Hero} from "./Hero";
 import {Description} from "./Description";
 import {ChoseTask} from "./ChoseTask";
+import {Footer} from "./Footer";
 
 export const HomePage : FunctionComponent = () =>{
     return <Container>
@@ -11,5 +12,6 @@ export const HomePage : FunctionComponent = () =>{
         <Hero/>
         <Description/>
         <ChoseTask/>
+        <Footer/>
     </Container>
 }

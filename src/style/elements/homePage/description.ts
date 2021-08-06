@@ -8,6 +8,7 @@ export const DscContainer = styled.section`
   background: ${props => props.theme.color.purple};
   padding-top: 93px;
   position: relative;
+  overflow: hidden;
 `
 export const DscPlanetColorful = styled.img`
   position: absolute;

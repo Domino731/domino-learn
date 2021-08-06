@@ -6,13 +6,15 @@ export const Container = styled.section`
 `
 export const FreepikThanks = styled.div`
   padding: 7px 13px;
+  font-size: 1.375rem;
   & > div{
     display: flex;
   }
   span{
     margin-right: 0.313rem;
+    margin-bottom: 3px;
     img{
-      width: 16px;
+      width: 1.375rem;
       height: auto;
       object-fit: cover;
     }

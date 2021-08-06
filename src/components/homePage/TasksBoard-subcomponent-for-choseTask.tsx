@@ -15,14 +15,14 @@ import {
 } from "../../style/elements/homePage/choseTask";
 import saturnPlanet from "../../images/planet_saturn.png";
 import colorfulPlanet from "../../images/planet_colorful.png"
-// saturn
-//<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-// smth colorful
-//<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-export const TasksBoard: FunctionComponent = (): JSX.Element => {
-    return <TasksBoardContainer>
 
-        <TasksBoardPosterContainer>
+type TasksBoardProps = {
+    flag: boolean
+}
+export const TasksBoard: FunctionComponent<TasksBoardProps> = ({flag}): JSX.Element => {
+
+    return <TasksBoardContainer>
+        {flag === false && <TasksBoardPosterContainer>
             <TasksBoardTitleWrapper>
                 <TasksBoardTitle1>Chose Your World</TasksBoardTitle1>
                 <TasksBoardTitle2>Chose Your World</TasksBoardTitle2>
@@ -36,21 +36,10 @@ export const TasksBoard: FunctionComponent = (): JSX.Element => {
                 <TasksPlanet1 src={saturnPlanet} alt="saturn"/>
                 <TasksPlanet2 src={colorfulPlanet} alt="colorful planet"/>
             </TasksPlanetWrapper>
-        </TasksBoardPosterContainer>
+        </TasksBoardPosterContainer>}
 
-        <FreepikThanks>
 
-            <div>
-                <span><img src={saturnPlanet} alt="saturn"/></span>
-                <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
-                    href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-            </div>
 
-            <div>
-                <span><img src={colorfulPlanet} alt="colorful planet"/></span>
-            <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik
-            </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></div>
-        </FreepikThanks>
 
     </TasksBoardContainer>
 }

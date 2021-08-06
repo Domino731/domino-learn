@@ -11,10 +11,14 @@ export const ChoseTask : FunctionComponent = () => {
 
     const [chosenTask, setChosenTask] = useState<string>("")
 
-    const handleChangeChosenTask = (e:React.ChangeEvent<HTMLInputElement>) : void => setChosenTask(e.target.value)
+    const [flag, setFlag] = useState(false)
+    const handleChangeChosenTask = (e:React.ChangeEvent<HTMLInputElement>) : void => {
+        setChosenTask(e.target.value)
+        setFlag(true)
+    }
 
     return <ChoseTaskContainer>
-      <TasksBoard/>
+      <TasksBoard flag={flag}/>
       <TasksSelect>
          <TaskSelectSingle task={"htmlTasks"} chosenTask={chosenTask} setTasks={handleChangeChosenTask} language={htmlClass}/>
           <TaskSelectSingle task={"cssTasks"} chosenTask={chosenTask} setTasks={handleChangeChosenTask} language={cssClass}/>
