@@ -20,18 +20,24 @@ export const HtmlTaskContentWrapper = styled.main`
   height: 100%;
 `
 export const HtmlTaskIntroduction = styled.div`
-
+background: yellow;
+  grid-column: 1 / 1;
 `
 
 export const HtmlTaskTarget = styled.div`
-
+background: blue;
+  grid-column: 2 / 1 ;
 `
 export const HtmlTaskCodeEditor = styled.div`
-
+background: aqua;
+  grid-column: 2 / 2;
+  grid-row: 1 / -1;
 `
 
 export const HtmlTaskResult = styled.div`
-
+background: burlywood;
+  grid-column: 3 / 3;
+  grid-row: 1 / -1;
 `
 export const HtmlHeader = styled(TaskHeader)`
   background: ${props => props.theme.color.red};
