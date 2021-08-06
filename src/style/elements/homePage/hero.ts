@@ -19,7 +19,8 @@ export const HeroImg = styled.img`
 export const HeroIntroduction = styled.div`
   width: 70%;
   height: 100%;
-  background: ${props => props.theme.color.blue};
+  background: rgb(0,185,241);
+  background: linear-gradient(40deg, rgba(0,185,241,1) 33%, rgba(70,212,255,1) 71%);
   position: relative;
   overflow: hidden;
 `

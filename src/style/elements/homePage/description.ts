@@ -5,7 +5,8 @@ interface DscReverseProps  {
 }
 
 export const DscContainer = styled.section`
-  background: ${props => props.theme.color.purple};
+  background: rgb(87,7,159);
+  background: linear-gradient(90deg, rgba(87,7,159,1) 29%, rgba(114,1,216,1) 71%);
   padding-top: 93px;
   position: relative;
   overflow: hidden;

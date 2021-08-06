@@ -8,7 +8,8 @@ export const ChoseTaskContainer = styled.section`
 export const TasksBoardContainer = styled.div`
   width: 30%;
   height: 100%;
-  background: ${props => props.theme.color.blue};
+  background: rgb(0,185,241);
+  background: linear-gradient(40deg, rgba(0,185,241,1) 33%, rgba(70,212,255,1) 71%);
 
 `
 const an__TasksBoardTitle = keyframes`
