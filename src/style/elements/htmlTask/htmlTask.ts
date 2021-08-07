@@ -44,7 +44,6 @@ export const HtmlTaskCodeEditor = styled.div`
 `
 
 export const HtmlTaskResult = styled.div`
-  background: burlywood;
   grid-column: 3 / 3;
   grid-row: 1 / -1;
 `

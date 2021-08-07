@@ -1,4 +1,4 @@
-import {FunctionComponent} from "react";
+import {FunctionComponent, useEffect, useState} from "react";
 import {HtmlTaskContentWrapper} from "../../style/elements/htmlTask/htmlTask";
 import {
     HtmlTaskIntroduction,
@@ -19,6 +19,12 @@ import {
 } from "../../style/general/generalStyles";
 import {htmlClass} from "../../properties/htmlClass";
 import AceEditor from "react-ace"
+import 'ace-builds/src-noconflict/mode-html'
+import 'ace-builds/src-noconflict/theme-monokai'
+import 'ace-builds/webpack-resolver'
+import "ace-builds/src-min-noconflict/ext-language_tools";
+import "ace-builds/src-noconflict/snippets/python";
+
 type HtmlTaskContentProps = {
     task: {
         title: string,
@@ -29,11 +35,28 @@ type HtmlTaskContentProps = {
 }
 
 export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task}): JSX.Element | null => {
+
+    // state with user html code
+    const [userCode, setUserCode] = useState<string>("<h1>Welcome</h1>")
+
+    // code
+    const srcDoc = `
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>${userCode}</body>
+</html>`
+
+
+    const changeUserCode = (newValue: any) => {
+        setUserCode(newValue)
+    }
+
     if (task === undefined) {
         return null
     }
-    return <HtmlTaskContentWrapper>
 
+    return <HtmlTaskContentWrapper>
 
         {/*introduction*/}
         <HtmlTaskIntroduction>
@@ -45,48 +68,53 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
             <TaskIntroductionText dangerouslySetInnerHTML={{__html: task.introduction}}/>
         </HtmlTaskIntroduction>
 
-
         {/*task target and instructions*/}
         <HtmlTaskTarget>
             <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
             <TaskTargetsWrapper>
-                {task.targets.map((el, num) => <TaskTarget>
+                {task.targets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
                     <TaskTargetCheckbox/>
                     <TaskTargetText dangerouslySetInnerHTML={{__html: el}}/>
                 </TaskTarget>)}
             </TaskTargetsWrapper>
         </HtmlTaskTarget>
 
-
         {/*code editor - ace*/}
         <HtmlTaskCodeEditor>
             <AceEditor
-                placeholder="Placeholder Text"
-                mode="javascript"
+
+                enableBasicAutocompletion={true}
+                enableLiveAutocompletion={true}
+                enableSnippets={true}
+                onChange={changeUserCode}
+                mode="html"
                 theme="monokai"
                 width="100%"
                 height="100%"
+                value={userCode}
                 fontSize={20}
                 showPrintMargin={true}
                 showGutter={true}
                 highlightActiveLine={true}
-                value={`console.log(1)`}
                 setOptions={{
                     enableBasicAutocompletion: false,
                     enableLiveAutocompletion: false,
                     enableSnippets: false,
                     showLineNumbers: true,
-                    tabSize: 2,}}
+                    tabSize: 2,
+                }}
             />
             <CodeEditorPanel>
-                  <CodeEditorPanelBtn><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
+                <CodeEditorPanelBtn><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
                 <CodeEditorPanelBtn><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
             </CodeEditorPanel>
-
         </HtmlTaskCodeEditor>
 
+        {/*user code*/}
         <HtmlTaskResult>
-
+            <iframe srcDoc={srcDoc}
+                    width="100%" height="100%" frameBorder="0" sandbox="allow-scripts" title="output"
+            />
         </HtmlTaskResult>
 
     </HtmlTaskContentWrapper>
