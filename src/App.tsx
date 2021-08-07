@@ -8,7 +8,7 @@ function App() {
   return (
       <Router>
         <Route exact path="/" component={HomePage}/>
-          <Route path="/html-task/:id" component={HtmlTask}/>
+          <Route path="/html-task/:taskNumber" component={HtmlTask}/>
       </Router>
   );
 }

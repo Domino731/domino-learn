@@ -18,14 +18,20 @@ export const HtmlTaskContentWrapper = styled.main`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2,1fr);
   height: 100%;
+  overflow: hidden;
+  
+  code {
+    display: inline-block;
+    padding: 0 3px;
+    border-radius: 4px;
+    background: ${props => props.theme.color.white};
+  }
 `
 export const HtmlTaskIntroduction = styled.div`
-background: yellow;
   grid-column: 1 / 1;
 `
 
 export const HtmlTaskTarget = styled.div`
-background: blue;
   grid-column: 2 / 1 ;
 `
 export const HtmlTaskCodeEditor = styled.div`
@@ -40,23 +46,23 @@ background: burlywood;
   grid-row: 1 / -1;
 `
 export const HtmlHeader = styled(TaskHeader)`
-  background: ${props => props.theme.color.red};
+  background: ${props => props.theme.color.blue};
 `
 export const HtmlFooter = styled(TaskFooter)`
-  background: ${props => props.theme.color.red};
+  background: ${props => props.theme.color.blue};
 `
 
 export const HtmlSwitchButton = styled(TaskFooterSwitchButton)`
   background: ${props => props.theme.color.gray};
-  color: ${props => props.theme.color.red};
-  border: 2px solid ${props => props.theme.color.red};
+  color: ${props => props.theme.color.blue};
+  border: 2px solid ${props => props.theme.color.blue};
   transition: 0.1s;
 
   &:hover {
     transition: 0.1s;
     border: 2px solid ${props => props.theme.color.gray};
     color: ${props => props.theme.color.gray};
-    background: ${props => props.theme.color.red};
+    background: ${props => props.theme.color.blue};
   }
 `
 export const HtmlFooterListBtn = styled(TaskFooterListBtn)`

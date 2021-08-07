@@ -4,7 +4,7 @@ import {TaskHeaderTitle} from "../../style/general/generalStyles";
 
 export const HtmlTaskHeader : FunctionComponent = () : JSX.Element => {
     return <HtmlHeader>
-      <TaskHeaderTitle><a href="/">Domino learn</a></TaskHeaderTitle>
+      <TaskHeaderTitle><a href="/">DOMINO LEARN</a></TaskHeaderTitle>
     </HtmlHeader>
 
 }
