@@ -16,10 +16,9 @@ export const HtmlTaskContainer = styled.div`
 export const HtmlTaskContentWrapper = styled.main`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2,1fr);
+  grid-template-rows: repeat(2, 1fr);
   height: 100%;
-  overflow: hidden;
-  
+
   code {
     display: inline-block;
     padding: 0 3px;
@@ -29,19 +28,23 @@ export const HtmlTaskContentWrapper = styled.main`
 `
 export const HtmlTaskIntroduction = styled.div`
   grid-column: 1 / 1;
+  max-width: 100%;
 `
 
 export const HtmlTaskTarget = styled.div`
-  grid-column: 2 / 1 ;
+  grid-column: 2 / 1;
+  max-width: 100%;
 `
 export const HtmlTaskCodeEditor = styled.div`
-background: aqua;
+  position: relative;
   grid-column: 2 / 2;
   grid-row: 1 / -1;
+  max-width: 100%;
+  padding-bottom: 53px;
 `
 
 export const HtmlTaskResult = styled.div`
-background: burlywood;
+  background: burlywood;
   grid-column: 3 / 3;
   grid-row: 1 / -1;
 `

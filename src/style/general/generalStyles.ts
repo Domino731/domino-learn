@@ -56,7 +56,7 @@ export const TaskFooter = styled.footer`
 `
 
 export const TaskFooterTaskNumber = styled.div`
- 
+
   font-size: 2.75rem;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
@@ -139,4 +139,29 @@ export const TaskTargetCheckbox = styled.div`
 `
 export const TaskTargetText = styled.p`
   font-size: 1.25rem;
+`
+
+
+export const CodeEditorPanel = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  padding-left: 10px;
+  width: 100%;
+  height: 53px;
+  background: ${props => props.theme.color.gray};
+`
+export const CodeEditorPanelBtn = styled.button`
+  display: block;
+  border-radius: 5px;
+  padding: 0.375rem 0.875rem;
+  margin-right: 10px;
+  transition: 0.1s;
+  color: ${props => props.theme.color.blue};
+  &:hover{
+    transition: 0.1s;
+    border: 2px solid ${props => props.theme.color.blue};
+  }
+  
 `

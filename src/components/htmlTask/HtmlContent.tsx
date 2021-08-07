@@ -1,4 +1,4 @@
-import {FunctionComponent, useEffect} from "react";
+import {FunctionComponent} from "react";
 import {HtmlTaskContentWrapper} from "../../style/elements/htmlTask/htmlTask";
 import {
     HtmlTaskIntroduction,
@@ -13,10 +13,12 @@ import {
     TaskTargetsWrapper,
     TaskTarget,
     TaskTargetText,
-    TaskTargetCheckbox
+    TaskTargetCheckbox,
+    CodeEditorPanel,
+    CodeEditorPanelBtn
 } from "../../style/general/generalStyles";
 import {htmlClass} from "../../properties/htmlClass";
-
+import AceEditor from "react-ace"
 type HtmlTaskContentProps = {
     task: {
         title: string,
@@ -48,18 +50,38 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
         <HtmlTaskTarget>
             <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
             <TaskTargetsWrapper>
-
                 {task.targets.map((el, num) => <TaskTarget>
                     <TaskTargetCheckbox/>
                     <TaskTargetText dangerouslySetInnerHTML={{__html: el}}/>
                 </TaskTarget>)}
-
-
             </TaskTargetsWrapper>
         </HtmlTaskTarget>
 
 
+        {/*code editor - ace*/}
         <HtmlTaskCodeEditor>
+            <AceEditor
+                placeholder="Placeholder Text"
+                mode="javascript"
+                theme="monokai"
+                width="100%"
+                height="100%"
+                fontSize={20}
+                showPrintMargin={true}
+                showGutter={true}
+                highlightActiveLine={true}
+                value={`console.log(1)`}
+                setOptions={{
+                    enableBasicAutocompletion: false,
+                    enableLiveAutocompletion: false,
+                    enableSnippets: false,
+                    showLineNumbers: true,
+                    tabSize: 2,}}
+            />
+            <CodeEditorPanel>
+                  <CodeEditorPanelBtn><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
+                <CodeEditorPanelBtn><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+            </CodeEditorPanel>
 
         </HtmlTaskCodeEditor>
 

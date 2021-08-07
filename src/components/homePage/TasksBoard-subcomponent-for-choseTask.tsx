@@ -1,5 +1,4 @@
 import {FunctionComponent} from "react";
-import {FreepikThanks} from "../../style/general/generalStyles";
 import {
     TasksBoardContainer,
     TasksBoardTitleWrapper,

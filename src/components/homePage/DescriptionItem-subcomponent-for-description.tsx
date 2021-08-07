@@ -3,7 +3,7 @@ import {DscItem, DscContent,
     DscTitleContainer, DscTitle
     , DscTitleImg,
     DscDescription, DscExemplaryCodeBtn, DscFigure,
-DscFigureImg, DscCodeContainer, DscCodeItem, DscCodeTitle, DscCodeExample, DscItemContainer} from "../../style/elements/homePage/description";
+DscFigureImg, DscCodeExample, DscItemContainer} from "../../style/elements/homePage/description";
 
 type DescriptionItemProps = {
     language: {

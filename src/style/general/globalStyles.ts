@@ -4,6 +4,7 @@ export const GlobalStyles = createGlobalStyle`
 body{
 font-family: 'Inter', sans-serif !Important;
   color: #404040;
+  overflow: hidden;
 }
 
 button{
