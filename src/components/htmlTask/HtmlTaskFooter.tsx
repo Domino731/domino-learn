@@ -7,7 +7,6 @@ export const HtmlTaskFooter : FunctionComponent = () : JSX.Element => {
         <span/>
         <TaskFooterTaskNumber>1 / 3</TaskFooterTaskNumber>
         <TaskFooterSwitchBar>
-
             <HtmlFooterListBtn><i className="fas fa-clipboard-list"/></HtmlFooterListBtn>
             <HtmlSwitchButton>Back</HtmlSwitchButton>
             <HtmlSwitchButton>Next</HtmlSwitchButton>

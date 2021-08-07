@@ -10,8 +10,8 @@ import {RouteComponentProps} from "react-router";
 interface MatchParams {
     taskNumber: string
 }
-interface HtmlTaskProps extends RouteComponentProps<MatchParams> {
-}
+interface HtmlTaskProps extends RouteComponentProps<MatchParams> {}
+
 
 export const HtmlTask : FunctionComponent<HtmlTaskProps> = (props) : JSX.Element => {
 
@@ -25,6 +25,7 @@ export const HtmlTask : FunctionComponent<HtmlTaskProps> = (props) : JSX.Element
     if(task === undefined){
         return <h1>Loading...</h1>
     }
+
     return <HtmlTaskContainer>
         <HtmlTaskHeader/>
         <HtmlTaskContent task={task}/>

@@ -1,4 +1,4 @@
-import {FunctionComponent} from "react";
+import {FunctionComponent, useEffect} from "react";
 import {HtmlTaskContentWrapper} from "../../style/elements/htmlTask/htmlTask";
 import {
     HtmlTaskIntroduction,
@@ -6,19 +6,32 @@ import {
     HtmlTaskCodeEditor,
     HtmlTaskResult
 } from "../../style/elements/htmlTask/htmlTask";
-import {TaskIntroductionBar,
+import {
+    TaskIntroductionBar,
     TaskSectionHeader,
     TaskIntroductionText,
     TaskTargetsWrapper,
     TaskTarget,
-TaskTargetText,
-    TaskTargetCheckbox} from "../../style/general/generalStyles";
+    TaskTargetText,
+    TaskTargetCheckbox
+} from "../../style/general/generalStyles";
 import {htmlClass} from "../../properties/htmlClass";
 
+type HtmlTaskContentProps = {
+    task: {
+        title: string,
+        introduction: string,
+        targets: string[],
+        number: number
+    } | undefined
+}
 
-
-export const HtmlTaskContent: FunctionComponent<any> = ({task}): JSX.Element => {
+export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task}): JSX.Element | null => {
+    if (task === undefined) {
+        return null
+    }
     return <HtmlTaskContentWrapper>
+
 
         {/*introduction*/}
         <HtmlTaskIntroduction>
@@ -27,41 +40,20 @@ export const HtmlTaskContent: FunctionComponent<any> = ({task}): JSX.Element => 
                 <img src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
                 <h2>{task.title}</h2>
             </TaskIntroductionBar>
-
-            <TaskIntroductionText>
-                <div>
-                <p>Headers in HTML are used to title pages. They are similar to those of newspaper articles, for
-                    example.
-                    Just as with the newspaper we use, we have to equip each article with a headline. They are also used
-                    to
-                    attract the user's attention.</p>
-
-                <p>
-                    In HTML we have 6 headers. To give a header we need to create an element
-                    from <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>.
-                    The number at the end indicates the hierarchy starting from 1 ending with 6.
-                </p>
-
-                <p>
-                    An article usually has a main title and is divided into smaller articles. We must remember to assign
-                    headings according to the hierarchy. For the main title we give <code>&lt;h1&gt;</code>, and for smaller
-                    articles we give <code>&lt;h2&gt;</code>.
-                </p>
-            </div>
-            </TaskIntroductionText>
+            <TaskIntroductionText dangerouslySetInnerHTML={{__html: task.introduction}}/>
         </HtmlTaskIntroduction>
+
 
         {/*task target and instructions*/}
         <HtmlTaskTarget>
             <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
             <TaskTargetsWrapper>
 
-                <TaskTarget>
+                {task.targets.map((el, num) => <TaskTarget>
                     <TaskTargetCheckbox/>
-                    <TaskTargetText>
-                        Create title by using <code>&lt;h2&gt;</code> tag
-                    </TaskTargetText>
-                </TaskTarget>
+                    <TaskTargetText dangerouslySetInnerHTML={{__html: el}}/>
+                </TaskTarget>)}
+
 
             </TaskTargetsWrapper>
         </HtmlTaskTarget>
