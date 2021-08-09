@@ -2,23 +2,21 @@ import styled from "styled-components";
 import {
     TaskFooter,
     TaskFooterListBtn,
-    TaskFooterSwitchBar,
     TaskFooterSwitchButton,
-    TaskHeader
+    TaskHeader,
+    TaskFooterTasksWrapper
 } from "../../general/generalStyles";
 
 export const HtmlTaskContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  width: 100%;
 `
 export const HtmlTaskContentWrapper = styled.main`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  height: 100%;
-
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
   code {
     display: inline-block;
     padding: 0 3px;
@@ -46,6 +44,7 @@ export const HtmlTaskCodeEditor = styled.div`
 export const HtmlTaskResult = styled.div`
   grid-column: 3 / 3;
   grid-row: 1 / -1;
+  padding: 10px;
 `
 export const HtmlHeader = styled(TaskHeader)`
   background: ${props => props.theme.color.blue};
@@ -63,10 +62,18 @@ export const HtmlSwitchButton = styled(TaskFooterSwitchButton)`
   &:hover {
     transition: 0.1s;
     border: 2px solid ${props => props.theme.color.gray};
-    color: ${props => props.theme.color.gray};
     background: ${props => props.theme.color.blue};
+    a{
+      color: ${props => props.theme.color.gray};
+    }
+  }
+  a{
+    color: ${props => props.theme.color.blue};
   }
 `
 export const HtmlFooterListBtn = styled(TaskFooterListBtn)`
   color: ${props => props.theme.color.gray};
+`
+export const HtmlFooterTasksWrapper = styled(TaskFooterTasksWrapper)`
+  background: ${props => props.theme.color.blue};
 `

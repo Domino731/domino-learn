@@ -15,7 +15,12 @@ import {
     TaskTargetText,
     TaskTargetCheckbox,
     CodeEditorPanel,
-    CodeEditorPanelBtn
+    CodeEditorPanelBtn,
+    WebBrowserTopBar,
+    WebBrowserWindow,
+    WebBrowserGreenBox,
+    WebBrowserRedBox,
+    WebBrowserYellowBox
 } from "../../style/general/generalStyles";
 import {htmlClass} from "../../properties/htmlClass";
 import AceEditor from "react-ace"
@@ -41,11 +46,11 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
 
     // code
     const srcDoc = `
-<!DOCTYPE html>
-<html lang="en">
-<head></head>
-<body>${userCode}</body>
-</html>`
+        <!DOCTYPE html>
+          <html lang="en">
+          <head></head>
+          <body>${userCode}</body>
+          </html>`
 
 
     const changeUserCode = (newValue: any) => {
@@ -112,9 +117,16 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
 
         {/*user code*/}
         <HtmlTaskResult>
-            <iframe srcDoc={srcDoc}
-                    width="100%" height="100%" frameBorder="0" sandbox="allow-scripts" title="output"
-            />
+            <WebBrowserWindow>
+                <WebBrowserTopBar>
+                    <WebBrowserGreenBox/>
+                    <WebBrowserYellowBox/>
+                    <WebBrowserRedBox/>
+                </WebBrowserTopBar>
+                <iframe srcDoc={srcDoc}
+                        width="100%" height="100%" frameBorder="0" sandbox="allow-scripts" title="output"
+                />
+            </WebBrowserWindow>
         </HtmlTaskResult>
 
     </HtmlTaskContentWrapper>
