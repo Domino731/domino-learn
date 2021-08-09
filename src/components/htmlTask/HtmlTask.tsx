@@ -33,7 +33,7 @@ export const HtmlTask: FunctionComponent<HtmlTaskProps> = (props): JSX.Element =
 
 
     return <HtmlTaskContainer>
-        <HtmlTaskHeader/>
+        {/*<HtmlTaskHeader/>*/}
         <HtmlTaskContent task={task}/>
         <HtmlTaskFooter taskNumber={task?.["number"]} allTasks={allTasks}/>
     </HtmlTaskContainer>

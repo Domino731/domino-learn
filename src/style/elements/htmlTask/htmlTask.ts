@@ -27,11 +27,15 @@ export const HtmlTaskContentWrapper = styled.main`
 export const HtmlTaskIntroduction = styled.div`
   grid-column: 1 / 1;
   max-width: 100%;
+  background-color: #045de9;
+  background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
 `
 
 export const HtmlTaskTarget = styled.div`
   grid-column: 2 / 1;
   max-width: 100%;
+  background-color: #045de9;
+  background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
 `
 export const HtmlTaskCodeEditor = styled.div`
   position: relative;
@@ -75,5 +79,6 @@ export const HtmlFooterListBtn = styled(TaskFooterListBtn)`
   color: ${props => props.theme.color.gray};
 `
 export const HtmlFooterTasksWrapper = styled(TaskFooterTasksWrapper)`
-  background: ${props => props.theme.color.blue};
+  background-color: #045de9;
+  background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
 `

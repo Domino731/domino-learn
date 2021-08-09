@@ -132,14 +132,18 @@ export const TaskFooterTasksList = styled.ul`
   width: 100%;
 `
 export const TaskFooterTasksItem = styled.li`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 53px;
   height: 53px;
-  margin: 3px;
+  border: 5px solid ${props => props.theme.color.gray};
   border-radius: 7px;
-  border: 5px solid ${props => props.theme.color.gray}
+  margin: 3px;
+  a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
 `
 export const TaskFooterTasksPlanets = styled.div`
   position: absolute;
@@ -178,18 +182,15 @@ export const TaskSectionHeader = styled.div`
   font-size: 1.25rem;
   padding: 7px 10px;
   background: ${props => props.theme.color.white};
-
-  i {
-
-  }
+  
 `
 export const TaskIntroductionBar = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
   height: 70px;
-  margin-left: 5px;
-
+  padding-left: 5px;
+  background: ${props => props.theme.background.transparent};
   img {
     width: 41px;
     height: auto;
@@ -203,8 +204,9 @@ export const TaskIntroductionBar = styled.div`
 
 export const TaskIntroductionText = styled.div`
   font-size: 1.25rem;
-  padding: 0 11px;
-
+  margin-top: 20px;
+  padding: 8px 11px;
+  background: ${props => props.theme.background.transparent};
   p {
     text-align: left;
     margin-top: 20px;
@@ -218,11 +220,12 @@ export const TaskIntroductionText = styled.div`
   }
 `
 export const TaskTargetsWrapper = styled.div`
-  padding-left: 11px;
+  padding-top: 12px;
 `
 export const TaskTarget = styled.div`
   display: flex;
-  margin-top: 12px;
+  padding: 12px 9px;
+  background: ${props => props.theme.background.transparent};
 `
 export const TaskTargetCheckbox = styled.div`
   height: 30px;

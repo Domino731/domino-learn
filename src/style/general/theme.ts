@@ -11,4 +11,7 @@ export const theme = {
         css: "#146EB0",
         js: "#F6D03A"
     },
+    background: {
+        transparent: "rgba(255,255,255,0.3)"
+    }
 }

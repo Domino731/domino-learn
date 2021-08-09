@@ -83,70 +83,14 @@ export const HtmlTaskFooter: FunctionComponent<HtmlTaskFooterProps> = ({allTasks
                 </TaskFooterTasksPlanets>
 
                 <TaskFooterTasksList>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
-                    <TaskFooterTasksItem>
-                        a123
-                    </TaskFooterTasksItem>
+                    {allTasks.map((el, num) => <TaskFooterTasksItem>
+                        <Link to={`/html-task/${el.number}`}>
+                            {el.number}
+                        </Link>
+                    </TaskFooterTasksItem>)}
                 </TaskFooterTasksList>
             </HtmlFooterTasksWrapper>}
-            {/*{taskNumber !== 1 && <HtmlSwitchButton> <Link to={`html-task/${taskNumber - 1}`}>Back</Link></HtmlSwitchButton>}*/}
-            <HtmlSwitchButton> <Link to={`html-task/${taskNumber - 1}`}>Back</Link></HtmlSwitchButton>
+            {taskNumber !== 1 && <HtmlSwitchButton> <Link to={`html-task/${taskNumber - 1}`}>Back</Link></HtmlSwitchButton>}
             {taskNumber <= allTasks.length &&
             <HtmlSwitchButton><Link to={`html-task/${taskNumber + 1}`}>Next</Link></HtmlSwitchButton>}
         </TaskFooterSwitchBar>
