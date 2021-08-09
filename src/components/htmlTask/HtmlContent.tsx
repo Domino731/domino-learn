@@ -20,15 +20,31 @@ import {
     WebBrowserWindow,
     WebBrowserGreenBox,
     WebBrowserRedBox,
-    WebBrowserYellowBox
+    WebBrowserYellowBox,
+    EditorSettingsWrapper,
+    EditorSettingsFSize,
+    EditorSettingsLabel,
+    EditorSettingsThemesWrapper,
 } from "../../style/general/generalStyles";
 import {htmlClass} from "../../properties/htmlClass";
 import AceEditor from "react-ace"
 import 'ace-builds/src-noconflict/mode-html'
+
 import 'ace-builds/src-noconflict/theme-monokai'
+import 'ace-builds/src-noconflict/theme-ambiance'
+import 'ace-builds/src-noconflict/theme-clouds'
+import 'ace-builds/src-noconflict/theme-chaos'
+import 'ace-builds/src-noconflict/theme-dracula'
+import 'ace-builds/src-noconflict/theme-solarized_light'
+import 'ace-builds/src-noconflict/theme-crimson_editor'
+import 'ace-builds/src-noconflict/theme-github'
+import 'ace-builds/src-noconflict/theme-terminal'
+
+
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
+import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
 
 type HtmlTaskContentProps = {
     task: {
@@ -44,6 +60,41 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
     // state with user html code
     const [userCode, setUserCode] = useState<string>("<h1>Welcome</h1>")
 
+    // state with flag, when user change it, editor settings form will be showed
+    const [editorFormFlag, setEditorFormFlag] = useState(false)
+
+    // state with editor font size
+    const [editorFs, setEditorFs] = useState<number>(getEditorFSize)
+
+    // state with editor theme
+    const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme)
+
+
+    // save font size into local storage
+    useEffect(() => {
+        localStorage.setItem("editorFontSize", editorFs.toString())
+    }, [editorFs])
+
+    // save theme into local storage
+    useEffect(()=>{
+        localStorage.setItem("editorTheme", editorTheme)
+    },[editorTheme])
+
+    // change flag -> show editor settings form
+    const handleChangeEditorFormFlag = (): void => setEditorFormFlag(!editorFormFlag)
+
+    // change editor font-size
+    const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value))
+
+    // change theme
+    const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorTheme(e.target.value)
+
+
+    // change code
+    const changeUserCode = (newValue: any) => {
+        setUserCode(newValue)
+    }
+
     // code
     const srcDoc = `
         <!DOCTYPE html>
@@ -51,12 +102,6 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
           <head></head>
           <body>${userCode}</body>
           </html>`
-
-
-    const changeUserCode = (newValue: any) => {
-        setUserCode(newValue)
-    }
-
     if (task === undefined) {
         return null
     }
@@ -93,11 +138,11 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
                 enableSnippets={true}
                 onChange={changeUserCode}
                 mode="html"
-                theme="monokai"
+                theme={editorTheme}
                 width="100%"
                 height="100%"
                 value={userCode}
-                fontSize={20}
+                fontSize={editorFs}
                 showPrintMargin={true}
                 showGutter={true}
                 highlightActiveLine={true}
@@ -110,6 +155,28 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
                 }}
             />
             <CodeEditorPanel>
+                {editorFormFlag && <EditorSettingsWrapper>
+                    <EditorSettingsLabel>
+                        Change font size
+                        <EditorSettingsFSize type="number" min="1" max="60" step="1" value={editorFs}
+                                             onChange={handleChangeFs}/>
+                    </EditorSettingsLabel>
+
+                    <EditorSettingsLabel>
+                        Change theme
+                    </EditorSettingsLabel>
+                    <EditorSettingsThemesWrapper>
+                        <label>
+                            Monokai
+                            <input type="checkbox" value="monokai" checked={editorTheme === "monokai"}
+                                   onChange={handleChangeTheme}/>
+                        </label>
+
+                    </EditorSettingsThemesWrapper>
+                </EditorSettingsWrapper>}
+
+                <CodeEditorPanelBtn onClick={handleChangeEditorFormFlag}><i
+                    className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
                 <CodeEditorPanelBtn><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
                 <CodeEditorPanelBtn><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
             </CodeEditorPanel>

@@ -112,7 +112,8 @@ export const TaskFooterTasksWrapper = styled.div`
   width: 202px;
   height: 346px;
   overflow: auto;
-  border-radius: 10px 10px  0 0;
+  border-radius: 10px 10px 0 0;
+
   ::-webkit-scrollbar {
     width: 5px;
   }
@@ -137,7 +138,8 @@ export const TaskFooterTasksItem = styled.li`
   border: 5px solid ${props => props.theme.color.gray};
   border-radius: 7px;
   margin: 3px;
-  a{
+
+  a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -182,7 +184,7 @@ export const TaskSectionHeader = styled.div`
   font-size: 1.25rem;
   padding: 7px 10px;
   background: ${props => props.theme.color.white};
-  
+
 `
 export const TaskIntroductionBar = styled.div`
   display: flex;
@@ -191,6 +193,7 @@ export const TaskIntroductionBar = styled.div`
   height: 70px;
   padding-left: 5px;
   background: ${props => props.theme.background.transparent};
+
   img {
     width: 41px;
     height: auto;
@@ -207,6 +210,7 @@ export const TaskIntroductionText = styled.div`
   margin-top: 20px;
   padding: 8px 11px;
   background: ${props => props.theme.background.transparent};
+
   p {
     text-align: left;
     margin-top: 20px;
@@ -248,15 +252,17 @@ export const CodeEditorPanel = styled.div`
   height: 53px;
   background: ${props => props.theme.color.gray};
 `
-export const CodeEditorPanelBtn = styled.button`
+export const CodeEditorPanelBtn = styled.div`
   display: block;
   border-radius: 5px;
   padding: 0.375rem 0.875rem;
   margin-right: 10px;
   transition: 0.1s;
   color: ${props => props.theme.color.blue};
+  font-size: 1.313rem;
 
   &:hover {
+    cursor: pointer;
     transition: 0.1s;
     border: 2px solid ${props => props.theme.color.blue};
   }
@@ -294,4 +300,40 @@ export const WebBrowserRedBox = styled.span`
 `
 export const WebBrowserYellowBox = styled.span`
   background: #ff9f1c;
+`
+export const EditorSettingsWrapper = styled.form`
+  position: absolute;
+  z-index: 4;
+  top: -400px;
+  left: 0;
+  width: 100%;
+  padding: 9px 11px;
+  background: ${props => props.theme.color.gray};
+`
+export const EditorSettingsLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  color: ${props => props.theme.color.blue};
+  font-size: 1.25rem;
+`
+export const EditorSettingsFSize = styled.input`
+  margin-top: 11px;
+  width: 44px;
+  height: 31px;
+  font-size: 1.125rem;
+  border: none;
+  background: ${props => props.theme.color.blue};
+  color: #fff;
+  margin-bottom: 7px;
+`
+export const EditorSettingsThemesWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  input{
+    width: 30px;
+    padding: 5px 20px;
+    font-size: 19px;
+    background: ${props => props.theme.color.blue};
+    color: #fff;
+  }
 `

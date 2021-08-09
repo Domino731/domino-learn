@@ -49,6 +49,11 @@ export const HtmlTaskResult = styled.div`
   grid-column: 3 / 3;
   grid-row: 1 / -1;
   padding: 10px;
+  background-color: #045de9;
+  background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+  & > div{
+    background: #fff;
+  }
 `
 export const HtmlHeader = styled(TaskHeader)`
   background: ${props => props.theme.color.blue};
