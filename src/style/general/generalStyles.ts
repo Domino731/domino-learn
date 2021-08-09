@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 
 export {}
 export const Container = styled.div`
@@ -180,11 +180,11 @@ export const TaskFooterTasksPlanet3 = styled.img`
   object-fit: cover;
 `
 
-export const TaskSectionHeader = styled.div`
+export const TaskSectionHeader = styled.h2`
   font-size: 1.25rem;
   padding: 7px 10px;
   background: ${props => props.theme.color.white};
-
+  box-shadow: 0 2px 5px ${props => props.theme.color.gray};
 `
 export const TaskIntroductionBar = styled.div`
   display: flex;
@@ -272,7 +272,6 @@ export const WebBrowserWindow = styled.div`
   width: 100%;
   height: 100%;
   padding-top: 37px;
-  border: 2px solid #1d1a1a;
   border-radius: 4px;
 `
 export const WebBrowserTopBar = styled.div`
@@ -284,6 +283,7 @@ export const WebBrowserTopBar = styled.div`
   width: 100%;
   height: 32px;
   background: ${props => props.theme.color.white};
+  box-shadow: 0 1px 3px ${props => props.theme.color.gray};
 
   span {
     width: 53px;
@@ -304,11 +304,15 @@ export const WebBrowserYellowBox = styled.span`
 export const EditorSettingsWrapper = styled.form`
   position: absolute;
   z-index: 4;
-  top: -400px;
+  top: -200px;
   left: 0;
   width: 100%;
   padding: 9px 11px;
   background: ${props => props.theme.color.gray};
+
+  input {
+    border-radius: 5px;
+  }
 `
 export const EditorSettingsLabel = styled.label`
   display: flex;
@@ -326,14 +330,78 @@ export const EditorSettingsFSize = styled.input`
   color: #fff;
   margin-bottom: 7px;
 `
+const an__EditorSettingsCheckbox = keyframes`
+  0% {
+    font-size: 0;
+  }
+  100% {
+    font-size: inherit;
+  }
+`
 export const EditorSettingsThemesWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  input{
-    width: 30px;
-    padding: 5px 20px;
-    font-size: 19px;
-    background: ${props => props.theme.color.blue};
+  margin-top: 11px;
+
+  label {
+    margin: 5px;
+    position: relative;
+    border-radius: 5px;
     color: #fff;
+    border: 3px solid ${props => props.theme.color.blue};
+    padding: 5px 20px;
   }
+
+  input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    appearance: none;
+    font-size: 19px;
+    color: #fff;
+    top: 0;
+    left: 0;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  span {
+    display: none;
+    margin-left: 0.25rem;
+  }
+
+  input:checked ~ span {
+    display: inline-block;
+    animation: 0.2s ${an__EditorSettingsCheckbox} forwards;
+  }
+`
+export const EditorSettingsCloseIcon = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: ${props => props.theme.color.red};
+  font-size: 2.25rem;
+  transition: 0.2s;
+
+  &:hover {
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 2.75rem;
+  }
+`
+
+export const TaskAidsTitle = styled.h3`
+  font-size: 1.25rem;
+  border-bottom: 2px solid ${props => props.theme.color.red};
+`
+export const TaskAidsWrapper = styled.div`
+  margin-top: 20px;
+  padding: 0 9px;
+`
+export const TaskAidsList = styled.div
+
+const TaskAidItem = styled.div`
+    
 `

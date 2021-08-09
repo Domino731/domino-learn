@@ -25,6 +25,9 @@ import {
     EditorSettingsFSize,
     EditorSettingsLabel,
     EditorSettingsThemesWrapper,
+    EditorSettingsCloseIcon,
+    TaskAidsTitle,
+    TaskAidsWrapper
 } from "../../style/general/generalStyles";
 import {htmlClass} from "../../properties/htmlClass";
 import AceEditor from "react-ace"
@@ -76,9 +79,9 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
     }, [editorFs])
 
     // save theme into local storage
-    useEffect(()=>{
+    useEffect(() => {
         localStorage.setItem("editorTheme", editorTheme)
-    },[editorTheme])
+    }, [editorTheme])
 
     // change flag -> show editor settings form
     const handleChangeEditorFormFlag = (): void => setEditorFormFlag(!editorFormFlag)
@@ -120,6 +123,8 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
 
         {/*task target and instructions*/}
         <HtmlTaskTarget>
+
+            {/*targets*/}
             <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
             <TaskTargetsWrapper>
                 {task.targets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
@@ -127,6 +132,12 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
                     <TaskTargetText dangerouslySetInnerHTML={{__html: el}}/>
                 </TaskTarget>)}
             </TaskTargetsWrapper>
+
+            {/*task aids*/}
+            <TaskAidsWrapper>
+                <TaskAidsTitle>Task aids</TaskAidsTitle>
+            </TaskAidsWrapper>
+            
         </HtmlTaskTarget>
 
         {/*code editor - ace*/}
@@ -156,6 +167,7 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
             />
             <CodeEditorPanel>
                 {editorFormFlag && <EditorSettingsWrapper>
+                    <EditorSettingsCloseIcon onClick={handleChangeEditorFormFlag}><i className="far fa-window-close"/></EditorSettingsCloseIcon>
                     <EditorSettingsLabel>
                         Change font size
                         <EditorSettingsFSize type="number" min="1" max="60" step="1" value={editorFs}
@@ -165,13 +177,56 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
                     <EditorSettingsLabel>
                         Change theme
                     </EditorSettingsLabel>
+
                     <EditorSettingsThemesWrapper>
                         <label>
                             Monokai
                             <input type="checkbox" value="monokai" checked={editorTheme === "monokai"}
                                    onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
                         </label>
-
+                        <label>
+                            Ambiance
+                            <input type="checkbox" value="ambiance" checked={editorTheme === "ambiance"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Clouds
+                            <input type="checkbox" value="clouds" checked={editorTheme === "clouds"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Dracula
+                            <input type="checkbox" value="dracula" checked={editorTheme === "dracula"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Solarized light
+                            <input type="checkbox" value="solarized_light" checked={editorTheme === "solarized_light"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Crimson editor
+                            <input type="checkbox" value="crimson_editor" checked={editorTheme === "crimson_editor"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Github
+                            <input type="checkbox" value="github" checked={editorTheme === "github"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Terminal
+                            <input type="checkbox" value="terminal" checked={editorTheme === "terminal"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
                     </EditorSettingsThemesWrapper>
                 </EditorSettingsWrapper>}
 

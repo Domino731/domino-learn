@@ -27,15 +27,15 @@ export const HtmlTaskContentWrapper = styled.main`
 export const HtmlTaskIntroduction = styled.div`
   grid-column: 1 / 1;
   max-width: 100%;
-  background-color: #045de9;
-  background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+  //background-color: #045de9;
+  //background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
 `
 
 export const HtmlTaskTarget = styled.div`
   grid-column: 2 / 1;
   max-width: 100%;
-  background-color: #045de9;
-  background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+  //background-color: #045de9;
+  //background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
 `
 export const HtmlTaskCodeEditor = styled.div`
   position: relative;
@@ -49,8 +49,9 @@ export const HtmlTaskResult = styled.div`
   grid-column: 3 / 3;
   grid-row: 1 / -1;
   padding: 10px;
-  background-color: #045de9;
-  background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+  //background-color: #045de9;
+  //background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+  background: ${props => props.theme.color.gray};
   & > div{
     background: #fff;
   }
