@@ -4,7 +4,8 @@ import {
     HtmlTaskIntroduction,
     HtmlTaskTarget,
     HtmlTaskCodeEditor,
-    HtmlTaskResult
+    HtmlTaskResult,
+    HtmlDecorationIntroduction
 } from "../../style/elements/htmlTask/htmlTask";
 import {
     TaskIntroductionBar,
@@ -117,12 +118,16 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
 
         {/*introduction*/}
         <HtmlTaskIntroduction>
+
             <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
             <TaskIntroductionBar>
                 <img src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
-                <h2>{task.title}</h2>
+                <h3>{task.title}</h3>
             </TaskIntroductionBar>
             <TaskIntroductionText dangerouslySetInnerHTML={{__html: task.introduction}}/>
+
+            {/*decorations*/}
+            <HtmlDecorationIntroduction/>
         </HtmlTaskIntroduction>
 
         {/*task target and instructions*/}

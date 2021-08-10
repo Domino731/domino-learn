@@ -44,18 +44,31 @@ export const TaskHeaderTitle = styled.h1`
 `
 
 export const TaskFooter = styled.footer`
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   padding: 7px;
   width: 100%;
 `
+export const TaskFooterTitle = styled.a`
+  display: block;
+  width: 33%;
+  font-size: 2.75rem;
+  font-family: 'Recursive',sans-serif;
+  font-weight: 900;
+  text-align: center;
+  color: ${props => props.theme.color.gray};
+  transition: 0.2s;
+  &:hover{
+    transition: 0.2s;
+    letter-spacing: 0.188rem;
+  }
+`
 export const TaskFooterIcons = styled.div`
-  flex-shrink: 1;
   display: block;
   width: 33%;
 `
 export const TaskFooterTaskNumber = styled.div`
-  flex-shrink: 1;
   font-size: 2.75rem;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
@@ -127,7 +140,6 @@ export const TaskFooterTasksList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
-  background-color: rgba(255, 255, 255, 0.5);
   top: 0;
   z-index: 3;
   width: 100%;
@@ -192,16 +204,15 @@ export const TaskIntroductionBar = styled.div`
   width: 100%;
   height: 70px;
   padding-left: 5px;
-  background: ${props => props.theme.background.transparent};
-
+  
   img {
     width: 41px;
     height: auto;
     object-fit: cover;
   }
 
-  h2 {
-    font-size: 34px;
+  h3 {
+    font-size: 2.125rem;
   }
 `
 

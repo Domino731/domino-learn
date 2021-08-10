@@ -17,6 +17,7 @@ export const HtmlTaskContentWrapper = styled.main`
   height: 100vh;
   width: 100%;
   overflow: hidden;
+
   code {
     display: inline-block;
     padding: 0 3px;
@@ -27,15 +28,14 @@ export const HtmlTaskContentWrapper = styled.main`
 export const HtmlTaskIntroduction = styled.div`
   grid-column: 1 / 1;
   max-width: 100%;
-  //background-color: #045de9;
-  //background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+  position: relative;
+
 `
 
 export const HtmlTaskTarget = styled.div`
   grid-column: 2 / 1;
   max-width: 100%;
-  //background-color: #045de9;
-  //background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+  position: relative;
 `
 export const HtmlTaskCodeEditor = styled.div`
   position: relative;
@@ -49,10 +49,10 @@ export const HtmlTaskResult = styled.div`
   grid-column: 3 / 3;
   grid-row: 1 / -1;
   padding: 10px;
-  //background-color: #045de9;
-  //background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+
   background: ${props => props.theme.color.gray};
-  & > div{
+
+  & > div {
     background: #fff;
   }
 `
@@ -73,11 +73,13 @@ export const HtmlSwitchButton = styled(TaskFooterSwitchButton)`
     transition: 0.1s;
     border: 2px solid ${props => props.theme.color.gray};
     background: ${props => props.theme.color.blue};
-    a{
+
+    a {
       color: ${props => props.theme.color.gray};
     }
   }
-  a{
+
+  a {
     color: ${props => props.theme.color.blue};
   }
 `
@@ -87,4 +89,25 @@ export const HtmlFooterListBtn = styled(TaskFooterListBtn)`
 export const HtmlFooterTasksWrapper = styled(TaskFooterTasksWrapper)`
   background-color: #045de9;
   background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+`
+
+//decorations
+export const HtmlDecorationIntroduction = styled.div`
+  position: absolute;
+  top: 44px;
+  right: 0;
+  z-index: -1;
+  width: 43%;
+  height: 74px;
+  background: repeating-linear-gradient(0deg, ${props => props.theme.color.red} 0px, ${props => props.theme.color.red} 5px, white 5px, white 10px);
+`
+export const HtmlDecorationFooter = styled.div`
+  position: absolute;
+  top: 70px;
+  right: 0;
+  z-index: 0;
+  width: 50%;
+  height: 74px;
+  background: repeating-linear-gradient(0deg, ${props => props.theme.color.yellow} 0px,
+  ${props => props.theme.color.yellow} 5px, ${props => props.theme.color.blue} 5px, ${props => props.theme.color. blue} 10px);
 `

@@ -3,7 +3,8 @@ import {
     HtmlFooter,
     HtmlSwitchButton,
     HtmlFooterListBtn,
-    HtmlFooterTasksWrapper
+    HtmlFooterTasksWrapper,
+    HtmlDecorationFooter
 } from "../../style/elements/htmlTask/htmlTask";
 import {
     TaskFooterTaskNumber,
@@ -14,7 +15,8 @@ import {
     TaskFooterTasksPlanet3,
     TaskFooterTasksItem,
     TaskFooterTasksPlanets,
-    TaskFooterIcons
+    TaskFooterIcons,
+    TaskFooterTitle
 } from "../../style/general/generalStyles";
 import {FreepikThanks} from "../../style/general/generalStyles";
 import {Link} from "react-router-dom";
@@ -43,29 +45,9 @@ export const HtmlTaskFooter: FunctionComponent<HtmlTaskFooterProps> = ({allTasks
     }
 
     return <HtmlFooter>
-        <TaskFooterIcons>
-            <FreepikThanks style={{fontSize: "1.063rem"}}>
-                <div>
-                    <span><img src={marsPlanet} alt="mars"/></span>
-                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
-                        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                </div>
-
-                <div>
-                    <span><img src={planets} alt="planets"/></span>
-                    <div>Icons made by <a href="https://www.flaticon.com/authors/smalllikeart"
-                                          title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/"
-                                                                                        title="Flaticon">www.flaticon.com</a>
-                    </div>
-                </div>
-
-                <div>
-                    <span><img src={plutoPlanet} alt="pluto"/></span>
-                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
-                        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                </div>
-            </FreepikThanks>
-        </TaskFooterIcons>
+        <TaskFooterTitle href="/">
+            DOMINO LEARN
+        </TaskFooterTitle>
 
 
         <TaskFooterTaskNumber> {taskNumber} / {allTasks.length}</TaskFooterTaskNumber>
@@ -90,9 +72,37 @@ export const HtmlTaskFooter: FunctionComponent<HtmlTaskFooterProps> = ({allTasks
                     </TaskFooterTasksItem>)}
                 </TaskFooterTasksList>
             </HtmlFooterTasksWrapper>}
-            {taskNumber !== 1 && <HtmlSwitchButton> <Link to={`html-task/${taskNumber - 1}`}>Back</Link></HtmlSwitchButton>}
+            {taskNumber !== 1 &&
+            <HtmlSwitchButton> <Link to={`html-task/${taskNumber - 1}`}>Back</Link></HtmlSwitchButton>}
             {taskNumber <= allTasks.length &&
             <HtmlSwitchButton><Link to={`html-task/${taskNumber + 1}`}>Next</Link></HtmlSwitchButton>}
         </TaskFooterSwitchBar>
+        <TaskFooterIcons>
+            <FreepikThanks style={{fontSize: "1.063rem"}}>
+                <div>
+                    <span><img src={marsPlanet} alt="mars"/></span>
+                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
+                        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                </div>
+
+                <div>
+                    <span><img src={planets} alt="planets"/></span>
+                    <div>Icons made by <a href="https://www.flaticon.com/authors/smalllikeart"
+                                          title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/"
+                                                                                        title="Flaticon">www.flaticon.com</a>
+                    </div>
+                </div>
+
+                <div>
+                    <span><img src={plutoPlanet} alt="pluto"/></span>
+                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
+                        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                </div>
+            </FreepikThanks>
+        </TaskFooterIcons>
+
+        {/*decorations*/}
+        <HtmlDecorationFooter/>
+
     </HtmlFooter>
 }
