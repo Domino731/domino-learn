@@ -400,8 +400,91 @@ export const TaskAidsWrapper = styled.div`
   margin-top: 20px;
   padding: 0 9px;
 `
-export const TaskAidsList = styled.div
+export const TaskAidsList = styled.div`
 
-const TaskAidItem = styled.div`
-    
 `
+
+const TaskAidItem = styled.a`
+  display: flex;
+  width: 536px;
+  height: 88px;
+  border-radius: 7px;
+  overflow: hidden;
+  margin-top: 12px;
+  transition: 0.2s;
+
+  &:hover {
+    cursor: pointer;
+    transition: 0.2s;
+    transform: translate(7px, -7px);
+    box-shadow: -7px 7px #000;
+  }
+
+  div:last-child {
+    width: 100%;
+  }
+`
+
+export const TaskAidItemVideo = styled(TaskAidItem)`
+
+  background-color: #ffbe0b;
+  background-image: linear-gradient(135deg, #ff006e 25%, transparent 25%),
+  linear-gradient(225deg, #3a86ff 25%, transparent 25%),
+  linear-gradient(315deg, #ff006e 25%, transparent 25%),
+  linear-gradient(45deg, #3a86ff 25%, transparent 25%);
+  background-position: -30px 0, -30px 0, 0 0, 0 0;
+  background-size: 60px 60px;
+  background-repeat: repeat;
+`
+export const TaskAidItemArticle = styled(TaskAidItem)`
+  background-color: #ffbe0b;
+  background-image: linear-gradient(135deg, #3a86ff 25%, transparent 25%),
+  linear-gradient(225deg, #ff006e 25%, transparent 25%),
+  linear-gradient(315deg, #3a86ff 25%, transparent 25%),
+  linear-gradient(45deg, #ff006e 25%, transparent 25%);
+  background-position: -30px 0, -30px 0, 0 0, 0 0;
+  background-size: 60px 60px;
+  background-repeat: repeat;
+`
+
+const TaskAidIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 105px;
+  height: 100%;
+ 
+  font-size: 55px;
+`
+export const TaskAidIconVideo = styled(TaskAidIcon)`
+  background: #3a86ff;
+  color: #ff006e;
+`
+export const TaskAidIconArticle = styled(TaskAidIcon)`
+  color: #3a86ff;
+  background: #ff006e;
+`
+
+const TaskAidTitle = styled.div`
+  width: 100%;
+  font-size: 32px;
+  padding-left: 7px;
+`
+export const TaskAidTitleVideo = styled(TaskAidTitle)`
+  background: #ff006e;
+  color: #fff;
+`
+export const TaskAidTitleArticle = styled(TaskAidTitle)`
+  background: #3a86ff;
+  color: #fff;
+`
+const TaskAidAuthor = styled.span`
+  display: inline-block;
+  padding: 7px 12px;
+  width: auto;
+`
+export const TaskAidAuthorVideo = styled(TaskAidAuthor)`
+  background: #3a86ff;
+  color: #fff;
+`
+

@@ -27,7 +27,8 @@ import {
     EditorSettingsThemesWrapper,
     EditorSettingsCloseIcon,
     TaskAidsTitle,
-    TaskAidsWrapper
+    TaskAidsWrapper,
+    TaskAidsList
 } from "../../style/general/generalStyles";
 import {htmlClass} from "../../properties/htmlClass";
 import AceEditor from "react-ace"
@@ -48,6 +49,7 @@ import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
 import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
+import {TaskAid} from "../task/TaskAid";
 
 type HtmlTaskContentProps = {
     task: {
@@ -136,8 +138,12 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
             {/*task aids*/}
             <TaskAidsWrapper>
                 <TaskAidsTitle>Task aids</TaskAidsTitle>
+                <TaskAidsList>
+                    <TaskAid aid={"video"}/>
+                    <TaskAid aid={"article"}/>
+                </TaskAidsList>
             </TaskAidsWrapper>
-            
+
         </HtmlTaskTarget>
 
         {/*code editor - ace*/}
@@ -167,7 +173,8 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
             />
             <CodeEditorPanel>
                 {editorFormFlag && <EditorSettingsWrapper>
-                    <EditorSettingsCloseIcon onClick={handleChangeEditorFormFlag}><i className="far fa-window-close"/></EditorSettingsCloseIcon>
+                    <EditorSettingsCloseIcon onClick={handleChangeEditorFormFlag}><i
+                        className="far fa-window-close"/></EditorSettingsCloseIcon>
                     <EditorSettingsLabel>
                         Change font size
                         <EditorSettingsFSize type="number" min="1" max="60" step="1" value={editorFs}
