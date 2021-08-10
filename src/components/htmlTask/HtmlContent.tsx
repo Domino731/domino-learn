@@ -50,14 +50,16 @@ import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
 import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
 import {TaskAid} from "../task/TaskAid";
+import {TypeTaskAid} from "../../firebase/operations";
 
 type HtmlTaskContentProps = {
     task: {
         title: string,
         introduction: string,
         targets: string[],
-        number: number
-    } | undefined
+        number: number,
+        aid: TypeTaskAid[]
+    } | undefined,
 }
 
 export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task}): JSX.Element | null => {
@@ -139,8 +141,8 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
             <TaskAidsWrapper>
                 <TaskAidsTitle>Task aids</TaskAidsTitle>
                 <TaskAidsList>
-                    <TaskAid aid={"video"}/>
-                    <TaskAid aid={"article"}/>
+                    {task.aid.map((el, num) => <TaskAid aid={el} key={`${task.title}_taskAid_${num}`}/>)}
+
                 </TaskAidsList>
             </TaskAidsWrapper>
 

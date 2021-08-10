@@ -5,6 +5,7 @@ import {HtmlTaskFooter} from "./HtmlTaskFooter";
 import {HtmlTaskContent} from "./HtmlContent";
 import {getAllTasks, getTask} from "../../firebase/operations";
 import {RouteComponentProps} from "react-router";
+import {TypeAllTasks, TypeTask} from "../../firebase/operations";
 
 interface MatchParams {
     taskNumber: string
@@ -17,10 +18,10 @@ interface HtmlTaskProps extends RouteComponentProps<MatchParams> {
 export const HtmlTask: FunctionComponent<HtmlTaskProps> = (props): JSX.Element => {
 
     // state with task information -> introduction, target, solution..
-    const [task, setTask] = useState(undefined)
+    const [task, setTask] = useState<TypeTask | undefined>(undefined)
 
     //state with all tasks
-    const [allTasks, setAllTasks] = useState(undefined)
+    const [allTasks, setAllTasks] = useState<TypeAllTasks[] | undefined>(undefined)
     useEffect(() => {
         getTask("htmlTasks", parseFloat(props.match.params.taskNumber), setTask)
         getAllTasks("htmlTasks", setAllTasks)
@@ -30,10 +31,7 @@ export const HtmlTask: FunctionComponent<HtmlTaskProps> = (props): JSX.Element =
         return <h1>Loading...</h1>
     }
 
-
-
     return <HtmlTaskContainer>
-        {/*<HtmlTaskHeader/>*/}
         <HtmlTaskContent task={task}/>
         <HtmlTaskFooter taskNumber={task?.["number"]} allTasks={allTasks}/>
     </HtmlTaskContainer>

@@ -1,13 +1,27 @@
 import {db} from "./firebaseIndex";
 
 
-interface TaskType {
+export interface TypeTaskAid {
+    type: "video" | "article"
+    title: string
+    author?: string
+    link: string
+}
+
+export interface TypeTask {
     title: string,
     introduction: string,
     targets: string[],
     number: number,
-
+    aid: TypeTaskAid[]
 }
+export interface TypeAllTasks {
+    title: string,
+    introduction: string,
+    targets: string[],
+    number: number
+}
+
 
 /**
  * fetch specific task
@@ -20,11 +34,12 @@ export const getTask = (tasks: "htmlTasks" | "jsTasks" | "cssTasks", taskNumber:
         .onSnapshot(querySnapshot => {
             let tasks: any = []
             querySnapshot.docs.map(doc => {
-                const task: TaskType = {
+                const task: TypeTask = {
                     title: doc.data().title,
                     introduction: doc.data().introduction,
                     targets: doc.data().targets,
                     number: doc.data().number,
+                    aid: doc.data().aid
                 }
                 return tasks.push(task)
             });
@@ -42,7 +57,7 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks", success
         .onSnapshot(querySnapshot => {
             let tasks: any = []
             querySnapshot.docs.map(doc => {
-                const task: TaskType = {
+                const task: TypeAllTasks = {
                     title: doc.data().title,
                     introduction: doc.data().introduction,
                     targets: doc.data().targets,

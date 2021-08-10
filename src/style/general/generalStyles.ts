@@ -467,8 +467,9 @@ export const TaskAidIconArticle = styled(TaskAidIcon)`
 
 const TaskAidTitle = styled.div`
   width: 100%;
-  font-size: 32px;
-  padding-left: 7px;
+  font-size: 21px;
+  padding: 3px 7px;
+  
 `
 export const TaskAidTitleVideo = styled(TaskAidTitle)`
   background: #ff006e;
@@ -487,4 +488,7 @@ export const TaskAidAuthorVideo = styled(TaskAidAuthor)`
   background: #3a86ff;
   color: #fff;
 `
-
+export const TaskAidAuthorArticle = styled(TaskAidAuthor)`
+  background: #ff006e;
+  color: #fff;
+`

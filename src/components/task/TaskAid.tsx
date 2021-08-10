@@ -1,48 +1,48 @@
 import {FunctionComponent} from "react";
-import {TaskAidItemVideo,
+import {
+    TaskAidItemVideo,
     TaskAidIconVideo,
     TaskAidTitleVideo,
     TaskAidAuthorVideo,
     TaskAidItemArticle,
     TaskAidIconArticle,
-    TaskAidTitleArticle
-
+    TaskAidTitleArticle,
+       TaskAidAuthorArticle
 } from "../../style/general/generalStyles";
 
-// type TaskAidProps = {
-//     aid: {
-//         type: "video" | "article"
-//         title: string
-//         author?: string
-//         link?: string
-//     }
-// }
 type TaskAidProps = {
-    aid: "video" | "article"
+    aid: {
+        type: "video" | "article"
+        title: string
+        author?: string | null
+        link?: string
+    }
 }
-export const TaskAid : FunctionComponent<TaskAidProps> = ({aid}) : JSX.Element | null => {
-    if(aid === "video"){
-        return <TaskAidItemVideo>
+
+export const TaskAid: FunctionComponent<TaskAidProps> = ({aid}): JSX.Element | null => {
+    if (aid.type === "video") {
+        return <TaskAidItemVideo href={aid.link}  target="_blank"
+                                 rel="noopener noreferrer">
             <TaskAidIconVideo>
                 <i className="fab fa-youtube"/>
             </TaskAidIconVideo>
             <div>
-                  <TaskAidTitleVideo>123</TaskAidTitleVideo>
-                   <TaskAidAuthorVideo>Author: James</TaskAidAuthorVideo>
+                <TaskAidTitleVideo>{aid.title}</TaskAidTitleVideo>
+                <TaskAidAuthorVideo>Author: {aid.author}</TaskAidAuthorVideo>
             </div>
         </TaskAidItemVideo>
-    }
-    else if (aid === "article"){
-        return <TaskAidItemArticle>
+    } else if (aid.type === "article") {
+        return <TaskAidItemArticle   href={aid.link} target="_blank"
+                                   rel="noopener noreferrer">
             <TaskAidIconArticle>
-                <i className="fab fa-youtube"/>
+                <i className="fas fa-align-justify"/>
             </TaskAidIconArticle>
             <div>
-                <TaskAidTitleArticle>123</TaskAidTitleArticle>
+                <TaskAidTitleArticle>{aid.title}</TaskAidTitleArticle>
+                <TaskAidAuthorArticle>Website: {aid.author}</TaskAidAuthorArticle>
             </div>
         </TaskAidItemArticle>
-    }
-    else {
+    } else {
         return null
     }
 }
