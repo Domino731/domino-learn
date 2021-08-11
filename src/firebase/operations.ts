@@ -8,17 +8,26 @@ export interface TypeTaskAid {
     link: string
 }
 
-export interface TypeTask {
-    title: string,
-    introduction: string,
-    targets: string[],
-    number: number,
-    aid: TypeTaskAid[]
+export interface TypeTaskTargets {
+    target: string
+    solution: string
+    number: number
+    solved: null | boolean
 }
+
+export interface TypeTask {
+    title: string
+    introduction: string
+    targets: TypeTaskTargets[]
+    number: number
+    aid: TypeTaskAid[]
+    code: string
+}
+
 export interface TypeAllTasks {
-    title: string,
+    title: string
     introduction: string,
-    targets: string[],
+    targets: string[]
     number: number
 }
 
@@ -39,7 +48,8 @@ export const getTask = (tasks: "htmlTasks" | "jsTasks" | "cssTasks", taskNumber:
                     introduction: doc.data().introduction,
                     targets: doc.data().targets,
                     number: doc.data().number,
-                    aid: doc.data().aid
+                    aid: doc.data().aid,
+                    code: doc.data().taskCode
                 }
                 return tasks.push(task)
             });

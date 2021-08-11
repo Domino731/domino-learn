@@ -29,13 +29,14 @@ export const HtmlTaskIntroduction = styled.div`
   grid-column: 1 / 1;
   max-width: 100%;
   position: relative;
-
+  overflow: auto;
 `
 
 export const HtmlTaskTarget = styled.div`
   grid-column: 2 / 1;
   max-width: 100%;
   position: relative;
+  overflow: auto;
 `
 export const HtmlTaskCodeEditor = styled.div`
   position: relative;

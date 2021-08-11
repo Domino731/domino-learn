@@ -51,32 +51,40 @@ import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
 import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
 import {TaskAid} from "../task/TaskAid";
-import {TypeTaskAid} from "../../firebase/operations";
+import {TypeTaskAid, TypeTaskTargets} from "../../firebase/operations";
 
+const beautify = require('js-beautify').html
 type HtmlTaskContentProps = {
     task: {
         title: string,
         introduction: string,
-        targets: string[],
+        targets: TypeTaskTargets[],
         number: number,
-        aid: TypeTaskAid[]
+        aid: TypeTaskAid[],
+        code: string
     } | undefined,
 }
 
 export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task}): JSX.Element | null => {
 
-    // state with user html code
-    const [userCode, setUserCode] = useState<string>("<h1>Welcome</h1>")
+    // state with userCode from editor output
+    const [userCode, setUserCode] = useState<string>("")
 
+    const [resultCode, setResultCode] = useState<string>("")
     // state with flag, when user change it, editor settings form will be showed
     const [editorFormFlag, setEditorFormFlag] = useState(false)
 
-    // state with editor font size
+    // state with editor font size from localStorage
     const [editorFs, setEditorFs] = useState<number>(getEditorFSize)
 
-    // state with editor theme
+    // state with editor theme from localStorage
     const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme)
 
+
+    // when component mounted format task code
+    useEffect(() => {
+        setUserCode(beautify(task!.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+    }, [task])
 
     // save font size into local storage
     useEffect(() => {
@@ -88,6 +96,19 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
         localStorage.setItem("editorTheme", editorTheme)
     }, [editorTheme])
 
+    // task validation
+    const checkTask = (): void => {
+
+        const code = userCode
+        console.log(task!.targets)
+        task!.targets.map(el => {
+            console.log(el.number)
+            //const startPoint = code.indexOf("")
+        })
+        // set the result
+        setResultCode(beautify(userCode, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+    }
+
     // change flag -> show editor settings form
     const handleChangeEditorFormFlag = (): void => setEditorFormFlag(!editorFormFlag)
 
@@ -98,9 +119,14 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
     const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorTheme(e.target.value)
 
 
-    // change code
-    const changeUserCode = (newValue: any) => {
+    // change code from
+    const changeUserCode = (newValue: string): void => {
         setUserCode(newValue)
+    }
+
+    // reset code in editor by original code from task
+    const handleResetCode = (): void => {
+        setUserCode(beautify(task!.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
     }
 
     // code
@@ -108,8 +134,10 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
         <!DOCTYPE html>
           <html lang="en">
           <head></head>
-          <body>${userCode}</body>
+          <body>${resultCode}</body>
           </html>`
+
+
     if (task === undefined) {
         return null
     }
@@ -138,7 +166,7 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
             <TaskTargetsWrapper>
                 {task.targets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
                     <TaskTargetCheckbox/>
-                    <TaskTargetText dangerouslySetInnerHTML={{__html: el}}/>
+                    <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
                 </TaskTarget>)}
             </TaskTargetsWrapper>
 
@@ -161,6 +189,7 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
                 enableLiveAutocompletion={true}
                 enableSnippets={true}
                 onChange={changeUserCode}
+
                 mode="html"
                 theme={editorTheme}
                 width="100%"
@@ -246,8 +275,8 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
 
                 <CodeEditorPanelBtn onClick={handleChangeEditorFormFlag}><i
                     className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
-                <CodeEditorPanelBtn><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
-                <CodeEditorPanelBtn><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+                <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
+                <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
             </CodeEditorPanel>
         </HtmlTaskCodeEditor>
 

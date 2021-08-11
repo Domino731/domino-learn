@@ -6,7 +6,7 @@ export const getEditorFSize = (): number => {
     if (fontSize !== null) {
         return parseFloat(fontSize)
     } else {
-        return 20
+        return 19
     }
 
 }
