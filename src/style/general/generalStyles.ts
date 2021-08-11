@@ -24,6 +24,42 @@ export const FreepikThanks = styled.div`
     }
   }
 `
+export const TaskSuccessfulImg = styled.img`
+  width: 60%;
+  height: auto;
+`
+export const TaskSuccessfulTitle = styled.h2`
+margin-top: 10px;
+  padding: 10px 0;
+  color: ${props => props.theme.color.white};
+  font-size: 44px;
+  text-align: center;
+  background: ${props => props.theme.color.gray};
+`
+export const  TaskSuccessfulBar = styled.div`
+  width: 100%;
+  background: #f15bb5;
+  display: flex;
+  a, button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.938rem;
+    width: 50%;
+    border-radius: 0;
+    padding: 5px 0;
+    color: ${props => props.theme.color.gray};
+    font-weight: 600;
+    transition: 0.1s;
+    &:hover{
+      background: ${props => props.theme.color.gray};
+      color: #f15bb5;
+      transition: 0.1s;
+      letter-spacing: 0.125rem;
+    }
+  }
+  
+`
 export const TaskHeader = styled.header`
   display: flex;
   justify-content: center;
@@ -31,7 +67,6 @@ export const TaskHeader = styled.header`
   width: 100%;
   height: 50px;
 `
-
 
 export const TaskHeaderTitle = styled.h1`
   font-size: 41px;
@@ -54,12 +89,13 @@ export const TaskFooterTitle = styled.a`
   display: block;
   width: 33%;
   font-size: 2.75rem;
-  font-family: 'Recursive',sans-serif;
+  font-family: 'Recursive', sans-serif;
   font-weight: 900;
   text-align: center;
   color: ${props => props.theme.color.gray};
   transition: 0.2s;
-  &:hover{
+
+  &:hover {
     transition: 0.2s;
     letter-spacing: 0.188rem;
   }
@@ -193,6 +229,9 @@ export const TaskFooterTasksPlanet3 = styled.img`
 `
 
 export const TaskSectionHeader = styled.h2`
+  position: sticky;
+  top: 0;
+  z-index: 1;
   font-size: 1.25rem;
   padding: 7px 10px;
   background: ${props => props.theme.color.white};
@@ -204,7 +243,7 @@ export const TaskIntroductionBar = styled.div`
   width: 100%;
   height: 70px;
   padding-left: 5px;
-  
+
   img {
     width: 41px;
     height: auto;
@@ -263,10 +302,12 @@ export const TaskTargetNumber = styled.div`
 `
 export const TaskTargetText = styled.div`
   font-size: 1.25rem;
-  span{
+
+  span {
     display: inline-block;
     position: relative;
-    &::after{
+
+    &::after {
       content: "";
       height: 5px;
       width: 100%;
@@ -491,7 +532,7 @@ const TaskAidIcon = styled.div`
   align-items: center;
   width: 105px;
   height: 100%;
- 
+
   font-size: 55px;
 `
 export const TaskAidIconVideo = styled(TaskAidIcon)`
@@ -507,7 +548,7 @@ const TaskAidTitle = styled.div`
   width: 100%;
   font-size: 21px;
   padding: 3px 7px;
-  
+
 `
 export const TaskAidTitleVideo = styled(TaskAidTitle)`
   background: #ff006e;

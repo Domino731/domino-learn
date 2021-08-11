@@ -5,7 +5,8 @@ import {
     HtmlTaskTarget,
     HtmlTaskCodeEditor,
     HtmlTaskResult,
-    HtmlDecorationIntroduction
+    HtmlDecorationIntroduction,
+    HtmlTaskSuccessful
 } from "../../style/elements/htmlTask/htmlTask";
 import {
     TaskIntroductionBar,
@@ -30,7 +31,10 @@ import {
     TaskAidsTitle,
     TaskAidsWrapper,
     TaskAidsList,
-    TaskTargetNumber
+    TaskTargetNumber,
+    TaskSuccessfulImg,
+    TaskSuccessfulBar,
+    TaskSuccessfulTitle
 } from "../../style/general/generalStyles";
 import {htmlClass} from "../../properties/htmlClass";
 import AceEditor from "react-ace"
@@ -58,6 +62,7 @@ import {
 } from "../../functions/localStorage";
 import {TaskAid} from "../task/TaskAid";
 import {TypeTaskAid, TypeTaskTargets} from "../../firebase/operations";
+import {Link} from "react-router-dom";
 
 const beautify = require('js-beautify').html
 type HtmlTaskContentProps = {
@@ -81,7 +86,7 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
 
     const [taskTargets, setTaskTargets] = useState<TypeTaskTargets[]>(task!.targets)
     // state with flag, when user change it, editor settings form will be showed
-    const [editorFormFlag, setEditorFormFlag] = useState(false)
+    const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
 
     // state with editor font size from localStorage
     const [editorFs, setEditorFs] = useState<number>(getEditorFSize)
@@ -89,6 +94,8 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
     // state with editor theme from localStorage
     const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme)
 
+    // state with flag, which is responsible for animating when the user correctly completes the tasks
+    const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
 
     // check if the user hasn't already solved the task, if he  has solved it,
     // get it from local storage and if not, return the default value (task.targets)
@@ -166,11 +173,9 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
 
         // save solution into local storage, so when user comes back he will have their solution
         saveHtmlTaskSolutionToLS(taskTargets, task!.title, userCode)
-        // check if user has executed all targets, if so display animation and save solution into localStorage
+        // check if user has executed all targets, if he did display animation
         if (pointsUser === pointsNeeded) {
-            console.log("correct")
-
-
+         setSuccessfulFlag(true)
         }
 
     }
@@ -210,49 +215,60 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
 
     return <HtmlTaskContentWrapper>
 
-        {/*introduction*/}
-        <HtmlTaskIntroduction>
+        {successfulFlag === false && <>
+            {/*introduction*/}
+            <HtmlTaskIntroduction>
 
-            <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
-            <TaskIntroductionBar>
-                <img src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
-                <h3>{task.title}</h3>
-            </TaskIntroductionBar>
-            <TaskIntroductionText dangerouslySetInnerHTML={{__html: task.introduction}}/>
+                <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
+                <TaskIntroductionBar>
+                    <img src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
+                    <h3>{task.title}</h3>
+                </TaskIntroductionBar>
+                <TaskIntroductionText dangerouslySetInnerHTML={{__html: task.introduction}}/>
 
-            {/*decorations*/}
-            <HtmlDecorationIntroduction/>
-        </HtmlTaskIntroduction>
+                {/*decorations*/}
+                <HtmlDecorationIntroduction/>
+            </HtmlTaskIntroduction>
 
-        {/*task target and instructions*/}
-        <HtmlTaskTarget>
+            {/*task target and instructions*/}
+            <HtmlTaskTarget>
 
-            {/*task targets list*/}
-            <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
-            <TaskTargetsWrapper>
-                {taskTargets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
+                {/*task targets list*/}
+                <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
+                <TaskTargetsWrapper>
+                    {taskTargets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
 
-                    {el.solved === null && <TaskTargetCheckbox backgroundColor={"#e5e3f1"}/>}
-                    {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
-                        className="fas fa-times"/></TaskTargetCheckbox>}
-                    {el.solved === true &&
-                    <TaskTargetCheckbox backgroundColor={"#75D701"}><i className="fas fa-check"/></TaskTargetCheckbox>}
-                    <TaskTargetNumber>{el.number}. </TaskTargetNumber>
-                    <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
-                </TaskTarget>)}
-            </TaskTargetsWrapper>
+                        {el.solved === null && <TaskTargetCheckbox backgroundColor={"#e5e3f1"}/>}
+                        {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
+                            className="fas fa-times"/></TaskTargetCheckbox>}
+                        {el.solved === true &&
+                        <TaskTargetCheckbox backgroundColor={"#75D701"}><i className="fas fa-check"/></TaskTargetCheckbox>}
+                        <TaskTargetNumber>{el.number}. </TaskTargetNumber>
+                        <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
+                    </TaskTarget>)}
+                </TaskTargetsWrapper>
 
-            {/*task aids*/}
-            <TaskAidsWrapper>
-                <TaskAidsTitle>Task aids</TaskAidsTitle>
-                <TaskAidsList>
-                    {task.aid.map((el, num) => <TaskAid aid={el} key={`${task.title}_taskAid_${num}`}/>)}
+                {/*task aids*/}
+                <TaskAidsWrapper>
+                    <TaskAidsTitle>Task aids</TaskAidsTitle>
+                    <TaskAidsList>
+                        {task.aid.map((el, num) => <TaskAid aid={el} key={`${task.title}_taskAid_${num}`}/>)}
 
-                </TaskAidsList>
-            </TaskAidsWrapper>
+                    </TaskAidsList>
+                </TaskAidsWrapper>
 
-        </HtmlTaskTarget>
+            </HtmlTaskTarget>
+        </>}
 
+        {/*animation when user solves the task correctly*/}
+        {successfulFlag && <HtmlTaskSuccessful>
+            <TaskSuccessfulImg src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
+            <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
+            <TaskSuccessfulBar>
+                <button onClick={() => setSuccessfulFlag(false)}>Close</button>
+                <Link to={`/html-task/${task.number + 1}`}>Next task</Link>
+            </TaskSuccessfulBar>
+        </HtmlTaskSuccessful>}
         {/*code editor - ace*/}
         <HtmlTaskCodeEditor>
             <AceEditor
