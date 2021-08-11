@@ -70,7 +70,10 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
     // state with userCode from editor output
     const [userCode, setUserCode] = useState<string>("")
 
+    // state with result code, which is display in iFrame
     const [resultCode, setResultCode] = useState<string>("")
+
+    const [taskTargets, setTaskTargets] = useState<TypeTaskTargets[]>(task!.targets)
     // state with flag, when user change it, editor settings form will be showed
     const [editorFormFlag, setEditorFormFlag] = useState(false)
 
@@ -96,15 +99,43 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
         localStorage.setItem("editorTheme", editorTheme)
     }, [editorTheme])
 
+
     // task validation
     const checkTask = (): void => {
 
+        // string from which the solution will be extracted
         const code = userCode
-        console.log(task!.targets)
-        task!.targets.map(el => {
-            console.log(el.number)
-            //const startPoint = code.indexOf("")
+        taskTargets.map(el => {
+
+
+            // locations of comments based on which it will be possible to get user solution
+            const startPoint: number = code.indexOf(`<!-- Place your code for task ${el.number} below -->`)
+            const endPoint: number = code.indexOf(`<!--${el.number}-->`)
+
+            // user solution with lower case (without task comments and spaces)
+            const userSolution = code
+                .substring(startPoint, endPoint)
+                .replace(`<!-- Place your code for task ${el.number} below -->`, "")
+                .replace(/\s/g, '')
+                .toLowerCase()
+
+            // task solution with lower case (without task comments and spaces)
+            const taskSolution = el.solution.replace(/\s/g, '').toLowerCase()
+
+            // change taskTargets state to inform user what he did correctly and what he did wrong -> checkboxes in task targets list will change their color
+            // correctly
+            if (taskSolution === userSolution) {
+                const updatedTaskTargets = taskTargets.map(el => ({...el, solved: true}))
+                setTaskTargets(updatedTaskTargets)
+            }
+            // incorrectly
+            else {
+                const updatedTaskTargets = taskTargets.map(el => ({...el, solved: false}))
+                setTaskTargets(updatedTaskTargets)
+            }
+
         })
+
         // set the result
         setResultCode(beautify(userCode, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
     }
@@ -164,7 +195,7 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
             {/*targets*/}
             <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
             <TaskTargetsWrapper>
-                {task.targets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
+                {taskTargets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
                     <TaskTargetCheckbox/>
                     <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
                 </TaskTarget>)}
