@@ -29,7 +29,8 @@ import {
     EditorSettingsCloseIcon,
     TaskAidsTitle,
     TaskAidsWrapper,
-    TaskAidsList
+    TaskAidsList,
+    TaskTargetNumber
 } from "../../style/general/generalStyles";
 import {htmlClass} from "../../properties/htmlClass";
 import AceEditor from "react-ace"
@@ -49,7 +50,12 @@ import 'ace-builds/src-noconflict/theme-terminal'
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
-import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
+import {
+    getEditorFSize,
+    getEditorTheme, getHtmlTaskCodeFromLS,
+    getHtmlTaskTargetsFromLS,
+    saveHtmlTaskSolutionToLS
+} from "../../functions/localStorage";
 import {TaskAid} from "../task/TaskAid";
 import {TypeTaskAid, TypeTaskTargets} from "../../firebase/operations";
 
@@ -84,9 +90,11 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
     const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme)
 
 
-    // when component mounted format task code
+    // check if the user hasn't already solved the task, if he  has solved it,
+    // get it from local storage and if not, return the default value (task.targets)
     useEffect(() => {
-        setUserCode(beautify(task!.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+        getHtmlTaskTargetsFromLS(setTaskTargets, task!.title, task!.targets)
+        getHtmlTaskCodeFromLS(setUserCode, task!.title, task!.code)
     }, [task])
 
     // save font size into local storage
@@ -103,11 +111,20 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
     // task validation
     const checkTask = (): void => {
 
+        // set the result (display user html code)
+        setResultCode(beautify(userCode, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+
+        // points needed to pass
+        const pointsNeeded: number = task!.targets.length
+
+        // user points
+        let pointsUser: number = 0;
         // string from which the solution will be extracted
         const code = userCode
+
+        // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
+        // depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
         taskTargets.map(el => {
-
-
             // locations of comments based on which it will be possible to get user solution
             const startPoint: number = code.indexOf(`<!-- Place your code for task ${el.number} below -->`)
             const endPoint: number = code.indexOf(`<!--${el.number}-->`)
@@ -122,22 +139,40 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
             // task solution with lower case (without task comments and spaces)
             const taskSolution = el.solution.replace(/\s/g, '').toLowerCase()
 
-            // change taskTargets state to inform user what he did correctly and what he did wrong -> checkboxes in task targets list will change their color
-            // correctly
-            if (taskSolution === userSolution) {
-                const updatedTaskTargets = taskTargets.map(el => ({...el, solved: true}))
-                setTaskTargets(updatedTaskTargets)
-            }
-            // incorrectly
-            else {
-                const updatedTaskTargets = taskTargets.map(el => ({...el, solved: false}))
-                setTaskTargets(updatedTaskTargets)
-            }
 
+            // variables needed to swap the object in the state
+            let updatedTargets = taskTargets
+            let updatedTarget = el
+
+            // change taskTargets state to inform user what he did correctly and what he did wrong -> checkboxes
+            // in task targets list will change their color
+            // if correctly
+            if (taskSolution === userSolution) {
+                // add point
+                pointsUser++;
+                // change checkbox
+                updatedTarget.solved = true
+                updatedTargets[el.number - 1] = updatedTarget
+                setTaskTargets(updatedTargets)
+            }
+            // if incorrectly
+            else {
+                // change checkbox
+                updatedTarget.solved = false
+                updatedTargets[el.number - 1] = updatedTarget
+                setTaskTargets(updatedTargets)
+            }
         })
 
-        // set the result
-        setResultCode(beautify(userCode, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+        // save solution into local storage, so when user comes back he will have their solution
+        saveHtmlTaskSolutionToLS(taskTargets, task!.title, userCode)
+        // check if user has executed all targets, if so display animation and save solution into localStorage
+        if (pointsUser === pointsNeeded) {
+            console.log("correct")
+
+
+        }
+
     }
 
     // change flag -> show editor settings form
@@ -192,11 +227,17 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
         {/*task target and instructions*/}
         <HtmlTaskTarget>
 
-            {/*targets*/}
+            {/*task targets list*/}
             <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
             <TaskTargetsWrapper>
                 {taskTargets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
-                    <TaskTargetCheckbox/>
+
+                    {el.solved === null && <TaskTargetCheckbox backgroundColor={"#e5e3f1"}/>}
+                    {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
+                        className="fas fa-times"/></TaskTargetCheckbox>}
+                    {el.solved === true &&
+                    <TaskTargetCheckbox backgroundColor={"#75D701"}><i className="fas fa-check"/></TaskTargetCheckbox>}
+                    <TaskTargetNumber>{el.number}. </TaskTargetNumber>
                     <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
                 </TaskTarget>)}
             </TaskTargetsWrapper>

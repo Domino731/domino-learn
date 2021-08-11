@@ -242,16 +242,43 @@ export const TaskTarget = styled.div`
   padding: 12px 9px;
   background: ${props => props.theme.background.transparent};
 `
-export const TaskTargetCheckbox = styled.div`
+type TaskTargetCheckboxProps = {
+    backgroundColor: string
+}
+export const TaskTargetCheckbox = styled.div<TaskTargetCheckboxProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 30px;
-  width: 30px;
+  min-width: 30px;
   margin-right: 11px;
-  background: ${props => props.theme.color.white};
+  border-radius: 5px;
+  background: ${props => props.backgroundColor};
+  color: ${props => props.theme.color.white}
 `
-export const TaskTargetText = styled.p`
+export const TaskTargetNumber = styled.div`
   font-size: 1.25rem;
+  font-weight: 900;
+  margin-right: 0.313rem;
 `
-
+export const TaskTargetText = styled.div`
+  font-size: 1.25rem;
+  span{
+    display: inline-block;
+    position: relative;
+    &::after{
+      content: "";
+      height: 5px;
+      width: 100%;
+      position: absolute;
+      background: url("https://cldup.com/MiGVGBh-0U.png");
+      background-size: 8px;
+      top: 1.188rem;
+      bottom: 0;
+      left: 0;
+    }
+  }
+`
 
 export const CodeEditorPanel = styled.div`
   position: absolute;
