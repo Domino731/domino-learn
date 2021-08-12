@@ -1,6 +1,5 @@
 import {FunctionComponent, useEffect, useState} from "react";
-import {HtmlTaskContainer} from "../../style/elements/htmlTask/htmlTask";
-import {HtmlTaskHeader} from "./HtmlTaskHeader";
+import {HtmlTaskContainer} from "../../style/elements/tasks/htmlTask";
 import {HtmlTaskFooter} from "./HtmlTaskFooter";
 import {HtmlTaskContent} from "./HtmlContent";
 import {getAllTasks, getTask} from "../../firebase/operations";

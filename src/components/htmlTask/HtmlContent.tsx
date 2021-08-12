@@ -1,13 +1,13 @@
 import {FunctionComponent, useEffect, useState} from "react";
-import {HtmlTaskContentWrapper} from "../../style/elements/htmlTask/htmlTask";
+import {HtmlTaskContentWrapper} from "../../style/elements/tasks/htmlTask";
 import {
     HtmlTaskIntroduction,
     HtmlTaskTarget,
     HtmlTaskCodeEditor,
     HtmlTaskResult,
     HtmlDecorationIntroduction,
-    HtmlTaskSuccessful
-} from "../../style/elements/htmlTask/htmlTask";
+   HtmlTaskSuccessful
+} from "../../style/elements/tasks/htmlTask";
 import {
     TaskIntroductionBar,
     TaskSectionHeader,
@@ -34,8 +34,8 @@ import {
     TaskTargetNumber,
     TaskSuccessfulImg,
     TaskSuccessfulBar,
-    TaskSuccessfulTitle
-} from "../../style/general/generalStyles";
+   TaskSuccessfulTitle
+} from "../../style/elements/tasks/task";
 import {htmlClass} from "../../properties/htmlClass";
 import AceEditor from "react-ace"
 import 'ace-builds/src-noconflict/mode-html'

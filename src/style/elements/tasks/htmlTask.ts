@@ -5,7 +5,7 @@ import {
     TaskFooterSwitchButton,
     TaskHeader,
     TaskFooterTasksWrapper
-} from "../../general/generalStyles";
+} from "./task";
 
 export const HtmlTaskContainer = styled.div`
   width: 100%;

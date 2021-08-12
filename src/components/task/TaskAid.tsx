@@ -7,8 +7,8 @@ import {
     TaskAidItemArticle,
     TaskAidIconArticle,
     TaskAidTitleArticle,
-       TaskAidAuthorArticle
-} from "../../style/general/generalStyles";
+    TaskAidAuthorArticle
+} from "../../style/elements/tasks/task";
 
 type TaskAidProps = {
     aid: {
@@ -21,7 +21,7 @@ type TaskAidProps = {
 
 export const TaskAid: FunctionComponent<TaskAidProps> = ({aid}): JSX.Element | null => {
     if (aid.type === "video") {
-        return <TaskAidItemVideo href={aid.link}  target="_blank"
+        return <TaskAidItemVideo href={aid.link} target="_blank"
                                  rel="noopener noreferrer">
             <TaskAidIconVideo>
                 <i className="fab fa-youtube"/>
@@ -32,7 +32,7 @@ export const TaskAid: FunctionComponent<TaskAidProps> = ({aid}): JSX.Element | n
             </div>
         </TaskAidItemVideo>
     } else if (aid.type === "article") {
-        return <TaskAidItemArticle   href={aid.link} target="_blank"
+        return <TaskAidItemArticle href={aid.link} target="_blank"
                                    rel="noopener noreferrer">
             <TaskAidIconArticle>
                 <i className="fas fa-align-justify"/>

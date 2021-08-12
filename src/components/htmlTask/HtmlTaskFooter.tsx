@@ -5,7 +5,7 @@ import {
     HtmlFooterListBtn,
     HtmlFooterTasksWrapper,
     HtmlDecorationFooter
-} from "../../style/elements/htmlTask/htmlTask";
+} from "../../style/elements/tasks/htmlTask";
 import {
     TaskFooterTaskNumber,
     TaskFooterSwitchBar,
@@ -17,7 +17,7 @@ import {
     TaskFooterTasksPlanets,
     TaskFooterIcons,
     TaskFooterTitle
-} from "../../style/general/generalStyles";
+} from "../../style/elements/tasks/task";
 import {FreepikThanks} from "../../style/general/generalStyles";
 import {Link} from "react-router-dom";
 import plutoPlanet from "../../images/planet_pluto.png";
