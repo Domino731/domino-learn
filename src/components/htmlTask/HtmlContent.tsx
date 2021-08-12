@@ -34,12 +34,11 @@ import {
     TaskTargetNumber,
     TaskSuccessfulImg,
     TaskSuccessfulBar,
-   TaskSuccessfulTitle
+   TaskSuccessfulTitle,
 } from "../../style/elements/tasks/task";
 import {htmlClass} from "../../properties/htmlClass";
 import AceEditor from "react-ace"
 import 'ace-builds/src-noconflict/mode-html'
-
 import 'ace-builds/src-noconflict/theme-monokai'
 import 'ace-builds/src-noconflict/theme-ambiance'
 import 'ace-builds/src-noconflict/theme-clouds'
@@ -49,8 +48,6 @@ import 'ace-builds/src-noconflict/theme-solarized_light'
 import 'ace-builds/src-noconflict/theme-crimson_editor'
 import 'ace-builds/src-noconflict/theme-github'
 import 'ace-builds/src-noconflict/theme-terminal'
-
-
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
@@ -76,6 +73,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
     const [resultCode, setResultCode] = useState<string>("")
 
     const [taskTargets, setTaskTargets] = useState<IFTaskTargets[]>(task.targets)
+
     // state with flag, when user change it, editor settings form will be showed
     const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
 
@@ -171,8 +169,6 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
 
     }
 
-    // change flag -> show editor settings form
-    const handleChangeEditorFormFlag = (): void => setEditorFormFlag(editorFormFlag)
 
     // change editor font-size
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value))
@@ -191,7 +187,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
         setUserCode(beautify(task.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
     }
 
-    // code
+    // code which is placed in iframe as result (web browser window)
     const srcDoc = `
         <!DOCTYPE html>
           <html lang="en">
@@ -259,7 +255,6 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
         {/*code editor - ace*/}
         <HtmlTaskCodeEditor>
             <AceEditor
-
                 enableBasicAutocompletion={true}
                 enableLiveAutocompletion={true}
                 enableSnippets={true}

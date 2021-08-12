@@ -272,18 +272,19 @@ export const TaskIntroductionText = styled.div`
 
   ul, ol {
     margin: 0.5rem 0.625rem;
-    li{
+
+    li {
       margin: 0.563rem 0;
     }
   }
 
   ol {
-    margin:  0.5rem 2rem;
+    margin: 0.5rem 2rem;
     list-style-type: decimal;
   }
 
   ul {
-    
+
     li {
       &:before {
         content: "";
@@ -346,7 +347,13 @@ export const TaskTargetText = styled.div`
     }
   }
 `
-
+export const TaskCodeEditorMultiple = styled.div`
+  position: absolute;
+  padding: 53px 0;
+  width: 100%;
+  height: 100%;
+  background: red;
+`
 export const CodeEditorPanel = styled.div`
   position: absolute;
   display: flex;
@@ -405,6 +412,64 @@ export const WebBrowserRedBox = styled.span`
 `
 export const WebBrowserYellowBox = styled.span`
   background: #ff9f1c;
+`
+export const ChangeEditor = styled.form`
+  display: flex;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  padding-left: 10px;
+  width: 100%;
+  height: 53px;
+  background: ${props => props.theme.color.gray};
+`
+interface ChangeEditorCheckboxProps {
+    lineColor: string
+}
+export const ChangeEditorCheckbox = styled.div<ChangeEditorCheckboxProps>`
+  display: flex;
+  align-items: center;
+  margin-right: 1.25rem;
+  position: relative;
+  padding: 0.75rem 0.313rem;
+  color: #fff;
+  i{
+    margin-left: 0.563rem;
+    font-size: 20px;
+  }
+  span{
+    position: absolute;
+    display: block;
+    bottom: 4px;
+    background: ${props => props.lineColor};
+    height: 4px;
+  }
+  label{
+    font-size: 1.313rem;
+  }
+  input{
+    appearance: none;
+    border-radius: 0;
+    border-color: transparent;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  input:checked {
+    & ~ span{
+      width: 100%;
+    }
+    & ~ i{
+      color: ${props => props.lineColor};
+    }
+  }
 `
 export const EditorSettingsWrapper = styled.form`
   position: absolute;
@@ -574,7 +639,8 @@ const TaskAidTitle = styled.div`
   width: 100%;
   font-size: 21px;
   padding: 3px 7px;
-
+  max-height: 47px;
+  overflow: hidden;
 `
 export const TaskAidTitleVideo = styled(TaskAidTitle)`
   background: #ff006e;

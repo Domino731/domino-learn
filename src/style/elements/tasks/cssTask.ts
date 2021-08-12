@@ -37,4 +37,23 @@ export const CssResult = styled.div`
   max-width: 100%;
   position: relative;
   overflow: auto;
+  padding: 10px;
+  background: ${props => props.theme.color.gray};
+  
+  & > div {
+    background: #fff;
+  }
+`
+
+// decorations
+export const CssDecorationIntroduction = styled.div`
+  position: absolute;
+  top: 44px;
+  right: 0;
+  z-index: -1;
+  width: 43%;
+  height: 74px;
+  background: repeating-linear-gradient(
+          90deg
+          ,#b5179e 0px,#b5179e 5px,white 5px,white 10px);
 `

@@ -2,7 +2,6 @@ import {db} from "./firebaseIndex";
 import {IFAllTasks, IFCssTask, IFHtmlTask} from "../types/types";
 
 
-
 /**
  * fetch html specific task
  * @param taskNumber  - number of task
@@ -40,11 +39,12 @@ export const getCssTask = (taskNumber: number, saveDataCallback: (obj: any) => v
                 const task: IFCssTask = {
                     title: doc.data().title,
                     number: doc.data().number,
-                    introduction: doc.data().introduction
+                    introduction: doc.data().introduction,
+                    aid: doc.data().aid
                 }
                 return tasks.push(task)
             });
-           saveDataCallback(tasks[taskNumber - 1])
+            saveDataCallback(tasks[taskNumber - 1])
         })
 }
 

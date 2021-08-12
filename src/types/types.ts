@@ -92,6 +92,7 @@ export interface IFCssTask {
     title: string
     number: number
     introduction: number
+    aid: IFTaskAid[]
 }
 
 export interface IFAllTasks {
