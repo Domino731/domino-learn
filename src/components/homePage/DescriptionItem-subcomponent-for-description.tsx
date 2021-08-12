@@ -1,25 +1,12 @@
-import {FunctionComponent, useEffect, useState} from "react";
+import {FunctionComponent, useState} from "react";
 import {DscItem, DscContent,
     DscTitleContainer, DscTitle
     , DscTitleImg,
     DscDescription, DscExemplaryCodeBtn, DscFigure,
 DscFigureImg, DscCodeExample, DscItemContainer} from "../../style/elements/homePage/description";
+import {IFPropsDescriptionItem} from "../../types/types";
 
-type DescriptionItemProps = {
-    language: {
-        getDsc: () => string,
-        getIconAlt: () => string,
-        getIconSrc: () => string,
-        getLanguageName: () => string,
-        getFigureSrc: () => string,
-        getFigureAlt: () => string,
-        getCodeSrc: () => string,
-        getCodeAlt: () => string,
-    },
-    reverse?: boolean
-}
-
-export const DescriptionItem: FunctionComponent<DescriptionItemProps> = ({language, reverse= false}) => {
+export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({language, reverse= false}) => {
     const [flag, setFlag] = useState<boolean>(false)
 
     const handleChangeFlag = () => setFlag(!flag)

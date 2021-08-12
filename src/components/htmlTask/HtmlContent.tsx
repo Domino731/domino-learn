@@ -61,22 +61,13 @@ import {
     saveHtmlTaskSolutionToLS
 } from "../../functions/localStorage";
 import {TaskAid} from "../task/TaskAid";
-import {TypeTaskAid, TypeTaskTargets} from "../../firebase/operations";
 import {Link} from "react-router-dom";
+import {IFPropsHtmlTaskContent, IFTaskTargets} from "../../types/types";
 
 const beautify = require('js-beautify').html
-type HtmlTaskContentProps = {
-    task: {
-        title: string,
-        introduction: string,
-        targets: TypeTaskTargets[],
-        number: number,
-        aid: TypeTaskAid[],
-        code: string
-    } | undefined,
-}
 
-export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task}): JSX.Element | null => {
+
+export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task}): JSX.Element | null => {
 
     // state with userCode from editor output
     const [userCode, setUserCode] = useState<string>("")
@@ -84,7 +75,7 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
     // state with result code, which is display in iFrame
     const [resultCode, setResultCode] = useState<string>("")
 
-    const [taskTargets, setTaskTargets] = useState<TypeTaskTargets[]>(task!.targets)
+    const [taskTargets, setTaskTargets] = useState<IFTaskTargets[]>(task.targets)
     // state with flag, when user change it, editor settings form will be showed
     const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
 
@@ -100,8 +91,8 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
     // check if the user hasn't already solved the task, if he  has solved it,
     // get it from local storage and if not, return the default value (task.targets)
     useEffect(() => {
-        getHtmlTaskTargetsFromLS(setTaskTargets, task!.title, task!.targets)
-        getHtmlTaskCodeFromLS(setUserCode, task!.title, task!.code)
+        getHtmlTaskTargetsFromLS(setTaskTargets, task.title, task.targets)
+        getHtmlTaskCodeFromLS(setUserCode, task.title, task.code)
     }, [task])
 
     // save font size into local storage
@@ -122,7 +113,7 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
         setResultCode(beautify(userCode, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
 
         // points needed to pass
-        const pointsNeeded: number = task!.targets.length
+        const pointsNeeded: number = task.targets.length
 
         // user points
         let pointsUser: number = 0;
@@ -133,13 +124,13 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
         // depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
         taskTargets.map(el => {
             // locations of comments based on which it will be possible to get user solution
-            const startPoint: number = code.indexOf(`<!-- Place your code for task ${el.number} below -->`)
-            const endPoint: number = code.indexOf(`<!--${el.number}-->`)
+            const startPoint: number = code.indexOf(`<-- Place your code for task ${el.number} below -->`)
+            const endPoint: number = code.indexOf(`<--${el.number}-->`)
 
             // user solution with lower case (without task comments and spaces)
             const userSolution = code
                 .substring(startPoint, endPoint)
-                .replace(`<!-- Place your code for task ${el.number} below -->`, "")
+                .replace(`<-- Place your code for task ${el.number} below -->`, "")
                 .replace(/\s/g, '')
                 .toLowerCase()
 
@@ -172,7 +163,7 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
         })
 
         // save solution into local storage, so when user comes back he will have their solution
-        saveHtmlTaskSolutionToLS(taskTargets, task!.title, userCode)
+        saveHtmlTaskSolutionToLS(taskTargets, task.title, userCode)
         // check if user has executed all targets, if he did display animation
         if (pointsUser === pointsNeeded) {
          setSuccessfulFlag(true)
@@ -181,7 +172,7 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
     }
 
     // change flag -> show editor settings form
-    const handleChangeEditorFormFlag = (): void => setEditorFormFlag(!editorFormFlag)
+    const handleChangeEditorFormFlag = (): void => setEditorFormFlag(editorFormFlag)
 
     // change editor font-size
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value))
@@ -197,7 +188,7 @@ export const HtmlTaskContent: FunctionComponent<HtmlTaskContentProps> = ({task})
 
     // reset code in editor by original code from task
     const handleResetCode = (): void => {
-        setUserCode(beautify(task!.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+        setUserCode(beautify(task.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
     }
 
     // code

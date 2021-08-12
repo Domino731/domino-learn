@@ -1,5 +1,6 @@
 import {TypeHtmlTaskSolution, TypeLSHtmlTaskSolutions} from "../types/types";
-import {TypeTaskTargets} from "../firebase/operations";
+import {IFTaskTargets} from "../types/types";
+
 const beautifyHtml = require('js-beautify').html
 export const getEditorFSize = (): number => {
     const fontSize = localStorage.getItem("editorFontSize")
@@ -65,7 +66,7 @@ export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], 
  * @param taskName - name of task
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
-export const getHtmlTaskTargetsFromLS = (saveDataCallback: (obj:any) => void, taskName : string, defaultValue: TypeTaskTargets[]) => {
+export const getHtmlTaskTargetsFromLS = (saveDataCallback: (obj:any) => void, taskName : string, defaultValue: IFTaskTargets[]) => {
     if (localStorage.getItem("htmlTasksSolutions") != null) {
 
         // @ts-ignore

@@ -15,10 +15,7 @@ import {
 import saturnPlanet from "../../images/planet_saturn.png";
 import colorfulPlanet from "../../images/planet_colorful.png"
 
-type TasksBoardProps = {
-    flag: boolean
-}
-export const TasksBoard: FunctionComponent<TasksBoardProps> = ({flag}): JSX.Element => {
+export const TasksBoard: FunctionComponent<{flag: boolean}> = ({flag}): JSX.Element => {
 
     return <TasksBoardContainer>
         {flag === false && <TasksBoardPosterContainer>

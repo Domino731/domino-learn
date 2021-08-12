@@ -1,24 +1,19 @@
-import {TasksSelectWrapper, TasksSelectIcon, TasksSelectFigure, TasksSelectTitle} from "../../style/elements/homePage/choseTask";
+import {
+    TasksSelectWrapper,
+    TasksSelectIcon,
+    TasksSelectFigure,
+    TasksSelectTitle
+} from "../../style/elements/homePage/choseTask";
 import {FunctionComponent} from "react";
+import {IFPropsTaskSelect} from "../../types/types";
 
-type TaskSelectProps = {
-    task: "htmlTasks" | "jsTasks" | "cssTasks"
-    chosenTask: string,
-    setTasks: (e: React.ChangeEvent<HTMLInputElement>) => void
-    language: {
-        getIconAlt: () => string,
-        getIconSrc: () => string,
-        getLanguageName: () => string,
-        getFigureSrc: () => string,
-        getFigureAlt: () => string,
-    }
-}
-export const TaskSelectSingle: FunctionComponent<TaskSelectProps> = ({
-                                                                         task,
-                                                                         chosenTask,
-                                                                         setTasks,
-                                                                         language
-                                                                     }): JSX.Element => {
+export const TaskSelectSingle: FunctionComponent<IFPropsTaskSelect> = ({
+                                                                           task,
+                                                                           chosenTask,
+                                                                           setTasks,
+                                                                           language
+                                                                       }): JSX.Element => {
+
     const changeTasks = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setTasks(e)
     }

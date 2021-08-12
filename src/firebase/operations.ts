@@ -1,35 +1,6 @@
 import {db} from "./firebaseIndex";
+import {IFAllTasks, IFTask} from "../types/types";
 
-
-export interface TypeTaskAid {
-    type: "video" | "article"
-    title: string
-    author?: string
-    link: string
-}
-
-export interface TypeTaskTargets {
-    target: string
-    solution: string
-    number: number
-    solved: null | boolean
-}
-
-export interface TypeTask {
-    title: string
-    introduction: string
-    targets: TypeTaskTargets[]
-    number: number
-    aid: TypeTaskAid[]
-    code: string
-}
-
-export interface TypeAllTasks {
-    title: string
-    introduction: string,
-    targets: string[]
-    number: number
-}
 
 
 /**
@@ -43,7 +14,7 @@ export const getTask = (tasks: "htmlTasks" | "jsTasks" | "cssTasks", taskNumber:
         .onSnapshot(querySnapshot => {
             let tasks: any = []
             querySnapshot.docs.map(doc => {
-                const task: TypeTask = {
+                const task: IFTask = {
                     title: doc.data().title,
                     introduction: doc.data().introduction,
                     targets: doc.data().targets,
@@ -67,7 +38,7 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks", success
         .onSnapshot(querySnapshot => {
             let tasks: any = []
             querySnapshot.docs.map(doc => {
-                const task: TypeAllTasks = {
+                const task: IFAllTasks = {
                     title: doc.data().title,
                     introduction: doc.data().introduction,
                     targets: doc.data().targets,

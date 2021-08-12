@@ -23,32 +23,20 @@ import {Link} from "react-router-dom";
 import plutoPlanet from "../../images/planet_pluto.png";
 import marsPlanet from "../../images/planet_mars.png";
 import planets from "../../images/planets.png";
+import {IFPropsHtmlTaskFooterProps} from "../../types/types";
 
-type HtmlTaskFooterProps = {
-    allTasks: {
-        title: string,
-        introduction: string,
-        targets: string[],
-        number: number
-    }[] | undefined,
-    taskNumber?: number | undefined
-}
 
-export const HtmlTaskFooter: FunctionComponent<HtmlTaskFooterProps> = ({allTasks, taskNumber}): JSX.Element | null => {
+export const HtmlTaskFooter: FunctionComponent<IFPropsHtmlTaskFooterProps> = ({allTasks, taskNumber}): JSX.Element  => {
 
     // state with flag, when user change this state(icon with list <HtmlFooterListBtn>), list with tasks will be showed
     const [flag, setFlag] = useState<boolean>(false)
 
     const handleChangeFlag = (): void => setFlag(!flag)
-    if (allTasks === undefined || taskNumber === undefined) {
-        return null
-    }
 
     return <HtmlFooter>
         <TaskFooterTitle href="/">
             DOMINO LEARN
         </TaskFooterTitle>
-
 
         <TaskFooterTaskNumber> {taskNumber} / {allTasks.length}</TaskFooterTaskNumber>
         <TaskFooterSwitchBar>
