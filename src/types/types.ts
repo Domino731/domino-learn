@@ -53,7 +53,11 @@ export interface IFPropsHtmlTaskContent {
         code: string
     },
 }
-export interface IFPropsHtmlTask extends RouteComponentProps<IFMatchParams> {
+
+export interface IFPropsCssTaskContent {
+    task: IFCssTask
+}
+export interface IFPropsTask extends RouteComponentProps<IFMatchParams> {
 }
 export type TypeHtmlTaskSolution = {
     target: string
@@ -76,13 +80,18 @@ export interface IFTaskTargets {
     solved: null | boolean
 }
 
-export interface IFTask {
+export interface IFHtmlTask {
     title: string
     introduction: string
     targets: IFTaskTargets[]
     number: number
     aid: IFTaskAid[]
     code: string
+}
+export interface IFCssTask {
+    title: string
+    number: number
+    introduction: number
 }
 
 export interface IFAllTasks {

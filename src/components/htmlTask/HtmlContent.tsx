@@ -200,10 +200,6 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
           </html>`
 
 
-    if (task === undefined) {
-        return null
-    }
-
     return <HtmlTaskContentWrapper>
 
         {successfulFlag === false && <>
@@ -288,7 +284,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
             />
             <CodeEditorPanel>
                 {editorFormFlag && <EditorSettingsWrapper>
-                    <EditorSettingsCloseIcon onClick={handleChangeEditorFormFlag}><i
+                    <EditorSettingsCloseIcon onClick={() => setEditorFormFlag(!editorFormFlag)}><i
                         className="far fa-window-close"/></EditorSettingsCloseIcon>
                     <EditorSettingsLabel>
                         Change font size
@@ -352,7 +348,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
                     </EditorSettingsThemesWrapper>
                 </EditorSettingsWrapper>}
 
-                <CodeEditorPanelBtn onClick={handleChangeEditorFormFlag}><i
+                <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
                     className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
                 <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
                 <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>

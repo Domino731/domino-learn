@@ -1,20 +1,19 @@
 import {db} from "./firebaseIndex";
-import {IFAllTasks, IFTask} from "../types/types";
+import {IFAllTasks, IFCssTask, IFHtmlTask} from "../types/types";
 
 
 
 /**
- * fetch specific task
- * @param tasks  - tasks that you want to get - css, html, js
+ * fetch html specific task
  * @param taskNumber  - number of task
- * @param successCallback - function that saved incoming data to component state
+ * @param saveDataCallback - function that saved incoming data to component state
  */
-export const getTask = (tasks: "htmlTasks" | "jsTasks" | "cssTasks", taskNumber: number, successCallback: (obj: any) => void) => {
-    db.collection(tasks)
+export const getHtmlTask = (taskNumber: number, saveDataCallback: (obj: any) => void) => {
+    db.collection("htmlTasks")
         .onSnapshot(querySnapshot => {
             let tasks: any = []
             querySnapshot.docs.map(doc => {
-                const task: IFTask = {
+                const task: IFHtmlTask = {
                     title: doc.data().title,
                     introduction: doc.data().introduction,
                     targets: doc.data().targets,
@@ -24,16 +23,37 @@ export const getTask = (tasks: "htmlTasks" | "jsTasks" | "cssTasks", taskNumber:
                 }
                 return tasks.push(task)
             });
-            successCallback(tasks[taskNumber - 1])
+            saveDataCallback(tasks[taskNumber - 1])
+        })
+}
+
+/**
+ * fetch css specific task
+ * @param taskNumber  - number of task
+ * @param saveDataCallback - function that saved incoming data to component state
+ */
+export const getCssTask = (taskNumber: number, saveDataCallback: (obj: any) => void) => {
+    db.collection("cssTasks")
+        .onSnapshot(querySnapshot => {
+            let tasks: any = []
+            querySnapshot.docs.map(doc => {
+                const task: IFCssTask = {
+                    title: doc.data().title,
+                    number: doc.data().number,
+                    introduction: doc.data().introduction
+                }
+                return tasks.push(task)
+            });
+           saveDataCallback(tasks[taskNumber - 1])
         })
 }
 
 /**
  * fetch all tasks
  * @param tasks  - tasks that you want to get - css, html, js
- * @param successCallback - function that saved incoming data to component state
+ * @param saveDataCallback - function that saved incoming data to component state
  */
-export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks", successCallback: (obj: any) => void) => {
+export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks", saveDataCallback: (obj: any) => void) => {
     db.collection(tasks)
         .onSnapshot(querySnapshot => {
             let tasks: any = []
@@ -46,6 +66,6 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks", success
                 }
                 return tasks.push(task)
             });
-            successCallback(tasks)
+            saveDataCallback(tasks)
         })
 }

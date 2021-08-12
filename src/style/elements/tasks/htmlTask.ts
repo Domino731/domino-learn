@@ -9,6 +9,12 @@ import {
 
 export const HtmlTaskContainer = styled.div`
   width: 100%;
+  code {
+    display: inline-block;
+    padding: 0 3px;
+    border-radius: 4px;
+    background: ${props => props.theme.color.white};
+  }
 `
 export const HtmlTaskContentWrapper = styled.main`
   display: grid;
@@ -16,14 +22,6 @@ export const HtmlTaskContentWrapper = styled.main`
   grid-template-rows: repeat(2, 1fr);
   height: 100vh;
   width: 100%;
-  overflow: hidden;
-
-  code {
-    display: inline-block;
-    padding: 0 3px;
-    border-radius: 4px;
-    background: ${props => props.theme.color.white};
-  }
 `
 export const HtmlTaskIntroduction = styled.div`
   grid-column: 1 / 1;

@@ -1,22 +1,33 @@
 import styled, {keyframes} from "styled-components";
 
+export const TaskContainer = styled.div`
+  width: 100%;
+
+  code {
+    display: inline-block;
+    padding: 0 3px;
+    border-radius: 4px;
+    background: ${props => props.theme.color.white};
+  }
+`
 export const TaskSuccessfulImg = styled.img`
   width: 60%;
   height: auto;
 `
 export const TaskSuccessfulTitle = styled.h2`
-margin-top: 10px;
+  margin-top: 10px;
   padding: 10px 0;
   color: ${props => props.theme.color.white};
   font-size: 44px;
   text-align: center;
   background: ${props => props.theme.color.gray};
 `
-export const  TaskSuccessfulBar = styled.div`
+export const TaskSuccessfulBar = styled.div`
   width: 100%;
   background: #f15bb5;
   display: flex;
-  a, button{
+
+  a, button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,14 +38,15 @@ export const  TaskSuccessfulBar = styled.div`
     color: ${props => props.theme.color.gray};
     font-weight: 600;
     transition: 0.1s;
-    &:hover{
+
+    &:hover {
       background: ${props => props.theme.color.gray};
       color: #f15bb5;
       transition: 0.1s;
       letter-spacing: 0.125rem;
     }
   }
-  
+
 `
 export const TaskHeader = styled.header`
   display: flex;
@@ -247,7 +259,45 @@ export const TaskIntroductionText = styled.div`
       border-radius: 4px;
       background: ${props => props.theme.color.white};
     }
+
   }
+
+  h3 {
+    font-weight: 700;
+    font-size: 1.313rem;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+    text-decoration-color: ${props => props.theme.color.blue};
+  }
+
+  ul, ol {
+    margin: 0.5rem 0.625rem;
+    li{
+      margin: 0.563rem 0;
+    }
+  }
+
+  ol {
+    margin:  0.5rem 2rem;
+    list-style-type: decimal;
+  }
+
+  ul {
+    
+    li {
+      &:before {
+        content: "";
+        display: inline-block;
+        width: 1.05rem;
+        height: 1.05rem;
+        border-radius: 0.8rem;
+        margin-right: 0.313rem;
+        background: ${props => props.theme.color.blue};
+      }
+    }
+
+  }
+
 `
 export const TaskTargetsWrapper = styled.div`
   padding-top: 12px;

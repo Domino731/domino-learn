@@ -1,25 +1,21 @@
 import {FunctionComponent, useEffect, useState} from "react";
-import {HtmlTaskContainer} from "../../style/elements/tasks/htmlTask";
+import {TaskContainer} from "../../style/elements/tasks/task";
 import {HtmlTaskFooter} from "./HtmlTaskFooter";
 import {HtmlTaskContent} from "./HtmlContent";
-import {getAllTasks, getTask} from "../../firebase/operations";
+import {getAllTasks, getHtmlTask} from "../../firebase/operations";
+import {IFAllTasks, IFPropsTask, IFHtmlTask} from "../../types/types";
 
-import {IFAllTasks, IFPropsHtmlTask, IFTask} from "../../types/types";
-
-
-
-
-
-export const HtmlTask: FunctionComponent<IFPropsHtmlTask> = (props): JSX.Element => {
+export const HtmlTask: FunctionComponent<IFPropsTask> = (props): JSX.Element => {
 
     // state with task information -> introduction, target, solution..
-    const [task, setTask] = useState<IFTask | null>(null)
+    const [task, setTask] = useState<IFHtmlTask | null>(null)
 
     //state with all tasks
     const [allTasks, setAllTasks] = useState<IFAllTasks[] | null >(null)
 
+    // when component mounted fetch information about task and save upcoming data into states
     useEffect(() => {
-        getTask("htmlTasks", parseFloat(props.match.params.taskNumber), setTask)
+        getHtmlTask( parseFloat(props.match.params.taskNumber), setTask)
         getAllTasks("htmlTasks", setAllTasks)
     }, [props.match.params.taskNumber])
 
@@ -27,8 +23,8 @@ export const HtmlTask: FunctionComponent<IFPropsHtmlTask> = (props): JSX.Element
         return <h1>Loading...</h1>
     }
 
-    return <HtmlTaskContainer>
+    return <TaskContainer>
         <HtmlTaskContent task={task}/>
         <HtmlTaskFooter taskNumber={task.number} allTasks={allTasks}/>
-    </HtmlTaskContainer>
+    </TaskContainer>
 }
