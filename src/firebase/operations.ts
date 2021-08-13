@@ -45,14 +45,18 @@ export const getCssTask = (taskNumber: number, saveDataCallback: (obj: IFCssTask
                     targets: doc.data().targets,
                     code: {
                         html: beautifyHtml(doc.data().code.html, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}),
-                        css: beautifyCss(doc.data().code.css, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}),
+                            css: beautifyCss(doc.data().code.css, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}),
                     }
                 }
-
                 return tasks.push(task)
             });
-            console.log(tasks);
-            saveDataCallback(tasks[taskNumber - 1])
+            const specficTask = tasks.filter(el => {
+                if(el.number === taskNumber){
+                    return el
+                }
+            })
+            console.log(specficTask[0]);
+            saveDataCallback(specficTask[0])
         })
 }
 

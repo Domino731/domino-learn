@@ -132,9 +132,12 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
 
         // user points
         let pointsUser: number = 0;
+
+        // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
+        // depending by task is solved correctly or not (checkboxes in task targets list will change their colors).
+        // some task targets could require changes in html code
          taskTargets.map(el => {
             if(el.type === "html"){
-                console.log(el)
                 // @ts-ignore
                 return taskValidationHtml(userCode.html, el, taskTargets, pointsUser, setTaskTargets)
             }
