@@ -1,4 +1,5 @@
 import {RouteComponentProps} from "react-router";
+
 //// general ////
 
 interface IFMatchParams {
@@ -43,6 +44,7 @@ export interface IFPropsHtmlTaskFooterProps {
     }[]
     taskNumber: number
 }
+
 export interface IFPropsHtmlTaskContent {
     task: {
         title: string,
@@ -57,8 +59,10 @@ export interface IFPropsHtmlTaskContent {
 export interface IFPropsCssTaskContent {
     task: IFCssTask
 }
+
 export interface IFPropsTask extends RouteComponentProps<IFMatchParams> {
 }
+
 export type TypeHtmlTaskSolution = {
     target: string
     solution: string
@@ -88,11 +92,30 @@ export interface IFHtmlTask {
     aid: IFTaskAid[]
     code: string
 }
+
+export interface IFCssTaskTargetCss {
+    type: "css"
+    selector: string
+    declarations: string[]
+    number: number
+    solved: null | boolean
+    target: string
+}
+
+export interface IfCssTaskTargetHtml {
+    type: "html"
+    target: string
+    solution: string
+    number: number
+    solved: null | boolean
+}
+
 export interface IFCssTask {
     title: string
     number: number
     introduction: number
-    aid: IFTaskAid[]
+    aid: IFTaskAid[],
+    targets: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []
 }
 
 export interface IFAllTasks {

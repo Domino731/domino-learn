@@ -40,7 +40,8 @@ export const getCssTask = (taskNumber: number, saveDataCallback: (obj: any) => v
                     title: doc.data().title,
                     number: doc.data().number,
                     introduction: doc.data().introduction,
-                    aid: doc.data().aid
+                    aid: doc.data().aid,
+                    targets: doc.data().targets
                 }
                 return tasks.push(task)
             });

@@ -11,7 +11,7 @@ import 'ace-builds/src-noconflict/theme-terminal'
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
-import {FunctionComponent, useState} from "react";
+import {FunctionComponent, useEffect, useState} from "react";
 import {
     CssTaskContentWrapper,
     CssResult,
@@ -40,10 +40,16 @@ import {
     WebBrowserTopBar,
     WebBrowserGreenBox,
     WebBrowserYellowBox,
-    WebBrowserRedBox, ChangeEditorCheckbox
+    WebBrowserRedBox,
+    ChangeEditorCheckbox,
+    TaskTargetsWrapper,
+    TaskTarget,
+    TaskTargetCheckbox,
+    TaskTargetNumber,
+    TaskTargetText
 } from "../../style/elements/tasks/task";
 import {cssClass} from "../../properties/cssClass";
-import {IFPropsCssTaskContent} from "../../types/types";
+import {IFCssTaskTargetCss, IfCssTaskTargetHtml, IFPropsCssTaskContent, IFTaskTargets} from "../../types/types";
 import {TaskAid} from "../task/TaskAid";
 import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
 import AceEditor from "react-ace";
@@ -54,13 +60,8 @@ const beautify = require('js-beautify').html
 export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task}): JSX.Element => {
 
     // state with css code
-    const [userCodeCss, setUserCodeCss] = useState<string>("")
+    const [userCode, setUserCode] = useState<{html:string, css: string}>({html:"", css: ""})
 
-    // state with html code
-    const [userCodeHtml, setUserCodeHtml] = useState<string>("")
-
-    // state with final code
-    const [resultCode, setResultCode] = useState<{html:string, css: string}>({html:"", css: ""})
     // state with flag, when user change it, editor settings form will be showed
     const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
 
@@ -73,6 +74,22 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
     // state with editor font size from localStorage
     const [editorFs, setEditorFs] = useState<number>(getEditorFSize)
 
+    const [taskTargets, setTaskTargets] = useState<(IFCssTaskTargetCss |  IfCssTaskTargetHtml) []>(task.targets)
+
+
+    const x =(newValue: string) : void => {
+        setUserCode(prev => ({
+            ...prev,
+            html: newValue
+        }))
+    }
+
+    const y =(newValue: string) : void => {
+        setUserCode(prev => ({
+            ...prev,
+            css: newValue
+        }))
+    }
     // change editor font-size
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value))
 
@@ -82,23 +99,18 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
     // switch between code editors - css and html
     const handleSwitchEditor = (): void => setCurrentEditor(() => currentEditor === "css" ? "html" : "css")
 
-    // change user css code
-    const changeUserCodeCSS = (newValue: string): void => {
-        setUserCodeCss(beautify(newValue, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}))
-        console.log(userCodeCss);
-    }
 
-    // change user css code
-    const changeUserCodeHTML = (newValue: string): void => {
-     setUserCodeHtml(beautify(newValue, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}))
-        console.log(userCodeHtml);
+    const cssTaskValidation = () => {
+        console.log(task.targets)
     }
 
     // task validation
     const checkTask = () => {
-        setUserCodeCss(beautify(userCodeCss, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}))
-        setUserCodeHtml(beautify(userCodeHtml, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}))
-        setResultCode({css: userCodeCss, html: userCodeHtml})
+           setUserCode({
+               html: beautify(userCode.html, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}),
+               css: beautify(userCode.css, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}),
+           })
+           cssTaskValidation()
     }
     // code
     const srcDoc = `
@@ -107,10 +119,11 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
           <head>
           <title>${task.title}</title>
           <style>
-          ${resultCode.css}
+          ${userCode.css}
           </style></head>
-          <body>${resultCode.html}</body>
+          <body>${userCode.html}</body>
           </html>`
+
 
 
     return <CssTaskContentWrapper>
@@ -149,12 +162,12 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
                     enableBasicAutocompletion={true}
                     enableLiveAutocompletion={true}
                     enableSnippets={true}
-                    onChange={changeUserCodeCSS}
+                    onChange={y}
                     mode="css"
                     theme={editorTheme}
                     width="100%"
                     height="100%"
-                    value={userCodeCss}
+                    value={userCode.css}
                     fontSize={editorFs}
                     showPrintMargin={true}
                     showGutter={true}
@@ -171,12 +184,12 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
                     enableBasicAutocompletion={true}
                     enableLiveAutocompletion={true}
                     enableSnippets={true}
-                    onChange={changeUserCodeHTML}
+                    onChange={x}
                     mode="html"
                     theme={editorTheme}
                     width="100%"
                     height="100%"
-                    value={userCodeHtml}
+                    value={userCode.html}
                     fontSize={editorFs}
                     showPrintMargin={true}
                     showGutter={true}
@@ -280,14 +293,28 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
         </CssIntroduction>
 
         < CssTarget>
+            {/*task targets list*/}
             <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
+            <TaskTargetsWrapper>
+                {taskTargets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
+
+                    {el.solved === null && <TaskTargetCheckbox backgroundColor={"#e5e3f1"}/>}
+                    {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
+                        className="fas fa-times"/></TaskTargetCheckbox>}
+                    {el.solved === true &&
+                    <TaskTargetCheckbox backgroundColor={"#75D701"}><i className="fas fa-check"/></TaskTargetCheckbox>}
+                    <TaskTargetNumber>{el.number}. </TaskTargetNumber>
+                    <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
+                </TaskTarget>)}
+            </TaskTargetsWrapper>
+
             <TaskAidsWrapper>
                 <TaskAidsTitle>Task aids</TaskAidsTitle>
                 <TaskAidsList>
                     {task.aid.map((el, num) => <TaskAid aid={el} key={`${task.title}_taskAid_${num}`}/>)}
-
                 </TaskAidsList>
             </TaskAidsWrapper>
+            <img src="" alt=""/>
         </CssTarget>
 
     </CssTaskContentWrapper>
