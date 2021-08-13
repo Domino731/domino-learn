@@ -48,8 +48,10 @@ export const getCssTask = (taskNumber: number, saveDataCallback: (obj: IFCssTask
                         css: beautifyCss(doc.data().code.css, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}),
                     }
                 }
+
                 return tasks.push(task)
             });
+            console.log(tasks);
             saveDataCallback(tasks[taskNumber - 1])
         })
 }

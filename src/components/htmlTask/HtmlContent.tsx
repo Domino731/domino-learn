@@ -6,7 +6,7 @@ import {
     HtmlTaskCodeEditor,
     HtmlTaskResult,
     HtmlDecorationIntroduction,
-   HtmlTaskSuccessful
+    HtmlTaskSuccessful
 } from "../../style/elements/tasks/htmlTask";
 import {
     TaskIntroductionBar,
@@ -34,7 +34,7 @@ import {
     TaskTargetNumber,
     TaskSuccessfulImg,
     TaskSuccessfulBar,
-   TaskSuccessfulTitle,
+    TaskSuccessfulTitle,
 } from "../../style/elements/tasks/task";
 import {htmlClass} from "../../properties/htmlClass";
 import AceEditor from "react-ace"
@@ -60,6 +60,7 @@ import {
 import {TaskAid} from "../task/TaskAid";
 import {Link} from "react-router-dom";
 import {IFPropsHtmlTaskContent, IFTaskTargets} from "../../types/types";
+import {taskValidationHtml} from "../../functions/taskValidationHtml";
 
 const beautify = require('js-beautify').html
 
@@ -85,6 +86,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
 
     // state with flag, which is responsible for animating when the user correctly completes the tasks
     const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
+
 
     // check if the user hasn't already solved the task, if he  has solved it,
     // get it from local storage and if not, return the default value (task.targets)
@@ -112,61 +114,21 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
 
         // points needed to pass
         const pointsNeeded: number = task.targets.length
+        let userPoints = 0
 
-        // user points
-        let pointsUser: number = 0;
-        // string from which the solution will be extracted
-        const code = userCode
+        const changeUserPoints = () : number => userPoints++
 
         // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
         // depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
-        taskTargets.map(el => {
-            // locations of comments based on which it will be possible to get user solution
-            const startPoint: number = code.indexOf(`<-- Place your code for task ${el.number} below -->`)
-            const endPoint: number = code.indexOf(`<--${el.number}-->`)
-
-            // user solution with lower case (without task comments and spaces)
-            const userSolution = code
-                .substring(startPoint, endPoint)
-                .replace(`<-- Place your code for task ${el.number} below -->`, "")
-                .replace(/\s/g, '')
-                .toLowerCase()
-
-            // task solution with lower case (without task comments and spaces)
-            const taskSolution = el.solution.replace(/\s/g, '').toLowerCase()
-
-
-            // variables needed to swap the object in the state
-            let updatedTargets = taskTargets
-            let updatedTarget = el
-
-            // change taskTargets state to inform user what he did correctly and what he did wrong -> checkboxes
-            // in task targets list will change their color
-            // if correctly
-            if (taskSolution === userSolution) {
-                // add point
-                pointsUser++;
-                // change checkbox
-                updatedTarget.solved = true
-                updatedTargets[el.number - 1] = updatedTarget
-                setTaskTargets(updatedTargets)
-            }
-            // if incorrectly
-            else {
-                // change checkbox
-                updatedTarget.solved = false
-                updatedTargets[el.number - 1] = updatedTarget
-                setTaskTargets(updatedTargets)
-            }
-        })
+        taskTargets.map(el => taskValidationHtml(userCode, el, taskTargets, changeUserPoints, setTaskTargets))
 
         // save solution into local storage, so when user comes back he will have their solution
         saveHtmlTaskSolutionToLS(taskTargets, task.title, userCode)
-        // check if user has executed all targets, if he did display animation
-        if (pointsUser === pointsNeeded) {
-         setSuccessfulFlag(true)
-        }
 
+        // check if user has executed all targets, if he did display animation
+        if (userPoints === pointsNeeded) {
+            setSuccessfulFlag(true)
+        }
     }
 
 
@@ -225,7 +187,8 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
                         {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
                             className="fas fa-times"/></TaskTargetCheckbox>}
                         {el.solved === true &&
-                        <TaskTargetCheckbox backgroundColor={"#75D701"}><i className="fas fa-check"/></TaskTargetCheckbox>}
+                        <TaskTargetCheckbox backgroundColor={"#75D701"}><i
+                            className="fas fa-check"/></TaskTargetCheckbox>}
                         <TaskTargetNumber>{el.number}. </TaskTargetNumber>
                         <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
                     </TaskTarget>)}

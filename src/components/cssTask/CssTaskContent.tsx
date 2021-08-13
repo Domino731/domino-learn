@@ -55,6 +55,7 @@ import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
 import AceEditor from "react-ace";
 import 'ace-builds/src-noconflict/mode-css'
 import 'ace-builds/src-noconflict/mode-html'
+import {taskValidationHtml} from "../../functions/taskValidationHtml";
 
 const beautify = require('js-beautify').html
 export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task}): JSX.Element => {
@@ -117,17 +118,31 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
             }))
         }
     }
-    const cssTaskValidation = () => {
-        console.log(task.targets)
-    }
 
     // task validation
     const checkTask = () => {
+
         setResultCode({
             html: userCode.html,
             css: userCode.css
         })
-        cssTaskValidation()
+
+        // points needed to pass
+        const pointsNeeded: number = task.targets.length
+
+        // user points
+        let pointsUser: number = 0;
+         taskTargets.map(el => {
+            if(el.type === "html"){
+                console.log(el)
+                // @ts-ignore
+                return taskValidationHtml(userCode.html, el, taskTargets, pointsUser, setTaskTargets)
+            }
+            else{
+                console.log(`inny`)
+                console.log(el);
+            }
+        })
     }
     // code
     const srcDoc = `
