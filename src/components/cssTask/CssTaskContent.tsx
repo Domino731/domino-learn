@@ -60,7 +60,10 @@ const beautify = require('js-beautify').html
 export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task}): JSX.Element => {
 
     // state with css code
-    const [userCode, setUserCode] = useState<{html:string, css: string}>({html:"", css: ""})
+    const [userCode, setUserCode] = useState<{ html: string, css: string }>({html: task.code.html, css: task.code.css})
+
+    // state with result code, which is display in iFrame
+    const [resultCode, setResultCode] = useState<{ html: string, css: string}>({html: "", css: ""})
 
     // state with flag, when user change it, editor settings form will be showed
     const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
@@ -74,17 +77,17 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
     // state with editor font size from localStorage
     const [editorFs, setEditorFs] = useState<number>(getEditorFSize)
 
-    const [taskTargets, setTaskTargets] = useState<(IFCssTaskTargetCss |  IfCssTaskTargetHtml) []>(task.targets)
+    const [taskTargets, setTaskTargets] = useState<(IFCssTaskTargetCss | IfCssTaskTargetHtml) []>(task.targets)
 
 
-    const x =(newValue: string) : void => {
+    const changeUserCodeHtml = (newValue: string): void => {
         setUserCode(prev => ({
             ...prev,
             html: newValue
         }))
     }
 
-    const y =(newValue: string) : void => {
+    const changeUserCodeCss = (newValue: string): void => {
         setUserCode(prev => ({
             ...prev,
             css: newValue
@@ -99,18 +102,32 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
     // switch between code editors - css and html
     const handleSwitchEditor = (): void => setCurrentEditor(() => currentEditor === "css" ? "html" : "css")
 
-
+    // reset code to original
+    const handleResetCode = () : void => {
+        if(currentEditor === "css"){
+            setUserCode(prev => ({
+                ...prev,
+                css: task.code.css
+            }))
+        }
+        else{
+            setUserCode(prev => ({
+                ...prev,
+                html: task.code.html
+            }))
+        }
+    }
     const cssTaskValidation = () => {
         console.log(task.targets)
     }
 
     // task validation
     const checkTask = () => {
-           setUserCode({
-               html: beautify(userCode.html, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}),
-               css: beautify(userCode.css, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}),
-           })
-           cssTaskValidation()
+        setResultCode({
+            html: userCode.html,
+            css: userCode.css
+        })
+        cssTaskValidation()
     }
     // code
     const srcDoc = `
@@ -119,11 +136,10 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
           <head>
           <title>${task.title}</title>
           <style>
-          ${userCode.css}
+          ${resultCode.css}
           </style></head>
-          <body>${userCode.html}</body>
+          <body>${resultCode.html}</body>
           </html>`
-
 
 
     return <CssTaskContentWrapper>
@@ -162,7 +178,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
                     enableBasicAutocompletion={true}
                     enableLiveAutocompletion={true}
                     enableSnippets={true}
-                    onChange={y}
+                    onChange={changeUserCodeCss}
                     mode="css"
                     theme={editorTheme}
                     width="100%"
@@ -184,7 +200,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
                     enableBasicAutocompletion={true}
                     enableLiveAutocompletion={true}
                     enableSnippets={true}
-                    onChange={x}
+                    onChange={changeUserCodeHtml}
                     mode="html"
                     theme={editorTheme}
                     width="100%"
@@ -273,7 +289,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
 
                 <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
                     className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
-                <CodeEditorPanelBtn><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
+                <CodeEditorPanelBtn onClick={handleResetCode }><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
                 <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
             </CodeEditorPanel>
         </CssCodeEditorWrapper>

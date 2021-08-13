@@ -115,6 +115,10 @@ export interface IFCssTask {
     number: number
     introduction: number
     aid: IFTaskAid[],
+    code: {
+        html: string
+        css: string
+    }
     targets: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []
 }
 
