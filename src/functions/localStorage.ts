@@ -35,11 +35,11 @@ export const getEditorTheme = (): string => {
  * @param taskName - task name for solutions, is needed after to download specific solutions for task
  * @param userCode - code with solution, when user comes back he will have this code
  */
-export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], taskName: string, userCode: string): void => {
+export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], taskTitle: string, userCode: string): void => {
     // object with task name, solutions, code
     const taskObj: TypeLSHtmlTaskSolutions = {
-        taskName,
-        userCode, taskSolutions
+        title: taskTitle,
+        code: userCode, taskSolutions
     }
 
     // save solution into local storage
@@ -52,7 +52,7 @@ export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], 
 
         //prevention of duplicates
         localStorageData.forEach(el => {
-            if (el.taskName !== taskName) {
+            if (el.title !== taskTitle) {
                 updatedLocalStorageData.push(el)
             }
         })
@@ -103,13 +103,13 @@ export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfC
  * @param taskName - name of task
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
-export const getHtmlTaskTargetsFromLS = (saveDataCallback: (obj: any) => void, taskName: string, defaultValue: IFTaskTargets[]) => {
+export const getHtmlTaskTargetsFromLS = (saveDataCallback: (obj: IFTaskTargets[]) => void, taskName: string, defaultValue: IFTaskTargets[]) => {
     if (localStorage.getItem("htmlTasksSolutions") != null) {
 
         // @ts-ignore
         let localStorageData: TypeLSHtmlTaskSolutions[] = JSON.parse(localStorage.getItem("htmlTasksSolutions"));
 
-        const taskTargets = localStorageData.filter(el => el.taskName === taskName)
+        const taskTargets  = localStorageData.filter(el => el.title === taskName)
         taskTargets.length !== 0 ? saveDataCallback(taskTargets[0].taskSolutions) : saveDataCallback(defaultValue)
     }
 }
@@ -125,9 +125,9 @@ export const getHtmlTaskCodeFromLS = (saveDataCallback: (obj: any) => void, task
         // @ts-ignore
         let localStorageData: TypeLSHtmlTaskSolutions[] = JSON.parse(localStorage.getItem("htmlTasksSolutions"));
 
-        const taskSolutionCode = localStorageData.filter(el => el.taskName === taskName)
+        const taskSolutionCode = localStorageData.filter(el => el.title === taskName)
         if (taskSolutionCode.length !== 0) {
-            saveDataCallback(beautifyHtml(taskSolutionCode[0].userCode, {
+            saveDataCallback(beautifyHtml(taskSolutionCode[0].code, {
                 indent_size: 1,
                 space_in_empty_paren: false,
                 wrap_line_length: 50

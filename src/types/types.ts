@@ -138,8 +138,8 @@ export interface IFAllTasks {
 // localStorage
 export type TypeLSHtmlTaskSolutions = {
     taskSolutions: TypeHtmlTaskSolution[]
-    taskName: string,
-    userCode: string
+    title: string,
+    code: string
 }
 
 export interface  IFLSCssTaskSolutions {
