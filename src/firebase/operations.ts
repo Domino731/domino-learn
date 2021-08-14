@@ -24,12 +24,17 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
                 }
                 return tasks.push(task)
             });
-            saveDataCallback(tasks[taskNumber - 1])
+            const specficTask = tasks.filter(el => {
+                if(el.number === taskNumber){
+                    return el
+                }
+            })
+            saveDataCallback(specficTask[0])
         })
 }
 
 export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: IFCssTask) => void) => {
-    db.collection("htmlTasks")
+    db.collection("cssTasks")
         .onSnapshot(querySnapshot => {
             let tasks: IFCssTask[] = []
             querySnapshot.docs.map(doc => {
@@ -46,7 +51,12 @@ export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: 
                 }
                 return tasks.push(task)
             });
-            saveDataCallback(tasks[taskNumber - 1])
+            const specficTask = tasks.filter(el => {
+                if(el.number === taskNumber){
+                    return el
+                }
+            })
+            saveDataCallback(specficTask[0])
         })
 }
 /**

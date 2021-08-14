@@ -139,5 +139,11 @@ export interface IFAllTasks {
 export type TypeLSHtmlTaskSolutions = {
     taskSolutions: TypeHtmlTaskSolution[]
     taskName: string,
-    taskCode: string
+    userCode: string
+}
+
+export interface  IFLSCssTaskSolutions {
+    taskSolutions: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []
+    taskName: string,
+    userCode: { html: string, css: string }
 }

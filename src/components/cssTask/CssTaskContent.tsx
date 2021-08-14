@@ -11,7 +11,7 @@ import 'ace-builds/src-noconflict/theme-terminal'
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
-import {FunctionComponent, useEffect, useState} from "react";
+import {FunctionComponent, useState} from "react";
 import {
     CssTaskContentWrapper,
     CssResult,
@@ -51,7 +51,12 @@ import {
 import {cssClass} from "../../properties/cssClass";
 import {IFCssTaskTargetCss, IfCssTaskTargetHtml, IFPropsCssTaskContent, IFTaskTargets} from "../../types/types";
 import {TaskAid} from "../task/TaskAid";
-import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
+import {
+    getEditorFSize,
+    getEditorTheme,
+    saveCssTaskSolutionToLS,
+    saveHtmlTaskSolutionToLS
+} from "../../functions/localStorage";
 import AceEditor from "react-ace";
 import 'ace-builds/src-noconflict/mode-css'
 import 'ace-builds/src-noconflict/mode-html'
@@ -150,10 +155,16 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             }
         })
 
+        // check if user has executed all targets, if he did display animation
         if(userPoints === pointsNeeded){
             setSuccessfulFlag(true)
         }
+        else{
+            setSuccessfulFlag(false)
+        }
 
+        // save solution into local storage, so when user comes back he will have their solution
+        saveCssTaskSolutionToLS(taskTargets, task.title, userCode)
     }
     // code
     const srcDoc = `
