@@ -2,7 +2,7 @@ import {FunctionComponent, useEffect, useState} from "react";
 import {TaskContainer} from "../../style/elements/tasks/task";
 import {HtmlTaskFooter} from "./HtmlTaskFooter";
 import {HtmlTaskContent} from "./HtmlContent";
-import {getAllTasks, getHtmlTask} from "../../firebase/operations";
+import {getAllTasks, getSpecificHtmlTask} from "../../firebase/operations";
 import {IFAllTasks, IFPropsTask, IFHtmlTask} from "../../types/types";
 
 export const HtmlTask: FunctionComponent<IFPropsTask> = (props): JSX.Element => {
@@ -15,7 +15,7 @@ export const HtmlTask: FunctionComponent<IFPropsTask> = (props): JSX.Element => 
 
     // when component mounted fetch information about task and save upcoming data into states
     useEffect(() => {
-        getHtmlTask( parseFloat(props.match.params.taskNumber), setTask)
+        getSpecificHtmlTask(parseFloat(props.match.params.taskNumber), setTask)
         getAllTasks("htmlTasks", setAllTasks)
     }, [props.match.params.taskNumber])
 

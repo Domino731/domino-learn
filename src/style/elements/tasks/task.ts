@@ -580,7 +580,7 @@ export const TaskAidsList = styled.div`
 
 const TaskAidItem = styled.a`
   display: flex;
-  width: 536px;
+  width: 100%;
   height: 88px;
   border-radius: 7px;
   overflow: hidden;

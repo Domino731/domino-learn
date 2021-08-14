@@ -86,14 +86,6 @@ export interface IFTaskTargets {
     solved: null | boolean
 }
 
-export interface IFHtmlTask {
-    title: string
-    introduction: string
-    targets: IFTaskTargets[]
-    number: number
-    aid: IFTaskAid[]
-    code: string
-}
 
 export interface IFCssTaskTargetCss {
     type: "css"
@@ -114,8 +106,8 @@ export interface IfCssTaskTargetHtml {
 
 export interface IFCssTask {
     title: string
-    number: number
     introduction: number
+    number: number
     aid: IFTaskAid[],
     code: {
         html: string
@@ -123,6 +115,18 @@ export interface IFCssTask {
     }
     targets: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []
 }
+
+export interface IFHtmlTask {
+    title: string
+    introduction: string
+    number: number
+    aid: IFTaskAid[]
+    code: string
+    targets: IFTaskTargets[]
+
+}
+
+
 
 export interface IFAllTasks {
     title: string

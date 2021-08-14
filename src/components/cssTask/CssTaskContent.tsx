@@ -11,7 +11,7 @@ import 'ace-builds/src-noconflict/theme-terminal'
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
-import {FunctionComponent, useState} from "react";
+import {FunctionComponent, useEffect, useState} from "react";
 import {
     CssTaskContentWrapper,
     CssResult,
@@ -58,11 +58,11 @@ import 'ace-builds/src-noconflict/mode-html'
 import {taskValidationHtml} from "../../functions/taskValidationHtml";
 import {taskValidationCss} from "../../functions/taskValidationCss";
 import {Link} from "react-router-dom";
-
 export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, allTaskLength}): JSX.Element => {
 
     // state with css code
-    const [userCode, setUserCode] = useState<{ html: string, css: string }>({html: task.code.html, css: task.code.css})
+    //const [userCode, setUserCode] = useState<{ html: string, css: string }>({html: task.code.html, css: task.code.css})
+    const [userCode, setUserCode] = useState<{ html: string, css: string }>({html: "", css: ""})
 
     // state with result code, which is display in iFrame
     const [resultCode, setResultCode] = useState<{ html: string, css: string }>({html: "", css: ""})
@@ -83,7 +83,6 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // state with flag, which is responsible for animation when the user correctly completes the task targets
     const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
-
 
     const changeUserCodeHtml = (newValue: string): void => {
         setUserCode(prev => ({
