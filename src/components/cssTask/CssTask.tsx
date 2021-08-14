@@ -23,6 +23,6 @@ export const CssTask : FunctionComponent<IFPropsTask> = (props) : JSX.Element =>
         return <h1>Loading...</h1>
     }
     return  <TaskContainer>
-        <CssTaskContent task={task}/>
+        <CssTaskContent task={task} allTaskLength={allTasks.length}/>
     </TaskContainer>
 }

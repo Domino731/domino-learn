@@ -65,7 +65,7 @@ import {taskValidationHtml} from "../../functions/taskValidationHtml";
 const beautify = require('js-beautify').html
 
 
-export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task}): JSX.Element | null => {
+export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task, allTaskLength}): JSX.Element | null => {
 
     // state with userCode from editor output
     const [userCode, setUserCode] = useState<string>("")
@@ -214,7 +214,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
             <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
             <TaskSuccessfulBar color="#ffca3a">
                 <button onClick={() => setSuccessfulFlag(false)}>Close</button>
-                <Link to={`/html-task/${task.number + 1}`}>Next task</Link>
+                { task.number < allTaskLength && <Link to={`/html-task/${task.number + 1}`}>Next task</Link>}
             </TaskSuccessfulBar>
         </HtmlTaskSuccessful>}
         {/*code editor - ace*/}

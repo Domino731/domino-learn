@@ -54,10 +54,12 @@ export interface IFPropsHtmlTaskContent {
         aid: IFTaskAid[],
         code: string
     },
+    allTaskLength: number
 }
 
 export interface IFPropsCssTaskContent {
-    task: IFCssTask
+    task: IFCssTask,
+    allTaskLength: number
 }
 
 export interface IFPropsTask extends RouteComponentProps<IFMatchParams> {

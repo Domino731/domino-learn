@@ -59,13 +59,13 @@ import {taskValidationHtml} from "../../functions/taskValidationHtml";
 import {taskValidationCss} from "../../functions/taskValidationCss";
 import {Link} from "react-router-dom";
 
-export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task}): JSX.Element => {
+export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, allTaskLength}): JSX.Element => {
 
     // state with css code
     const [userCode, setUserCode] = useState<{ html: string, css: string }>({html: task.code.html, css: task.code.css})
 
     // state with result code, which is display in iFrame
-    const [resultCode, setResultCode] = useState<{ html: string, css: string}>({html: "", css: ""})
+    const [resultCode, setResultCode] = useState<{ html: string, css: string }>({html: "", css: ""})
 
     const [taskTargets, setTaskTargets] = useState<(IFCssTaskTargetCss | IfCssTaskTargetHtml) []>(task.targets)
 
@@ -83,8 +83,6 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
 
     // state with flag, which is responsible for animation when the user correctly completes the task targets
     const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
-
-
 
 
     const changeUserCodeHtml = (newValue: string): void => {
@@ -110,14 +108,13 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
     const handleSwitchEditor = (): void => setCurrentEditor(() => currentEditor === "css" ? "html" : "css")
 
     // reset code to original
-    const handleResetCode = () : void => {
-        if(currentEditor === "css"){
+    const handleResetCode = (): void => {
+        if (currentEditor === "css") {
             setUserCode(prev => ({
                 ...prev,
                 css: task.code.css
             }))
-        }
-        else{
+        } else {
             setUserCode(prev => ({
                 ...prev,
                 html: task.code.html
@@ -139,21 +136,24 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
         // user points
         let userPoints = 0
 
-        const changeUserPoints = () : number => userPoints++
-        // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
-        // depending by task is solved correctly or not (checkboxes in task targets list will change their colors).
-        // some task targets could require changes in html code
-         taskTargets.map(el => {
-             if(el.type === "css"){
-                 // @ts-ignore
-                 return taskValidationCss(userCode.css, el,changeUserPoints)
-             }
-            else if(el.type === "html"){
+        const changeUserPoints = (): number => userPoints++
+
+        // checking if each task solution is equal to the user's solution, at the end we set the updated state of taskTargets
+        // depending on whether the task was solved correctly or not, add point and change checkboxes.
+        // some task targets may require changes in html code
+        taskTargets.map(el => {
+            if (el.type === "css") {
+                // @ts-ignore
+                return taskValidationCss(userCode.css, el, changeUserPoints)
+            } else if (el.type === "html") {
                 // @ts-ignore
                 return taskValidationHtml(userCode.html, el, changeUserPoints)
             }
-
         })
+
+        if(userPoints === pointsNeeded){
+            setSuccessfulFlag(true)
+        }
 
     }
     // code
@@ -316,13 +316,13 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
 
                 <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
                     className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
-                <CodeEditorPanelBtn onClick={handleResetCode }><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
+                <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
                 <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
             </CodeEditorPanel>
         </CssCodeEditorWrapper>
 
 
-        {successfulFlag && <>
+        {successfulFlag === false && <>
             <CssIntroduction>
                 <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
                 <TaskIntroductionBar>
@@ -347,7 +347,8 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
                         {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
                             className="fas fa-times"/></TaskTargetCheckbox>}
                         {el.solved === true &&
-                        <TaskTargetCheckbox backgroundColor={"#75D701"}><i className="fas fa-check"/></TaskTargetCheckbox>}
+                        <TaskTargetCheckbox backgroundColor={"#75D701"}><i
+                            className="fas fa-check"/></TaskTargetCheckbox>}
                         <TaskTargetNumber>{el.number}. </TaskTargetNumber>
                         <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
                     </TaskTarget>)}
@@ -363,14 +364,14 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
             </CssTarget>
         </>}
 
-        {successfulFlag === false && <CssTaskSuccessful>
+        {successfulFlag && <CssTaskSuccessful>
             <TaskSuccessfulImg src={cssClass.getFigureSrc()} alt={cssClass.getFigureAlt()}/>
             <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
-            <TaskSuccessfulBar color="#f15bb5" >
+            <TaskSuccessfulBar color="#f15bb5">
                 <button onClick={() => setSuccessfulFlag(false)}>Close</button>
-                <Link to={`/html-task/${task.number + 1}`}>Next task</Link>
+                {task.number < allTaskLength  && <Link to={`/css-task/${task.number + 1}`}>Next task</Link>}
             </TaskSuccessfulBar>
-        </CssTaskSuccessful> }
+        </CssTaskSuccessful>}
 
     </CssTaskContentWrapper>
 }

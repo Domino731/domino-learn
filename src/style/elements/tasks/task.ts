@@ -29,13 +29,14 @@ export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
   width: 100%;
   background:  ${props => props.color};
   display: flex;
-
+  justify-content: center;
   a, button {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.938rem;
     width: 50%;
+    flex-grow: 1;
     border-radius: 0;
     padding: 5px 0;
     color: ${props => props.theme.color.gray};
