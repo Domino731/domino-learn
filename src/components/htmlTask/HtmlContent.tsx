@@ -84,7 +84,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
     // state with editor theme from localStorage
     const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme)
 
-    // state with flag, which is responsible for animating when the user correctly completes the tasks
+    // state with flag, which is responsible for animation when the user correctly completes the task targets
     const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
 
 
@@ -114,13 +114,15 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
 
         // points needed to pass
         const pointsNeeded: number = task.targets.length
+
+        // user points
         let userPoints = 0
 
         const changeUserPoints = () : number => userPoints++
 
-        // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
-        // depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
-        taskTargets.map(el => taskValidationHtml(userCode, el, taskTargets, changeUserPoints, setTaskTargets))
+        // // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
+        // // depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
+        taskTargets.map(el => taskValidationHtml(userCode, el, changeUserPoints))
 
         // save solution into local storage, so when user comes back he will have their solution
         saveHtmlTaskSolutionToLS(taskTargets, task.title, userCode)

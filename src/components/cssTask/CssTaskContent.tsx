@@ -56,6 +56,7 @@ import AceEditor from "react-ace";
 import 'ace-builds/src-noconflict/mode-css'
 import 'ace-builds/src-noconflict/mode-html'
 import {taskValidationHtml} from "../../functions/taskValidationHtml";
+import {taskValidationCss} from "../../functions/taskValidationCss";
 
 const beautify = require('js-beautify').html
 export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task}): JSX.Element => {
@@ -131,21 +132,24 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
         const pointsNeeded: number = task.targets.length
 
         // user points
-        let pointsUser: number = 0;
+        let userPoints = 0
 
+        const changeUserPoints = () : number => userPoints++
         // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
         // depending by task is solved correctly or not (checkboxes in task targets list will change their colors).
         // some task targets could require changes in html code
          taskTargets.map(el => {
-            if(el.type === "html"){
+             if(el.type === "css"){
+                 // @ts-ignore
+                 return taskValidationCss(userCode.css, el,changeUserPoints)
+             }
+            else if(el.type === "html"){
                 // @ts-ignore
-                return taskValidationHtml(userCode.html, el, taskTargets, pointsUser, setTaskTargets)
+                return taskValidationHtml(userCode.html, el, changeUserPoints)
             }
-            else{
-                console.log(`inny`)
-                console.log(el);
-            }
+
         })
+
     }
     // code
     const srcDoc = `
