@@ -9,6 +9,7 @@ import {
 
 export const HtmlTaskContainer = styled.div`
   width: 100%;
+
   code {
     display: inline-block;
     padding: 0 3px;
@@ -28,11 +29,13 @@ export const HtmlTaskIntroduction = styled.div`
   max-width: 100%;
   position: relative;
   overflow: auto;
-  &::-webkit-scrollbar{
+
+  &::-webkit-scrollbar {
     width: 7px;
     background: ${props => props.theme.color.gray};
   }
-  &::-webkit-scrollbar-thumb{
+
+  &::-webkit-scrollbar-thumb {
     border-radius: 2px;
     background: ${props => props.theme.color.blue};
   }
@@ -43,16 +46,38 @@ export const HtmlTaskTarget = styled.div`
   max-width: 100%;
   position: relative;
   overflow: auto;
-  &::-webkit-scrollbar{
+
+  &::-webkit-scrollbar {
     width: 7px;
     background: ${props => props.theme.color.gray};
   }
-  &::-webkit-scrollbar-thumb{
+
+  &::-webkit-scrollbar-thumb {
     border-radius: 2px;
     background: ${props => props.theme.color.blue};
   }
 `
-
+// export const HtmlTaskSuccessful = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   grid-column: 2 / 1;
+//   grid-row: 1 / -1;
+//   background-color: #00f5d4;
+//   background-image: linear-gradient(
+//           135deg
+//           ,#f15bb5 25%,transparent 25%), linear-gradient(
+//           225deg
+//           ,#00bbf9 25%,transparent 25%), linear-gradient(
+//           315deg
+//           ,#f15bb5 25%,transparent 25%), linear-gradient(
+//           45deg
+//           ,#00bbf9 25%,transparent 25%);
+//   background-position: -30px 0,-30px 0,0 0,0 0;
+//   background-size: 60px 60px;
+//   background-repeat: repeat;
+// `
 export const HtmlTaskSuccessful = styled.div`
   display: flex;
   flex-direction: column;
@@ -60,17 +85,9 @@ export const HtmlTaskSuccessful = styled.div`
   justify-content: center;
   grid-column: 2 / 1;
   grid-row: 1 / -1;
-  background-color: #00f5d4;
-  background-image: linear-gradient(
-          135deg
-          ,#f15bb5 25%,transparent 25%), linear-gradient(
-          225deg
-          ,#00bbf9 25%,transparent 25%), linear-gradient(
-          315deg
-          ,#f15bb5 25%,transparent 25%), linear-gradient(
-          45deg
-          ,#00bbf9 25%,transparent 25%);
-  background-position: -30px 0,-30px 0,0 0,0 0;
+  background-color: #ff595e;
+  background-image: linear-gradient(135deg, #ffca3a 25%, transparent 25%), linear-gradient(225deg, #1982c4 25%, transparent 25%), linear-gradient(315deg, #ffca3a 25%, transparent 25%), linear-gradient(45deg, #1982c4 25%, transparent 25%);
+  background-position: -30px 0, -30px 0, 0 0, 0 0;
   background-size: 60px 60px;
   background-repeat: repeat;
 `
@@ -98,7 +115,7 @@ export const HtmlHeader = styled(TaskHeader)`
   background: ${props => props.theme.color.blue};
 `
 export const HtmlFooter = styled(TaskFooter)`
-  background: ${props => props.theme.color.blue};
+  background: #ff595e;
 `
 
 export const HtmlSwitchButton = styled(TaskFooterSwitchButton)`
@@ -125,11 +142,8 @@ export const HtmlFooterListBtn = styled(TaskFooterListBtn)`
   color: ${props => props.theme.color.gray};
 `
 export const HtmlFooterTasksWrapper = styled(TaskFooterTasksWrapper)`
-  background-color: #00f5d4;
-  background-image: linear-gradient(135deg, #f15bb5 25%, transparent 25%),
-  linear-gradient(225deg, #00bbf9 25%, transparent 25%),
-  linear-gradient(315deg, #f15bb5 25%, transparent 25%),
-  linear-gradient(45deg, #00bbf9 25%, transparent 25%);
+  background-color: #ff595e;
+  background-image: linear-gradient(135deg, #ffca3a 25%, transparent 25%), linear-gradient(225deg, #1982c4 25%, transparent 25%), linear-gradient(315deg, #ffca3a 25%, transparent 25%), linear-gradient(45deg, #1982c4 25%, transparent 25%);
   background-position: -30px 0, -30px 0, 0 0, 0 0;
   background-size: 60px 60px;
   background-repeat: repeat;
@@ -152,6 +166,6 @@ export const HtmlDecorationFooter = styled.div`
   z-index: 0;
   width: 50%;
   height: 74px;
-  background: repeating-linear-gradient(0deg, ${props => props.theme.color.yellow} 0px,
-  ${props => props.theme.color.yellow} 5px, ${props => props.theme.color.blue} 5px, ${props => props.theme.color. blue} 10px);
+  background: repeating-linear-gradient(0deg, #ff595e 0px,
+  #ff595e 5px, ${props => props.theme.color.blue} 5px, ${props => props.theme.color.blue} 10px);
 `

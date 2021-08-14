@@ -22,9 +22,12 @@ export const TaskSuccessfulTitle = styled.h2`
   text-align: center;
   background: ${props => props.theme.color.gray};
 `
-export const TaskSuccessfulBar = styled.div`
+interface TaskSuccessfulBarProps {
+    color: string
+}
+export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
   width: 100%;
-  background: #f15bb5;
+  background:  ${props => props.color};
   display: flex;
 
   a, button {
@@ -41,7 +44,7 @@ export const TaskSuccessfulBar = styled.div`
 
     &:hover {
       background: ${props => props.theme.color.gray};
-      color: #f15bb5;
+      color: ${props => props.color};
       transition: 0.1s;
       letter-spacing: 0.125rem;
     }

@@ -212,7 +212,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
         {successfulFlag && <HtmlTaskSuccessful>
             <TaskSuccessfulImg src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
             <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
-            <TaskSuccessfulBar>
+            <TaskSuccessfulBar color="#ffca3a">
                 <button onClick={() => setSuccessfulFlag(false)}>Close</button>
                 <Link to={`/html-task/${task.number + 1}`}>Next task</Link>
             </TaskSuccessfulBar>

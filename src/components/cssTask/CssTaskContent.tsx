@@ -11,14 +11,14 @@ import 'ace-builds/src-noconflict/theme-terminal'
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
-import {FunctionComponent, useEffect, useState} from "react";
+import {FunctionComponent, useState} from "react";
 import {
     CssTaskContentWrapper,
     CssResult,
     CssCodeEditorWrapper,
     CssIntroduction,
     CssTarget,
-    CssDecorationIntroduction
+    CssDecorationIntroduction, CssTaskSuccessful
 } from "../../style/elements/tasks/cssTask";
 import {
     TaskIntroductionBar,
@@ -46,7 +46,7 @@ import {
     TaskTarget,
     TaskTargetCheckbox,
     TaskTargetNumber,
-    TaskTargetText
+    TaskTargetText, TaskSuccessfulImg, TaskSuccessfulTitle, TaskSuccessfulBar
 } from "../../style/elements/tasks/task";
 import {cssClass} from "../../properties/cssClass";
 import {IFCssTaskTargetCss, IfCssTaskTargetHtml, IFPropsCssTaskContent, IFTaskTargets} from "../../types/types";
@@ -57,8 +57,8 @@ import 'ace-builds/src-noconflict/mode-css'
 import 'ace-builds/src-noconflict/mode-html'
 import {taskValidationHtml} from "../../functions/taskValidationHtml";
 import {taskValidationCss} from "../../functions/taskValidationCss";
+import {Link} from "react-router-dom";
 
-const beautify = require('js-beautify').html
 export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task}): JSX.Element => {
 
     // state with css code
@@ -66,6 +66,8 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
 
     // state with result code, which is display in iFrame
     const [resultCode, setResultCode] = useState<{ html: string, css: string}>({html: "", css: ""})
+
+    const [taskTargets, setTaskTargets] = useState<(IFCssTaskTargetCss | IfCssTaskTargetHtml) []>(task.targets)
 
     // state with flag, when user change it, editor settings form will be showed
     const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
@@ -79,7 +81,10 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
     // state with editor font size from localStorage
     const [editorFs, setEditorFs] = useState<number>(getEditorFSize)
 
-    const [taskTargets, setTaskTargets] = useState<(IFCssTaskTargetCss | IfCssTaskTargetHtml) []>(task.targets)
+    // state with flag, which is responsible for animation when the user correctly completes the task targets
+    const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
+
+
 
 
     const changeUserCodeHtml = (newValue: string): void => {
@@ -316,44 +321,56 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task})
             </CodeEditorPanel>
         </CssCodeEditorWrapper>
 
-        <CssIntroduction>
-            <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
-            <TaskIntroductionBar>
-                <img src={cssClass.getFigureSrc()} alt={cssClass.getFigureAlt()}/>
-                <h3>{task.title}</h3>
-            </TaskIntroductionBar>
 
-            {/*@ts-ignore*/}
-            <TaskIntroductionText dangerouslySetInnerHTML={{__html: task.introduction}}/>
+        {successfulFlag && <>
+            <CssIntroduction>
+                <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
+                <TaskIntroductionBar>
+                    <img src={cssClass.getFigureSrc()} alt={cssClass.getFigureAlt()}/>
+                    <h3>{task.title}</h3>
+                </TaskIntroductionBar>
 
-            {/*decorations*/}
-            <CssDecorationIntroduction/>
-        </CssIntroduction>
+                {/*@ts-ignore*/}
+                <TaskIntroductionText dangerouslySetInnerHTML={{__html: task.introduction}}/>
 
-        < CssTarget>
-            {/*task targets list*/}
-            <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
-            <TaskTargetsWrapper>
-                {taskTargets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
+                {/*decorations*/}
+                <CssDecorationIntroduction/>
+            </CssIntroduction>
 
-                    {el.solved === null && <TaskTargetCheckbox backgroundColor={"#e5e3f1"}/>}
-                    {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
-                        className="fas fa-times"/></TaskTargetCheckbox>}
-                    {el.solved === true &&
-                    <TaskTargetCheckbox backgroundColor={"#75D701"}><i className="fas fa-check"/></TaskTargetCheckbox>}
-                    <TaskTargetNumber>{el.number}. </TaskTargetNumber>
-                    <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
-                </TaskTarget>)}
-            </TaskTargetsWrapper>
+            <CssTarget>
+                {/*task targets list*/}
+                <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
+                <TaskTargetsWrapper>
+                    {taskTargets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
 
-            <TaskAidsWrapper>
-                <TaskAidsTitle>Task aids</TaskAidsTitle>
-                <TaskAidsList>
-                    {task.aid.map((el, num) => <TaskAid aid={el} key={`${task.title}_taskAid_${num}`}/>)}
-                </TaskAidsList>
-            </TaskAidsWrapper>
-            <img src="" alt=""/>
-        </CssTarget>
+                        {el.solved === null && <TaskTargetCheckbox backgroundColor={"#e5e3f1"}/>}
+                        {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
+                            className="fas fa-times"/></TaskTargetCheckbox>}
+                        {el.solved === true &&
+                        <TaskTargetCheckbox backgroundColor={"#75D701"}><i className="fas fa-check"/></TaskTargetCheckbox>}
+                        <TaskTargetNumber>{el.number}. </TaskTargetNumber>
+                        <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
+                    </TaskTarget>)}
+                </TaskTargetsWrapper>
+
+                <TaskAidsWrapper>
+                    <TaskAidsTitle>Task aids</TaskAidsTitle>
+                    <TaskAidsList>
+                        {task.aid.map((el, num) => <TaskAid aid={el} key={`${task.title}_taskAid_${num}`}/>)}
+                    </TaskAidsList>
+                </TaskAidsWrapper>
+                <img src="" alt=""/>
+            </CssTarget>
+        </>}
+
+        {successfulFlag === false && <CssTaskSuccessful>
+            <TaskSuccessfulImg src={cssClass.getFigureSrc()} alt={cssClass.getFigureAlt()}/>
+            <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
+            <TaskSuccessfulBar color="#f15bb5" >
+                <button onClick={() => setSuccessfulFlag(false)}>Close</button>
+                <Link to={`/html-task/${task.number + 1}`}>Next task</Link>
+            </TaskSuccessfulBar>
+        </CssTaskSuccessful> }
 
     </CssTaskContentWrapper>
 }
