@@ -8,6 +8,7 @@ import {
 import {IFTaskTargets} from "../types/types";
 
 const beautifyHtml = require('js-beautify').html
+const beautifyCss = require('js-beautify').css
 export const getEditorFSize = (): number => {
     const fontSize = localStorage.getItem("editorFontSize")
     if (fontSize !== null) {
@@ -112,8 +113,7 @@ export const getHtmlTaskTargetsFromLS = (saveDataCallback: (obj: IFTaskTargets[]
 
         const taskTargets = localStorageData.filter(el => el.title === taskTitle)
         taskTargets.length !== 0 ? saveDataCallback(taskTargets[0].taskSolutions) : saveDataCallback(defaultValue)
-    }
-    else{
+    } else {
         saveDataCallback(defaultValue)
     }
 }
@@ -127,27 +127,24 @@ export const getHtmlTaskTargetsFromLS = (saveDataCallback: (obj: IFTaskTargets[]
 export const getCssTaskTargetsFromLS = (saveDataCallback: (obj: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []) => any,
                                         taskTitle: string,
                                         defaultValue: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []): void => {
-          if(localStorage.getItem("cssTasksSolutions") != null){
+    if (localStorage.getItem("cssTasksSolutions") != null) {
 
-              // @ts-ignore
-              let localStorageData : IFLSCssTaskSolutions[] =  JSON.parse(localStorage.getItem("cssTasksSolutions"));
-              const taskTargets = localStorageData.filter(el => el.taskName === taskTitle)
-              taskTargets.length !== 0 ? saveDataCallback(taskTargets[0].taskSolutions) : saveDataCallback(defaultValue)
-          }
-          else{
-              saveDataCallback(defaultValue)
-          }
+        // @ts-ignore
+        let localStorageData: IFLSCssTaskSolutions[] = JSON.parse(localStorage.getItem("cssTasksSolutions"));
+        const taskTargets = localStorageData.filter(el => el.taskName === taskTitle)
+        taskTargets.length !== 0 ? saveDataCallback(taskTargets[0].taskSolutions) : saveDataCallback(defaultValue)
+    } else {
+        saveDataCallback(defaultValue)
+    }
 }
 
 /**
- *
- *
  * Get user's html task solution code
  * @param saveDataCallback - function that saves data
  * @param taskName - name of task
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
-export const getHtmlTaskCodeFromLS = (saveDataCallback: (obj: any) => void, taskName: string, defaultValue: string) => {
+export const getHtmlTaskCodeFromLS = (saveDataCallback: (obj: string) => void, taskName: string, defaultValue: string) => {
     if (localStorage.getItem("htmlTasksSolutions") != null) {
 
         // @ts-ignore
@@ -166,6 +163,50 @@ export const getHtmlTaskCodeFromLS = (saveDataCallback: (obj: any) => void, task
                 space_in_empty_paren: false,
                 wrap_line_length: 50
             }))
+        }
+    }
+}
+
+/**
+ * Get user's html task solution code
+ * @param saveDataCallback - function that saves data
+ * @param taskName - name of task
+ * @param defaultValue - the default value to be saved to the state if the user has not solved this task
+ */
+export const getCssTaskCodeFromLS = (saveDataCallback: (obj: { html: string, css: string }) => void, taskName: string, defaultValue: { html: string, css: string }) => {
+    if (localStorage.getItem("cssTasksSolutions") != null) {
+
+        // @ts-ignore
+        let localStorageData: IFLSCssTaskSolutions[] = JSON.parse(localStorage.getItem("cssTasksSolutions"));
+        const taskSolution = localStorageData.filter(el => el.taskName === taskName)
+        if (taskSolution.length !== 0) {
+            const taskCode: { html: string, css: string } = {
+                html: beautifyHtml(taskSolution[0].userCode.html, {
+                    indent_size: 1,
+                    space_in_empty_paren: false,
+                    wrap_line_length: 50
+                }),
+                css: beautifyCss(taskSolution[0].userCode.css, {
+                    indent_size: 1,
+                    space_in_empty_paren: false,
+                    wrap_line_length: 50
+                }),
+            }
+            saveDataCallback(taskCode)
+        } else {
+            const taskCode: { html: string, css: string } = {
+                html: beautifyHtml(defaultValue.html, {
+                    indent_size: 1,
+                    space_in_empty_paren: false,
+                    wrap_line_length: 50
+                }),
+                css: beautifyCss(defaultValue.css, {
+                    indent_size: 1,
+                    space_in_empty_paren: false,
+                    wrap_line_length: 50
+                }),
+            }
+            saveDataCallback(taskCode)
         }
     }
 }

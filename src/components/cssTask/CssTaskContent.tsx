@@ -49,14 +49,13 @@ import {
     TaskTargetText, TaskSuccessfulImg, TaskSuccessfulTitle, TaskSuccessfulBar
 } from "../../style/elements/tasks/task";
 import {cssClass} from "../../properties/cssClass";
-import {IFCssTaskTargetCss, IfCssTaskTargetHtml, IFPropsCssTaskContent, IFTaskTargets} from "../../types/types";
+import {IFCssTaskTargetCss, IfCssTaskTargetHtml, IFPropsCssTaskContent} from "../../types/types";
 import {TaskAid} from "../task/TaskAid";
 import {
     getCssTaskTargetsFromLS,
     getEditorFSize,
-    getEditorTheme,
+    getEditorTheme, getCssTaskCodeFromLS,
     saveCssTaskSolutionToLS,
-    saveHtmlTaskSolutionToLS
 } from "../../functions/localStorage";
 import AceEditor from "react-ace";
 import 'ace-builds/src-noconflict/mode-css'
@@ -67,7 +66,6 @@ import {Link} from "react-router-dom";
 export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, allTaskLength}): JSX.Element => {
 
     // state with css code
-    //const [userCode, setUserCode] = useState<{ html: string, css: string }>({html: task.code.html, css: task.code.css})
     const [userCode, setUserCode] = useState<{ html: string, css: string }>(task.code)
 
     // state with result code, which is display in iFrame
@@ -94,6 +92,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // get it from local storage and if not, return the default value (task.targets)
     useEffect(()=>{
         getCssTaskTargetsFromLS(setTaskTargets, task.title, task.targets)
+        getCssTaskCodeFromLS(setUserCode, task.title, task.code)
     },[task])
 
 
