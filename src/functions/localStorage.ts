@@ -97,23 +97,51 @@ export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfC
         localStorage.setItem("cssTasksSolutions", JSON.stringify(localStorageData));
     }
 }
+
 /**
  * Get html task targets - information about which task is completed (checkboxes)
  * @param saveDataCallback - function that saves data
- * @param taskName - name of task
+ * @param taskTitle - name of task
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
-export const getHtmlTaskTargetsFromLS = (saveDataCallback: (obj: IFTaskTargets[]) => void, taskName: string, defaultValue: IFTaskTargets[]) => {
+export const getHtmlTaskTargetsFromLS = (saveDataCallback: (obj: IFTaskTargets[]) => void, taskTitle: string, defaultValue: IFTaskTargets[]) => {
     if (localStorage.getItem("htmlTasksSolutions") != null) {
 
         // @ts-ignore
         let localStorageData: TypeLSHtmlTaskSolutions[] = JSON.parse(localStorage.getItem("htmlTasksSolutions"));
 
-        const taskTargets  = localStorageData.filter(el => el.title === taskName)
+        const taskTargets = localStorageData.filter(el => el.title === taskTitle)
         taskTargets.length !== 0 ? saveDataCallback(taskTargets[0].taskSolutions) : saveDataCallback(defaultValue)
     }
+    else{
+        saveDataCallback(defaultValue)
+    }
 }
+
 /**
+ * Get css task targets - information about which task is completed (checkboxes)
+ * @param saveDataCallback - function that saves data
+ * @param taskTitle - name of task
+ * @param defaultValue - the default value to be saved to the state if the user has not solved this task
+ */
+export const getCssTaskTargetsFromLS = (saveDataCallback: (obj: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []) => any,
+                                        taskTitle: string,
+                                        defaultValue: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []): void => {
+          if(localStorage.getItem("cssTasksSolutions") != null){
+
+              // @ts-ignore
+              let localStorageData : IFLSCssTaskSolutions[] =  JSON.parse(localStorage.getItem("cssTasksSolutions"));
+              const taskTargets = localStorageData.filter(el => el.taskName === taskTitle)
+              taskTargets.length !== 0 ? saveDataCallback(taskTargets[0].taskSolutions) : saveDataCallback(defaultValue)
+          }
+          else{
+              saveDataCallback(defaultValue)
+          }
+}
+
+/**
+ *
+ *
  * Get user's html task solution code
  * @param saveDataCallback - function that saves data
  * @param taskName - name of task

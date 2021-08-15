@@ -11,7 +11,7 @@ import 'ace-builds/src-noconflict/theme-terminal'
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
-import {FunctionComponent, useState} from "react";
+import {FunctionComponent, useEffect, useState} from "react";
 import {
     CssTaskContentWrapper,
     CssResult,
@@ -52,6 +52,7 @@ import {cssClass} from "../../properties/cssClass";
 import {IFCssTaskTargetCss, IfCssTaskTargetHtml, IFPropsCssTaskContent, IFTaskTargets} from "../../types/types";
 import {TaskAid} from "../task/TaskAid";
 import {
+    getCssTaskTargetsFromLS,
     getEditorFSize,
     getEditorTheme,
     saveCssTaskSolutionToLS,
@@ -67,7 +68,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // state with css code
     //const [userCode, setUserCode] = useState<{ html: string, css: string }>({html: task.code.html, css: task.code.css})
-    const [userCode, setUserCode] = useState<{ html: string, css: string }>({html: "", css: ""})
+    const [userCode, setUserCode] = useState<{ html: string, css: string }>(task.code)
 
     // state with result code, which is display in iFrame
     const [resultCode, setResultCode] = useState<{ html: string, css: string }>({html: "", css: ""})
@@ -88,6 +89,13 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // state with flag, which is responsible for animation when the user correctly completes the task targets
     const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
+
+    // check if the user hasn't already solved the task, if he  has solved it,
+    // get it from local storage and if not, return the default value (task.targets)
+    useEffect(()=>{
+        getCssTaskTargetsFromLS(setTaskTargets, task.title, task.targets)
+    },[task])
+
 
     const changeUserCodeHtml = (newValue: string): void => {
         setUserCode(prev => ({
