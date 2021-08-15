@@ -1,7 +1,6 @@
 import {FunctionComponent, useState} from "react";
 import {
     HtmlFooter,
-    HtmlSwitchButton,
     HtmlFooterListBtn,
     HtmlFooterTasksWrapper,
     HtmlDecorationFooter
@@ -16,7 +15,9 @@ import {
     TaskFooterTasksItem,
     TaskFooterTasksPlanets,
     TaskFooterIcons,
-    TaskFooterTitle
+    TaskFooterTitle,
+    TaskFooterSwitchButton,
+    TaskFooterListBtn
 } from "../../style/elements/tasks/task";
 import {FreepikThanks} from "../../style/general/generalStyles";
 import {Link} from "react-router-dom";
@@ -34,15 +35,25 @@ export const HtmlTaskFooter: FunctionComponent<IFPropsHtmlTaskFooterProps> = ({a
     const handleChangeFlag = (): void => setFlag(!flag)
 
     return <HtmlFooter>
-        <TaskFooterTitle href="/">
-            DOMINO LEARN
+        <TaskFooterTitle>
+            <Link to="/">
+                DOMINO LEARN
+            </Link>
         </TaskFooterTitle>
 
         <TaskFooterTaskNumber> {taskNumber} / {allTasks.length}</TaskFooterTaskNumber>
+
+
         <TaskFooterSwitchBar>
-            <HtmlFooterListBtn onClick={handleChangeFlag}>
+            <TaskFooterListBtn onClick={handleChangeFlag}>
                 <i className="fas fa-clipboard-list"/>
-            </HtmlFooterListBtn>
+            </TaskFooterListBtn>
+            {taskNumber !== 1 &&
+
+            <TaskFooterSwitchButton color="#ff595e"> <Link to={`/html-task/${taskNumber - 1}`}>Back</Link></TaskFooterSwitchButton>}
+            {taskNumber < allTasks.length &&
+            <TaskFooterSwitchButton color="#ff595e"><Link to={`/html-task/${taskNumber + 1}`}>Next</Link></TaskFooterSwitchButton>}
+
             {flag && <HtmlFooterTasksWrapper>
 
                 {/*background for list with planets :)*/}
@@ -53,18 +64,15 @@ export const HtmlTaskFooter: FunctionComponent<IFPropsHtmlTaskFooterProps> = ({a
                 </TaskFooterTasksPlanets>
 
                 <TaskFooterTasksList>
-                    {allTasks.map((el, num) => <TaskFooterTasksItem>
+                    {allTasks.map((el, num) => <TaskFooterTasksItem key={`htmlFooterTasks-${el.title}-${num}`} onClick={() => setFlag(false)}>
                         <Link to={`/html-task/${el.number}`}>
                             {el.number}
                         </Link>
                     </TaskFooterTasksItem>)}
                 </TaskFooterTasksList>
             </HtmlFooterTasksWrapper>}
-            {taskNumber !== 1 &&
-            <HtmlSwitchButton> <Link to={`html-task/${taskNumber - 1}`}>Back</Link></HtmlSwitchButton>}
-            {taskNumber <= allTasks.length &&
-            <HtmlSwitchButton><Link to={`html-task/${taskNumber + 1}`}>Next</Link></HtmlSwitchButton>}
         </TaskFooterSwitchBar>
+
         <TaskFooterIcons>
             <FreepikThanks style={{fontSize: "1.063rem"}}>
                 <div>

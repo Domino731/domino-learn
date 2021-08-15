@@ -77,16 +77,17 @@ export const TaskFooter = styled.footer`
   padding: 7px;
   width: 100%;
 `
-export const TaskFooterTitle = styled.a`
+export const TaskFooterTitle = styled.div`
   display: block;
   width: 33%;
   font-size: 2.75rem;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
   text-align: center;
-  color: ${props => props.theme.color.gray};
   transition: 0.2s;
-
+  a{
+    color: ${props => props.theme.color.gray};
+  }
   &:hover {
     transition: 0.2s;
     letter-spacing: 0.188rem;
@@ -115,8 +116,10 @@ export const TaskFooterSwitchBar = styled.div`
   height: 50px;
   padding: 4px 0;
 `
-
-export const TaskFooterSwitchButton = styled.div`
+interface TaskFooterSwitchButtonProps {
+    color: string
+}
+export const TaskFooterSwitchButton = styled.div<TaskFooterSwitchButtonProps >`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -124,9 +127,22 @@ export const TaskFooterSwitchButton = styled.div`
   box-sizing: border-box;
   border-radius: 5px;
   padding: 0 13px;
-
+  background: ${props => props.theme.color.gray};
+  transition: 0.1s;
+  margin: 0 0.313rem;
   &:hover {
     cursor: pointer;
+    transition: 0.1s;
+    border: 2px solid ${props => props.theme.color.gray};
+    background: transparent;
+
+    a {
+      color: ${props => props.theme.color.gray};
+    }
+  }
+
+  a {
+    color: ${props => props.color};
   }
 `
 export const TaskFooterListBtn = styled.div`
@@ -138,7 +154,7 @@ export const TaskFooterListBtn = styled.div`
   padding: 0 13px;
   margin-right: 10px;
   font-size: 31px;
-
+  color: ${props => props.theme.color.gray};
   transition: 0.1s;
 
   &:hover {
@@ -178,13 +194,21 @@ export const TaskFooterTasksItem = styled.li`
   border: 5px solid ${props => props.theme.color.gray};
   border-radius: 7px;
   margin: 3px;
-
+  font-size: 2.063rem;
+  background: ${props => props.theme.background.transparent};
+  font-weight: 900;
+  transition: 0.2s;
+  &:hover{
+    transition: 0.2s;
+    font-size: 2.625rem;
+  }
   a {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
+    color: ${props => props.theme.color.gray};
   }
 `
 export const TaskFooterTasksPlanets = styled.div`

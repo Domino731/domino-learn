@@ -3,6 +3,7 @@ import {TaskContainer} from "../../style/elements/tasks/task";
 import {CssTaskContent} from "./CssTaskContent";
 import {IFAllTasks, IFCssTask, IFPropsTask} from "../../types/types";
 import {getAllTasks, getSpecificCssTask} from "../../firebase/operations";
+import {CssTaskFooter} from "./CssTaskFooter";
 
 export const CssTask : FunctionComponent<IFPropsTask> = (props) : JSX.Element => {
     // state with task information -> introduction, target, solution..
@@ -24,5 +25,6 @@ export const CssTask : FunctionComponent<IFPropsTask> = (props) : JSX.Element =>
     }
     return  <TaskContainer>
         <CssTaskContent task={task} allTaskLength={allTasks.length}/>
+        <CssTaskFooter allTasks={allTasks} taskNumber={task.number}/>
     </TaskContainer>
 }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {TaskFooter, TaskFooterSwitchBar, TaskFooterTasksWrapper} from "./task";
 
 export const CssTaskContentWrapper = styled.main`
   display: grid;
@@ -51,6 +52,28 @@ export const CssTaskSuccessful = styled.div`
   justify-content: center;
   grid-column: 3 / 3;
   grid-row: 1 / -1;
+  background-color: #00f5d4;
+  background-image: linear-gradient(
+          135deg
+          ,#f15bb5 25%,transparent 25%), linear-gradient(
+          225deg
+          ,#00bbf9 25%,transparent 25%), linear-gradient(
+          315deg
+          ,#f15bb5 25%,transparent 25%), linear-gradient(
+          45deg
+          ,#00bbf9 25%,transparent 25%);
+  background-position: -30px 0,-30px 0,0 0,0 0;
+  background-size: 60px 60px;
+  background-repeat: repeat;
+`
+
+export const CssFooter = styled(TaskFooter)`
+  background: #00f5d4;
+`
+export const CssFooterSwitchBar = styled(TaskFooterSwitchBar)`
+ justify-content: flex-start;
+`
+export const CssFooterTasksWrapper = styled(TaskFooterTasksWrapper)`
   background-color: #00f5d4;
   background-image: linear-gradient(
           135deg

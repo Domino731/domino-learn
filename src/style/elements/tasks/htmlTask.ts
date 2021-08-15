@@ -118,26 +118,6 @@ export const HtmlFooter = styled(TaskFooter)`
   background: #ff595e;
 `
 
-export const HtmlSwitchButton = styled(TaskFooterSwitchButton)`
-  background: ${props => props.theme.color.gray};
-  color: ${props => props.theme.color.blue};
-  border: 2px solid ${props => props.theme.color.blue};
-  transition: 0.1s;
-
-  &:hover {
-    transition: 0.1s;
-    border: 2px solid ${props => props.theme.color.gray};
-    background: ${props => props.theme.color.blue};
-
-    a {
-      color: ${props => props.theme.color.gray};
-    }
-  }
-
-  a {
-    color: ${props => props.theme.color.blue};
-  }
-`
 export const HtmlFooterListBtn = styled(TaskFooterListBtn)`
   color: ${props => props.theme.color.gray};
 `
@@ -167,5 +147,5 @@ export const HtmlDecorationFooter = styled.div`
   width: 50%;
   height: 74px;
   background: repeating-linear-gradient(0deg, #ff595e 0px,
-  #ff595e 5px, ${props => props.theme.color.blue} 5px, ${props => props.theme.color.blue} 10px);
+  #ff595e 5px, #1982c4 5px, #1982c4 10px);
 `

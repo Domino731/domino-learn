@@ -62,6 +62,11 @@ export interface IFPropsCssTaskContent {
     allTaskLength: number
 }
 
+export interface IFPropsCssTaskFooter {
+    allTasks: IFAllTasks[],
+    taskNumber: number
+}
+
 export interface IFPropsTask extends RouteComponentProps<IFMatchParams> {
 }
 
@@ -127,7 +132,6 @@ export interface IFHtmlTask {
 }
 
 
-
 export interface IFAllTasks {
     title: string
     introduction: string,
@@ -142,7 +146,7 @@ export type TypeLSHtmlTaskSolutions = {
     code: string
 }
 
-export interface  IFLSCssTaskSolutions {
+export interface IFLSCssTaskSolutions {
     taskSolutions: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []
     title: string,
     userCode: { html: string, css: string }
