@@ -144,6 +144,6 @@ export type TypeLSHtmlTaskSolutions = {
 
 export interface  IFLSCssTaskSolutions {
     taskSolutions: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []
-    taskName: string,
+    title: string,
     userCode: { html: string, css: string }
 }
