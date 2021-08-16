@@ -82,7 +82,6 @@ export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: I
                     aid: doc.data().aid,
                     code: doc.data().code
                 }
-                console.log(doc.data())
 
                 return tasks.push(task)
 

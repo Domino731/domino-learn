@@ -1,6 +1,7 @@
-import {FunctionComponent, useState} from "react";
+import React, {FunctionComponent, useEffect, useState} from "react";
 import {
-    CodeEditorPanel, CodeEditorPanelBtn,
+    CodeEditorPanel,
+    CodeEditorPanelBtn,
     EditorSettingsCloseIcon,
     EditorSettingsFSize,
     EditorSettingsLabel,
@@ -38,14 +39,17 @@ import 'ace-builds/src-noconflict/theme-terminal'
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
-import {JsResult, JsIntroduction, JsCodeEditorWrapper, JsTargets} from "../../style/elements/tasks/jsTask";
+import {JsCodeEditorWrapper, JsIntroduction, JsResult, JsTargets, JsConsoleWrapper} from "../../style/elements/tasks/jsTask";
 import {cssClass} from "../../properties/cssClass";
 import {TaskAid} from "../task/TaskAid";
 import AceEditor from "react-ace";
 import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
+import { Console, Hook, Unhook } from 'console-feed'
+import {Initial, Logs} from "../../functions/test";
+
 const beautifyJs = require('js-beautify').js
 
-export const JsTaskContent : FunctionComponent<IFPropsJsTask> = ({task, allTaskLength}) : JSX.Element => {
+export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLength}): JSX.Element => {
 
     // state with userCode from editor output
     const [userCode, setUserCode] = useState<string>("")
@@ -59,12 +63,34 @@ export const JsTaskContent : FunctionComponent<IFPropsJsTask> = ({task, allTaskL
     // state with flag, when user change it, editor settings form will be showed
     const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
 
+    const [logs, setLogs] = useState<any>(Initial)
+
+    // run once!
+    // @ts-ignore
+    useEffect(() => {
+        Hook(
+            window.console,
+
+            (log) => {
+                // @ts-ignore
+                setLogs((currLogs) => [...currLogs, log])
+                // remove warning
+                // @ts-ignore
+                setLogs(currLogs => currLogs.filter(el => el.method !== "warn" && el ))
+            },
+            false
+        )
+
+        // @ts-ignore
+        return () => Unhook(window.console)
+    }, [])
+
+
     // change editor font-size
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value))
 
     // change theme
     const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorTheme(e.target.value)
-
 
     // change code from
     const changeUserCode = (newValue: string): void => {
@@ -75,12 +101,11 @@ export const JsTaskContent : FunctionComponent<IFPropsJsTask> = ({task, allTaskL
     const handleResetCode = (): void => {
         setUserCode(beautifyJs(task.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
     }
-
-    const srcDoc = ` <!DOCTYPE html>
-          <html lang="en">
-          <head><title>${task.title}</title></head>
-          <body></body>
-          </html>`
+    // task validation
+    const checkTask = (): void => {
+        // set the console log
+        Logs(userCode)
+    }
 
     return <TaskContentWrapper>
         <JsIntroduction>
@@ -130,109 +155,114 @@ export const JsTaskContent : FunctionComponent<IFPropsJsTask> = ({task, allTaskL
                     <WebBrowserYellowBox/>
                     <WebBrowserRedBox/>
                 </WebBrowserTopBar>
-                <iframe srcDoc={srcDoc}
-                        width="100%" height="100%" frameBorder="0" sandbox="allow-scripts" title="output"
-                />
+
+
+
+                <JsConsoleWrapper>
+                    <Console logs={logs} variant="light"  />
+                </JsConsoleWrapper>
+
             </WebBrowserWindow>
+
+
         </JsResult>
 
         <JsCodeEditorWrapper>
             {/*code editor - ace*/}
-                <AceEditor
-                    enableBasicAutocompletion={true}
-                    enableLiveAutocompletion={true}
-                    enableSnippets={true}
-                    onChange={changeUserCode}
+            <AceEditor
+                enableBasicAutocompletion={true}
+                enableLiveAutocompletion={true}
+                enableSnippets={true}
+                onChange={changeUserCode}
+                mode="javascript"
+                theme={editorTheme}
+                width="100%"
+                height="100%"
+                value={userCode}
+                fontSize={editorFs}
+                showPrintMargin={true}
+                showGutter={true}
+                highlightActiveLine={true}
+                setOptions={{
+                    enableBasicAutocompletion: false,
+                    enableLiveAutocompletion: false,
+                    enableSnippets: false,
+                    showLineNumbers: true,
+                    tabSize: 2,
+                }}
+            />
 
-                    mode="javascript"
-                    theme={editorTheme}
-                    width="100%"
-                    height="100%"
-                    value={userCode}
-                    fontSize={editorFs}
-                    showPrintMargin={true}
-                    showGutter={true}
-                    highlightActiveLine={true}
-                    setOptions={{
-                        enableBasicAutocompletion: false,
-                        enableLiveAutocompletion: false,
-                        enableSnippets: false,
-                        showLineNumbers: true,
-                        tabSize: 2,
-                    }}
-                />
+            <CodeEditorPanel>
+                {editorFormFlag && <EditorSettingsWrapper>
+                    <EditorSettingsCloseIcon onClick={() => setEditorFormFlag(!editorFormFlag)}><i
+                        className="far fa-window-close"/></EditorSettingsCloseIcon>
+                    <EditorSettingsLabel>
+                        Change font size
+                        <EditorSettingsFSize type="number" min="1" max="60" step="1" value={editorFs}
+                                             onChange={handleChangeFs}/>
+                    </EditorSettingsLabel>
 
-                <CodeEditorPanel>
-                    {editorFormFlag && <EditorSettingsWrapper>
-                        <EditorSettingsCloseIcon onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                            className="far fa-window-close"/></EditorSettingsCloseIcon>
-                        <EditorSettingsLabel>
-                            Change font size
-                            <EditorSettingsFSize type="number" min="1" max="60" step="1" value={editorFs}
-                                                 onChange={handleChangeFs}/>
-                        </EditorSettingsLabel>
+                    <EditorSettingsLabel>
+                        Change theme
+                    </EditorSettingsLabel>
 
-                        <EditorSettingsLabel>
-                            Change theme
-                        </EditorSettingsLabel>
+                    <EditorSettingsThemesWrapper>
+                        <label>
+                            Monokai
+                            <input type="checkbox" value="monokai" checked={editorTheme === "monokai"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Ambiance
+                            <input type="checkbox" value="ambiance" checked={editorTheme === "ambiance"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Clouds
+                            <input type="checkbox" value="clouds" checked={editorTheme === "clouds"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Dracula
+                            <input type="checkbox" value="dracula" checked={editorTheme === "dracula"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Solarized light
+                            <input type="checkbox" value="solarized_light" checked={editorTheme === "solarized_light"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Crimson editor
+                            <input type="checkbox" value="crimson_editor" checked={editorTheme === "crimson_editor"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Github
+                            <input type="checkbox" value="github" checked={editorTheme === "github"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                        <label>
+                            Terminal
+                            <input type="checkbox" value="terminal" checked={editorTheme === "terminal"}
+                                   onChange={handleChangeTheme}/>
+                            <span><i className="fas fa-check-square"/></span>
+                        </label>
+                    </EditorSettingsThemesWrapper>
+                </EditorSettingsWrapper>}
 
-                        <EditorSettingsThemesWrapper>
-                            <label>
-                                Monokai
-                                <input type="checkbox" value="monokai" checked={editorTheme === "monokai"}
-                                       onChange={handleChangeTheme}/>
-                                <span><i className="fas fa-check-square"/></span>
-                            </label>
-                            <label>
-                                Ambiance
-                                <input type="checkbox" value="ambiance" checked={editorTheme === "ambiance"}
-                                       onChange={handleChangeTheme}/>
-                                <span><i className="fas fa-check-square"/></span>
-                            </label>
-                            <label>
-                                Clouds
-                                <input type="checkbox" value="clouds" checked={editorTheme === "clouds"}
-                                       onChange={handleChangeTheme}/>
-                                <span><i className="fas fa-check-square"/></span>
-                            </label>
-                            <label>
-                                Dracula
-                                <input type="checkbox" value="dracula" checked={editorTheme === "dracula"}
-                                       onChange={handleChangeTheme}/>
-                                <span><i className="fas fa-check-square"/></span>
-                            </label>
-                            <label>
-                                Solarized light
-                                <input type="checkbox" value="solarized_light" checked={editorTheme === "solarized_light"}
-                                       onChange={handleChangeTheme}/>
-                                <span><i className="fas fa-check-square"/></span>
-                            </label>
-                            <label>
-                                Crimson editor
-                                <input type="checkbox" value="crimson_editor" checked={editorTheme === "crimson_editor"}
-                                       onChange={handleChangeTheme}/>
-                                <span><i className="fas fa-check-square"/></span>
-                            </label>
-                            <label>
-                                Github
-                                <input type="checkbox" value="github" checked={editorTheme === "github"}
-                                       onChange={handleChangeTheme}/>
-                                <span><i className="fas fa-check-square"/></span>
-                            </label>
-                            <label>
-                                Terminal
-                                <input type="checkbox" value="terminal" checked={editorTheme === "terminal"}
-                                       onChange={handleChangeTheme}/>
-                                <span><i className="fas fa-check-square"/></span>
-                            </label>
-                        </EditorSettingsThemesWrapper>
-                    </EditorSettingsWrapper>}
-
-                    <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                        className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn ><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
-                </CodeEditorPanel>
+                <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
+                    className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
+                <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
+                <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+            </CodeEditorPanel>
         </JsCodeEditorWrapper>
 
     </TaskContentWrapper>

@@ -49,3 +49,10 @@ export const JsTargets = styled.div`
   max-width: 100%;
   position: relative;
   overflow: auto;`
+export const JsConsoleWrapper = styled.div`
+ & > div {
+   & > div {
+     color: black !important;
+   }
+ }
+`
