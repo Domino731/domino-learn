@@ -135,7 +135,7 @@ export interface IFJsTask {
     title: string
     introduction: string
     number: number
-    aid: IFTaskAid
+    aid: IFTaskAid[]
     code: string
     targets: IFJsTaskTargets[]
 }

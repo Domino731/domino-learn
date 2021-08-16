@@ -6,7 +6,13 @@ export const JsResult = styled.div`
   max-width: 100%;
   position: relative;
   overflow: auto;
-  background: red;
+  
+  padding: 10px;
+  background: ${props => props.theme.color.gray};
+
+  & > div {
+    background: #fff;
+  }
  
   &::-webkit-scrollbar {
     width: 7px;
@@ -25,7 +31,7 @@ export const JsCodeEditorWrapper = styled.div`
   max-width: 100%;
   position: relative;
   overflow: auto;
-  background: rgba(57, 196, 199, 0.57);
+  padding-bottom: 53px;
 `
 
 export const JsIntroduction = styled.div`
@@ -34,7 +40,7 @@ export const JsIntroduction = styled.div`
   max-width: 100%;
   position: relative;
   overflow: auto;
-  background: rgba(101, 16, 172, 0.57);
+
 `
 
 export const JsTargets = styled.div`
@@ -42,5 +48,4 @@ export const JsTargets = styled.div`
   grid-row: 2 / 2;
   max-width: 100%;
   position: relative;
-  overflow: auto;
-  background: rgba(31, 145, 234, 0.57);`
+  overflow: auto;`

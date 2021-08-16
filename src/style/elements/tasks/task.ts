@@ -282,7 +282,6 @@ export const TaskIntroductionText = styled.div`
   font-size: 1.25rem;
   margin-top: 20px;
   padding: 8px 11px;
-  background: ${props => props.theme.background.transparent};
 
   p {
     text-align: left;
@@ -339,7 +338,6 @@ export const TaskTargetsWrapper = styled.div`
 export const TaskTarget = styled.div`
   display: flex;
   padding: 12px 9px;
-  background: ${props => props.theme.background.transparent};
 `
 type TaskTargetCheckboxProps = {
     backgroundColor: string

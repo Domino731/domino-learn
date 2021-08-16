@@ -62,7 +62,7 @@ import {Link} from "react-router-dom";
 import {IFPropsHtmlTaskContent, IFTaskTargets} from "../../types/types";
 import {taskValidationHtml} from "../../functions/taskValidationHtml";
 
-const beautify = require('js-beautify').html
+const beautifyHtml = require('js-beautify').html
 
 
 export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task, allTaskLength}): JSX.Element | null => {
@@ -110,7 +110,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
     const checkTask = (): void => {
 
         // set the result (display user html code)
-        setResultCode(beautify(userCode, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+        setResultCode(beautifyHtml(userCode, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
 
         // points needed to pass
         const pointsNeeded: number = task.targets.length
@@ -148,7 +148,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
 
     // reset code in editor by original code from task
     const handleResetCode = (): void => {
-        setUserCode(beautify(task.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+        setUserCode(beautifyHtml(task.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
     }
 
     // code which is placed in iframe as result (web browser window)
@@ -217,6 +217,8 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
                 { task.number < allTaskLength && <Link to={`/html-task/${task.number + 1}`}>Next task</Link>}
             </TaskSuccessfulBar>
         </HtmlTaskSuccessful>}
+
+
         {/*code editor - ace*/}
         <HtmlTaskCodeEditor>
             <AceEditor

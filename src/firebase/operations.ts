@@ -70,7 +70,7 @@ export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: 
  * @param saveDataCallback - function that saved incoming data to component state
  */
 export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: IFJsTask) => void) => {
-    db.collection("JsTasks")
+    db.collection("jsTasks")
         .onSnapshot(querySnapshot => {
             let tasks: IFJsTask[] = []
             querySnapshot.docs.map(doc => {
@@ -80,10 +80,14 @@ export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: I
                     targets: doc.data().targets,
                     number: doc.data().number,
                     aid: doc.data().aid,
-                    code: doc.data().taskCode
+                    code: doc.data().code
                 }
+                console.log(doc.data())
+
                 return tasks.push(task)
+
             });
+
             const specficTask = tasks.filter(el => {
                 if(el.number === taskNumber){
                     return el
