@@ -46,14 +46,7 @@ export interface IFPropsHtmlTaskFooterProps {
 }
 
 export interface IFPropsHtmlTaskContent {
-    task: {
-        title: string,
-        introduction: string,
-        targets: IFTaskTargets[],
-        number: number,
-        aid: IFTaskAid[],
-        code: string
-    },
+    task: IFHtmlTask
     allTaskLength: number
 }
 
@@ -61,12 +54,14 @@ export interface IFPropsCssTaskContent {
     task: IFCssTask,
     allTaskLength: number
 }
-
 export interface IFPropsCssTaskFooter {
     allTasks: IFAllTasks[],
     taskNumber: number
 }
-
+export interface IFPropsJsTask {
+    task: IFJsTask,
+    allTaskLength: number
+}
 export interface IFPropsTask extends RouteComponentProps<IFMatchParams> {
 }
 
@@ -87,6 +82,13 @@ export interface IFTaskAid {
 export interface IFTaskTargets {
     target: string
     solution: string
+    number: number
+    solved: null | boolean
+}
+
+export interface IFJsTaskTargets {
+    target: string
+    solutions: string[]
     number: number
     solved: null | boolean
 }
@@ -120,7 +122,6 @@ export interface IFCssTask {
     }
     targets: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []
 }
-
 export interface IFHtmlTask {
     title: string
     introduction: string
@@ -128,9 +129,16 @@ export interface IFHtmlTask {
     aid: IFTaskAid[]
     code: string
     targets: IFTaskTargets[]
-
 }
 
+export interface IFJsTask {
+    title: string
+    introduction: string
+    number: number
+    aid: IFTaskAid
+    code: string
+    targets: IFJsTaskTargets[]
+}
 
 export interface IFAllTasks {
     title: string

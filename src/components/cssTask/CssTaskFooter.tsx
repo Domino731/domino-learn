@@ -1,10 +1,9 @@
 import {IFPropsCssTaskFooter} from "../../types/types";
 import {FunctionComponent, useState} from "react";
-import {CssFooter, CssFooterSwitchBar, CssFooterTasksWrapper} from "../../style/elements/tasks/cssTask";
+import {CssFooter, CssFooterSwitchBar, CssFooterTasksWrapper, CssFooterDecoration} from "../../style/elements/tasks/cssTask";
 import {
     TaskFooterTaskNumber,
     TaskFooterTitle,
-    TaskFooterSwitchBar,
     TaskFooterListBtn,
     TaskFooterSwitchButton,
     TaskFooterTasksPlanets,
@@ -17,9 +16,6 @@ import neptunPlanet from "../../images/planet_neptune.png"
 import saturnPlanet from "../../images/planet_saturn.png"
 import marsPlanet from "../../images/planet_mars.png";
 import {FreepikThanks} from "../../style/general/generalStyles";
-import planets from "../../images/planets.png";
-import plutoPlanet from "../../images/planet_pluto.png";
-import jupiterPlanet from "../../images/planet_jupiter.png";
 import neptunePlanet from "../../images/planet_neptune.png";
 
 export const CssTaskFooter: FunctionComponent<IFPropsCssTaskFooter> = ({allTasks, taskNumber}) : JSX.Element => {
@@ -29,6 +25,7 @@ export const CssTaskFooter: FunctionComponent<IFPropsCssTaskFooter> = ({allTasks
 
     const handleChangeFlag = (): void => setFlag(!flag)
 
+    const scrollToTop = () : void => window.scrollTo(0,0)
     return <CssFooter>
 
         <CssFooterSwitchBar>
@@ -38,9 +35,9 @@ export const CssTaskFooter: FunctionComponent<IFPropsCssTaskFooter> = ({allTasks
             </TaskFooterListBtn>
 
             {taskNumber !== 1 &&
-            <TaskFooterSwitchButton color="#00f5d4"> <Link to={`/css-task/${taskNumber - 1}`}>Back</Link></TaskFooterSwitchButton>}
+            <TaskFooterSwitchButton onClick={scrollToTop} color="#00f5d4"> <Link to={`/css-task/${taskNumber - 1}`}>Back</Link></TaskFooterSwitchButton>}
             {taskNumber < allTasks.length &&
-            <TaskFooterSwitchButton color="#00f5d4"><Link to={`/css-task/${taskNumber + 1}`}>Next</Link></TaskFooterSwitchButton>}
+            <TaskFooterSwitchButton onClick={scrollToTop} color="#00f5d4"><Link to={`/css-task/${taskNumber + 1}`}>Next</Link></TaskFooterSwitchButton>}
 
             {flag && <CssFooterTasksWrapper>
                 {/*background for list with planets :)*/}
@@ -93,5 +90,7 @@ export const CssTaskFooter: FunctionComponent<IFPropsCssTaskFooter> = ({allTasks
 
             </FreepikThanks>
         </TaskFooterIcons>
+
+        <CssFooterDecoration/>
     </CssFooter>
 }

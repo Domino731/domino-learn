@@ -1,13 +1,6 @@
 import styled from "styled-components";
-import {TaskFooter, TaskFooterSwitchBar, TaskFooterTasksWrapper} from "./task";
+import {TaskFooter, TaskFooterDecoration, TaskFooterSwitchBar, TaskFooterTasksWrapper} from "./task";
 
-export const CssTaskContentWrapper = styled.main`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  height: 100vh;
-  width: 100%;
-`
 
 export const CssIntroduction = styled.div`
   grid-column: 3 / 3;
@@ -99,4 +92,8 @@ export const CssDecorationIntroduction = styled.div`
   background: repeating-linear-gradient(
           90deg
           ,#b5179e 0px,#b5179e 5px,white 5px,white 10px);
+`
+export const CssFooterDecoration = styled(TaskFooterDecoration)`
+  background: repeating-linear-gradient(0deg, #00f5d4 0px,
+  #00f5d4 5px, #f15bb5 5px, #f15bb5 10px);
 `

@@ -1,14 +1,13 @@
 import {db} from "./firebaseIndex";
-import {IFAllTasks, IFHtmlTask, IFCssTask} from "../types/types";
+import {IFAllTasks, IFHtmlTask, IFCssTask, IFJsTask} from "../types/types";
 const beautifyHtml = require('js-beautify').html
 const beautifyCss = require('js-beautify').css
 
 /**
- * fetch html specific task
+ * fetch  specific html task
  * @param taskNumber  - number of task
  * @param saveDataCallback - function that saved incoming data to component state
  */
-
 export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data: IFHtmlTask) => void) => {
     db.collection("htmlTasks")
         .onSnapshot(querySnapshot => {
@@ -33,6 +32,11 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
         })
 }
 
+/**
+ * fetch specific css task
+ * @param taskNumber  - number of task
+ * @param saveDataCallback - function that saved incoming data to component state
+ */
 export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: IFCssTask) => void) => {
     db.collection("cssTasks")
         .onSnapshot(querySnapshot => {
@@ -59,6 +63,36 @@ export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: 
             saveDataCallback(specficTask[0])
         })
 }
+
+/**
+ * fetch specific css task
+ * @param taskNumber  - number of task
+ * @param saveDataCallback - function that saved incoming data to component state
+ */
+export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: IFJsTask) => void) => {
+    db.collection("JsTasks")
+        .onSnapshot(querySnapshot => {
+            let tasks: IFJsTask[] = []
+            querySnapshot.docs.map(doc => {
+                const task: IFJsTask = {
+                    title: doc.data().title,
+                    introduction: doc.data().introduction,
+                    targets: doc.data().targets,
+                    number: doc.data().number,
+                    aid: doc.data().aid,
+                    code: doc.data().taskCode
+                }
+                return tasks.push(task)
+            });
+            const specficTask = tasks.filter(el => {
+                if(el.number === taskNumber){
+                    return el
+                }
+            })
+            saveDataCallback(specficTask[0])
+        })
+}
+
 /**
  * fetch all tasks
  * @param tasks  - tasks that you want to get - css, html, js

@@ -34,6 +34,7 @@ export const HtmlTaskFooter: FunctionComponent<IFPropsHtmlTaskFooterProps> = ({a
 
     const handleChangeFlag = (): void => setFlag(!flag)
 
+    const scrollToTop = () : void => window.scrollTo(0,0)
     return <HtmlFooter>
         <TaskFooterTitle>
             <Link to="/">
@@ -50,9 +51,9 @@ export const HtmlTaskFooter: FunctionComponent<IFPropsHtmlTaskFooterProps> = ({a
             </TaskFooterListBtn>
             {taskNumber !== 1 &&
 
-            <TaskFooterSwitchButton color="#ff595e"> <Link to={`/html-task/${taskNumber - 1}`}>Back</Link></TaskFooterSwitchButton>}
+            <TaskFooterSwitchButton onClick={scrollToTop} color="#ff595e"> <Link to={`/html-task/${taskNumber - 1}`}>Back</Link></TaskFooterSwitchButton>}
             {taskNumber < allTasks.length &&
-            <TaskFooterSwitchButton color="#ff595e"><Link to={`/html-task/${taskNumber + 1}`}>Next</Link></TaskFooterSwitchButton>}
+            <TaskFooterSwitchButton onClick={scrollToTop} color="#ff595e"><Link to={`/html-task/${taskNumber + 1}`}>Next</Link></TaskFooterSwitchButton>}
 
             {flag && <HtmlFooterTasksWrapper>
 

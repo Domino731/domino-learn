@@ -4,7 +4,7 @@ import {
     TaskFooterListBtn,
     TaskFooterSwitchButton,
     TaskHeader,
-    TaskFooterTasksWrapper
+    TaskFooterTasksWrapper, TaskFooterDecoration
 } from "./task";
 
 export const HtmlTaskContainer = styled.div`
@@ -17,15 +17,9 @@ export const HtmlTaskContainer = styled.div`
     background: ${props => props.theme.color.white};
   }
 `
-export const HtmlTaskContentWrapper = styled.main`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  height: 100vh;
-  width: 100%;
-`
 export const HtmlTaskIntroduction = styled.div`
   grid-column: 1 / 1;
+  grid-row: 1 / 1;
   max-width: 100%;
   position: relative;
   overflow: auto;
@@ -43,6 +37,7 @@ export const HtmlTaskIntroduction = styled.div`
 
 export const HtmlTaskTarget = styled.div`
   grid-column: 2 / 1;
+  grid-row: 2 / 3;
   max-width: 100%;
   position: relative;
   overflow: auto;
@@ -57,27 +52,6 @@ export const HtmlTaskTarget = styled.div`
     background: ${props => props.theme.color.blue};
   }
 `
-// export const HtmlTaskSuccessful = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   grid-column: 2 / 1;
-//   grid-row: 1 / -1;
-//   background-color: #00f5d4;
-//   background-image: linear-gradient(
-//           135deg
-//           ,#f15bb5 25%,transparent 25%), linear-gradient(
-//           225deg
-//           ,#00bbf9 25%,transparent 25%), linear-gradient(
-//           315deg
-//           ,#f15bb5 25%,transparent 25%), linear-gradient(
-//           45deg
-//           ,#00bbf9 25%,transparent 25%);
-//   background-position: -30px 0,-30px 0,0 0,0 0;
-//   background-size: 60px 60px;
-//   background-repeat: repeat;
-// `
 export const HtmlTaskSuccessful = styled.div`
   display: flex;
   flex-direction: column;
@@ -139,13 +113,7 @@ export const HtmlDecorationIntroduction = styled.div`
   height: 74px;
   background: repeating-linear-gradient(0deg, ${props => props.theme.color.red} 0px, ${props => props.theme.color.red} 5px, white 5px, white 10px);
 `
-export const HtmlDecorationFooter = styled.div`
-  position: absolute;
-  top: 70px;
-  right: 0;
-  z-index: 0;
-  width: 50%;
-  height: 74px;
+export const HtmlDecorationFooter = styled(TaskFooterDecoration)`
   background: repeating-linear-gradient(0deg, #ff595e 0px,
   #ff595e 5px, #1982c4 5px, #1982c4 10px);
 `

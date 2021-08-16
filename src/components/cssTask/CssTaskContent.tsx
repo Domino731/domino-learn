@@ -13,7 +13,6 @@ import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
 import {FunctionComponent, useEffect, useState} from "react";
 import {
-    CssTaskContentWrapper,
     CssResult,
     CssCodeEditorWrapper,
     CssIntroduction,
@@ -21,6 +20,7 @@ import {
     CssDecorationIntroduction, CssTaskSuccessful
 } from "../../style/elements/tasks/cssTask";
 import {
+    TaskContentWrapper,
     TaskIntroductionBar,
     TaskSectionHeader,
     TaskIntroductionText,
@@ -186,7 +186,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
           </html>`
 
 
-    return <CssTaskContentWrapper>
+    return <TaskContentWrapper>
         <CssResult>
             <WebBrowserWindow>
                 <WebBrowserTopBar>
@@ -390,5 +390,5 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             </TaskSuccessfulBar>
         </CssTaskSuccessful>}
 
-    </CssTaskContentWrapper>
+    </TaskContentWrapper>
 }

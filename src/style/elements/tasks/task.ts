@@ -10,6 +10,13 @@ export const TaskContainer = styled.div`
     background: ${props => props.theme.color.white};
   }
 `
+export const TaskContentWrapper = styled.main`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  height: 100vh;
+  width: 100%;
+`
 export const TaskSuccessfulImg = styled.img`
   width: 60%;
   height: auto;
@@ -324,9 +331,7 @@ export const TaskIntroductionText = styled.div`
         background: ${props => props.theme.color.blue};
       }
     }
-
   }
-
 `
 export const TaskTargetsWrapper = styled.div`
   padding-top: 12px;
@@ -373,6 +378,11 @@ export const TaskTargetText = styled.div`
       bottom: 0;
       left: 0;
     }
+  }
+
+  a{
+    text-decoration: underline;
+    text-decoration-color: ${props => props.theme.color.blue};
   }
 `
 export const TaskCodeEditorMultiple = styled.div`
@@ -690,4 +700,14 @@ export const TaskAidAuthorVideo = styled(TaskAidAuthor)`
 export const TaskAidAuthorArticle = styled(TaskAidAuthor)`
   background: #ff006e;
   color: #fff;
+`
+
+//decorations
+export const TaskFooterDecoration = styled.div`
+  position: absolute;
+  top: 70px;
+  right: 0;
+  z-index: 0;
+  width: 50%;
+  height: 74px;
 `

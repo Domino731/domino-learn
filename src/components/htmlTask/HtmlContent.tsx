@@ -1,5 +1,4 @@
 import {FunctionComponent, useEffect, useState} from "react";
-import {HtmlTaskContentWrapper} from "../../style/elements/tasks/htmlTask";
 import {
     HtmlTaskIntroduction,
     HtmlTaskTarget,
@@ -9,6 +8,7 @@ import {
     HtmlTaskSuccessful
 } from "../../style/elements/tasks/htmlTask";
 import {
+    TaskContentWrapper,
     TaskIntroductionBar,
     TaskSectionHeader,
     TaskIntroductionText,
@@ -160,7 +160,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
           </html>`
 
 
-    return <HtmlTaskContentWrapper>
+    return <TaskContentWrapper>
 
         {successfulFlag === false && <>
             {/*introduction*/}
@@ -329,5 +329,5 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
             </WebBrowserWindow>
         </HtmlTaskResult>
 
-    </HtmlTaskContentWrapper>
+    </TaskContentWrapper>
 }
