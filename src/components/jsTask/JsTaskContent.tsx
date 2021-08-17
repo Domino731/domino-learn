@@ -51,7 +51,7 @@ import {TaskAid} from "../task/TaskAid";
 import AceEditor from "react-ace";
 import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
 import {Console, Hook, Unhook} from 'console-feed'
-import {initial, Logs} from "../../functions/jsConsole";
+import {Logs} from "../../functions/jsConsole";
 import {taskValidationJS} from "../../functions/taskValidationJS";
 
 const beautifyJs = require('js-beautify').js;
@@ -76,17 +76,21 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     // state with console logs
     const [logs, setLogs] = useState<any[]>([]);
 
-    const [x, setX] = useState<any[]>([])
     const [consoleTextArr, setConsoleTextArr] = useState<any[]>([])
+
+    // state with flag, which is responsible for animation when the user correctly completes the task targets
+    const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
+
     // run once!
     // @ts-ignore
     useEffect(() => {
         Hook(
             window.console,
             (log) => {
-                setLogs((currLogs) => [...currLogs, log])
-                // remove warnings
-                setLogs(currLogs => currLogs.filter(el => el.method !== "warn" && el))
+                // @ts-ignore
+                if (log.method === "log") {
+                    setLogs((currLogs) => [...currLogs, log])
+                }
             },
             false,
         )
@@ -95,25 +99,30 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     }, []);
 
     useEffect(() => {
-        const textArr = logs.map(el => el.data[0])
-        setConsoleTextArr(textArr)
-        setX(prev => [...prev, consoleTextArr.length])
+        setConsoleTextArr(logs.map(el => el.data[0]))
     }, [logs.length])
 
     useEffect(() => {
-        if(consoleTextArr.length >= 1){
-            // points needed to pass
-            const pointsNeeded: number = task.targets.length
+        const consoleTextArr = logs.map(el => el.data[0])
 
-            // user points
-            let userPoints = 0
+        // points needed to pass
+        const pointsNeeded: number = task.targets.length
+        // user points
+        let userPoints = 0
+        // function that add pun when user complete task correctly
+        const changeUserPoints = (): number => userPoints++
 
-            // function that add pun when user complete task correctly
-            const changeUserPoints = (): number => userPoints++
+        taskTargets.map(el => taskValidationJS(consoleTextArr, el, changeUserPoints))
 
-            taskTargets.map(el =>  taskValidationJS(consoleTextArr, el, changeUserPoints))
+        // check if user has executed all targets, if he did display animation
+        if (userPoints === pointsNeeded) {
+            setSuccessfulFlag(true)
+        } else {
+            setSuccessfulFlag(false)
         }
-    }, [consoleTextArr.length])
+    }, [logs.length])
+
+
     // change editor font-size
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value));
 
@@ -130,9 +139,8 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     const consoleRef = useRef<HTMLDivElement>(null)
 
-    // task validation
+    // set the console logs by which useEffect will start the task validation
     const setConsole = () => {
-
         // set the console
         Logs(userCode);
 
@@ -142,7 +150,6 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
             space_in_empty_paren: false,
             wrap_line_length: 50
         }));
-
     };
 
     return <TaskContentWrapper>
