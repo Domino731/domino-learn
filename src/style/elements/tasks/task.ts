@@ -415,6 +415,27 @@ export const CodeEditorPanelBtn = styled.div`
     border: 2px solid ${props => props.theme.color.blue};
   }
 `
+const an__CodeEditorError = keyframes`
+    100%{
+      transform: scale(100%);
+    }
+`
+export const CodeEditorError = styled.div`
+  transform: scale(0%);
+  position: absolute;
+  bottom: 120px;
+  z-index: 5;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background: red;
+  color: #fff;
+  font-size: 1.313rem;
+  animation: 0.4s ${an__CodeEditorError} forwards ease-in-out;
+  i{
+    margin-right: 0.5rem;
+  }
+`
 export const WebBrowserWindow = styled.div`
   position: relative;
   width: 100%;
@@ -509,7 +530,7 @@ export const ChangeEditorCheckbox = styled.div<ChangeEditorCheckboxProps>`
 `
 export const EditorSettingsWrapper = styled.form`
   position: absolute;
-  z-index: 4;
+  z-index: 10;
   top: -200px;
   left: 0;
   width: 100%;

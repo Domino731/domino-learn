@@ -16,48 +16,25 @@ import {
     CssResult,
     CssCodeEditorWrapper,
     CssIntroduction,
-    CssTarget,
-    CssDecorationIntroduction, CssTaskSuccessful
+    CssTarget, CssTaskSuccessful
 } from "../../style/elements/tasks/cssTask";
 import {
     TaskContentWrapper,
-    TaskIntroductionBar,
-    TaskSectionHeader,
-    TaskIntroductionText,
-    TaskAidsWrapper,
-    TaskAidsTitle,
-    TaskAidsList,
-    EditorSettingsWrapper,
-    EditorSettingsCloseIcon,
-    EditorSettingsLabel,
-    EditorSettingsFSize,
-    EditorSettingsThemesWrapper,
     CodeEditorPanelBtn,
     CodeEditorPanel,
     ChangeEditor,
     TaskCodeEditorMultiple,
-    WebBrowserWindow,
-    WebBrowserTopBar,
-    WebBrowserGreenBox,
-    WebBrowserYellowBox,
-    WebBrowserRedBox,
-    ChangeEditorCheckbox,
-    TaskTargetsWrapper,
-    TaskTarget,
-    TaskTargetCheckbox,
-    TaskTargetNumber,
-    TaskTargetText, TaskSuccessfulImg, TaskSuccessfulTitle, TaskSuccessfulBar
+    ChangeEditorCheckbox, CodeEditorError,
+    TaskSuccessfulImg, TaskSuccessfulTitle, TaskSuccessfulBar
 } from "../../style/elements/tasks/task";
 import {cssClass} from "../../properties/cssClass";
 import {IFCssTaskTargetCss, IfCssTaskTargetHtml, IFPropsCssTaskContent} from "../../types/types";
-import {TaskAid} from "../task/TaskAid";
 import {
     getCssTaskTargetsFromLS,
     getEditorFSize,
     getEditorTheme, getCssTaskCodeFromLS,
     saveCssTaskSolutionToLS,
 } from "../../functions/localStorage";
-import AceEditor from "react-ace";
 import {taskValidationHtml} from "../../functions/taskValidationHtml";
 import {taskValidationCss} from "../../functions/taskValidationCss";
 import {Link} from "react-router-dom";
@@ -78,6 +55,9 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // state with result code, which is display in iFrame
     const [resultCode, setResultCode] = useState<{ html: string, css: string }>({html: "", css: ""})
 
+    // state with annotations from editor
+    const [annotations, setAnnotations] = useState<any[]>([])
+
     const [taskTargets, setTaskTargets] = useState<(IFCssTaskTargetCss | IfCssTaskTargetHtml) []>(task.targets)
 
     // state with flag, when user change it, editor settings form will be showed
@@ -95,6 +75,10 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // state with flag, which is responsible for animation when the user correctly completes the task targets
     const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
 
+    // state with flag, which is responsible for displaying error about user code
+    const [errorFlag, setErrorFlag] = useState<boolean>(false)
+
+
     // check if the user hasn't already solved the task, if he  has solved it,
     // get it from local storage and if not, return the default value (task.targets)
     useEffect(() => {
@@ -102,6 +86,10 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         getCssTaskCodeFromLS(setUserCode, task.title, task.code)
     }, [task])
 
+     // remove error when user type new code
+    useEffect(() => {
+       setErrorFlag(false)
+    }, [userCode])
 
     const changeUserCodeHtml = (newValue: string): void => {
         setUserCode(prev => ({
@@ -116,6 +104,9 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             css: newValue
         }))
     }
+
+    const changeAnnotations = (newValue: any) => setAnnotations(newValue)
+
     // change editor font-size
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value))
 
@@ -144,58 +135,62 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // task validation
     const checkTask = () => {
-
-        // set the result (display user styles)
-        setResultCode({
-            html: userCode.html,
-            css: userCode.css
-        })
-
-        //format code
-        setUserCode({
-            html: beautifyHtml(userCode.html, {
-                indent_size: 1,
-                space_in_empty_paren: false,
-                wrap_line_length: 50
-            }),
-            css: beautifyCss(userCode.css, {
-                indent_size: 1,
-                space_in_empty_paren: false,
-                wrap_line_length: 50
+        if (annotations.length === 0) {
+            console.log(annotations)
+            // set the result (display user styles)
+            setResultCode({
+                html: userCode.html,
+                css: userCode.css
             })
-        })
 
-        // points needed to pass
-        const pointsNeeded: number = task.targets.length
+            //format code
+            setUserCode({
+                html: beautifyHtml(userCode.html, {
+                    indent_size: 1,
+                    space_in_empty_paren: false,
+                    wrap_line_length: 50
+                }),
+                css: beautifyCss(userCode.css, {
+                    indent_size: 1,
+                    space_in_empty_paren: false,
+                    wrap_line_length: 50
+                })
+            })
 
-        // user points
-        let userPoints = 0
+            // points needed to pass
+            const pointsNeeded: number = task.targets.length
+
+            // user points
+            let userPoints = 0
 
 // function that add pun when user complete task correctly
-        const changeUserPoints = (): number => userPoints++
+            const changeUserPoints = (): number => userPoints++
 
-        // checking if each task solution is equal to the user's solution, at the end we set the updated state of taskTargets
-        // depending on whether the task was solved correctly or not, add point and change checkboxes.
-        // some task targets may require changes in html code
-        taskTargets.map(el => {
-            if (el.type === "css") {
-                // @ts-ignore
-                return taskValidationCss(userCode.css, el, changeUserPoints)
-            } else if (el.type === "html") {
-                // @ts-ignore
-                return taskValidationHtml(userCode.html, el, changeUserPoints)
+            // checking if each task solution is equal to the user's solution, at the end we set the updated state of taskTargets
+            // depending on whether the task was solved correctly or not, add point and change checkboxes.
+            // some task targets may require changes in html code
+            taskTargets.map(el => {
+                if (el.type === "css") {
+                    // @ts-ignore
+                    return taskValidationCss(userCode.css, el, changeUserPoints)
+                } else if (el.type === "html") {
+                    // @ts-ignore
+                    return taskValidationHtml(userCode.html, el, changeUserPoints)
+                }
+            })
+
+            // check if user has executed all targets, if he did display animation
+            if (userPoints === pointsNeeded) {
+                setSuccessfulFlag(true)
+            } else {
+                setSuccessfulFlag(false)
             }
-        })
 
-        // check if user has executed all targets, if he did display animation
-        if (userPoints === pointsNeeded) {
-            setSuccessfulFlag(true)
+            // save solution into local storage, so when user comes back he will have their solution
+            saveCssTaskSolutionToLS(taskTargets, task.title, userCode)
         } else {
-            setSuccessfulFlag(false)
+            setErrorFlag(true)
         }
-
-        // save solution into local storage, so when user comes back he will have their solution
-        saveCssTaskSolutionToLS(taskTargets, task.title, userCode)
     }
     // code
     const srcDoc = `
@@ -234,16 +229,19 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
             <TaskCodeEditorMultiple>
                 {currentEditor === "css" &&
-                <TaskAceEditor mode="css" editorTheme={editorTheme} userCode={userCode.css} editorFS={editorFs}
+                <TaskAceEditor addAnnotations={changeAnnotations} mode="css" editorTheme={editorTheme}
+                               userCode={userCode.css} editorFS={editorFs}
                                changeUserCode={changeUserCodeCss}/>}
 
                 {currentEditor === "html" &&
-                <TaskAceEditor mode="html" editorTheme={editorTheme} userCode={userCode.html} editorFS={editorFs}
+                <TaskAceEditor addAnnotations={changeAnnotations} mode="html" editorTheme={editorTheme}
+                               userCode={userCode.html} editorFS={editorFs}
                                changeUserCode={changeUserCodeHtml}/>}
             </TaskCodeEditorMultiple>
 
 
             <CodeEditorPanel>
+
                 {editorFormFlag &&
                 <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorTheme}
                                        handleChangeFs={handleChangeTheme} editorFs={editorFs}
@@ -255,6 +253,8 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                 <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
                 <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
             </CodeEditorPanel>
+
+            {errorFlag && <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
         </CssCodeEditorWrapper>
 
         {successfulFlag === false && <>

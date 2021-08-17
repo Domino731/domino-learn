@@ -32,6 +32,7 @@ export interface IFPropsTaskAceEditor {
     userCode: string
     editorFS: string | number
     changeUserCode: (newValue: string) => void
+    addAnnotations: (value: any) => void
 }
 
 export interface IFPropsTaskAceEditorSettings {
