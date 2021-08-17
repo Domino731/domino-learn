@@ -173,3 +173,8 @@ export interface IFLSCssTaskSolutions {
     title: string,
     userCode: { html: string, css: string }
 }
+export interface IFLSjsTaskSolutions {
+    taskSolutions: IFJsTaskTargets[]
+    title: string,
+    userCode: string
+}

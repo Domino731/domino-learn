@@ -50,7 +50,7 @@ import {
 import {cssClass} from "../../properties/cssClass";
 import {TaskAid} from "../task/TaskAid";
 import AceEditor from "react-ace";
-import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
+import {getEditorFSize, getEditorTheme, saveJsTaskSolutionToLS} from "../../functions/localStorage";
 import {Console, Hook, Unhook} from 'console-feed'
 import {Logs} from "../../functions/jsConsole";
 import {taskValidationJS} from "../../functions/taskValidationJS";
@@ -114,6 +114,8 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
         const consoleTextArr = logs.map(el => el.data[0]);
         if (consoleTextArr.length > 0) {
             taskTargets.map(el => taskValidationJS(consoleTextArr, el, addPoints));
+            // save solution into local storage, so when user comes back he will have their solution
+            saveJsTaskSolutionToLS(taskTargets, task.title, userCode)
         }
     }, [logs.length]);
 
@@ -125,6 +127,9 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
             setSuccessfulFlag(false)
         }
     },[points])
+
+
+
     const addPoints = () => setPoints(prev => ({...prev, user: prev.user++}))
 
     // change editor font-size
@@ -159,7 +164,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     return <TaskContentWrapper>
 
-        {successfulFlag  && <>
+        {successfulFlag === false && <>
             <JsIntroduction>
                 <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
                 <TaskIntroductionBar>
@@ -199,7 +204,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
             </JsTargets>
         </>}
 
-        {successfulFlag === false && <JsTaskSuccessful>
+        {successfulFlag  && <JsTaskSuccessful>
             <TaskSuccessfulImg src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()}/>
             <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
             <TaskSuccessfulBar color="#b5179e">

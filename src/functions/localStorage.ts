@@ -1,7 +1,7 @@
 import {
     IFCssTaskTargetCss,
-    IfCssTaskTargetHtml,
-    IFLSCssTaskSolutions,
+    IfCssTaskTargetHtml, IFJsTaskTargets,
+    IFLSCssTaskSolutions, IFLSjsTaskSolutions,
     TypeHtmlTaskSolution,
     TypeLSHtmlTaskSolutions
 } from "../types/types";
@@ -96,6 +96,37 @@ export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfC
         let localStorageData: IFLSCssTaskSolutions[] = []
         localStorageData.push(taskObj)
         localStorage.setItem("cssTasksSolutions", JSON.stringify(localStorageData));
+    }
+}
+
+export const saveJsTaskSolutionToLS = (taskSolutions: IFJsTaskTargets[], taskTitle: string, userCode: string): void => {
+    const taskObj: IFLSjsTaskSolutions = {
+        title: taskTitle,
+        userCode, taskSolutions
+    }
+
+    // save solution into local storage
+    if (localStorage.getItem("jsTasksSolutions") != null) {
+        // @ts-ignore
+        let localStorageData: IFLSjsTaskSolutions[] = JSON.parse(localStorage.getItem("jsTasksSolutions"));
+
+        //  array with updated local storage data
+        let updatedLocalStorageData: IFLSjsTaskSolutions[] = []
+
+        //prevention of duplicates
+        localStorageData.forEach(el => {
+            if (el.title !== taskTitle) {
+                updatedLocalStorageData.push(el)
+            }
+        })
+
+        // add new data into local storage
+        updatedLocalStorageData.push(taskObj)
+        localStorage.setItem("jsTasksSolutions", JSON.stringify(updatedLocalStorageData))
+    } else {
+        let localStorageData: IFLSjsTaskSolutions[] = []
+        localStorageData.push(taskObj)
+        localStorage.setItem("jsTasksSolutions", JSON.stringify(localStorageData));
     }
 }
 
