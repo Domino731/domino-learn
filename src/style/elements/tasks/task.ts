@@ -29,14 +29,17 @@ export const TaskSuccessfulTitle = styled.h2`
   text-align: center;
   background: ${props => props.theme.color.gray};
 `
+
 interface TaskSuccessfulBarProps {
     color: string
 }
+
 export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
   width: 100%;
-  background:  ${props => props.color};
+  background: ${props => props.color};
   display: flex;
   justify-content: center;
+
   a, button {
     display: flex;
     justify-content: center;
@@ -92,9 +95,11 @@ export const TaskFooterTitle = styled.div`
   font-weight: 900;
   text-align: center;
   transition: 0.2s;
-  a{
+
+  a {
     color: ${props => props.theme.color.gray};
   }
+
   &:hover {
     transition: 0.2s;
     letter-spacing: 0.188rem;
@@ -123,10 +128,12 @@ export const TaskFooterSwitchBar = styled.div`
   height: 50px;
   padding: 4px 0;
 `
+
 interface TaskFooterSwitchButtonProps {
     color: string
 }
-export const TaskFooterSwitchButton = styled.div<TaskFooterSwitchButtonProps >`
+
+export const TaskFooterSwitchButton = styled.div<TaskFooterSwitchButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -137,6 +144,7 @@ export const TaskFooterSwitchButton = styled.div<TaskFooterSwitchButtonProps >`
   background: ${props => props.theme.color.gray};
   transition: 0.1s;
   margin: 0 0.313rem;
+
   &:hover {
     cursor: pointer;
     transition: 0.1s;
@@ -205,10 +213,12 @@ export const TaskFooterTasksItem = styled.li`
   background: ${props => props.theme.background.transparent};
   font-weight: 900;
   transition: 0.2s;
-  &:hover{
+
+  &:hover {
     transition: 0.2s;
     font-size: 2.625rem;
   }
+
   a {
     display: flex;
     justify-content: center;
@@ -378,7 +388,7 @@ export const TaskTargetText = styled.div`
     }
   }
 
-  a{
+  a {
     text-decoration: underline;
     text-decoration-color: ${props => props.theme.color.blue};
   }
@@ -416,9 +426,9 @@ export const CodeEditorPanelBtn = styled.div`
   }
 `
 const an__CodeEditorError = keyframes`
-    100%{
-      transform: scale(100%);
-    }
+  100% {
+    transform: scale(100%);
+  }
 `
 export const CodeEditorError = styled.div`
   transform: scale(0%);
@@ -432,8 +442,26 @@ export const CodeEditorError = styled.div`
   color: #fff;
   font-size: 1.313rem;
   animation: 0.4s ${an__CodeEditorError} forwards ease-in-out;
-  i{
+
+  i {
     margin-right: 0.5rem;
+  }
+`
+const an__TaskResultLoadingWrapper = keyframes`
+  100% {
+    transform: rotate(620deg);
+  }
+`
+export const TaskResultLoadingWrapper = styled.div`
+  height: 100%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15.625rem;
+  i{
+    display: block;
+    animation: 4s ${an__TaskResultLoadingWrapper} infinite  alternate-reverse ease-in-out;
   }
 `
 export const WebBrowserWindow = styled.div`
@@ -481,9 +509,11 @@ export const ChangeEditor = styled.form`
   height: 53px;
   background: ${props => props.theme.color.gray};
 `
+
 interface ChangeEditorCheckboxProps {
     lineColor: string
 }
+
 export const ChangeEditorCheckbox = styled.div<ChangeEditorCheckboxProps>`
   display: flex;
   align-items: center;
@@ -491,21 +521,25 @@ export const ChangeEditorCheckbox = styled.div<ChangeEditorCheckboxProps>`
   position: relative;
   padding: 0.75rem 0.313rem;
   color: #fff;
-  i{
+
+  i {
     margin-left: 0.563rem;
     font-size: 20px;
   }
-  span{
+
+  span {
     position: absolute;
     display: block;
     bottom: 4px;
     background: ${props => props.lineColor};
     height: 4px;
   }
-  label{
+
+  label {
     font-size: 1.313rem;
   }
-  input{
+
+  input {
     appearance: none;
     border-radius: 0;
     border-color: transparent;
@@ -515,15 +549,18 @@ export const ChangeEditorCheckbox = styled.div<ChangeEditorCheckboxProps>`
     height: 100%;
     top: 0;
     left: 0;
-    &:hover{
+
+    &:hover {
       cursor: pointer;
     }
   }
+
   input:checked {
-    & ~ span{
+    & ~ span {
       width: 100%;
     }
-    & ~ i{
+
+    & ~ i {
       color: ${props => props.lineColor};
     }
   }

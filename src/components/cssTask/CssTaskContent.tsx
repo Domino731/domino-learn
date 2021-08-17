@@ -43,6 +43,7 @@ import {TaskAceEditor} from "../task/TaskAceEditor";
 import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
 import {TaskIntroduction} from "../task/TaskIntroduction";
 import {TaskTargets} from "../task/TaskTargets";
+import {TaskResultLoading} from "../task/TaskLoading";
 
 const beautifyHtml = require('js-beautify').html
 const beautifyCss = require('js-beautify').css
@@ -78,6 +79,8 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // state with flag, which is responsible for displaying error about user code
     const [errorFlag, setErrorFlag] = useState<boolean>(false)
 
+    // state with flag, which is responsible for displaying loading screen during checking the task
+    const [loadingResult, setLoadingResult] = useState<boolean>(false)
 
     // check if the user hasn't already solved the task, if he  has solved it,
     // get it from local storage and if not, return the default value (task.targets)
@@ -135,8 +138,10 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // task validation
     const checkTask = () => {
+        // set the loading screen
+        setLoadingResult(true)
         if (annotations.length === 0) {
-            console.log(annotations)
+
             // set the result (display user styles)
             setResultCode({
                 html: userCode.html,
@@ -191,6 +196,8 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         } else {
             setErrorFlag(true)
         }
+        // remove the loading screen
+        setLoadingResult(false)
     }
     // code
     const srcDoc = `
@@ -207,7 +214,9 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     return <TaskContentWrapper>
         <CssResult>
-            <TaskResultWindow srcDoc={srcDoc}/>
+
+            {loadingResult === false && <TaskResultWindow srcDoc={srcDoc}/>}
+            {loadingResult  && <TaskResultLoading/>}
         </CssResult>
 
         <CssCodeEditorWrapper>
