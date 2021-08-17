@@ -13,7 +13,7 @@ import {
     TaskContentWrapper,
     TaskIntroductionBar,
     TaskIntroductionText,
-    TaskSectionHeader,
+    TaskSectionHeader, TaskSuccessfulBar, TaskSuccessfulImg, TaskSuccessfulTitle,
     TaskTarget,
     TaskTargetCheckbox,
     TaskTargetNumber,
@@ -44,7 +44,8 @@ import {
     JsIntroduction,
     JsResult,
     JsTargets,
-    JsConsoleWrapper
+    JsConsoleWrapper,
+    JsTaskSuccessful
 } from "../../style/elements/tasks/jsTask";
 import {cssClass} from "../../properties/cssClass";
 import {TaskAid} from "../task/TaskAid";
@@ -53,6 +54,8 @@ import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
 import {Console, Hook, Unhook} from 'console-feed'
 import {Logs} from "../../functions/jsConsole";
 import {taskValidationJS} from "../../functions/taskValidationJS";
+import {Link} from "react-router-dom";
+import {jsClass} from "../../properties/jsClass";
 
 const beautifyJs = require('js-beautify').js;
 
@@ -81,6 +84,9 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     // state with flag, which is responsible for animation when the user correctly completes the task targets
     const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
 
+    const [points, setPoints] = useState<{user: number, needed: number}>({user: 0, needed: task.targets.length})
+
+
     // run once!
     // @ts-ignore
     useEffect(() => {
@@ -102,26 +108,24 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
         setConsoleTextArr(logs.map(el => el.data[0]))
     }, [logs.length])
 
+
+
     useEffect(() => {
-        const consoleTextArr = logs.map(el => el.data[0])
+        const consoleTextArr = logs.map(el => el.data[0]);
+        if (consoleTextArr.length > 0) {
+            taskTargets.map(el => taskValidationJS(consoleTextArr, el, addPoints));
+        }
+    }, [logs.length]);
 
-        // points needed to pass
-        const pointsNeeded: number = task.targets.length
-        // user points
-        let userPoints = 0
-        // function that add pun when user complete task correctly
-        const changeUserPoints = (): number => userPoints++
-
-        taskTargets.map(el => taskValidationJS(consoleTextArr, el, changeUserPoints))
-
-        // check if user has executed all targets, if he did display animation
-        if (userPoints === pointsNeeded) {
+    useEffect(()=>{
+        if(points.user >= points.needed){
             setSuccessfulFlag(true)
-        } else {
+        }
+        else{
             setSuccessfulFlag(false)
         }
-    }, [logs.length])
-
+    },[points])
+    const addPoints = () => setPoints(prev => ({...prev, user: prev.user++}))
 
     // change editor font-size
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value));
@@ -137,6 +141,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
         return setUserCode(beautifyJs(task.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
     }
 
+    const handleResetPoints = (): void => setPoints({user: 0, needed: task.targets.length})
     const consoleRef = useRef<HTMLDivElement>(null)
 
     // set the console logs by which useEffect will start the task validation
@@ -153,44 +158,55 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     };
 
     return <TaskContentWrapper>
-        <JsIntroduction>
-            <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
-            <TaskIntroductionBar>
-                <img src={cssClass.getFigureSrc()} alt={cssClass.getFigureAlt()}/>
-                <h3>{task.title}</h3>
-            </TaskIntroductionBar>
 
-            <TaskIntroductionText dangerouslySetInnerHTML={{__html: task.introduction}}>
-            </TaskIntroductionText>
+        {successfulFlag  && <>
+            <JsIntroduction>
+                <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
+                <TaskIntroductionBar>
+                    <img src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()}/>
+                    <h3>{task.title}</h3>
+                </TaskIntroductionBar>
 
-            {/*decorations*/}
+                <TaskIntroductionText dangerouslySetInnerHTML={{__html: task.introduction}}>
+                </TaskIntroductionText>
 
-        </JsIntroduction>
+                {/*decorations*/}
 
-        <JsTargets>
-            <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
-            <TaskTargetsWrapper>
-                {task.targets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
+            </JsIntroduction>
+            <JsTargets>
+                <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
+                <TaskTargetsWrapper>
+                    {task.targets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
 
-                    {el.solved === null && <TaskTargetCheckbox backgroundColor={"#e5e3f1"}/>}
-                    {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
-                        className="fas fa-times"/></TaskTargetCheckbox>}
-                    {el.solved === true &&
-                    <TaskTargetCheckbox backgroundColor={"#75D701"}><i
-                        className="fas fa-check"/></TaskTargetCheckbox>}
-                    <TaskTargetNumber>{el.number}. </TaskTargetNumber>
-                    <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
-                </TaskTarget>)}
+                        {el.solved === null && <TaskTargetCheckbox backgroundColor={"#e5e3f1"}/>}
+                        {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
+                            className="fas fa-times"/></TaskTargetCheckbox>}
+                        {el.solved === true &&
+                        <TaskTargetCheckbox backgroundColor={"#75D701"}><i
+                            className="fas fa-check"/></TaskTargetCheckbox>}
+                        <TaskTargetNumber>{el.number}. </TaskTargetNumber>
+                        <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
+                    </TaskTarget>)}
 
-                {/*task aids*/}
-                <TaskAidsWrapper>
-                    <TaskAidsTitle>Task aids</TaskAidsTitle>
-                    <TaskAidsList>
-                        {task.aid.map((el, num) => <TaskAid aid={el} key={`${task.title}_taskAid_${num}`}/>)}
-                    </TaskAidsList>
-                </TaskAidsWrapper>
-            </TaskTargetsWrapper>
-        </JsTargets>
+                    {/*task aids*/}
+                    <TaskAidsWrapper>
+                        <TaskAidsTitle>Task aids</TaskAidsTitle>
+                        <TaskAidsList>
+                            {task.aid.map((el, num) => <TaskAid aid={el} key={`${task.title}_taskAid_${num}`}/>)}
+                        </TaskAidsList>
+                    </TaskAidsWrapper>
+                </TaskTargetsWrapper>
+            </JsTargets>
+        </>}
+
+        {successfulFlag === false && <JsTaskSuccessful>
+            <TaskSuccessfulImg src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()}/>
+            <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
+            <TaskSuccessfulBar color="#b5179e">
+                <button onClick={handleResetPoints}>Close</button>
+                {task.number < allTaskLength && <Link to={`/js-task/${task.number + 1}`}>Next task</Link>}
+            </TaskSuccessfulBar>
+        </JsTaskSuccessful>}
 
         <JsResult>
             <WebBrowserWindow>

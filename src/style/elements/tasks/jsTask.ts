@@ -59,3 +59,24 @@ export const JsConsoleWrapper = styled.div`
     color: #ff8080 !important;
   }
 `
+export const JsTaskSuccessful = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  grid-column: 1/ 1;
+  grid-row: 1 / 3;
+  background-color: #4cc9f0;
+  background-image: linear-gradient(
+          135deg
+          ,#480ca8 25%,transparent 25%), linear-gradient(
+          225deg
+          ,#b5179e 25%,transparent 25%), linear-gradient(
+          315deg
+          ,#480ca8 25%,transparent 25%), linear-gradient(
+          45deg
+          ,#b5179e 25%,transparent 25%);
+  background-position: -30px 0,-30px 0,0 0,0 0;
+  background-size: 60px 60px;
+  background-repeat: repeat;
+`
