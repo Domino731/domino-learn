@@ -55,4 +55,7 @@ export const JsConsoleWrapper = styled.div`
      color: black !important;
    }
  }
+  summary{
+    color: #ff8080 !important;
+  }
 `

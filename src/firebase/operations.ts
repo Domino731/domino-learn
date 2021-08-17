@@ -2,7 +2,7 @@ import {db} from "./firebaseIndex";
 import {IFAllTasks, IFHtmlTask, IFCssTask, IFJsTask} from "../types/types";
 const beautifyHtml = require('js-beautify').html
 const beautifyCss = require('js-beautify').css
-
+const beautifyJs = require('js-beautify').js;
 /**
  * fetch  specific html task
  * @param taskNumber  - number of task

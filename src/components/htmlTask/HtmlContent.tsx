@@ -65,7 +65,10 @@ import {taskValidationHtml} from "../../functions/taskValidationHtml";
 const beautifyHtml = require('js-beautify').html
 
 
-export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task, allTaskLength}): JSX.Element | null => {
+export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
+                                                                               task,
+                                                                               allTaskLength
+                                                                           }): JSX.Element | null => {
 
     // state with userCode from editor output
     const [userCode, setUserCode] = useState<string>("")
@@ -118,7 +121,8 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
         // user points
         let userPoints = 0
 
-        const changeUserPoints = () : number => userPoints++
+// function that add pun when user complete task correctly
+        const changeUserPoints = (): number => userPoints++
 
         // // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
         // // depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
@@ -214,7 +218,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({task
             <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
             <TaskSuccessfulBar color="#ffca3a">
                 <button onClick={() => setSuccessfulFlag(false)}>Close</button>
-                { task.number < allTaskLength && <Link to={`/html-task/${task.number + 1}`}>Next task</Link>}
+                {task.number < allTaskLength && <Link to={`/html-task/${task.number + 1}`}>Next task</Link>}
             </TaskSuccessfulBar>
         </HtmlTaskSuccessful>}
 

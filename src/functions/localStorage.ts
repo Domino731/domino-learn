@@ -204,7 +204,7 @@ export const getCssTaskCodeFromLS = (saveDataCallback: (obj: { html: string, css
                     indent_size: 1,
                     space_in_empty_paren: false,
                     wrap_line_length: 50
-                }),
+                })
             }
             saveDataCallback(taskCode)
         }

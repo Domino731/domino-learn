@@ -88,6 +88,7 @@ export interface IFTaskTargets {
 
 export interface IFJsTaskTargets {
     target: string
+    console: string
     solutions: string[]
     number: number
     solved: null | boolean
@@ -146,7 +147,16 @@ export interface IFAllTasks {
     targets: string[]
     number: number
 }
+// js console
+export interface IFJsConsoleInitial {
+    method: string
+    data: (string | number)[]
+}
 
+export interface IFJsConsoleLogs {
+    data: any[]
+    amount?: number
+}
 // localStorage
 export type TypeLSHtmlTaskSolutions = {
     taskSolutions: TypeHtmlTaskSolution[]

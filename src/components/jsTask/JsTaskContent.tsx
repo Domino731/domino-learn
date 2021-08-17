@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useState} from "react";
+import React, {FunctionComponent, useEffect, useRef, useState} from "react";
 import {
     CodeEditorPanel,
     CodeEditorPanelBtn,
@@ -25,7 +25,7 @@ import {
     WebBrowserWindow,
     WebBrowserYellowBox
 } from "../../style/elements/tasks/task";
-import {IFPropsJsTask} from "../../types/types";
+import {IFJsTaskTargets, IFPropsJsTask} from "../../types/types";
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/theme-monokai'
 import 'ace-builds/src-noconflict/theme-ambiance'
@@ -39,73 +39,111 @@ import 'ace-builds/src-noconflict/theme-terminal'
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
-import {JsCodeEditorWrapper, JsIntroduction, JsResult, JsTargets, JsConsoleWrapper} from "../../style/elements/tasks/jsTask";
+import {
+    JsCodeEditorWrapper,
+    JsIntroduction,
+    JsResult,
+    JsTargets,
+    JsConsoleWrapper
+} from "../../style/elements/tasks/jsTask";
 import {cssClass} from "../../properties/cssClass";
 import {TaskAid} from "../task/TaskAid";
 import AceEditor from "react-ace";
 import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
-import { Console, Hook, Unhook } from 'console-feed'
-import {Initial, Logs} from "../../functions/test";
+import {Console, Hook, Unhook} from 'console-feed'
+import {initial, Logs} from "../../functions/jsConsole";
+import {taskValidationJS} from "../../functions/taskValidationJS";
 
-const beautifyJs = require('js-beautify').js
+const beautifyJs = require('js-beautify').js;
 
 export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLength}): JSX.Element => {
 
     // state with userCode from editor output
-    const [userCode, setUserCode] = useState<string>("")
+    const [userCode, setUserCode] = useState<string>(task.code);
+
+    // state with task targets
+    const [taskTargets, setTaskTargets] = useState<IFJsTaskTargets[]>(task.targets)
 
     // state with editor font size from localStorage
-    const [editorFs, setEditorFs] = useState<number>(getEditorFSize)
+    const [editorFs, setEditorFs] = useState<number>(getEditorFSize);
 
     // state with editor theme from localStorage
-    const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme)
+    const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme);
 
     // state with flag, when user change it, editor settings form will be showed
-    const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
+    const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false);
 
-    const [logs, setLogs] = useState<any>(Initial)
+    // state with console logs
+    const [logs, setLogs] = useState<any[]>([]);
 
+    const [x, setX] = useState<any[]>([])
+    const [consoleTextArr, setConsoleTextArr] = useState<any[]>([])
     // run once!
     // @ts-ignore
     useEffect(() => {
         Hook(
             window.console,
-
             (log) => {
-                // @ts-ignore
                 setLogs((currLogs) => [...currLogs, log])
-                // remove warning
-                // @ts-ignore
-                setLogs(currLogs => currLogs.filter(el => el.method !== "warn" && el ))
+                // remove warnings
+                setLogs(currLogs => currLogs.filter(el => el.method !== "warn" && el))
             },
-            false
+            false,
         )
-
         // @ts-ignore
         return () => Unhook(window.console)
-    }, [])
+    }, []);
 
+    useEffect(() => {
+        const textArr = logs.map(el => el.data[0])
+        setConsoleTextArr(textArr)
+        setX(prev => [...prev, consoleTextArr.length])
+    }, [logs.length])
 
+    useEffect(() => {
+        if(consoleTextArr.length >= 1){
+            // points needed to pass
+            const pointsNeeded: number = task.targets.length
+
+            // user points
+            let userPoints = 0
+
+            // function that add pun when user complete task correctly
+            const changeUserPoints = (): number => userPoints++
+
+            taskTargets.map(el =>  taskValidationJS(consoleTextArr, el, changeUserPoints))
+        }
+    }, [consoleTextArr.length])
     // change editor font-size
-    const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value))
+    const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value));
 
     // change theme
-    const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorTheme(e.target.value)
+    const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorTheme(e.target.value);
 
     // change code from
-    const changeUserCode = (newValue: string): void => {
-        setUserCode(newValue)
-    }
+    const changeUserCode = (newValue: string): void => setUserCode(newValue)
 
     // reset code in editor by original code from task
     const handleResetCode = (): void => {
-        setUserCode(beautifyJs(task.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+        return setUserCode(beautifyJs(task.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
     }
+
+    const consoleRef = useRef<HTMLDivElement>(null)
+
     // task validation
-    const checkTask = (): void => {
-        // set the console log
-        Logs(userCode)
-    }
+    const setConsole = () => {
+
+        // set the console
+        Logs(userCode);
+
+        // format user code
+        setUserCode(beautifyJs(userCode, {
+            indent_size: 1,
+            space_in_empty_paren: false,
+            wrap_line_length: 50
+        }));
+
+    };
 
     return <TaskContentWrapper>
         <JsIntroduction>
@@ -142,7 +180,6 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
                     <TaskAidsTitle>Task aids</TaskAidsTitle>
                     <TaskAidsList>
                         {task.aid.map((el, num) => <TaskAid aid={el} key={`${task.title}_taskAid_${num}`}/>)}
-
                     </TaskAidsList>
                 </TaskAidsWrapper>
             </TaskTargetsWrapper>
@@ -156,11 +193,10 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
                     <WebBrowserRedBox/>
                 </WebBrowserTopBar>
 
-
-
-                <JsConsoleWrapper>
-                    <Console logs={logs} variant="light"  />
+                <JsConsoleWrapper ref={consoleRef}>
+                    <Console logs={logs} variant="light"/>
                 </JsConsoleWrapper>
+
 
             </WebBrowserWindow>
 
@@ -261,7 +297,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
                 <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
                     className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
                 <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
-                <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+                <CodeEditorPanelBtn onClick={setConsole}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
             </CodeEditorPanel>
         </JsCodeEditorWrapper>
 

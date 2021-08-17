@@ -63,6 +63,9 @@ import 'ace-builds/src-noconflict/mode-html'
 import {taskValidationHtml} from "../../functions/taskValidationHtml";
 import {taskValidationCss} from "../../functions/taskValidationCss";
 import {Link} from "react-router-dom";
+const beautifyHtml = require('js-beautify').html
+const beautifyCss = require('js-beautify').css
+
 export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, allTaskLength}): JSX.Element => {
 
     // state with css code
@@ -90,10 +93,10 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // check if the user hasn't already solved the task, if he  has solved it,
     // get it from local storage and if not, return the default value (task.targets)
-    useEffect(()=>{
+    useEffect(() => {
         getCssTaskTargetsFromLS(setTaskTargets, task.title, task.targets)
         getCssTaskCodeFromLS(setUserCode, task.title, task.code)
-    },[task])
+    }, [task])
 
 
     const changeUserCodeHtml = (newValue: string): void => {
@@ -136,9 +139,24 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // task validation
     const checkTask = () => {
 
+        // set the result (display user styles)
         setResultCode({
             html: userCode.html,
             css: userCode.css
+        })
+
+        //format code
+        setUserCode({
+            html: beautifyHtml(userCode.html, {
+                indent_size: 1,
+                space_in_empty_paren: false,
+                wrap_line_length: 50
+            }),
+            css: beautifyCss(userCode.css, {
+                indent_size: 1,
+                space_in_empty_paren: false,
+                wrap_line_length: 50
+            })
         })
 
         // points needed to pass
@@ -147,6 +165,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         // user points
         let userPoints = 0
 
+// function that add pun when user complete task correctly
         const changeUserPoints = (): number => userPoints++
 
         // checking if each task solution is equal to the user's solution, at the end we set the updated state of taskTargets
@@ -163,10 +182,9 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         })
 
         // check if user has executed all targets, if he did display animation
-        if(userPoints === pointsNeeded){
+        if (userPoints === pointsNeeded) {
             setSuccessfulFlag(true)
-        }
-        else{
+        } else {
             setSuccessfulFlag(false)
         }
 
@@ -386,7 +404,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
             <TaskSuccessfulBar color="#f15bb5">
                 <button onClick={() => setSuccessfulFlag(false)}>Close</button>
-                {task.number < allTaskLength  && <Link to={`/css-task/${task.number + 1}`}>Next task</Link>}
+                {task.number < allTaskLength && <Link to={`/css-task/${task.number + 1}`}>Next task</Link>}
             </TaskSuccessfulBar>
         </CssTaskSuccessful>}
 

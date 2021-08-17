@@ -8,13 +8,13 @@ import {user} from "firebase-functions/lib/providers/auth";
  * @param addPoints -> function that add points
  */
 
-export const taskValidationCss = (code: string, taskTarget: IFCssTaskTargetCss,  addPoints: () => number,): void => {
+export const taskValidationCss = (code: string, taskTarget: IFCssTaskTargetCss,  addPoints: () => void,): void => {
 
     // locations from which the string with the  style delcarations will be extracted
     const startPoint: number = code.indexOf(`${taskTarget.selector}{`)
     const endPoint: number = code.indexOf(`}`)
 
-    // user solution with lower case (without task comments and spaces)
+    // user code with lower case (without task comments and spaces)
     const userSolution: string = code
         .substring(startPoint, endPoint)
         .replace(`${taskTarget.selector}{`, "")

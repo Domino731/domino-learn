@@ -5,14 +5,14 @@ import {IFTaskTargets} from "../types/types";
  * @param taskTarget - object with necessary information to validate task
  * @param addPoints -> function that add points
  */
-export const taskValidationHtml = (code: string, taskTarget: IFTaskTargets, addPoints: () => number) => {
+export const taskValidationHtml = (code: string, taskTarget: IFTaskTargets, addPoints: () => void) => {
 
     // locations of comments based on which it will be possible to get
     // clean html code without comments and check user solution
     const startPoint: number = code.indexOf(`<!-- Place your code for task ${taskTarget.number} below -->`)
     const endPoint: number = code.indexOf(`<!--${taskTarget.number}-->`)
 
-    // user solution with lower case (without task comments and spaces)
+    // user code with lower case (without task comments and spaces)
     const userSolution : string = code
         .substring(startPoint, endPoint)
         .replace(`<!-- Place your code for task ${taskTarget.number} below -->`, "")
