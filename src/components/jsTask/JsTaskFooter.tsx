@@ -14,13 +14,13 @@ import {
     TaskFooterTasksPlanets,
     TaskFooterTitle
 } from "../../style/elements/tasks/task";
-import {JsFooterTasksWrapper} from "../../style/elements/tasks/jsTask";
-import {HtmlFooterTasksWrapper} from "../../style/elements/tasks/htmlTask";
+import {JsFooterTasksWrapper, JsFooterDecorations} from "../../style/elements/tasks/jsTask";
+
 import plutoPlanet from "../../images/planet_pluto.png";
 import neptunePlanet from "../../images/planet_neptune.png";
 import marsPlanet from "../../images/planet_mars.png";
 import {FreepikThanks} from "../../style/general/generalStyles";
-import planets from "../../images/planets.png";
+
 
 export const JsTaskFooter : FunctionComponent<IFPropsTaskFooter> = ({allTasks, taskNumber}) : JSX.Element => {
 
@@ -94,5 +94,7 @@ export const JsTaskFooter : FunctionComponent<IFPropsTaskFooter> = ({allTasks, t
 
             </FreepikThanks>
         </TaskFooterIcons>
+
+        <JsFooterDecorations/>
     </JsFooter>
 }

@@ -709,3 +709,11 @@ export const TaskFooterDecoration = styled.div`
   width: 50%;
   height: 74px;
 `
+export const TaskIntroductionDecoration = styled.div`
+  position: absolute;
+  top: 44px;
+  right: 11px;
+  z-index: -1;
+  width: 43%;
+  height: 74px;
+`

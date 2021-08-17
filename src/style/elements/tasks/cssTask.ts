@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import {TaskFooter, TaskFooterDecoration, TaskFooterSwitchBar, TaskFooterTasksWrapper} from "./task";
+import {
+    TaskFooter,
+    TaskFooterDecoration,
+    TaskFooterSwitchBar,
+    TaskFooterTasksWrapper, TaskIntroductionDecoration,
+} from "./task";
 
 
 export const CssIntroduction = styled.div`
@@ -82,16 +87,10 @@ export const CssFooterTasksWrapper = styled(TaskFooterTasksWrapper)`
   background-repeat: repeat;
 `
 // decorations
-export const CssDecorationIntroduction = styled.div`
-  position: absolute;
-  top: 44px;
-  right: 0;
-  z-index: -1;
-  width: 43%;
-  height: 74px;
+export const CssDecorationIntroduction = styled(TaskIntroductionDecoration)`
   background: repeating-linear-gradient(
           90deg
-          ,#b5179e 0px,#b5179e 5px,white 5px,white 10px);
+          ,#f15bb5 0px,#f15bb5 5px,white 5px,white 10px);
 `
 export const CssFooterDecoration = styled(TaskFooterDecoration)`
   background: repeating-linear-gradient(0deg, #00f5d4 0px,

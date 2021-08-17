@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {TaskFooter, TaskFooterTasksWrapper} from "./task";
+import {TaskFooter, TaskFooterDecoration, TaskFooterTasksWrapper, TaskIntroductionDecoration} from "./task";
 
 export const JsResult = styled.div`
   grid-column: 2 / 2;
@@ -100,4 +100,13 @@ export const JsFooterTasksWrapper = styled(TaskFooterTasksWrapper)`
   background-position: -30px 0,-30px 0,0 0,0 0;
   background-size: 60px 60px;
   background-repeat: repeat;
+`
+export const JsFooterDecorations = styled(TaskFooterDecoration)`
+  background: repeating-linear-gradient(0deg, #4cc9f0 0px,
+  #4cc9f0 5px, #b5179e 5px, #b5179e 10px);
+`
+export const JsDecorationIntroduction = styled(TaskIntroductionDecoration)`
+  background: repeating-linear-gradient(
+          90deg
+          ,#b5179e 0px,#b5179e 5px,white 5px,white 10px);
 `

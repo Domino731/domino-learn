@@ -45,12 +45,16 @@ import {
     JsResult,
     JsTargets,
     JsConsoleWrapper,
-    JsTaskSuccessful
+    JsTaskSuccessful,
+    JsDecorationIntroduction
 } from "../../style/elements/tasks/jsTask";
-import {cssClass} from "../../properties/cssClass";
 import {TaskAid} from "../task/TaskAid";
 import AceEditor from "react-ace";
-import {getEditorFSize, getEditorTheme, saveJsTaskSolutionToLS} from "../../functions/localStorage";
+import {
+    getEditorFSize,
+    getEditorTheme, getJsTaskCodeFromLS, getJsTaskTargetsFromLS,
+    saveJsTaskSolutionToLS
+} from "../../functions/localStorage";
 import {Console, Hook, Unhook} from 'console-feed'
 import {Logs} from "../../functions/jsConsole";
 import {taskValidationJS} from "../../functions/taskValidationJS";
@@ -84,8 +88,15 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     // state with flag, which is responsible for animation when the user correctly completes the task targets
     const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
 
-    const [points, setPoints] = useState<{user: number, needed: number}>({user: 0, needed: task.targets.length})
+    const [points, setPoints] = useState<{ user: number, needed: number }>({user: 0, needed: task.targets.length})
 
+
+    // check if the user hasn't already solved the task, if he  has solved it,
+    // get it from local storage and if not, return the default value (task.targets)
+    useEffect(() => {
+        getJsTaskCodeFromLS(setUserCode, task.title, task.code)
+        getJsTaskTargetsFromLS(setTaskTargets, task.title, task.targets)
+    }, [task])
 
     // run once!
     // @ts-ignore
@@ -109,25 +120,21 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     }, [logs.length])
 
 
-
     useEffect(() => {
         const consoleTextArr = logs.map(el => el.data[0]);
         if (consoleTextArr.length > 0) {
             taskTargets.map(el => taskValidationJS(consoleTextArr, el, addPoints));
-            // save solution into local storage, so when user comes back he will have their solution
             saveJsTaskSolutionToLS(taskTargets, task.title, userCode)
         }
     }, [logs.length]);
 
-    useEffect(()=>{
-        if(points.user >= points.needed){
+    useEffect(() => {
+        if (points.user >= points.needed) {
             setSuccessfulFlag(true)
-        }
-        else{
+        } else {
             setSuccessfulFlag(false)
         }
-    },[points])
-
+    }, [points])
 
 
     const addPoints = () => setPoints(prev => ({...prev, user: prev.user++}))
@@ -176,13 +183,12 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
                 </TaskIntroductionText>
 
                 {/*decorations*/}
-
+                <JsDecorationIntroduction/>
             </JsIntroduction>
             <JsTargets>
                 <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
                 <TaskTargetsWrapper>
-                    {task.targets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
-
+                    {taskTargets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
                         {el.solved === null && <TaskTargetCheckbox backgroundColor={"#e5e3f1"}/>}
                         {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
                             className="fas fa-times"/></TaskTargetCheckbox>}
@@ -204,7 +210,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
             </JsTargets>
         </>}
 
-        {successfulFlag  && <JsTaskSuccessful>
+        {successfulFlag && <JsTaskSuccessful>
             <TaskSuccessfulImg src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()}/>
             <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
             <TaskSuccessfulBar color="#b5179e">

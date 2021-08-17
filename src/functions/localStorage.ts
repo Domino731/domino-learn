@@ -9,6 +9,7 @@ import {IFTaskTargets} from "../types/types";
 
 const beautifyHtml = require('js-beautify').html
 const beautifyCss = require('js-beautify').css
+const beautifyJs = require('js-beautify').js;
 export const getEditorFSize = (): number => {
     const fontSize = localStorage.getItem("editorFontSize")
     if (fontSize !== null) {
@@ -104,7 +105,6 @@ export const saveJsTaskSolutionToLS = (taskSolutions: IFJsTaskTargets[], taskTit
         title: taskTitle,
         userCode, taskSolutions
     }
-
     // save solution into local storage
     if (localStorage.getItem("jsTasksSolutions") != null) {
         // @ts-ignore
@@ -168,6 +168,29 @@ export const getCssTaskTargetsFromLS = (saveDataCallback: (obj: (IFCssTaskTarget
         saveDataCallback(defaultValue)
     }
 }
+
+/**
+ * Get js task targets - information about which task is completed (checkboxes)
+ * @param saveDataCallback - function that saves data
+ * @param taskTitle - name of task
+ * @param defaultValue - the default value to be saved to the state if the user has not solved this task
+ */
+export const getJsTaskTargetsFromLS = (saveDataCallback: (obj: IFJsTaskTargets[]) => any,
+                                       taskTitle: string,
+                                       defaultValue: IFJsTaskTargets []): void => {
+    if (localStorage.getItem("jsTasksSolutions") != null) {
+
+        // @ts-ignore
+        let localStorageData: IFLSjsTaskSolutions[] = JSON.parse(localStorage.getItem("jsTasksSolutions"));
+        const taskTargets = localStorageData.filter(el => el.title === taskTitle)
+        taskTargets.length !== 0 ? saveDataCallback(taskTargets[0].taskSolutions) : saveDataCallback(defaultValue)
+        console.log(taskTargets[0].taskSolutions)
+        console.log(defaultValue);
+    } else {
+        saveDataCallback(defaultValue)
+    }
+}
+
 
 /**
  * Get user's html task solution code
@@ -238,6 +261,38 @@ export const getCssTaskCodeFromLS = (saveDataCallback: (obj: { html: string, css
                 })
             }
             saveDataCallback(taskCode)
+        }
+    }
+}
+
+/**
+ * Get user's html task solution code
+ * @param saveDataCallback - function that saves data
+ * @param taskTitle - name of task
+ * @param defaultValue - the default value to be saved to the state if the user has not solved this task
+ */
+export const getJsTaskCodeFromLS = (saveDataCallback: (obj: string) => void, taskTitle: string, defaultValue: string) => {
+
+    if (localStorage.getItem("jsTasksSolutions") != null) {
+
+        // @ts-ignore
+        let localStorageData: IFLSjsTaskSolutions[] = JSON.parse(localStorage.getItem("jsTasksSolutions"));
+
+        const taskSolutionCode = localStorageData.filter(el => el.title === taskTitle)
+
+        if (taskSolutionCode.length !== 0) {
+            saveDataCallback(beautifyJs(taskSolutionCode[0].userCode, {
+                indent_size: 1,
+                space_in_empty_paren: false,
+                wrap_line_length: 50
+            }))
+        } else {
+
+            saveDataCallback(beautifyHtml(defaultValue, {
+                indent_size: 1,
+                space_in_empty_paren: false,
+                wrap_line_length: 50
+            }))
         }
     }
 }
