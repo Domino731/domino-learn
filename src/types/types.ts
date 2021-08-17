@@ -22,6 +22,26 @@ export interface IFPropsDescriptionItem {
     reverse?: boolean
 }
 
+export interface IFPropsTaskResultWindow {
+    srcDoc: string
+}
+
+export interface IFPropsTaskAceEditor {
+    mode: string
+    editorTheme: string
+    userCode: string
+    editorFS: string | number
+    changeUserCode: (newValue: string) => void
+}
+
+export interface IFPropsTaskAceEditorSettings {
+    handleChangeTheme: (e: React.ChangeEvent<HTMLInputElement>) => void
+    editorTheme: string
+    handleChangeFs: (e: React.ChangeEvent<HTMLInputElement>) => void
+    editorFs: string | number
+    toggleForm: () => void
+}
+
 export interface IFPropsTaskSelect {
     task: "htmlTasks" | "jsTasks" | "cssTasks"
     chosenTask: string,
@@ -35,6 +55,17 @@ export interface IFPropsTaskSelect {
     }
 }
 
+export interface IFPropsTaskIntroduction {
+    title: string
+    introductionInnerHtml: string | number
+    imgAlt: string
+    imgSrc: string
+}
+export interface IFPropsTaskTargets {
+    targets: (IFTaskTargets | IFJsTaskTargets | IFCssTaskTargetCss | IfCssTaskTargetHtml)[]
+    title: string
+    aidArr: IFTaskAid[]
+}
 export interface IFPropsHtmlTaskFooter {
     allTasks: {
         title: string,
@@ -54,18 +85,22 @@ export interface IFPropsCssTaskContent {
     task: IFCssTask,
     allTaskLength: number
 }
+
 export interface IFPropsCssTaskFooter {
     allTasks: IFAllTasks[],
     taskNumber: number
 }
+
 export interface IFPropsJsTask {
     task: IFJsTask,
     allTaskLength: number
 }
+
 export interface IFPropsTaskFooter {
     allTasks: IFAllTasks[],
     taskNumber: number
 }
+
 export interface IFPropsTask extends RouteComponentProps<IFMatchParams> {
 }
 
@@ -127,6 +162,7 @@ export interface IFCssTask {
     }
     targets: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []
 }
+
 export interface IFHtmlTask {
     title: string
     introduction: string
@@ -151,6 +187,7 @@ export interface IFAllTasks {
     targets: string[]
     number: number
 }
+
 // js console
 export interface IFJsConsoleInitial {
     method: string
@@ -161,6 +198,7 @@ export interface IFJsConsoleLogs {
     data: any[]
     amount?: number
 }
+
 // localStorage
 export type TypeLSHtmlTaskSolutions = {
     taskSolutions: TypeHtmlTaskSolution[]
@@ -173,6 +211,7 @@ export interface IFLSCssTaskSolutions {
     title: string,
     userCode: { html: string, css: string }
 }
+
 export interface IFLSjsTaskSolutions {
     taskSolutions: IFJsTaskTargets[]
     title: string,

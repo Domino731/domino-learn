@@ -58,11 +58,15 @@ import {
     saveCssTaskSolutionToLS,
 } from "../../functions/localStorage";
 import AceEditor from "react-ace";
-import 'ace-builds/src-noconflict/mode-css'
-import 'ace-builds/src-noconflict/mode-html'
 import {taskValidationHtml} from "../../functions/taskValidationHtml";
 import {taskValidationCss} from "../../functions/taskValidationCss";
 import {Link} from "react-router-dom";
+import {TaskResultWindow} from "../task/TaskResultWindow";
+import {TaskAceEditor} from "../task/TaskAceEditor";
+import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
+import {TaskIntroduction} from "../task/TaskIntroduction";
+import {TaskTargets} from "../task/TaskTargets";
+
 const beautifyHtml = require('js-beautify').html
 const beautifyCss = require('js-beautify').css
 
@@ -120,6 +124,8 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // switch between code editors - css and html
     const handleSwitchEditor = (): void => setCurrentEditor(() => currentEditor === "css" ? "html" : "css")
+
+    const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag)
 
     // reset code to original
     const handleResetCode = (): void => {
@@ -206,16 +212,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     return <TaskContentWrapper>
         <CssResult>
-            <WebBrowserWindow>
-                <WebBrowserTopBar>
-                    <WebBrowserGreenBox/>
-                    <WebBrowserYellowBox/>
-                    <WebBrowserRedBox/>
-                </WebBrowserTopBar>
-                <iframe srcDoc={srcDoc}
-                        width="100%" height="100%" frameBorder="0" sandbox="allow-scripts" title="output"
-                />
-            </WebBrowserWindow>
+            <TaskResultWindow srcDoc={srcDoc}/>
         </CssResult>
 
         <CssCodeEditorWrapper>
@@ -236,118 +233,22 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             </ChangeEditor>
 
             <TaskCodeEditorMultiple>
-                {currentEditor === "css" && <AceEditor
-                    enableBasicAutocompletion={true}
-                    enableLiveAutocompletion={true}
-                    enableSnippets={true}
-                    onChange={changeUserCodeCss}
-                    mode="css"
-                    theme={editorTheme}
-                    width="100%"
-                    height="100%"
-                    value={userCode.css}
-                    fontSize={editorFs}
-                    showPrintMargin={true}
-                    showGutter={true}
-                    highlightActiveLine={true}
-                    setOptions={{
-                        enableBasicAutocompletion: false,
-                        enableLiveAutocompletion: false,
-                        enableSnippets: false,
-                        showLineNumbers: true,
-                        tabSize: 2,
-                    }}
-                />}
-                {currentEditor === "html" && <AceEditor
-                    enableBasicAutocompletion={true}
-                    enableLiveAutocompletion={true}
-                    enableSnippets={true}
-                    onChange={changeUserCodeHtml}
-                    mode="html"
-                    theme={editorTheme}
-                    width="100%"
-                    height="100%"
-                    value={userCode.html}
-                    fontSize={editorFs}
-                    showPrintMargin={true}
-                    showGutter={true}
-                    highlightActiveLine={true}
-                    setOptions={{
-                        enableBasicAutocompletion: false,
-                        enableLiveAutocompletion: false,
-                        enableSnippets: false,
-                        showLineNumbers: true,
-                        tabSize: 2,
-                    }}
-                />}
+                {currentEditor === "css" &&
+                <TaskAceEditor mode="css" editorTheme={editorTheme} userCode={userCode.css} editorFS={editorFs}
+                               changeUserCode={changeUserCodeCss}/>}
+
+                {currentEditor === "html" &&
+                <TaskAceEditor mode="html" editorTheme={editorTheme} userCode={userCode.html} editorFS={editorFs}
+                               changeUserCode={changeUserCodeHtml}/>}
             </TaskCodeEditorMultiple>
 
 
             <CodeEditorPanel>
-                {editorFormFlag && <EditorSettingsWrapper>
-                    <EditorSettingsCloseIcon onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                        className="far fa-window-close"/></EditorSettingsCloseIcon>
-                    <EditorSettingsLabel>
-                        Change font size
-                        <EditorSettingsFSize type="number" min="1" max="60" step="1" value={editorFs}
-                                             onChange={handleChangeFs}/>
-                    </EditorSettingsLabel>
+                {editorFormFlag &&
+                <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorTheme}
+                                       handleChangeFs={handleChangeTheme} editorFs={editorFs}
+                                       toggleForm={handleToggleEditorSettings}/>}
 
-                    <EditorSettingsLabel>
-                        Change theme
-                    </EditorSettingsLabel>
-
-                    <EditorSettingsThemesWrapper>
-                        <label>
-                            Monokai
-                            <input type="checkbox" value="monokai" checked={editorTheme === "monokai"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Ambiance
-                            <input type="checkbox" value="ambiance" checked={editorTheme === "ambiance"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Clouds
-                            <input type="checkbox" value="clouds" checked={editorTheme === "clouds"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Dracula
-                            <input type="checkbox" value="dracula" checked={editorTheme === "dracula"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Solarized light
-                            <input type="checkbox" value="solarized_light" checked={editorTheme === "solarized_light"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Crimson editor
-                            <input type="checkbox" value="crimson_editor" checked={editorTheme === "crimson_editor"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Github
-                            <input type="checkbox" value="github" checked={editorTheme === "github"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Terminal
-                            <input type="checkbox" value="terminal" checked={editorTheme === "terminal"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                    </EditorSettingsThemesWrapper>
-                </EditorSettingsWrapper>}
 
                 <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
                     className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
@@ -356,46 +257,13 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             </CodeEditorPanel>
         </CssCodeEditorWrapper>
 
-
         {successfulFlag === false && <>
             <CssIntroduction>
-                <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
-                <TaskIntroductionBar>
-                    <img src={cssClass.getFigureSrc()} alt={cssClass.getFigureAlt()}/>
-                    <h3>{task.title}</h3>
-                </TaskIntroductionBar>
-
-                {/*@ts-ignore*/}
-                <TaskIntroductionText dangerouslySetInnerHTML={{__html: task.introduction}}/>
-
-                {/*decorations*/}
-                <CssDecorationIntroduction/>
+                <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
+                                  imgAlt={cssClass.getFigureAlt()} imgSrc={cssClass.getFigureSrc()}/>
             </CssIntroduction>
-
             <CssTarget>
-                {/*task targets list*/}
-                <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
-                <TaskTargetsWrapper>
-                    {taskTargets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
-
-                        {el.solved === null && <TaskTargetCheckbox backgroundColor={"#e5e3f1"}/>}
-                        {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
-                            className="fas fa-times"/></TaskTargetCheckbox>}
-                        {el.solved === true &&
-                        <TaskTargetCheckbox backgroundColor={"#75D701"}><i
-                            className="fas fa-check"/></TaskTargetCheckbox>}
-                        <TaskTargetNumber>{el.number}. </TaskTargetNumber>
-                        <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
-                    </TaskTarget>)}
-                </TaskTargetsWrapper>
-
-                <TaskAidsWrapper>
-                    <TaskAidsTitle>Task aids</TaskAidsTitle>
-                    <TaskAidsList>
-                        {task.aid.map((el, num) => <TaskAid aid={el} key={`${task.title}_taskAid_${num}`}/>)}
-                    </TaskAidsList>
-                </TaskAidsWrapper>
-                <img src="" alt=""/>
+                <TaskTargets targets={taskTargets} title={task.title} aidArr={task.aid}/>
             </CssTarget>
         </>}
 
