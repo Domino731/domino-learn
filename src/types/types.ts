@@ -35,7 +35,7 @@ export interface IFPropsTaskSelect {
     }
 }
 
-export interface IFPropsHtmlTaskFooterProps {
+export interface IFPropsHtmlTaskFooter {
     allTasks: {
         title: string,
         introduction: string,
@@ -61,6 +61,10 @@ export interface IFPropsCssTaskFooter {
 export interface IFPropsJsTask {
     task: IFJsTask,
     allTaskLength: number
+}
+export interface IFPropsTaskFooter {
+    allTasks: IFAllTasks[],
+    taskNumber: number
 }
 export interface IFPropsTask extends RouteComponentProps<IFMatchParams> {
 }

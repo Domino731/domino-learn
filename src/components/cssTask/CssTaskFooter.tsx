@@ -1,4 +1,4 @@
-import {IFPropsCssTaskFooter} from "../../types/types";
+import {IFPropsTaskFooter} from "../../types/types";
 import {FunctionComponent, useState} from "react";
 import {CssFooter, CssFooterSwitchBar, CssFooterTasksWrapper, CssFooterDecoration} from "../../style/elements/tasks/cssTask";
 import {
@@ -18,7 +18,7 @@ import marsPlanet from "../../images/planet_mars.png";
 import {FreepikThanks} from "../../style/general/generalStyles";
 import neptunePlanet from "../../images/planet_neptune.png";
 
-export const CssTaskFooter: FunctionComponent<IFPropsCssTaskFooter> = ({allTasks, taskNumber}) : JSX.Element => {
+export const CssTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, taskNumber}) : JSX.Element => {
 
     // state with flag, when user change this state(icon with list <HtmlFooterListBtn>), list with tasks will be showed
     const [flag, setFlag] = useState<boolean>(false)
