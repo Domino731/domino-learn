@@ -184,8 +184,6 @@ export const getJsTaskTargetsFromLS = (saveDataCallback: (obj: IFJsTaskTargets[]
         let localStorageData: IFLSjsTaskSolutions[] = JSON.parse(localStorage.getItem("jsTasksSolutions"));
         const taskTargets = localStorageData.filter(el => el.title === taskTitle)
         taskTargets.length !== 0 ? saveDataCallback(taskTargets[0].taskSolutions) : saveDataCallback(defaultValue)
-        console.log(taskTargets[0].taskSolutions)
-        console.log(defaultValue);
     } else {
         saveDataCallback(defaultValue)
     }
@@ -227,7 +225,7 @@ export const getHtmlTaskCodeFromLS = (saveDataCallback: (obj: string) => void, t
  * @param.taskTitle - name of task
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
-export const getCssTaskCodeFromLS = (saveDataCallback: (obj: { html: string, css: string }) => void,taskTitle: string, defaultValue: { html: string, css: string }) => {
+export const getCssTaskCodeFromLS = (saveDataCallback: (obj: { html: string, css: string }) => void, taskTitle: string, defaultValue: { html: string, css: string }) => {
     if (localStorage.getItem("cssTasksSolutions") != null) {
 
         // @ts-ignore
@@ -278,21 +276,49 @@ export const getJsTaskCodeFromLS = (saveDataCallback: (obj: string) => void, tas
         // @ts-ignore
         let localStorageData: IFLSjsTaskSolutions[] = JSON.parse(localStorage.getItem("jsTasksSolutions"));
 
-        const taskSolutionCode = localStorageData.filter(el => el.title === taskTitle)
+        const taskSolutionCode = localStorageData.filter(el => el.title === taskTitle);
 
         if (taskSolutionCode.length !== 0) {
             saveDataCallback(beautifyJs(taskSolutionCode[0].userCode, {
                 indent_size: 1,
                 space_in_empty_paren: false,
                 wrap_line_length: 50
-            }))
+            }));
         } else {
 
             saveDataCallback(beautifyHtml(defaultValue, {
                 indent_size: 1,
                 space_in_empty_paren: false,
                 wrap_line_length: 50
-            }))
+            }));
         }
     }
-}
+};
+
+/**
+ * save solved task title to ls, so that the user knows which tasks he has completed
+ * @param taskTitle - task title
+ * @param item - local storage name in which you want to save
+ */
+export const saveSolvedTaskToLS =
+    (taskTitle: string, item: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks"): void => {
+        if (localStorage.getItem(item) != null) {
+            // @ts-ignore
+            let localStorageData: string[] = JSON.parse(localStorage.getItem(item));
+            localStorageData.push(taskTitle);
+            //  array with updated local storage data
+            let updatedLocalStorageData: string[] = []
+            //prevention of duplicates
+            localStorageData.forEach(el => {
+                if (el !== taskTitle) {
+                    updatedLocalStorageData.push(el)
+                }
+            })
+            updatedLocalStorageData.push(taskTitle)
+            localStorage.setItem(item, JSON.stringify(updatedLocalStorageData))
+        } else {
+            let localStorageData: string[] = [];
+            localStorageData.push(taskTitle);
+            localStorage.setItem(item, JSON.stringify(localStorageData))
+        }
+    }

@@ -33,7 +33,7 @@ import {
     getCssTaskTargetsFromLS,
     getEditorFSize,
     getEditorTheme, getCssTaskCodeFromLS,
-    saveCssTaskSolutionToLS,
+    saveCssTaskSolutionToLS, saveSolvedTaskToLS,
 } from "../../functions/localStorage";
 import {taskValidationHtml} from "../../functions/taskValidationHtml";
 import {taskValidationCss} from "../../functions/taskValidationCss";
@@ -186,7 +186,10 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
             // check if user has executed all targets, if he did display animation
             if (userPoints === pointsNeeded) {
+                // set the animation
                 setSuccessfulFlag(true)
+                // save solved task title to ls, so that the user knows which tasks he has completed
+                saveSolvedTaskToLS(task.title, "solvedCssTasks")
             } else {
                 setSuccessfulFlag(false)
             }
@@ -217,6 +220,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
             {loadingResult === false && <TaskResultWindow srcDoc={srcDoc}/>}
             {loadingResult  && <TaskResultLoading/>}
+
         </CssResult>
 
         <CssCodeEditorWrapper>
