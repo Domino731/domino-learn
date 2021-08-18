@@ -132,20 +132,22 @@ export const saveJsTaskSolutionToLS = (taskSolutions: IFJsTaskTargets[], taskTit
 
 /**
  * Get html task targets - information about which task is completed (checkboxes)
- * @param saveDataCallback - function that saves data
  * @param taskTitle - name of task
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
-export const getHtmlTaskTargetsFromLS = (saveDataCallback: (obj: IFTaskTargets[]) => void, taskTitle: string, defaultValue: IFTaskTargets[]) => {
+export const getHtmlTaskTargetsFromLS = (taskTitle: string, defaultValue: IFTaskTargets[]) => {
     if (localStorage.getItem("htmlTasksSolutions") != null) {
 
         // @ts-ignore
         let localStorageData: TypeLSHtmlTaskSolutions[] = JSON.parse(localStorage.getItem("htmlTasksSolutions"));
-
         const taskTargets = localStorageData.filter(el => el.title === taskTitle)
-        taskTargets.length !== 0 ? saveDataCallback(taskTargets[0].taskSolutions) : saveDataCallback(defaultValue)
+        if (taskTargets.length !== 0) {
+            return taskTargets[0].taskSolutions
+        } else {
+            return defaultValue
+        }
     } else {
-        saveDataCallback(defaultValue)
+        return defaultValue
     }
 }
 
@@ -155,17 +157,16 @@ export const getHtmlTaskTargetsFromLS = (saveDataCallback: (obj: IFTaskTargets[]
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
 export const getCssTaskTargetsFromLS = (
-                                        taskTitle: string,
-                                        defaultValue: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []) => {
+    taskTitle: string,
+    defaultValue: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []) => {
     if (localStorage.getItem("cssTasksSolutions") != null) {
 
         // @ts-ignore
         let localStorageData: IFLSCssTaskSolutions[] = JSON.parse(localStorage.getItem("cssTasksSolutions"));
         const taskTargets = localStorageData.filter(el => el.title === taskTitle)
-        if(taskTargets.length !== 0) {
+        if (taskTargets.length !== 0) {
             return taskTargets[0].taskSolutions
-        }
-        else{
+        } else {
             return defaultValue
         }
     } else {
@@ -187,10 +188,9 @@ export const getJsTaskTargetsFromLS = (
         // @ts-ignore
         let localStorageData: IFLSjsTaskSolutions[] = JSON.parse(localStorage.getItem("jsTasksSolutions"));
         const taskTargets = localStorageData.filter(el => el.title === taskTitle)
-        if(taskTargets.length > 0) {
+        if (taskTargets.length > 0) {
             return taskTargets[0].taskSolutions
-        }
-        else{
+        } else {
             return defaultValue
         }
     } else {
@@ -201,11 +201,10 @@ export const getJsTaskTargetsFromLS = (
 
 /**
  * Get user's html task solution code
- * @param saveDataCallback - function that saves data
- * @param.taskTitle - name of task
+ * @param taskTitle - name of task
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
-export const getHtmlTaskCodeFromLS = (saveDataCallback: (obj: string) => void, taskTitle: string, defaultValue: string) => {
+export const getHtmlTaskCodeFromLS = (taskTitle: string, defaultValue: string) => {
     if (localStorage.getItem("htmlTasksSolutions") != null) {
 
         // @ts-ignore
@@ -213,17 +212,17 @@ export const getHtmlTaskCodeFromLS = (saveDataCallback: (obj: string) => void, t
 
         const taskSolutionCode = localStorageData.filter(el => el.title === taskTitle)
         if (taskSolutionCode.length !== 0) {
-            saveDataCallback(beautifyHtml(taskSolutionCode[0].code, {
+            return beautifyHtml(taskSolutionCode[0].code, {
                 indent_size: 1,
                 space_in_empty_paren: false,
                 wrap_line_length: 50
-            }))
+            })
         } else {
-            saveDataCallback(beautifyHtml(defaultValue, {
+            return beautifyHtml(defaultValue, {
                 indent_size: 1,
                 space_in_empty_paren: false,
                 wrap_line_length: 50
-            }))
+            })
         }
     }
 }

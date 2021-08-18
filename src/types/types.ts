@@ -173,7 +173,8 @@ export interface IFHtmlTask {
     introduction: string
     number: number
     aid: IFTaskAid[]
-    code: string
+    code: string,
+    originalCode: string
     targets: IFTaskTargets[]
 }
 

@@ -2,7 +2,7 @@ import {db} from "./firebaseIndex";
 import {IFAllTasks, IFHtmlTask, IFCssTask, IFJsTask} from "../types/types";
 import {
     checkSolvedTask,
-    getCssTaskCodeFromLS, getCssTaskTargetsFromLS,
+    getCssTaskCodeFromLS, getCssTaskTargetsFromLS, getHtmlTaskCodeFromLS, getHtmlTaskTargetsFromLS,
     getJsTaskCodeFromLS,
     getJsTaskTargetsFromLS
 } from "../functions/localStorage";
@@ -16,26 +16,23 @@ const beautifyJs = require('js-beautify').js;
  * @param saveDataCallback - function that saved incoming data to component state
  */
 export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data: IFHtmlTask) => void) => {
-    db.collection("htmlTasks")
-        .onSnapshot(querySnapshot => {
-            let tasks: IFHtmlTask[] = []
-            querySnapshot.docs.map(doc => {
-                const data: IFHtmlTask = {
+    db.collection("htmlTasks").where("number", "==", taskNumber)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                const data : IFHtmlTask = {
                     title: doc.data().title,
                     introduction: doc.data().introduction,
-                    targets: doc.data().targets,
                     number: doc.data().number,
                     aid: doc.data().aid,
-                    code: doc.data().taskCode
+                    originalCode: beautifyHtml(doc.data().code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}),
+                    // check if the user hasn't already solved the task, if he  has solved it,
+                    // get it from local storage and if not, return the default value (task.targets)
+                    code: getHtmlTaskCodeFromLS(doc.data().title, doc.data().taskCode),
+                    targets: getHtmlTaskTargetsFromLS(doc.data().title, doc.data().targets),
                 }
-                return tasks.push(data)
+                return saveDataCallback(data)
             });
-            const specficTask = tasks.filter(el => {
-                if (el.number === taskNumber) {
-                    return el
-                }
-            })
-            saveDataCallback(specficTask[0])
         })
 }
 
@@ -72,7 +69,7 @@ export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: 
                        }),
                    }
                 }
-                saveDataCallback(data)
+                return saveDataCallback(data)
             });
         })
 }
@@ -102,7 +99,7 @@ export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: I
                     code:  getJsTaskCodeFromLS(doc.data().title, doc.data().code),
                     targets: getJsTaskTargetsFromLS(doc.data().title, doc.data().targets),
                 }
-                saveDataCallback(data)
+                return saveDataCallback(data)
             });
 
         })

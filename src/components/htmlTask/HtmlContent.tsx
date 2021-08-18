@@ -23,29 +23,9 @@ import {
 } from "../../style/elements/tasks/htmlTask";
 import {
     TaskContentWrapper,
-    TaskIntroductionBar,
-    TaskSectionHeader,
-    TaskIntroductionText,
-    TaskTargetsWrapper,
-    TaskTarget,
-    TaskTargetText,
-    TaskTargetCheckbox,
+
     CodeEditorPanel,
     CodeEditorPanelBtn,
-    WebBrowserTopBar,
-    WebBrowserWindow,
-    WebBrowserGreenBox,
-    WebBrowserRedBox,
-    WebBrowserYellowBox,
-    EditorSettingsWrapper,
-    EditorSettingsFSize,
-    EditorSettingsLabel,
-    EditorSettingsThemesWrapper,
-    EditorSettingsCloseIcon,
-    TaskAidsTitle,
-    TaskAidsWrapper,
-    TaskAidsList,
-    TaskTargetNumber,
     TaskSuccessfulImg,
     TaskSuccessfulBar,
     TaskSuccessfulTitle, CodeEditorError,
@@ -53,16 +33,13 @@ import {
 import {htmlClass} from "../../properties/htmlClass";
 import {
     getEditorFSize,
-    getEditorTheme, getHtmlTaskCodeFromLS,
-    getHtmlTaskTargetsFromLS,
+    getEditorTheme,
     saveHtmlTaskSolutionToLS, saveSolvedTaskToLS
 } from "../../functions/localStorage";
-import {TaskAid} from "../task/TaskAid";
 import {Link} from "react-router-dom";
 import {IFPropsHtmlTaskContent, IFTaskTargets} from "../../types/types";
 import {taskValidationHtml} from "../../functions/taskValidationHtml";
 import {TaskIntroduction} from "../task/TaskIntroduction";
-import {cssClass} from "../../properties/cssClass";
 import {TaskTargets} from "../task/TaskTargets";
 import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
 import {TaskResultWindow} from "../task/TaskResultWindow";
@@ -76,7 +53,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                                                                            }): JSX.Element | null => {
 
     // state with userCode from editor output
-    const [userCode, setUserCode] = useState<string>("")
+    const [userCode, setUserCode] = useState<string>(task.code)
 
     // state with result code, which is display in iFrame
     const [resultCode, setResultCode] = useState<string>("")
@@ -100,13 +77,6 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
     // state with flag, which is responsible for displaying error about user code
     const [errorFlag, setErrorFlag] = useState<boolean>(false)
-
-    // check if the user hasn't already solved the task, if he  has solved it,
-    // get it from local storage and if not, return the default value (task.targets)
-    useEffect(() => {
-        getHtmlTaskTargetsFromLS(setTaskTargets, task.title, task.targets)
-        getHtmlTaskCodeFromLS(setUserCode, task.title, task.code)
-    }, [task])
 
     // save font size into local storage
     useEffect(() => {
@@ -175,9 +145,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
     }
 
     // reset code in editor by original code from task
-    const handleResetCode = (): void => {
-        setUserCode(beautifyHtml(task.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
-    }
+    const handleResetCode = (): void => setUserCode(task.originalCode)
 
     const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag)
 
