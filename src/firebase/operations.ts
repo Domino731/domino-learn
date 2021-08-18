@@ -1,5 +1,7 @@
 import {db} from "./firebaseIndex";
 import {IFAllTasks, IFHtmlTask, IFCssTask, IFJsTask} from "../types/types";
+import {checkSolvedTask} from "../functions/localStorage";
+
 const beautifyHtml = require('js-beautify').html
 const beautifyCss = require('js-beautify').css
 const beautifyJs = require('js-beautify').js;
@@ -13,7 +15,7 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
         .onSnapshot(querySnapshot => {
             let tasks: IFHtmlTask[] = []
             querySnapshot.docs.map(doc => {
-                const task: IFHtmlTask = {
+                const data: IFHtmlTask = {
                     title: doc.data().title,
                     introduction: doc.data().introduction,
                     targets: doc.data().targets,
@@ -21,10 +23,10 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
                     aid: doc.data().aid,
                     code: doc.data().taskCode
                 }
-                return tasks.push(task)
+                return tasks.push(data)
             });
             const specficTask = tasks.filter(el => {
-                if(el.number === taskNumber){
+                if (el.number === taskNumber) {
                     return el
                 }
             })
@@ -42,21 +44,29 @@ export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: 
         .onSnapshot(querySnapshot => {
             let tasks: IFCssTask[] = []
             querySnapshot.docs.map(doc => {
-                const task: IFCssTask = {
+                const data: IFCssTask = {
                     title: doc.data().title,
                     number: doc.data().number,
                     introduction: doc.data().introduction,
                     aid: doc.data().aid,
                     targets: doc.data().targets,
                     code: {
-                        html: beautifyHtml(doc.data().code.html, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}),
-                        css: beautifyCss(doc.data().code.css, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}),
+                        html: beautifyHtml(doc.data().code.html, {
+                            indent_size: 1,
+                            space_in_empty_paren: false,
+                            wrap_line_length: 50
+                        }),
+                        css: beautifyCss(doc.data().code.css, {
+                            indent_size: 1,
+                            space_in_empty_paren: false,
+                            wrap_line_length: 50
+                        }),
                     }
                 }
-                return tasks.push(task)
+                return tasks.push(data)
             });
             const specficTask = tasks.filter(el => {
-                if(el.number === taskNumber){
+                if (el.number === taskNumber) {
                     return el
                 }
             })
@@ -74,7 +84,7 @@ export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: I
         .onSnapshot(querySnapshot => {
             let tasks: IFJsTask[] = []
             querySnapshot.docs.map(doc => {
-                const task: IFJsTask = {
+                const data: IFJsTask = {
                     title: doc.data().title,
                     introduction: doc.data().introduction,
                     targets: doc.data().targets,
@@ -83,16 +93,16 @@ export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: I
                     code: doc.data().code
                 }
 
-                return tasks.push(task)
+                return tasks.push(data)
 
             });
 
             const specficTask = tasks.filter(el => {
-                if(el.number === taskNumber){
+                if (el.number === taskNumber) {
                     return el
                 }
             })
-            saveDataCallback(specficTask[0])
+            return saveDataCallback(specficTask[0])
         })
 }
 
@@ -100,14 +110,24 @@ export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: I
  * fetch all tasks
  * @param tasks  - tasks that you want to get - css, html, js
  * @param saveDataCallback - function that saved incoming data to component state
+ * @param checkItem - the name used to retrieve data from localStorage by the function that
+ * checks whether the user has already solved the task
  */
-export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks", saveDataCallback: (data: IFAllTasks[]) => void) => {
+export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
+                            checkItem: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks",
+                            saveDataCallback: (data: IFAllTasks[]) => void) => {
     db.collection(tasks)
         .onSnapshot(querySnapshot => {
-            let tasks: any[] = []
+            let tasks: IFAllTasks[] = []
             querySnapshot.docs.map(doc => {
-                return tasks.push(doc.data())
+                const data: IFAllTasks = {
+                    title: doc.data().title,
+                    number: doc.data().number,
+                    solved: checkSolvedTask(doc.data().title, checkItem)
+                }
+                tasks.push(data)
             });
-            saveDataCallback(tasks)
+
+            return saveDataCallback(tasks)
         })
 }

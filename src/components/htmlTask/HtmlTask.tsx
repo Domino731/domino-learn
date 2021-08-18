@@ -16,7 +16,7 @@ export const HtmlTask: FunctionComponent<IFPropsTask> = (props): JSX.Element => 
     // when component mounted fetch information about task and save upcoming data into states
     useEffect(() => {
         getSpecificHtmlTask(parseFloat(props.match.params.taskNumber), setTask)
-        getAllTasks("htmlTasks", setAllTasks)
+        getAllTasks("htmlTasks", "solvedHtmlTasks", setAllTasks)
     }, [props.match.params.taskNumber])
 
     if (task === null || allTasks === null) {

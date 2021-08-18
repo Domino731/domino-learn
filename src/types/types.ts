@@ -184,9 +184,8 @@ export interface IFJsTask {
 
 export interface IFAllTasks {
     title: string
-    introduction: string,
-    targets: string[]
     number: number
+    solved: boolean
 }
 
 // js console

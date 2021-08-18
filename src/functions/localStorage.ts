@@ -322,3 +322,14 @@ export const saveSolvedTaskToLS =
             localStorage.setItem(item, JSON.stringify(localStorageData))
         }
     }
+
+export const checkSolvedTask = (taskTitle: string, item: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks"): boolean => {
+    if(localStorage.getItem(item) != null){
+        // @ts-ignore
+        let localStorageData: string[] = JSON.parse(localStorage.getItem(item));
+        return localStorageData.includes(taskTitle)
+    }
+    else{
+        return false
+    }
+}

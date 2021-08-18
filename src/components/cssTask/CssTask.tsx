@@ -16,7 +16,7 @@ export const CssTask : FunctionComponent<IFPropsTask> = (props) : JSX.Element =>
     // when component mounted fetch information about task and save upcoming data into states
     useEffect(() => {
         getSpecificCssTask(parseFloat(props.match.params.taskNumber), setTask)
-        getAllTasks("cssTasks", setAllTasks)
+        getAllTasks("cssTasks", "solvedCssTasks", setAllTasks)
     }, [props.match.params.taskNumber])
 
 
