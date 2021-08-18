@@ -65,7 +65,7 @@ export const HtmlTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, 
                 </TaskFooterTasksPlanets>
 
                 <TaskFooterTasksList>
-                    {allTasks.map((el, num) => <TaskFooterTasksItem key={`htmlFooterTasks-${el.title}-${num}`} onClick={() => setFlag(false)}>
+                    {allTasks.map((el, num) => <TaskFooterTasksItem key={`htmlFooterTasks-${el.title}-${num}`} onClick={() => setFlag(false)} solved={el.solved}>
                         <Link to={`/html-task/${el.number}`}>
                             {el.number}
                         </Link>

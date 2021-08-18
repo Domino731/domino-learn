@@ -203,14 +203,17 @@ export const TaskFooterTasksList = styled.ul`
   z-index: 3;
   width: 100%;
 `
-export const TaskFooterTasksItem = styled.li`
+interface props__TaskFooterTaskItem {
+    solved: boolean
+}
+export const TaskFooterTasksItem = styled.li<props__TaskFooterTaskItem>`
   width: 53px;
   height: 53px;
   border: 5px solid ${props => props.theme.color.gray};
   border-radius: 7px;
   margin: 3px;
   font-size: 2.063rem;
-  background: ${props => props.theme.background.transparent};
+  background: ${props => props.solved ? props.theme.background.transparentGreen : props.theme.background.transparent};
   font-weight: 900;
   transition: 0.2s;
 

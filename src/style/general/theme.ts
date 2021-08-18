@@ -9,9 +9,11 @@ export const theme = {
         red: "#f9320c",
         html: "#E44F26",
         css: "#146EB0",
-        js: "#F6D03A"
+        js: "#F6D03A",
+        green: "#75D701"
     },
     background: {
-        transparent: "rgba(255,255,255,0.3)"
+        transparent: "rgba(255,255,255,0.3)",
+        transparentGreen: "rgba(50,205,50, 0.6)"
     }
 }

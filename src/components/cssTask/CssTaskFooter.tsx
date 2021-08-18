@@ -48,7 +48,7 @@ export const CssTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, t
                 </TaskFooterTasksPlanets>
 
                 <TaskFooterTasksList>
-                    {allTasks.map((el, num) => <TaskFooterTasksItem key={`cssFooterTasks-${el.title}-${num}`} onClick={() => setFlag(false)}>
+                    {allTasks.map((el, num) => <TaskFooterTasksItem key={`cssFooterTasks-${el.title}-${num}`} onClick={() => setFlag(false)} solved={el.solved}>
                         <Link to={`/css-task/${el.number}`}>
                             {el.number}
                         </Link>
