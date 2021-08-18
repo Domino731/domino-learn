@@ -5,6 +5,8 @@ import {HomePage} from "./components/homePage/homePage";
 import {HtmlTask} from "./components/htmlTask/HtmlTask";
 import {CssTask} from "./components/cssTask/CssTask";
 import {JsTask} from "./components/jsTask/JsTask";
+import {QuizMenu} from "./components/quiz/QuizMenu";
+import {CodeEditor} from "./components/CodeEditor/CodeEditor";
 
 function App() {
     return (
@@ -13,6 +15,8 @@ function App() {
             <Route path="/html-task/:taskNumber" component={HtmlTask}/>
             <Route path="/css-task/:taskNumber" component={CssTask}/>
             <Route path="/js-task/:taskNumber" component={JsTask}/>
+            <Route path="/code-editor" component={CodeEditor}/>
+            <Route path="/quiz-menu" component={QuizMenu}/>
         </Router>
     );
 }

@@ -5,7 +5,8 @@ import saturnPlanet from "../../images/planet_saturn.png";
 import colorfulPlanet from "../../images/planet_colorful.png";
 import neptunePlanet from "../../images/planet_neptune.png"
 import jupiterPlanet from "../../images/planet_jupiter.png"
-
+import coding from "../../images/coding.png"
+import quiz from "../../images/quiz.png"
 export const Footer: FunctionComponent = (): JSX.Element => {
     return <FooterContainer>
 
@@ -34,6 +35,19 @@ export const Footer: FunctionComponent = (): JSX.Element => {
                                       title="Icongeek26">Icongeek26</a> from <a href="https://www.flaticon.com/"
                                                                                 title="Flaticon">www.flaticon.com</a>
                 </div>
+            </div>
+
+            <div>
+                <span><img src={coding} alt="coding"/></span>
+                <div>Icons made by <a href="https://www.flaticon.com/authors/prettycons"
+                                      title="prettycons">prettycons</a> from <a href="https://www.flaticon.com/"
+                                                                                title="Flaticon">www.flaticon.com</a>
+                </div>
+            </div>
+            <div>
+                <span><img src={quiz} alt="quiz"/></span>
+                <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
+                    href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
             </div>
         </FreepikThanks>
 

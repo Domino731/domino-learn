@@ -4,6 +4,7 @@ export const ChoseTaskContainer = styled.section`
   display: flex;
   height: 600px;
   margin-bottom: 50px;
+  margin-top: 50px;
 `
 export const TasksBoardContainer = styled.div`
   width: 30%;
