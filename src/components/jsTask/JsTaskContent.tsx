@@ -112,12 +112,6 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
         localStorage.setItem("editorTheme", editorTheme)
     }, [editorTheme])
 
-    // check if the user hasn't already solved the task, if he  has solved it,
-    // get it from local storage and if not, return the default value (task.targets)
-    useEffect(() => {
-        getJsTaskCodeFromLS(setUserCode, task.title, task.code)
-        getJsTaskTargetsFromLS(setTaskTargets, task.title, task.targets)
-    }, [task])
 
     // run once!
     // @ts-ignore
@@ -178,7 +172,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     // reset code in editor by original code from task
     const handleResetCode = (): void => {
-        return setUserCode(beautifyJs(task.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+        return setUserCode(beautifyJs(task.originalCode, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
     }
     const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag)
     const handleResetPoints = (): void => setPoints({user: 0, needed: task.targets.length})

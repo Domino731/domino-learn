@@ -161,6 +161,10 @@ export interface IFCssTask {
         html: string
         css: string
     }
+    originalCode: {
+    html: string
+    css: string
+    }
     targets: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []
 }
 
@@ -179,6 +183,7 @@ export interface IFJsTask {
     number: number
     aid: IFTaskAid[]
     code: string
+    originalCode: string
     targets: IFJsTaskTargets[]
 }
 

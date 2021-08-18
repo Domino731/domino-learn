@@ -83,12 +83,6 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // state with flag, which is responsible for displaying loading screen during checking the task
     const [loadingResult, setLoadingResult] = useState<boolean>(false)
 
-    // check if the user hasn't already solved the task, if he  has solved it,
-    // get it from local storage and if not, return the default value (task.targets)
-    useEffect(() => {
-        getCssTaskTargetsFromLS(setTaskTargets, task.title, task.targets)
-        getCssTaskCodeFromLS(setUserCode, task.title, task.code)
-    }, [task])
 
      // remove error when user type correct code
     useEffect(() => {
@@ -140,12 +134,12 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         if (currentEditor === "css") {
             setUserCode(prev => ({
                 ...prev,
-                css: task.code.css
+                css: task.originalCode.css
             }))
         } else {
             setUserCode(prev => ({
                 ...prev,
-                html: task.code.html
+                html: task.originalCode.html
             }))
         }
     }
