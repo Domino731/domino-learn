@@ -1,3 +1,4 @@
+import AceEditor from "react-ace"
 import 'ace-builds/src-noconflict/mode-html'
 import 'ace-builds/src-noconflict/theme-monokai'
 import 'ace-builds/src-noconflict/theme-ambiance'
@@ -16,7 +17,7 @@ import {
     CssResult,
     CssCodeEditorWrapper,
     CssIntroduction,
-    CssTarget, CssTaskSuccessful
+    CssTarget, CssTaskSuccessful, CssDecorationIntroduction
 } from "../../style/elements/tasks/cssTask";
 import {
     TaskContentWrapper,
@@ -217,10 +218,8 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     return <TaskContentWrapper>
         <CssResult>
-
             {loadingResult === false && <TaskResultWindow srcDoc={srcDoc}/>}
             {loadingResult  && <TaskResultLoading/>}
-
         </CssResult>
 
         <CssCodeEditorWrapper>
@@ -274,6 +273,8 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             <CssIntroduction>
                 <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
                                   imgAlt={cssClass.getFigureAlt()} imgSrc={cssClass.getFigureSrc()}/>
+                {/*decorations*/}
+                <CssDecorationIntroduction/>
             </CssIntroduction>
             <CssTarget>
                 <TaskTargets targets={taskTargets} title={task.title} aidArr={task.aid}/>

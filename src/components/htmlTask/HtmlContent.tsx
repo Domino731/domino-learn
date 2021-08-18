@@ -1,3 +1,17 @@
+import AceEditor from "react-ace"
+import 'ace-builds/src-noconflict/mode-html'
+import 'ace-builds/src-noconflict/theme-monokai'
+import 'ace-builds/src-noconflict/theme-ambiance'
+import 'ace-builds/src-noconflict/theme-clouds'
+import 'ace-builds/src-noconflict/theme-chaos'
+import 'ace-builds/src-noconflict/theme-dracula'
+import 'ace-builds/src-noconflict/theme-solarized_light'
+import 'ace-builds/src-noconflict/theme-crimson_editor'
+import 'ace-builds/src-noconflict/theme-github'
+import 'ace-builds/src-noconflict/theme-terminal'
+import 'ace-builds/webpack-resolver'
+import "ace-builds/src-min-noconflict/ext-language_tools";
+import "ace-builds/src-noconflict/snippets/python";
 import {FunctionComponent, useEffect, useState} from "react";
 import {
     HtmlTaskIntroduction,
@@ -37,20 +51,6 @@ import {
     TaskSuccessfulTitle,
 } from "../../style/elements/tasks/task";
 import {htmlClass} from "../../properties/htmlClass";
-import AceEditor from "react-ace"
-import 'ace-builds/src-noconflict/mode-html'
-import 'ace-builds/src-noconflict/theme-monokai'
-import 'ace-builds/src-noconflict/theme-ambiance'
-import 'ace-builds/src-noconflict/theme-clouds'
-import 'ace-builds/src-noconflict/theme-chaos'
-import 'ace-builds/src-noconflict/theme-dracula'
-import 'ace-builds/src-noconflict/theme-solarized_light'
-import 'ace-builds/src-noconflict/theme-crimson_editor'
-import 'ace-builds/src-noconflict/theme-github'
-import 'ace-builds/src-noconflict/theme-terminal'
-import 'ace-builds/webpack-resolver'
-import "ace-builds/src-min-noconflict/ext-language_tools";
-import "ace-builds/src-noconflict/snippets/python";
 import {
     getEditorFSize,
     getEditorTheme, getHtmlTaskCodeFromLS,
@@ -61,6 +61,11 @@ import {TaskAid} from "../task/TaskAid";
 import {Link} from "react-router-dom";
 import {IFPropsHtmlTaskContent, IFTaskTargets} from "../../types/types";
 import {taskValidationHtml} from "../../functions/taskValidationHtml";
+import {TaskIntroduction} from "../task/TaskIntroduction";
+import {cssClass} from "../../properties/cssClass";
+import {TaskTargets} from "../task/TaskTargets";
+import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
+import {TaskResultWindow} from "../task/TaskResultWindow";
 
 const beautifyHtml = require('js-beautify').html
 
@@ -155,6 +160,8 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
         setUserCode(beautifyHtml(task.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
     }
 
+    const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag)
+
     // code which is placed in iframe as result (web browser window)
     const srcDoc = `
         <!DOCTYPE html>
@@ -169,46 +176,14 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
         {successfulFlag === false && <>
             {/*introduction*/}
             <HtmlTaskIntroduction>
-
-                <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
-                <TaskIntroductionBar>
-                    <img src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
-                    <h3>{task.title}</h3>
-                </TaskIntroductionBar>
-                <TaskIntroductionText dangerouslySetInnerHTML={{__html: task.introduction}}/>
-
+                <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
+                                  imgAlt={htmlClass.getFigureAlt()} imgSrc={htmlClass.getFigureSrc()}/>
                 {/*decorations*/}
                 <HtmlDecorationIntroduction/>
             </HtmlTaskIntroduction>
-
             {/*task target and instructions*/}
             <HtmlTaskTarget>
-
-                {/*task targets list*/}
-                <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
-                <TaskTargetsWrapper>
-                    {taskTargets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
-
-                        {el.solved === null && <TaskTargetCheckbox backgroundColor={"#e5e3f1"}/>}
-                        {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
-                            className="fas fa-times"/></TaskTargetCheckbox>}
-                        {el.solved === true &&
-                        <TaskTargetCheckbox backgroundColor={"#75D701"}><i
-                            className="fas fa-check"/></TaskTargetCheckbox>}
-                        <TaskTargetNumber>{el.number}. </TaskTargetNumber>
-                        <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
-                    </TaskTarget>)}
-                </TaskTargetsWrapper>
-
-                {/*task aids*/}
-                <TaskAidsWrapper>
-                    <TaskAidsTitle>Task aids</TaskAidsTitle>
-                    <TaskAidsList>
-                        {task.aid.map((el, num) => <TaskAid aid={el} key={`${task.title}_taskAid_${num}`}/>)}
-
-                    </TaskAidsList>
-                </TaskAidsWrapper>
-
+                <TaskTargets targets={taskTargets} title={task.title} aidArr={task.aid}/>
             </HtmlTaskTarget>
         </>}
 
@@ -249,71 +224,10 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                 }}
             />
             <CodeEditorPanel>
-                {editorFormFlag && <EditorSettingsWrapper>
-                    <EditorSettingsCloseIcon onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                        className="far fa-window-close"/></EditorSettingsCloseIcon>
-                    <EditorSettingsLabel>
-                        Change font size
-                        <EditorSettingsFSize type="number" min="1" max="60" step="1" value={editorFs}
-                                             onChange={handleChangeFs}/>
-                    </EditorSettingsLabel>
-
-                    <EditorSettingsLabel>
-                        Change theme
-                    </EditorSettingsLabel>
-
-                    <EditorSettingsThemesWrapper>
-                        <label>
-                            Monokai
-                            <input type="checkbox" value="monokai" checked={editorTheme === "monokai"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Ambiance
-                            <input type="checkbox" value="ambiance" checked={editorTheme === "ambiance"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Clouds
-                            <input type="checkbox" value="clouds" checked={editorTheme === "clouds"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Dracula
-                            <input type="checkbox" value="dracula" checked={editorTheme === "dracula"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Solarized light
-                            <input type="checkbox" value="solarized_light" checked={editorTheme === "solarized_light"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Crimson editor
-                            <input type="checkbox" value="crimson_editor" checked={editorTheme === "crimson_editor"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Github
-                            <input type="checkbox" value="github" checked={editorTheme === "github"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Terminal
-                            <input type="checkbox" value="terminal" checked={editorTheme === "terminal"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                    </EditorSettingsThemesWrapper>
-                </EditorSettingsWrapper>}
-
+                {editorFormFlag &&
+                <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorTheme}
+                                       handleChangeFs={handleChangeTheme} editorFs={editorFs}
+                                       toggleForm={handleToggleEditorSettings}/>}
                 <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
                     className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
                 <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
@@ -323,17 +237,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
         {/*user code*/}
         <HtmlTaskResult>
-            <WebBrowserWindow>
-                <WebBrowserTopBar>
-                    <WebBrowserGreenBox/>
-                    <WebBrowserYellowBox/>
-                    <WebBrowserRedBox/>
-                </WebBrowserTopBar>
-                <iframe srcDoc={srcDoc}
-                        width="100%" height="100%" frameBorder="0" sandbox="allow-scripts" title="output"
-                />
-            </WebBrowserWindow>
+            <TaskResultWindow srcDoc={srcDoc}/>
         </HtmlTaskResult>
-
     </TaskContentWrapper>
 }

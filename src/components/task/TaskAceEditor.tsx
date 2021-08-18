@@ -1,8 +1,20 @@
-import {FunctionComponent, useEffect, useState} from "react";
-import AceEditor from "react-ace";
-import {IFPropsTaskAceEditor} from "../../types/types";
+import AceEditor from "react-ace"
 import 'ace-builds/src-noconflict/mode-css'
 import 'ace-builds/src-noconflict/mode-html'
+import 'ace-builds/src-noconflict/theme-monokai'
+import 'ace-builds/src-noconflict/theme-ambiance'
+import 'ace-builds/src-noconflict/theme-clouds'
+import 'ace-builds/src-noconflict/theme-chaos'
+import 'ace-builds/src-noconflict/theme-dracula'
+import 'ace-builds/src-noconflict/theme-solarized_light'
+import 'ace-builds/src-noconflict/theme-crimson_editor'
+import 'ace-builds/src-noconflict/theme-github'
+import 'ace-builds/src-noconflict/theme-terminal'
+import 'ace-builds/webpack-resolver'
+import "ace-builds/src-min-noconflict/ext-language_tools";
+import "ace-builds/src-noconflict/snippets/python"
+import {FunctionComponent, useEffect, useState} from "react";
+import {IFPropsTaskAceEditor} from "../../types/types";
 
 export const TaskAceEditor : FunctionComponent<IFPropsTaskAceEditor> = ({mode,changeUserCode, editorTheme, userCode, editorFS,
                                                                             addAnnotations}) : JSX.Element  => {
