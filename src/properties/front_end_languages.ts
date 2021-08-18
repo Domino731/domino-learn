@@ -1,4 +1,4 @@
-
+import {IFProgramingCode} from "../types/types";
 
 export class ProgramingLanguage {
     private languageName: string
@@ -10,15 +10,13 @@ export class ProgramingLanguage {
         src: string,
         alt: string
     }
-    private code: {
-        src: string,
-        alt: string
-    }
+    private code: IFProgramingCode
     private description: string
 
-    constructor(languageName: string ,iconSrc: string, iconAlt: string,
+
+    constructor(languageName: string, iconSrc: string, iconAlt: string,
                 description: string, figureSrc: string, figureAlt: string,
-                codeSrc: string, codeAlt: string) {
+                code: IFProgramingCode) {
         this.languageName = languageName
         this.icon = {
             src: iconSrc,
@@ -28,38 +26,37 @@ export class ProgramingLanguage {
             src: figureSrc,
             alt: figureAlt
         }
-        this.code = {
-            src: codeSrc,
-            alt: codeAlt,
-        }
+        this.code = code
         this.description = description
     }
 
 
-    getLanguageName() : string {
+    getLanguageName(): string {
         return this.languageName
     }
-    getIconSrc() : string {
+
+    getIconSrc(): string {
         return this.icon.src
     }
+
     getIconAlt(): string {
         return this.icon.alt
     }
-    getDsc() : string {
+
+    getDsc(): string {
         return this.description
     }
-    getFigureSrc() : string {
+
+    getFigureSrc(): string {
         return this.figure.src
     }
-    getFigureAlt() : string {
+
+    getFigureAlt(): string {
         return this.figure.alt
     }
 
-    getCodeSrc() : string {
-        return this.code.src
-    }
-    getCodeAlt() : string {
-        return this.code.alt
+    getCode(): IFProgramingCode {
+        return this.code
     }
 }
 

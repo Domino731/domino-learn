@@ -32,9 +32,8 @@ import {
 import {cssClass} from "../../properties/cssClass";
 import {IFCssTaskTargetCss, IfCssTaskTargetHtml, IFPropsCssTaskContent} from "../../types/types";
 import {
-    getCssTaskTargetsFromLS,
     getEditorFSize,
-    getEditorTheme, getCssTaskCodeFromLS,
+    getEditorTheme,
     saveCssTaskSolutionToLS, saveSolvedTaskToLS,
 } from "../../functions/localStorage";
 import {taskValidationHtml} from "../../functions/taskValidationHtml";

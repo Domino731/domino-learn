@@ -5,7 +5,6 @@ import {RouteComponentProps} from "react-router";
 interface IFMatchParams {
     taskNumber: string
 }
-
 //// For components ////
 
 export interface IFPropsDescriptionItem {
@@ -16,8 +15,8 @@ export interface IFPropsDescriptionItem {
         getLanguageName: () => string,
         getFigureSrc: () => string,
         getFigureAlt: () => string,
-        getCodeSrc: () => string,
-        getCodeAlt: () => string,
+        getCode: () => IFProgramingCode,
+
     },
     reverse?: boolean
 }
@@ -222,4 +221,9 @@ export interface IFLSjsTaskSolutions {
     taskSolutions: IFJsTaskTargets[]
     title: string,
     userCode: string
+}
+export interface IFProgramingCode {
+    type: string
+    code: string
+    srcDoc: string
 }

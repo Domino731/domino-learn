@@ -473,6 +473,7 @@ export const WebBrowserWindow = styled.div`
   height: 100%;
   padding-top: 37px;
   border-radius: 4px;
+  box-shadow: 0 0 2px #404040;
 `
 export const WebBrowserTopBar = styled.div`
   display: flex;
@@ -483,8 +484,7 @@ export const WebBrowserTopBar = styled.div`
   width: 100%;
   height: 32px;
   background: ${props => props.theme.color.white};
-  box-shadow: 0 1px 3px ${props => props.theme.color.gray};
-
+  
   span {
     width: 53px;
     height: 19px;

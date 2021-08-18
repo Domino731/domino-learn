@@ -95,23 +95,12 @@ export const DscExemplaryCodeBtn = styled.button`
   border: 3px solid ${props => props.theme.color.blue};
   color: ${props => props.theme.color.blue};
   overflow: hidden;
-
-  i {
-    transform: translateX(9px);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    width: 44px;
-    height: 52px;
+  transition: 0.1s;
+  &:hover{
+    transition: 0.1s;
     background: ${props => props.theme.color.blue};
     color: #fff;
-  }
-
-  &:hover {
-
-    i {
-      display: flex;
-    }
+    border: none;
   }
 `
 
@@ -127,25 +116,39 @@ width: 296px;
   height: auto;
   object-fit: cover;
 `
-export const DscCodeContainer = styled.div`
-width: 100%;
-`
-export const DscCodeItem = styled.div`
-  width: 472px;
-`
-export const DscCodeTitle = styled.h2`
-  font-size: 44px;
-  text-align: center;
-`
-export const DscCodeExample = styled.div<DscReverseProps>`
-  width: 841px;
+export const DscCode = styled.div<DscReverseProps>`
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
-  img{
-    width: 420px;
-    height: 448px;
-    object-fit: cover;
-    margin-left: ${props => props.reverse ? "101px" : "0"};
+`
+export const DscEditorWrapper = styled.div`
+  width: 40%;
+  height: 100%;
+`
+export const DscArrow = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 100%;
+  font-size: 120px;
+  div{
+    color: ${props => props.theme.color.red};
+    position: absolute;
+    bottom: 0;
+    font-size: 61px;
+    transition: 0.2s;
+    &:hover{
+      transition: 0.2s;
+      font-size: 72px;
+      cursor: pointer;
+    }
   }
+`
+export const DscCodeResultWrapper = styled.div`
+  width: 40%;
+  height: 100%;
 `
 export {}

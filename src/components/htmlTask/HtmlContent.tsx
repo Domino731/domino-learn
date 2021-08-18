@@ -153,7 +153,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
     const srcDoc = `
         <!DOCTYPE html>
           <html lang="en">
-          <head></head>
+          <head><title>${task.title}</title></head>
           <body>${resultCode}</body>
           </html>`
 
