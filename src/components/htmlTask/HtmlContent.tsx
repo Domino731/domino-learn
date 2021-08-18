@@ -118,11 +118,9 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
         localStorage.setItem("editorTheme", editorTheme)
     }, [editorTheme])
 
-    // remove error when user type correct code
+    // remove error when user type new code
     useEffect(() => {
-        if(annotations.length === 0){
             setErrorFlag(false)
-        }
     }, [annotations])
 
     // task validation

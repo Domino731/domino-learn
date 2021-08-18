@@ -1,5 +1,6 @@
 import React, {FunctionComponent, useEffect, useRef, useState} from "react";
 import {
+    CodeEditorError,
     CodeEditorPanel,
     CodeEditorPanelBtn,
     EditorSettingsCloseIcon,
@@ -53,13 +54,17 @@ import AceEditor from "react-ace";
 import {
     getEditorFSize,
     getEditorTheme, getJsTaskCodeFromLS, getJsTaskTargetsFromLS,
-    saveJsTaskSolutionToLS
+    saveJsTaskSolutionToLS, saveSolvedTaskToLS
 } from "../../functions/localStorage";
 import {Console, Hook, Unhook} from 'console-feed'
 import {Logs} from "../../functions/jsConsole";
 import {taskValidationJS} from "../../functions/taskValidationJS";
 import {Link} from "react-router-dom";
 import {jsClass} from "../../properties/jsClass";
+import {TaskIntroduction} from "../task/TaskIntroduction";
+import {htmlClass} from "../../properties/htmlClass";
+import {TaskTargets} from "../task/TaskTargets";
+import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
 
 const beautifyJs = require('js-beautify').js;
 
@@ -70,6 +75,9 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     // state with task targets
     const [taskTargets, setTaskTargets] = useState<IFJsTaskTargets[]>(task.targets)
+
+    // state with annotations from editor
+    const [annotations, setAnnotations] = useState<any[]>([])
 
     // state with editor font size from localStorage
     const [editorFs, setEditorFs] = useState<number>(getEditorFSize);
@@ -88,8 +96,21 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     // state with flag, which is responsible for animation when the user correctly completes the task targets
     const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
 
+    // state with flag, which is responsible for displaying error about user code
+    const [errorFlag, setErrorFlag] = useState<boolean>(false)
+
+
     const [points, setPoints] = useState<{ user: number, needed: number }>({user: 0, needed: task.targets.length})
 
+    // save font size into local storage
+    useEffect(() => {
+        localStorage.setItem("editorFontSize", editorFs.toString())
+    }, [editorFs])
+
+    // save theme into local storage
+    useEffect(() => {
+        localStorage.setItem("editorTheme", editorTheme)
+    }, [editorTheme])
 
     // check if the user hasn't already solved the task, if he  has solved it,
     // get it from local storage and if not, return the default value (task.targets)
@@ -122,10 +143,13 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     useEffect(() => {
         const consoleTextArr = logs.map(el => el.data[0]);
-        if (consoleTextArr.length > 0) {
+        if (consoleTextArr.length > 0 && annotations.length === 0) {
             taskTargets.map(el => taskValidationJS(consoleTextArr, el, addPoints));
-            saveJsTaskSolutionToLS(taskTargets, task.title, userCode)
+            saveJsTaskSolutionToLS(taskTargets, task.title, userCode);
+            // save solved task title to ls, so that the user knows which tasks he has completed
+            saveSolvedTaskToLS(task.title, "solvedJsTasks");
         }
+
     }, [logs.length]);
 
     useEffect(() => {
@@ -136,6 +160,10 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
         }
     }, [points])
 
+    // remove error when user type new code
+    useEffect(() => {
+        setErrorFlag(false)
+    }, [annotations])
 
     const addPoints = () => setPoints(prev => ({...prev, user: prev.user++}))
 
@@ -152,7 +180,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     const handleResetCode = (): void => {
         return setUserCode(beautifyJs(task.code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
     }
-
+    const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag)
     const handleResetPoints = (): void => setPoints({user: 0, needed: task.targets.length})
     const consoleRef = useRef<HTMLDivElement>(null)
 
@@ -167,46 +195,25 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
             space_in_empty_paren: false,
             wrap_line_length: 50
         }));
+
+        // display the error window when user code have warnings
+        if(annotations.length > 0){
+            setErrorFlag(true)
+        }
     };
 
     return <TaskContentWrapper>
 
         {successfulFlag === false && <>
             <JsIntroduction>
-                <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
-                <TaskIntroductionBar>
-                    <img src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()}/>
-                    <h3>{task.title}</h3>
-                </TaskIntroductionBar>
-
-                <TaskIntroductionText dangerouslySetInnerHTML={{__html: task.introduction}}>
-                </TaskIntroductionText>
-
+                <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
+                                  imgAlt={jsClass.getFigureAlt()} imgSrc={jsClass.getFigureSrc()}/>
                 {/*decorations*/}
                 <JsDecorationIntroduction/>
             </JsIntroduction>
-            <JsTargets>
-                <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
-                <TaskTargetsWrapper>
-                    {taskTargets.map((el, num) => <TaskTarget key={`${task.title}_taskTarget_${num}`}>
-                        {el.solved === null && <TaskTargetCheckbox backgroundColor={"#e5e3f1"}/>}
-                        {el.solved === false && <TaskTargetCheckbox backgroundColor={"#f9320c"}><i
-                            className="fas fa-times"/></TaskTargetCheckbox>}
-                        {el.solved === true &&
-                        <TaskTargetCheckbox backgroundColor={"#75D701"}><i
-                            className="fas fa-check"/></TaskTargetCheckbox>}
-                        <TaskTargetNumber>{el.number}. </TaskTargetNumber>
-                        <TaskTargetText dangerouslySetInnerHTML={{__html: el.target}}/>
-                    </TaskTarget>)}
 
-                    {/*task aids*/}
-                    <TaskAidsWrapper>
-                        <TaskAidsTitle>Task aids</TaskAidsTitle>
-                        <TaskAidsList>
-                            {task.aid.map((el, num) => <TaskAid aid={el} key={`${task.title}_taskAid_${num}`}/>)}
-                        </TaskAidsList>
-                    </TaskAidsWrapper>
-                </TaskTargetsWrapper>
+            <JsTargets>
+                <TaskTargets targets={taskTargets} title={task.title} aidArr={task.aid}/>
             </JsTargets>
         </>}
 
@@ -226,15 +233,10 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
                     <WebBrowserYellowBox/>
                     <WebBrowserRedBox/>
                 </WebBrowserTopBar>
-
                 <JsConsoleWrapper ref={consoleRef}>
                     <Console logs={logs} variant="light"/>
                 </JsConsoleWrapper>
-
-
             </WebBrowserWindow>
-
-
         </JsResult>
 
         <JsCodeEditorWrapper>
@@ -253,6 +255,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
                 showPrintMargin={true}
                 showGutter={true}
                 highlightActiveLine={true}
+                onValidate={vl => setAnnotations(vl.filter((el: any) => el.type === "error"))}
                 setOptions={{
                     enableBasicAutocompletion: false,
                     enableLiveAutocompletion: false,
@@ -263,76 +266,17 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
             />
 
             <CodeEditorPanel>
-                {editorFormFlag && <EditorSettingsWrapper>
-                    <EditorSettingsCloseIcon onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                        className="far fa-window-close"/></EditorSettingsCloseIcon>
-                    <EditorSettingsLabel>
-                        Change font size
-                        <EditorSettingsFSize type="number" min="1" max="60" step="1" value={editorFs}
-                                             onChange={handleChangeFs}/>
-                    </EditorSettingsLabel>
-
-                    <EditorSettingsLabel>
-                        Change theme
-                    </EditorSettingsLabel>
-
-                    <EditorSettingsThemesWrapper>
-                        <label>
-                            Monokai
-                            <input type="checkbox" value="monokai" checked={editorTheme === "monokai"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Ambiance
-                            <input type="checkbox" value="ambiance" checked={editorTheme === "ambiance"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Clouds
-                            <input type="checkbox" value="clouds" checked={editorTheme === "clouds"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Dracula
-                            <input type="checkbox" value="dracula" checked={editorTheme === "dracula"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Solarized light
-                            <input type="checkbox" value="solarized_light" checked={editorTheme === "solarized_light"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Crimson editor
-                            <input type="checkbox" value="crimson_editor" checked={editorTheme === "crimson_editor"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Github
-                            <input type="checkbox" value="github" checked={editorTheme === "github"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                        <label>
-                            Terminal
-                            <input type="checkbox" value="terminal" checked={editorTheme === "terminal"}
-                                   onChange={handleChangeTheme}/>
-                            <span><i className="fas fa-check-square"/></span>
-                        </label>
-                    </EditorSettingsThemesWrapper>
-                </EditorSettingsWrapper>}
+                {editorFormFlag &&
+                <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorTheme}
+                                       handleChangeFs={handleChangeFs} editorFs={editorFs}
+                                       toggleForm={handleToggleEditorSettings}/>}
 
                 <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
                     className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
                 <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
                 <CodeEditorPanelBtn onClick={setConsole}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
             </CodeEditorPanel>
+            {errorFlag && <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
         </JsCodeEditorWrapper>
 
     </TaskContentWrapper>

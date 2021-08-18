@@ -95,6 +95,16 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             setErrorFlag(false)
     }, [annotations])
 
+    // save font size into local storage
+    useEffect(() => {
+        localStorage.setItem("editorFontSize", editorFs.toString())
+    }, [editorFs])
+
+    // save theme into local storage
+    useEffect(() => {
+        localStorage.setItem("editorTheme", editorTheme)
+    }, [editorTheme])
+
     const changeUserCodeHtml = (newValue: string): void => {
         setUserCode(prev => ({
             ...prev,
