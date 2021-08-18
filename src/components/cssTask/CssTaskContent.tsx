@@ -19,6 +19,7 @@ import {
     CssIntroduction,
     CssTarget, CssTaskSuccessful, CssDecorationIntroduction
 } from "../../style/elements/tasks/cssTask";
+// @ts-ignore
 import {
     TaskContentWrapper,
     CodeEditorPanelBtn,
@@ -40,7 +41,6 @@ import {taskValidationHtml} from "../../functions/taskValidationHtml";
 import {taskValidationCss} from "../../functions/taskValidationCss";
 import {Link} from "react-router-dom";
 import {TaskResultWindow} from "../task/TaskResultWindow";
-import {TaskAceEditor} from "../task/TaskAceEditor";
 import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
 import {TaskIntroduction} from "../task/TaskIntroduction";
 import {TaskTargets} from "../task/TaskTargets";
@@ -58,7 +58,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     const [resultCode, setResultCode] = useState<{ html: string, css: string }>({html: "", css: ""})
 
     // state with annotations from editor
-    const [annotations, setAnnotations] = useState<any[]>([])
+    const [annotations, setAnnotations] = useState<{css: any[], html: any[]}>({css: [], html: []})
 
     const [taskTargets, setTaskTargets] = useState<(IFCssTaskTargetCss | IfCssTaskTargetHtml) []>(task.targets)
 
@@ -90,10 +90,10 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         getCssTaskCodeFromLS(setUserCode, task.title, task.code)
     }, [task])
 
-     // remove error when user type new code
+     // remove error when user type correct code
     useEffect(() => {
-       setErrorFlag(false)
-    }, [userCode])
+            setErrorFlag(false)
+    }, [annotations])
 
     const changeUserCodeHtml = (newValue: string): void => {
         setUserCode(prev => ({
@@ -101,15 +101,18 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             html: newValue
         }))
     }
-
+    const changeAnnotations = (newValue : any, key: "css" | "html") => {
+        setAnnotations((prev)=> ({
+            ...prev,
+            [key]: newValue.filter((el : any)=> el.type === "error")
+        }))
+    }
     const changeUserCodeCss = (newValue: string): void => {
         setUserCode(prev => ({
             ...prev,
             css: newValue
         }))
     }
-
-    const changeAnnotations = (newValue: any) => setAnnotations(newValue)
 
     // change editor font-size
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value))
@@ -141,7 +144,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     const checkTask = () => {
         // set the loading screen
         setLoadingResult(true)
-        if (annotations.length === 0) {
+        if (annotations.html.length === 0 && annotations.css.length === 0) {
 
             // set the result (display user styles)
             setResultCode({
@@ -241,14 +244,54 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
             <TaskCodeEditorMultiple>
                 {currentEditor === "css" &&
-                <TaskAceEditor addAnnotations={changeAnnotations} mode="css" editorTheme={editorTheme}
-                               userCode={userCode.css} editorFS={editorFs}
-                               changeUserCode={changeUserCodeCss}/>}
+                <AceEditor
+                    enableBasicAutocompletion={true}
+                    enableLiveAutocompletion={true}
+                    enableSnippets={true}
+                    onChange={changeUserCodeCss}
+                    onValidate={vl => changeAnnotations(vl, "css")}
+                    mode="css"
+                    theme={editorTheme}
+                    width="100%"
+                    height="100%"
+                    value={userCode.css}
+                    fontSize={editorFs}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    setOptions={{
+                        enableBasicAutocompletion: false,
+                        enableLiveAutocompletion: false,
+                        enableSnippets: false,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    }}
+                />}
 
                 {currentEditor === "html" &&
-                <TaskAceEditor addAnnotations={changeAnnotations} mode="html" editorTheme={editorTheme}
-                               userCode={userCode.html} editorFS={editorFs}
-                               changeUserCode={changeUserCodeHtml}/>}
+                <AceEditor
+                    enableBasicAutocompletion={true}
+                    enableLiveAutocompletion={true}
+                    enableSnippets={true}
+                    onChange={changeUserCodeHtml}
+                    onValidate={vl => changeAnnotations(vl, "html")}
+                    mode="html"
+                    theme={editorTheme}
+                    width="100%"
+                    height="100%"
+                    value={userCode.html}
+                    fontSize={editorFs}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    setOptions={{
+                        enableBasicAutocompletion: false,
+                        enableLiveAutocompletion: false,
+                        enableSnippets: false,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    }}
+                />}
             </TaskCodeEditorMultiple>
 
 
@@ -256,7 +299,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
                 {editorFormFlag &&
                 <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorTheme}
-                                       handleChangeFs={handleChangeTheme} editorFs={editorFs}
+                                       handleChangeFs={handleChangeFs} editorFs={editorFs}
                                        toggleForm={handleToggleEditorSettings}/>}
 
 

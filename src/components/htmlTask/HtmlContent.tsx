@@ -48,14 +48,14 @@ import {
     TaskTargetNumber,
     TaskSuccessfulImg,
     TaskSuccessfulBar,
-    TaskSuccessfulTitle,
+    TaskSuccessfulTitle, CodeEditorError,
 } from "../../style/elements/tasks/task";
 import {htmlClass} from "../../properties/htmlClass";
 import {
     getEditorFSize,
     getEditorTheme, getHtmlTaskCodeFromLS,
     getHtmlTaskTargetsFromLS,
-    saveHtmlTaskSolutionToLS
+    saveHtmlTaskSolutionToLS, saveSolvedTaskToLS
 } from "../../functions/localStorage";
 import {TaskAid} from "../task/TaskAid";
 import {Link} from "react-router-dom";
@@ -81,6 +81,9 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
     // state with result code, which is display in iFrame
     const [resultCode, setResultCode] = useState<string>("")
 
+    // state with annotations from editor
+    const [annotations, setAnnotations] = useState<any[]>([])
+
     const [taskTargets, setTaskTargets] = useState<IFTaskTargets[]>(task.targets)
 
     // state with flag, when user change it, editor settings form will be showed
@@ -95,6 +98,8 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
     // state with flag, which is responsible for animation when the user correctly completes the task targets
     const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
 
+    // state with flag, which is responsible for displaying error about user code
+    const [errorFlag, setErrorFlag] = useState<boolean>(false)
 
     // check if the user hasn't already solved the task, if he  has solved it,
     // get it from local storage and if not, return the default value (task.targets)
@@ -113,33 +118,49 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
         localStorage.setItem("editorTheme", editorTheme)
     }, [editorTheme])
 
+    // remove error when user type correct code
+    useEffect(() => {
+        if(annotations.length === 0){
+            setErrorFlag(false)
+        }
+    }, [annotations])
 
     // task validation
     const checkTask = (): void => {
+        if (annotations.length === 0) {
+            // set the result (display user html code)
+            setResultCode(beautifyHtml(userCode, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
 
-        // set the result (display user html code)
-        setResultCode(beautifyHtml(userCode, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+            // points needed to pass
+            const pointsNeeded: number = task.targets.length
 
-        // points needed to pass
-        const pointsNeeded: number = task.targets.length
-
-        // user points
-        let userPoints = 0
+            // user points
+            let userPoints = 0
 
 // function that add pun when user complete task correctly
-        const changeUserPoints = (): number => userPoints++
+            const changeUserPoints = (): number => userPoints++
 
-        // // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
-        // // depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
-        taskTargets.map(el => taskValidationHtml(userCode, el, changeUserPoints))
+            // // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
+            // // depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
+            taskTargets.map(el => taskValidationHtml(userCode, el, changeUserPoints))
 
-        // save solution into local storage, so when user comes back he will have their solution
-        saveHtmlTaskSolutionToLS(taskTargets, task.title, userCode)
+            // save solution into local storage, so when user comes back he will have their solution
+            saveHtmlTaskSolutionToLS(taskTargets, task.title, userCode)
 
-        // check if user has executed all targets, if he did display animation
-        if (userPoints === pointsNeeded) {
-            setSuccessfulFlag(true)
+            // check if user has executed all targets, if he did display animation
+            if (userPoints === pointsNeeded) {
+                // set the animation
+                setSuccessfulFlag(true)
+                // save solved task title to ls, so that the user knows which tasks he has completed
+                saveSolvedTaskToLS(task.title, "solvedHtmlTasks")
+            } else {
+                setSuccessfulFlag(false)
+            }
         }
+        else {
+            setErrorFlag(true)
+        }
+
     }
 
 
@@ -205,7 +226,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                 enableLiveAutocompletion={true}
                 enableSnippets={true}
                 onChange={changeUserCode}
-
+                onValidate={vl => setAnnotations(vl.filter((el : any)=> el.type === "error"))}
                 mode="html"
                 theme={editorTheme}
                 width="100%"
@@ -226,13 +247,14 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
             <CodeEditorPanel>
                 {editorFormFlag &&
                 <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorTheme}
-                                       handleChangeFs={handleChangeTheme} editorFs={editorFs}
+                                       handleChangeFs={handleChangeFs} editorFs={editorFs}
                                        toggleForm={handleToggleEditorSettings}/>}
                 <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
                     className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
                 <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
                 <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
             </CodeEditorPanel>
+            {errorFlag && <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
         </HtmlTaskCodeEditor>
 
         {/*user code*/}
