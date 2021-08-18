@@ -54,7 +54,9 @@ export interface IFPropsTaskSelect {
         getFigureAlt: () => string,
     }
 }
-
+export interface IFPropsTasksBoard {
+    selectedTasks:  string
+}
 export interface IFPropsTaskIntroduction {
     title: string
     introductionInnerHtml: string | number

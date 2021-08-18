@@ -8,8 +8,8 @@ export const ChoseTaskContainer = styled.section`
 export const TasksBoardContainer = styled.div`
   width: 30%;
   height: 100%;
-  background: rgb(0,185,241);
-  background: linear-gradient(40deg, rgba(0,185,241,1) 33%, rgba(70,212,255,1) 71%);
+  background: rgb(0, 185, 241);
+  background: linear-gradient(40deg, rgba(0, 185, 241, 1) 33%, rgba(70, 212, 255, 1) 71%);
 
 `
 const an__TasksBoardTitle = keyframes`
@@ -112,12 +112,13 @@ export const TasksSelectWrapper = styled.div`
   border-radius: 34px;
   box-shadow: 8px 8px ${props => props.theme.color.gray};
   transition: 0.3s;
-  &:hover{
+
+  &:hover {
     transition: 0.3s;
     box-shadow: 0 262px ${props => props.theme.color.blue} inset,
     23px 23px ${props => props.theme.color.gray};
   }
-  
+
   input {
     appearance: none;
     position: absolute;
@@ -127,11 +128,13 @@ export const TasksSelectWrapper = styled.div`
     width: 100%;
     height: 100%;
     z-index: 2;
-   &:hover{
-     cursor: pointer;
-   }
+
+    &:hover {
+      cursor: pointer;
+    }
   }
-  span{
+
+  span {
     display: block;
     position: absolute;
     z-index: -1;
@@ -140,6 +143,7 @@ export const TasksSelectWrapper = styled.div`
     height: 100%;
     border-radius: 34px;
   }
+
   input:checked ~ span {
     font-size: 44px;
     box-shadow: 0 262px ${props => props.theme.color.blue} inset;
@@ -149,7 +153,8 @@ export const TasksSelectTitle = styled.div`
   margin-top: 5px;
   display: flex;
   align-items: center;
-  label{
+
+  label {
     margin-left: 9px;
     font-size: 2.75rem;
     text-transform: uppercase;
@@ -165,4 +170,38 @@ export const TasksSelectIcon = styled.img`
   width: 30px;
   height: auto;
   object-fit: cover;
+`
+export const TasksList = styled.div`
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 1;
+  padding: 14px;
+`
+interface props__TasksListItem{
+    solved: boolean
+}
+export const TasksListItem = styled.div<props__TasksListItem>`
+  width: 100px;
+  height: 100px;
+  font-size: 67px;
+  background: ${props => props.solved ? props.theme.background.transparentGreen : props.theme.background.transparent};
+  margin: 10px 10px;
+  border: 5px solid ${props => props.theme.color.gray};
+  border-radius: 14px;
+  
+  transition: 0.1s;
+  &:hover{
+    transition: 0.1s;
+    background: ${props => props.solved ? props.theme.background.transparentGreen : props.theme.background.transparentBlue};
+  }
+  a{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: ${props => props.theme.color.gray}
+  }
 `

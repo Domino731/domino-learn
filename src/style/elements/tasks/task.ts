@@ -220,6 +220,7 @@ export const TaskFooterTasksItem = styled.li<props__TaskFooterTaskItem>`
   &:hover {
     transition: 0.2s;
     font-size: 2.625rem;
+    background: ${props => props.solved ? props.theme.background.transparentGreen : props.theme.background.transparentBlue};
   }
 
   a {

@@ -44,7 +44,7 @@ export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({lang
             </>
             }
 
-            {flag && <DscCode reverse={false}>
+            {flag && <DscCode reverse={reverse}>
                 <DscEditorWrapper>
                     <AceEditor
                         enableBasicAutocompletion={true}
@@ -70,7 +70,7 @@ export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({lang
                     />
                 </DscEditorWrapper>
 
-                <DscArrow>
+                <DscArrow reverse={reverse}>
                     <i className="fas fa-long-arrow-alt-right"/>
                     <div onClick={handleChangeFlag}>
                         <i className="fas fa-times"/>

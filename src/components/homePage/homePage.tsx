@@ -9,9 +9,11 @@ import {Footer} from "./Footer";
 export const HomePage : FunctionComponent = () =>{
     return <Container>
         <Navigation/>
-        <Hero/>
-        <Description/>
-        <ChoseTask/>
+        <main>
+            <Hero/>
+            <Description/>
+            <ChoseTask/>
+        </main>
         <Footer/>
     </Container>
 }

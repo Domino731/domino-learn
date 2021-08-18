@@ -121,12 +121,13 @@ export const DscCode = styled.div<DscReverseProps>`
   height: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: ${props => props.reverse ? "row-reverse" : "row"};
 `
 export const DscEditorWrapper = styled.div`
   width: 40%;
   height: 100%;
 `
-export const DscArrow = styled.div`
+export const DscArrow = styled.div<DscReverseProps>`
   position: relative;
   display: flex;
   justify-content: center;
@@ -134,6 +135,9 @@ export const DscArrow = styled.div`
   width: 20%;
   height: 100%;
   font-size: 120px;
+  i{
+    transform: rotate( ${props => props.reverse ? "180deg" : "0deg"})
+  }
   div{
     color: ${props => props.theme.color.red};
     position: absolute;
