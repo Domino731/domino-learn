@@ -3,30 +3,17 @@ import {
     CodeEditorError,
     CodeEditorPanel,
     CodeEditorPanelBtn,
-    EditorSettingsCloseIcon,
-    EditorSettingsFSize,
-    EditorSettingsLabel,
-    EditorSettingsThemesWrapper,
-    EditorSettingsWrapper,
-    TaskAidsList,
-    TaskAidsTitle,
-    TaskAidsWrapper,
     TaskContentWrapper,
-    TaskIntroductionBar,
-    TaskIntroductionText,
-    TaskSectionHeader, TaskSuccessfulBar, TaskSuccessfulImg, TaskSuccessfulTitle,
-    TaskTarget,
-    TaskTargetCheckbox,
-    TaskTargetNumber,
-    TaskTargetsWrapper,
-    TaskTargetText,
+    TaskSuccessfulBar,
+    TaskSuccessfulImg,
+    TaskSuccessfulTitle,
     WebBrowserGreenBox,
     WebBrowserRedBox,
     WebBrowserTopBar,
     WebBrowserWindow,
     WebBrowserYellowBox
 } from "../../style/elements/tasks/task";
-import {IFJsTaskTargets, IFPropsJsTask} from "../../types/types";
+import {IFPropsJsTask} from "../../types/types";
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/theme-monokai'
 import 'ace-builds/src-noconflict/theme-ambiance'
@@ -49,11 +36,10 @@ import {
     JsTaskSuccessful,
     JsDecorationIntroduction
 } from "../../style/elements/tasks/jsTask";
-import {TaskAid} from "../task/TaskAid";
 import AceEditor from "react-ace";
 import {
     getEditorFSize,
-    getEditorTheme, getJsTaskCodeFromLS, getJsTaskTargetsFromLS,
+    getEditorTheme,
     saveJsTaskSolutionToLS, saveSolvedTaskToLS
 } from "../../functions/localStorage";
 import {Console, Hook, Unhook} from 'console-feed'
@@ -62,7 +48,6 @@ import {taskValidationJS} from "../../functions/taskValidationJS";
 import {Link} from "react-router-dom";
 import {jsClass} from "../../properties/jsClass";
 import {TaskIntroduction} from "../task/TaskIntroduction";
-import {htmlClass} from "../../properties/htmlClass";
 import {TaskTargets} from "../task/TaskTargets";
 import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
 
@@ -72,9 +57,6 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     // state with userCode from editor output
     const [userCode, setUserCode] = useState<string>(task.code);
-
-    // state with task targets
-    const [taskTargets, setTaskTargets] = useState<IFJsTaskTargets[]>(task.targets)
 
     // state with annotations from editor
     const [annotations, setAnnotations] = useState<any[]>([])
@@ -138,8 +120,8 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     useEffect(() => {
         const consoleTextArr = logs.map(el => el.data[0]);
         if (consoleTextArr.length > 0 && annotations.length === 0) {
-            taskTargets.map(el => taskValidationJS(consoleTextArr, el, addPoints));
-            saveJsTaskSolutionToLS(taskTargets, task.title, userCode);
+            task.targets.forEach(el => taskValidationJS(consoleTextArr, el, addPoints));
+            saveJsTaskSolutionToLS(task.targets, task.title, userCode);
             // save solved task title to ls, so that the user knows which tasks he has completed
             saveSolvedTaskToLS(task.title, "solvedJsTasks");
         }
@@ -207,7 +189,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
             </JsIntroduction>
 
             <JsTargets>
-                <TaskTargets targets={taskTargets} title={task.title} aidArr={task.aid}/>
+                <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
             </JsTargets>
         </>}
 

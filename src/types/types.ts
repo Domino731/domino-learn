@@ -195,7 +195,7 @@ export interface IFAllTasks {
     solved: boolean
 }
 
-// js console
+
 export interface IFJsConsoleInitial {
     method: string
     data: (string | number)[]
@@ -206,7 +206,7 @@ export interface IFJsConsoleLogs {
     amount?: number
 }
 
-// localStorage
+
 export type TypeLSHtmlTaskSolutions = {
     taskSolutions: TypeHtmlTaskSolution[]
     title: string,
@@ -228,4 +228,10 @@ export interface IFProgramingCode {
     type: string
     code: string
     srcDoc: string
+}
+
+export interface IFEditorCode {
+    html: string
+    css: string
+    js: string
 }

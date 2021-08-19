@@ -2,7 +2,6 @@ import styled from "styled-components";
 import {
     TaskFooter,
     TaskFooterListBtn,
-    TaskFooterSwitchButton,
     TaskHeader,
     TaskFooterTasksWrapper, TaskFooterDecoration
 } from "./task";

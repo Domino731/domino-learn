@@ -30,7 +30,7 @@ import {
     TaskSuccessfulImg, TaskSuccessfulTitle, TaskSuccessfulBar
 } from "../../style/elements/tasks/task";
 import {cssClass} from "../../properties/cssClass";
-import {IFCssTaskTargetCss, IfCssTaskTargetHtml, IFPropsCssTaskContent} from "../../types/types";
+import {IFPropsCssTaskContent} from "../../types/types";
 import {
     getEditorFSize,
     getEditorTheme,
@@ -59,7 +59,6 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // state with annotations from editor
     const [annotations, setAnnotations] = useState<{css: any[], html: any[]}>({css: [], html: []})
 
-    const [taskTargets, setTaskTargets] = useState<(IFCssTaskTargetCss | IfCssTaskTargetHtml) []>(task.targets)
 
     // state with flag, when user change it, editor settings form will be showed
     const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
@@ -181,7 +180,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             // checking if each task solution is equal to the user's solution, at the end we set the updated state of taskTargets
             // depending on whether the task was solved correctly or not, add point and change checkboxes.
             // some task targets may require changes in html code
-            taskTargets.map(el => {
+            task.targets.forEach(el => {
                 if (el.type === "css") {
                     // @ts-ignore
                     return taskValidationCss(userCode.css, el, changeUserPoints)
@@ -202,7 +201,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             }
 
             // save solution into local storage, so when user comes back he will have their solution
-            saveCssTaskSolutionToLS(taskTargets, task.title, userCode)
+            saveCssTaskSolutionToLS(task.targets, task.title, userCode)
         } else {
             setErrorFlag(true)
         }
@@ -323,7 +322,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                 <CssDecorationIntroduction/>
             </CssIntroduction>
             <CssTarget>
-                <TaskTargets targets={taskTargets} title={task.title} aidArr={task.aid}/>
+                <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
             </CssTarget>
         </>}
 

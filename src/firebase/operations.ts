@@ -124,7 +124,7 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
                     number: doc.data().number,
                     solved: checkSolvedTask(doc.data().title, checkItem)
                 }
-                tasks.push(data)
+                return tasks.push(data)
             });
 
             return saveDataCallback(tasks)

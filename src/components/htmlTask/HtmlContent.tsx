@@ -37,7 +37,7 @@ import {
     saveHtmlTaskSolutionToLS, saveSolvedTaskToLS
 } from "../../functions/localStorage";
 import {Link} from "react-router-dom";
-import {IFPropsHtmlTaskContent, IFTaskTargets} from "../../types/types";
+import {IFPropsHtmlTaskContent} from "../../types/types";
 import {taskValidationHtml} from "../../functions/taskValidationHtml";
 import {TaskIntroduction} from "../task/TaskIntroduction";
 import {TaskTargets} from "../task/TaskTargets";
@@ -60,8 +60,6 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
     // state with annotations from editor
     const [annotations, setAnnotations] = useState<any[]>([])
-
-    const [taskTargets, setTaskTargets] = useState<IFTaskTargets[]>(task.targets)
 
     // state with flag, when user change it, editor settings form will be showed
     const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
@@ -110,10 +108,10 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
             // // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
             // // depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
-            taskTargets.map(el => taskValidationHtml(userCode, el, changeUserPoints))
+            task.targets.forEach(el => taskValidationHtml(userCode, el, changeUserPoints))
 
             // save solution into local storage, so when user comes back he will have their solution
-            saveHtmlTaskSolutionToLS(taskTargets, task.title, userCode)
+            saveHtmlTaskSolutionToLS(task.targets, task.title, userCode)
 
             // check if user has executed all targets, if he did display animation
             if (userPoints === pointsNeeded) {
@@ -170,7 +168,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
             </HtmlTaskIntroduction>
             {/*task target and instructions*/}
             <HtmlTaskTarget>
-                <TaskTargets targets={taskTargets} title={task.title} aidArr={task.aid}/>
+                <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
             </HtmlTaskTarget>
         </>}
 

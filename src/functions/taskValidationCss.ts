@@ -1,5 +1,4 @@
-import {IFCssTaskTargetCss, IfCssTaskTargetHtml, IFTaskTargets} from "../types/types";
-import {user} from "firebase-functions/lib/providers/auth";
+import {IFCssTaskTargetCss, } from "../types/types";
 
 /**
  *
@@ -28,7 +27,7 @@ export const taskValidationCss = (code: string, taskTarget: IFCssTaskTargetCss, 
     let userDeclarations : number = 0
 
     // checking if the user's solution (userSolution) contains required style declarations ()
-    taskTarget.declarations.map(el => {
+    taskTarget.declarations.forEach(el => {
 
         // declaration without spaces
         const declaration : string = el.replace(/\s/g, '')

@@ -3,6 +3,7 @@ import {IFJsConsoleInitial} from "../types/types";
 // convert string to js code, which will be displayed in console
 export const Logs = async (code : string) => {
     try{
+        // eslint-disable-next-line no-eval
         return eval(code)
     }
     catch (err){
