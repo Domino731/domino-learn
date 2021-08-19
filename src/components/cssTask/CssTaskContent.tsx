@@ -12,7 +12,7 @@ import 'ace-builds/src-noconflict/theme-terminal'
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
-import {FunctionComponent, useEffect, useState} from "react";
+import React, {FunctionComponent, useEffect, useState} from "react";
 import {
     CssResult,
     CssCodeEditorWrapper,
@@ -66,11 +66,11 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // state which indicates which editor is active -> css editor or html
     const [currentEditor, setCurrentEditor] = useState<"css" | "html">("css")
 
-    // state with editor theme from localStorage
-    const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme)
-
-    // state with editor font size from localStorage
-    const [editorFs, setEditorFs] = useState<number>(getEditorFSize)
+    // state with editor settings
+    const [editorSettings, setEditorSettings] = useState<{fontSize: number, theme: string}>({
+        fontSize: getEditorFSize(),
+        theme: getEditorTheme()
+    })
 
     // state with flag, which is responsible for animation when the user correctly completes the task targets
     const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
@@ -82,20 +82,16 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     const [loadingResult, setLoadingResult] = useState<boolean>(false)
 
 
+    // save editor settings into local storage
+    useEffect(() => {
+        localStorage.setItem("editorFontSize", editorSettings.fontSize.toString())
+        localStorage.setItem("editorTheme", editorSettings.theme)
+    }, [editorSettings])
+
      // remove error when user type correct code
     useEffect(() => {
             setErrorFlag(false)
     }, [annotations])
-
-    // save font size into local storage
-    useEffect(() => {
-        localStorage.setItem("editorFontSize", editorFs.toString())
-    }, [editorFs])
-
-    // save theme into local storage
-    useEffect(() => {
-        localStorage.setItem("editorTheme", editorTheme)
-    }, [editorTheme])
 
     const changeUserCodeHtml = (newValue: string): void => {
         setUserCode(prev => ({
@@ -117,10 +113,16 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     }
 
     // change editor font-size
-    const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value))
-
+    const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
+        ...prev,
+        fontSize: parseFloat(e.target.value)
+    }))
     // change theme
-    const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorTheme(e.target.value)
+    const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
+        ...prev,
+        theme: e.target.value
+    }))
+
 
     // switch between code editors - css and html
     const handleSwitchEditor = (): void => setCurrentEditor(() => currentEditor === "css" ? "html" : "css")
@@ -253,11 +255,11 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                     onChange={changeUserCodeCss}
                     onValidate={vl => changeAnnotations(vl, "css")}
                     mode="css"
-                    theme={editorTheme}
+                    theme={editorSettings.theme}
                     width="100%"
                     height="100%"
                     value={userCode.css}
-                    fontSize={editorFs}
+                    fontSize={editorSettings.fontSize}
                     showPrintMargin={true}
                     showGutter={true}
                     highlightActiveLine={true}
@@ -278,11 +280,11 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                     onChange={changeUserCodeHtml}
                     onValidate={vl => changeAnnotations(vl, "html")}
                     mode="html"
-                    theme={editorTheme}
+                    theme={editorSettings.theme}
                     width="100%"
                     height="100%"
                     value={userCode.html}
-                    fontSize={editorFs}
+                    fontSize={editorSettings.fontSize}
                     showPrintMargin={true}
                     showGutter={true}
                     highlightActiveLine={true}
@@ -300,8 +302,8 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             <CodeEditorPanel>
 
                 {editorFormFlag &&
-                <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorTheme}
-                                       handleChangeFs={handleChangeFs} editorFs={editorFs}
+                <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
+                                       handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
                                        toggleForm={handleToggleEditorSettings}/>}
 
 

@@ -64,11 +64,11 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
     // state with flag, when user change it, editor settings form will be showed
     const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
 
-    // state with editor font size from localStorage
-    const [editorFs, setEditorFs] = useState<number>(getEditorFSize)
 
-    // state with editor theme from localStorage
-    const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme)
+    const [editorSettings, setEditorSettings] = useState<{fontSize: number, theme: string}>({
+        fontSize: getEditorFSize(),
+        theme: getEditorTheme()
+    })
 
     // state with flag, which is responsible for animation when the user correctly completes the task targets
     const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
@@ -76,15 +76,12 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
     // state with flag, which is responsible for displaying error about user code
     const [errorFlag, setErrorFlag] = useState<boolean>(false)
 
-    // save font size into local storage
+    // save editor settings into local storage
     useEffect(() => {
-        localStorage.setItem("editorFontSize", editorFs.toString())
-    }, [editorFs])
+        localStorage.setItem("editorFontSize", editorSettings.fontSize.toString())
+        localStorage.setItem("editorTheme", editorSettings.theme)
+    }, [editorSettings])
 
-    // save theme into local storage
-    useEffect(() => {
-        localStorage.setItem("editorTheme", editorTheme)
-    }, [editorTheme])
 
     // remove error when user type new code
     useEffect(() => {
@@ -129,13 +126,16 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
     }
 
-
     // change editor font-size
-    const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorFs(parseFloat(e.target.value))
-
+    const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
+        ...prev,
+        fontSize: parseFloat(e.target.value)
+    }))
     // change theme
-    const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorTheme(e.target.value)
-
+    const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
+        ...prev,
+        theme: e.target.value
+    }))
 
     // change code from
     const changeUserCode = (newValue: string): void => {
@@ -192,11 +192,11 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                 onChange={changeUserCode}
                 onValidate={vl => setAnnotations(vl.filter((el : any)=> el.type === "error"))}
                 mode="html"
-                theme={editorTheme}
+                theme={editorSettings.theme}
                 width="100%"
                 height="100%"
                 value={userCode}
-                fontSize={editorFs}
+                fontSize={editorSettings.fontSize}
                 showPrintMargin={true}
                 showGutter={true}
                 highlightActiveLine={true}
@@ -210,8 +210,8 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
             />
             <CodeEditorPanel>
                 {editorFormFlag &&
-                <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorTheme}
-                                       handleChangeFs={handleChangeFs} editorFs={editorFs}
+                <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
+                                       handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
                                        toggleForm={handleToggleEditorSettings}/>}
                 <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
                     className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
