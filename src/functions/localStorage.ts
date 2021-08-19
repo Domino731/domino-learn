@@ -1,6 +1,6 @@
 import {
     IFCssTaskTargetCss,
-    IfCssTaskTargetHtml, IFJsTaskTargets,
+    IfCssTaskTargetHtml, IFEditorCode, IFJsTaskTargets,
     IFLSCssTaskSolutions, IFLSjsTaskSolutions,
     TypeHtmlTaskSolution,
     TypeLSHtmlTaskSolutions
@@ -176,7 +176,6 @@ export const getCssTaskTargetsFromLS = (
 
 /**
  * Get js task targets - information about which task is completed (checkboxes)
- * @param saveDataCallback - function that saves data
  * @param taskTitle - name of task
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
@@ -335,5 +334,30 @@ export const checkSolvedTask = (taskTitle: string, item: "solvedJsTasks" | "solv
         return localStorageData.includes(taskTitle)
     } else {
         return false
+    }
+}
+
+/**
+ * Save user code to local storage so that when he comes back he has his code from the previous session
+ * @param code - code that you want to save
+ */
+export const saveEditorCodeToLS = (code : IFEditorCode) : void => localStorage.setItem("EditorCode", JSON.stringify(code))
+
+// export const getEditorCodeFromLS = (defaultValue : IFEditorCode)  : IFEditorCode => {
+//     const localStorageData = localStorage.getItem("EditorCode");
+//     if(localStorageData != null){
+//         return JSON.parse(localStorageData)
+//     }
+//     else {
+//         return defaultValue
+//     }
+// }
+export const getEditorCodeFromLS = (defaultValue : IFEditorCode) : IFEditorCode => {
+    const localStorageData = localStorage.getItem("EditorCode");
+    if(localStorageData != null){
+        return JSON.parse(localStorageData)
+    }
+    else {
+        return defaultValue
     }
 }

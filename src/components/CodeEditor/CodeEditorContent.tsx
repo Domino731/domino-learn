@@ -26,12 +26,10 @@ import {
     EditorResult
 } from "../../style/elements/codeEditor/codeEditor";
 import {IFEditorCode} from "../../types/types";
-import {getEditorFSize, getEditorTheme} from "../../functions/localStorage";
-import {TaskResultWindow} from "../task/TaskResultWindow";
+import {getEditorFSize, getEditorTheme, saveEditorCodeToLS, getEditorCodeFromLS} from "../../functions/localStorage";
 import {htmlClass} from "../../properties/htmlClass";
 import {cssClass} from "../../properties/cssClass";
 import {jsClass} from "../../properties/jsClass";
-import {formatCode} from "../../functions/formatCode";
 import {
     WebBrowserGreenBox,
     WebBrowserRedBox,
@@ -41,26 +39,28 @@ import {
 import {Console, Hook, Unhook} from "console-feed";
 import {Logs} from "../../functions/jsConsole";
 
+
 export const CodeEditorContent: FunctionComponent = (): JSX.Element => {
 
     // State with user code
-    const [userCode, setUserCode] = useState<IFEditorCode>({html: "", css: "", js: ""})
+    const [userCode, setUserCode] = useState<IFEditorCode>(getEditorCodeFromLS({html: "", css: "", js: ""}));
 
     // state with final code which is in iframe
-    const [srcDoc, setSrcDoc] = useState<string>("")
+    const [srcDoc, setSrcDoc] = useState<string>("");
 
     // state with console logs
     const [logs, setLogs] = useState<any[]>([]);
 
-    const [consoleFlag, setConsoleFlag] = useState<boolean>(false)
-
+    const [consoleFlag, setConsoleFlag] = useState<boolean>(false);
     // state with editor theme from localStorage
-    const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme)
+    const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme);
 
     // state with editor font size from localStorage
-    const [editorFs, setEditorFs] = useState<number>(getEditorFSize)
+    const [editorFs, setEditorFs] = useState<number>(getEditorFSize);
+useEffect(()=>{
 
-    // delay (250s) for displaying user code in iframe -> better for the browser, because it doesn't have to rerender
+},[])
+    // delay (300s) for displaying user code in iframe -> better for the browser, because it doesn't have to rerender
     // a new iframe with every code change
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -74,24 +74,29 @@ export const CodeEditorContent: FunctionComponent = (): JSX.Element => {
           </style></head>
           <body>${userCode.html}</body>
           <script>${userCode.js}</script>
-          </html>`)
-
+          </html>`);
                 // set the console
                 Logs(userCode.js);
             }
+            , 300);
+        // prevent of console duplicates
+        setLogs([]);
+        return () => clearTimeout(timeout);
+    }, [userCode]);
 
-            , 250)
-// prevent of console duplicates
-        setLogs([])
-        return () => clearTimeout(timeout)
-    }, [userCode])
+    // saving code into local storage
+    useEffect(()=>{
+        const timeout = setTimeout(()=>{
+            saveEditorCodeToLS(userCode)
+        },600)
+        return () => clearTimeout(timeout);
+    },[userCode])
 
 
     // run once!
     // @ts-ignore
     useEffect(() => {
-        setLogs([])
-
+        setLogs([]);
         Hook(
             window.console,
             (log) => {
@@ -101,22 +106,22 @@ export const CodeEditorContent: FunctionComponent = (): JSX.Element => {
                 }
             },
             false,
-        )
+        );
         // @ts-ignore
-        return () => Unhook(window.console)
+        return () => Unhook(window.console);
     }, []);
 
 
     const changeUserCode = (newValue: any, key: "html" | "css" | "js"): void => setUserCode(prev => ({
         ...prev,
         [key]: newValue
-    }))
+    }));
 
-    const handleChangeConsoleFlag = (): void => setConsoleFlag(!consoleFlag)
+    const handleChangeConsoleFlag = (): void => setConsoleFlag(!consoleFlag);
 
     const areas = `"html html result"
-  "css css result"
-  "js js result"`
+                   "css css result"
+                   "js js result"`;
 
 
     return <EditorContentWrapper areas={areas}>
