@@ -25,7 +25,7 @@ import {
     EditorJs, EditorName,
     EditorResult
 } from "../../style/elements/codeEditor/codeEditor";
-import {IFEditorCode} from "../../types/types";
+import {IFEditorCode, IFPropsCodeEditorContent} from "../../types/types";
 import {getEditorFSize, getEditorTheme, saveEditorCodeToLS, getEditorCodeFromLS} from "../../functions/localStorage";
 import {htmlClass} from "../../properties/htmlClass";
 import {cssClass} from "../../properties/cssClass";
@@ -40,7 +40,7 @@ import {Console, Hook, Unhook} from "console-feed";
 import {Logs} from "../../functions/jsConsole";
 
 
-export const CodeEditorContent: FunctionComponent = (): JSX.Element => {
+export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({editorSettings}): JSX.Element => {
 
     // State with user code
     const [userCode, setUserCode] = useState<IFEditorCode>(getEditorCodeFromLS({html: "", css: "", js: ""}));
@@ -51,12 +51,9 @@ export const CodeEditorContent: FunctionComponent = (): JSX.Element => {
     // state with console logs
     const [logs, setLogs] = useState<any[]>([]);
 
+    // state which is responsible to display console or iframe window
     const [consoleFlag, setConsoleFlag] = useState<boolean>(false);
-    // state with editor theme from localStorage
-    const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme);
 
-    // state with editor font size from localStorage
-    const [editorFs, setEditorFs] = useState<number>(getEditorFSize);
 useEffect(()=>{
 
 },[])
@@ -135,11 +132,11 @@ useEffect(()=>{
                 enableSnippets={true}
                 onChange={(newValue) => changeUserCode(newValue, "html")}
                 mode="html"
-                theme={editorTheme}
+                theme={editorSettings.theme}
                 width="100%"
                 height="100%"
                 value={userCode.html}
-                fontSize={editorFs}
+                fontSize={editorSettings.fontSize}
                 showPrintMargin={true}
                 showGutter={true}
                 highlightActiveLine={true}
@@ -162,11 +159,11 @@ useEffect(()=>{
                 enableSnippets={true}
                 onChange={(newValue) => changeUserCode(newValue, "css")}
                 mode="css"
-                theme={editorTheme}
+                theme={editorSettings.theme}
                 width="100%"
                 height="100%"
                 value={userCode.css}
-                fontSize={editorFs}
+                fontSize={editorSettings.fontSize}
                 showPrintMargin={true}
                 showGutter={true}
                 highlightActiveLine={true}
@@ -189,11 +186,11 @@ useEffect(()=>{
                 enableSnippets={true}
                 onChange={(newValue) => changeUserCode(newValue, "js")}
                 mode="javascript"
-                theme={editorTheme}
+                theme={editorSettings.theme}
                 width="100%"
                 height="100%"
                 value={userCode.js}
-                fontSize={editorFs}
+                fontSize={editorSettings.fontSize}
                 showPrintMargin={true}
                 showGutter={true}
                 highlightActiveLine={true}

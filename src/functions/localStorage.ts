@@ -343,15 +343,7 @@ export const checkSolvedTask = (taskTitle: string, item: "solvedJsTasks" | "solv
  */
 export const saveEditorCodeToLS = (code : IFEditorCode) : void => localStorage.setItem("EditorCode", JSON.stringify(code))
 
-// export const getEditorCodeFromLS = (defaultValue : IFEditorCode)  : IFEditorCode => {
-//     const localStorageData = localStorage.getItem("EditorCode");
-//     if(localStorageData != null){
-//         return JSON.parse(localStorageData)
-//     }
-//     else {
-//         return defaultValue
-//     }
-// }
+
 export const getEditorCodeFromLS = (defaultValue : IFEditorCode) : IFEditorCode => {
     const localStorageData = localStorage.getItem("EditorCode");
     if(localStorageData != null){
@@ -359,5 +351,16 @@ export const getEditorCodeFromLS = (defaultValue : IFEditorCode) : IFEditorCode 
     }
     else {
         return defaultValue
+    }
+}
+export const getEditorAreas = () : string => {
+    const localStorageData = localStorage.getItem("EditorCode");
+    if(localStorageData != null){
+        return JSON.parse(localStorageData)
+    }
+    else {
+        return `"html html result"
+     "css css result"
+     "js js result"`
     }
 }

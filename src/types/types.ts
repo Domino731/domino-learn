@@ -1,4 +1,5 @@
 import {RouteComponentProps} from "react-router";
+import React from "react";
 
 //// general ////
 
@@ -234,4 +235,18 @@ export interface IFEditorCode {
     html: string
     css: string
     js: string
+}
+export interface IFEditorSettings {
+    theme: string
+    fontSize: string | number
+    areas: string
+}
+export interface IFPropsCodeEditorHeader {
+    editorSettings : IFEditorSettings
+    changeFs: (e: React.ChangeEvent<HTMLInputElement>) => void
+    changeTheme: (e: React.ChangeEvent<HTMLInputElement>) => void
+    changeAreas:  (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+export interface IFPropsCodeEditorContent {
+    editorSettings : IFEditorSettings
 }
