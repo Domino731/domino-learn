@@ -116,12 +116,8 @@ useEffect(()=>{
 
     const handleChangeConsoleFlag = (): void => setConsoleFlag(!consoleFlag);
 
-    const areas = `"html html result"
-                   "css css result"
-                   "js js result"`;
 
-
-    return <EditorContentWrapper areas={areas}>
+    return <EditorContentWrapper areas={editorSettings.areas}>
         <EditorHtml>
             <EditorName>
                 <img src={htmlClass.getIconSrc()} alt="html icon"/>

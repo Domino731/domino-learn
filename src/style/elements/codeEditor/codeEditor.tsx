@@ -41,12 +41,12 @@ export const EditorHeaderSettingsIcon = styled.div`
 
   span {
     font-size: 1.813rem;
-    margin-left: 0.375rem;
+    margin-left: 1rem;
   }
 
   &:hover {
     cursor: pointer;
-    width: 167px;
+    width: 178px;
     margin: 0;
   }
 `
@@ -61,7 +61,6 @@ export const EditorSettingsForm = styled.form`
   padding-top: 40px;
 `
 export const EditorFormItem = styled.div`
-  display: block;
   display: flex;
   align-items: center;
 
@@ -143,9 +142,7 @@ export const EditorFormThemesWrapper = styled.div`
 interface props__EditorFormTheme {
     areas: string
 }
-
-export const EditorFormTheme = styled.div<props__EditorFormTheme>`
-  position: relative;
+export const EditorFormTheme = styled.label<props__EditorFormTheme>`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -153,20 +150,21 @@ export const EditorFormTheme = styled.div<props__EditorFormTheme>`
   height: 180px;
   grid-template-areas: ${props => props.areas};
   margin: 5px;
-
-  input {
-    display:none;
-    visibility:hidden;
+  position: relative;
+  input{
+    visibility: hidden;
     position: absolute;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-  }
-
-  input:checked ~ div i {
-    display: block;
+    &:checked ~ div i {
+     display: block;
+    }
+  ;
   }
 `
+
 const EditorFormThemeItem = styled.div`
   margin: 3px;
   border-radius: 6px;

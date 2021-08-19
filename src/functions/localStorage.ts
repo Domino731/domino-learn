@@ -6,6 +6,7 @@ import {
     TypeLSHtmlTaskSolutions
 } from "../types/types";
 import {IFTaskTargets} from "../types/types";
+import {codeEditorAreas} from "../properties/codeEditorAreas";
 
 const beautifyHtml = require('js-beautify').html
 const beautifyCss = require('js-beautify').css
@@ -354,13 +355,11 @@ export const getEditorCodeFromLS = (defaultValue : IFEditorCode) : IFEditorCode 
     }
 }
 export const getEditorAreas = () : string => {
-    const localStorageData = localStorage.getItem("EditorCode");
+    const localStorageData = localStorage.getItem("EditorAreas");
     if(localStorageData != null){
         return JSON.parse(localStorageData)
     }
     else {
-        return `"html html result"
-     "css css result"
-     "js js result"`
+        return codeEditorAreas[0]
     }
 }
