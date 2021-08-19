@@ -44,9 +44,10 @@ import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
 import {TaskIntroduction} from "../task/TaskIntroduction";
 import {TaskTargets} from "../task/TaskTargets";
 import {TaskResultLoading} from "../task/TaskLoading";
+import {formatCode} from "../../functions/formatCode";
+import {user} from "firebase-functions/lib/providers/auth";
 
-const beautifyHtml = require('js-beautify').html
-const beautifyCss = require('js-beautify').css
+
 
 export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, allTaskLength}): JSX.Element => {
 
@@ -80,6 +81,16 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // state with flag, which is responsible for displaying loading screen during checking the task
     const [loadingResult, setLoadingResult] = useState<boolean>(false)
+
+
+    const [srcDoc, setSrcDoc] = useState<string>(`<!DOCTYPE html>
+          <html lang="en">
+          <head>
+          <title>${task.title}</title>
+          <style>
+          </style></head>
+          <body></body>
+          </html>`)
 
 
     // save editor settings into local storage
@@ -151,23 +162,20 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         if (annotations.html.length === 0 && annotations.css.length === 0) {
 
             // set the result (display user styles)
-            setResultCode({
-                html: userCode.html,
-                css: userCode.css
-            })
+            setSrcDoc(`<!DOCTYPE html>
+          <html lang="en">
+          <head>
+          <title>${task.title}</title>
+          <style>
+          ${userCode.css}
+          </style></head>
+          <body>${userCode.html}</body>
+          </html>`)
 
             //format code
             setUserCode({
-                html: beautifyHtml(userCode.html, {
-                    indent_size: 1,
-                    space_in_empty_paren: false,
-                    wrap_line_length: 50
-                }),
-                css: beautifyCss(userCode.css, {
-                    indent_size: 1,
-                    space_in_empty_paren: false,
-                    wrap_line_length: 50
-                })
+                html: formatCode("html", userCode.html),
+                css: formatCode("css", userCode.css)
             })
 
             // points needed to pass
@@ -210,18 +218,6 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         // remove the loading screen
         setLoadingResult(false)
     }
-    // code
-    const srcDoc = `
-        <!DOCTYPE html>
-          <html lang="en">
-          <head>
-          <title>${task.title}</title>
-          <style>
-          ${resultCode.css}
-          </style></head>
-          <body>${resultCode.html}</body>
-          </html>`
-
 
     return <TaskContentWrapper>
         <CssResult>

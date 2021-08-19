@@ -65,7 +65,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
     const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
 
 
-    const [editorSettings, setEditorSettings] = useState<{fontSize: number, theme: string}>({
+    const [editorSettings, setEditorSettings] = useState<{ fontSize: number, theme: string }>({
         fontSize: getEditorFSize(),
         theme: getEditorTheme()
     })
@@ -76,6 +76,13 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
     // state with flag, which is responsible for displaying error about user code
     const [errorFlag, setErrorFlag] = useState<boolean>(false)
 
+    const [srcDoc, setSrcDoc] = useState<string>(`<!DOCTYPE html>
+          <html lang="en">
+          <head>
+          <title>${task.title}</title>
+        </head>
+          <body></body>
+          </html>`)
     // save editor settings into local storage
     useEffect(() => {
         localStorage.setItem("editorFontSize", editorSettings.fontSize.toString())
@@ -85,14 +92,19 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
     // remove error when user type new code
     useEffect(() => {
-            setErrorFlag(false)
+        setErrorFlag(false)
     }, [annotations])
 
     // task validation
     const checkTask = (): void => {
         if (annotations.length === 0) {
             // set the result (display user html code)
-            setResultCode(beautifyHtml(userCode, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+            setSrcDoc(`
+          <!DOCTYPE html>
+          <html lang="en">
+          <head><title>${task.title}</title></head>
+          <body>${userCode}</body>
+          </html>`)
 
             // points needed to pass
             const pointsNeeded: number = task.targets.length
@@ -119,8 +131,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
             } else {
                 setSuccessfulFlag(false)
             }
-        }
-        else {
+        } else {
             setErrorFlag(true)
         }
 
@@ -146,15 +157,6 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
     const handleResetCode = (): void => setUserCode(task.originalCode)
 
     const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag)
-
-    // code which is placed in iframe as result (web browser window)
-    const srcDoc = `
-        <!DOCTYPE html>
-          <html lang="en">
-          <head><title>${task.title}</title></head>
-          <body>${resultCode}</body>
-          </html>`
-
 
     return <TaskContentWrapper>
 
@@ -190,7 +192,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                 enableLiveAutocompletion={true}
                 enableSnippets={true}
                 onChange={changeUserCode}
-                onValidate={vl => setAnnotations(vl.filter((el : any)=> el.type === "error"))}
+                onValidate={vl => setAnnotations(vl.filter((el: any) => el.type === "error"))}
                 mode="html"
                 theme={editorSettings.theme}
                 width="100%"
