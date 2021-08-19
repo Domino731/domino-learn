@@ -1,6 +1,6 @@
 import {
     IFCssTaskTargetCss,
-    IfCssTaskTargetHtml, IFEditorCode, IFJsTaskTargets,
+    IfCssTaskTargetHtml, IFEditorCode, IFEditorSettings, IFJsTaskTargets,
     IFLSCssTaskSolutions, IFLSjsTaskSolutions,
     TypeHtmlTaskSolution,
     TypeLSHtmlTaskSolutions
@@ -344,7 +344,6 @@ export const checkSolvedTask = (taskTitle: string, item: "solvedJsTasks" | "solv
  */
 export const saveEditorCodeToLS = (code : IFEditorCode) : void => localStorage.setItem("EditorCode", JSON.stringify(code))
 
-
 export const getEditorCodeFromLS = (defaultValue : IFEditorCode) : IFEditorCode => {
     const localStorageData = localStorage.getItem("EditorCode");
     if(localStorageData != null){
@@ -355,9 +354,10 @@ export const getEditorCodeFromLS = (defaultValue : IFEditorCode) : IFEditorCode 
     }
 }
 export const getEditorAreas = () : string => {
-    const localStorageData = localStorage.getItem("EditorAreas");
+    const localStorageData = localStorage.getItem("editorAreas");
+    console.log(localStorageData);
     if(localStorageData != null){
-        return JSON.parse(localStorageData)
+        return localStorageData
     }
     else {
         return codeEditorAreas[0]

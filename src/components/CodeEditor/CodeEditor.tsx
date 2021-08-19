@@ -15,6 +15,14 @@ export const CodeEditor: FunctionComponent = (): JSX.Element => {
         areas: getEditorAreas()
     })
 
+    // save user settings to local storage
+    useEffect(()=>{
+        localStorage.setItem("editorFontSize", editorSettings.fontSize.toString())
+        localStorage.setItem("editorTheme", editorSettings.theme)
+        localStorage.setItem("editorAreas", editorSettings.areas)
+    },[editorSettings])
+
+
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>) : void => setEditorSettings(prev => ({
         ...prev,
         fontSize: parseFloat(e.target.value)
