@@ -162,6 +162,9 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     // set the console logs by which useEffect will start the task validation
     const setConsole = () => {
+
+        // prevent of console duplicates
+        setLogs([])
         // set the console
         Logs(userCode);
 

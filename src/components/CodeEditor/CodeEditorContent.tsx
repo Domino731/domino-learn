@@ -16,8 +16,9 @@ import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
 
 
-import {FunctionComponent, useEffect, useState} from "react";
+import React, {FunctionComponent, useEffect, useState} from "react";
 import {
+    EditorConsoleSwitchBtn,
     EditorContentWrapper,
     EditorCss,
     EditorHtml,
@@ -30,6 +31,15 @@ import {TaskResultWindow} from "../task/TaskResultWindow";
 import {htmlClass} from "../../properties/htmlClass";
 import {cssClass} from "../../properties/cssClass";
 import {jsClass} from "../../properties/jsClass";
+import {formatCode} from "../../functions/formatCode";
+import {
+    WebBrowserGreenBox,
+    WebBrowserRedBox,
+    WebBrowserTopBar, WebBrowserWindow,
+    WebBrowserYellowBox
+} from "../../style/elements/tasks/task";
+import {Console, Hook, Unhook} from "console-feed";
+import {Logs} from "../../functions/jsConsole";
 
 export const CodeEditorContent: FunctionComponent = (): JSX.Element => {
 
@@ -38,6 +48,11 @@ export const CodeEditorContent: FunctionComponent = (): JSX.Element => {
 
     // state with final code which is in iframe
     const [srcDoc, setSrcDoc] = useState<string>("")
+
+    // state with console logs
+    const [logs, setLogs] = useState<any[]>([]);
+
+    const [consoleFlag, setConsoleFlag] = useState<boolean>(false)
 
     // state with editor theme from localStorage
     const [editorTheme, setEditorTheme] = useState<string>(getEditorTheme)
@@ -49,7 +64,7 @@ export const CodeEditorContent: FunctionComponent = (): JSX.Element => {
     // a new iframe with every code change
     useEffect(() => {
         const timeout = setTimeout(() => {
-            setSrcDoc(`
+                setSrcDoc(`
         <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -60,17 +75,44 @@ export const CodeEditorContent: FunctionComponent = (): JSX.Element => {
           <body>${userCode.html}</body>
           <script>${userCode.js}</script>
           </html>`)
-            return () => clearTimeout(timeout)
-        }, 250)
 
+                // set the console
+                Logs(userCode.js);
+            }
 
+            , 250)
+// prevent of console duplicates
+        setLogs([])
+        return () => clearTimeout(timeout)
     }, [userCode])
 
 
-    const changeUserCode = (newValue: any, key: "html" | "css" | "js") => setUserCode(prev => ({
+    // run once!
+    // @ts-ignore
+    useEffect(() => {
+        setLogs([])
+
+        Hook(
+            window.console,
+            (log) => {
+                // @ts-ignore
+                if (log.method === "log") {
+                    setLogs((currLogs) => [...currLogs, log])
+                }
+            },
+            false,
+        )
+        // @ts-ignore
+        return () => Unhook(window.console)
+    }, []);
+
+
+    const changeUserCode = (newValue: any, key: "html" | "css" | "js"): void => setUserCode(prev => ({
         ...prev,
         [key]: newValue
     }))
+
+    const handleChangeConsoleFlag = (): void => setConsoleFlag(!consoleFlag)
 
     const areas = `"html html result"
   "css css result"
@@ -160,7 +202,25 @@ export const CodeEditorContent: FunctionComponent = (): JSX.Element => {
             />
         </EditorJs>
         <EditorResult>
-            <TaskResultWindow srcDoc={srcDoc}/>
+            <EditorConsoleSwitchBtn style={{background: "#e5e3f1"}} onClick={handleChangeConsoleFlag}>
+                {consoleFlag ?
+                    <><i className="fas fa-arrow-left"/> Back </>
+                    :
+                    <><i className="fas fa-terminal"/> Console </>
+                }
+            </EditorConsoleSwitchBtn>
+            <WebBrowserWindow>
+                <WebBrowserTopBar>
+                    <WebBrowserGreenBox/>
+                    <WebBrowserYellowBox/>
+                    <WebBrowserRedBox/>
+                </WebBrowserTopBar>
+                {consoleFlag === false && <iframe srcDoc={srcDoc}
+                                                  width="100%" height="100%" frameBorder="0" sandbox="allow-scripts"
+                                                  title="output"
+                />}
+                {consoleFlag && <Console logs={logs} variant="light"/>}
+            </WebBrowserWindow>
         </EditorResult>
     </EditorContentWrapper>
 }

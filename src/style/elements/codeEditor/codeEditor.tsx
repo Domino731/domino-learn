@@ -77,6 +77,7 @@ export const EditorJs = styled(EditorElement)`
 `
 export const EditorResult = styled(EditorElement)`
   grid-area: result;
+  position: relative;
   & > div {
     background: #fff;
   }
@@ -98,5 +99,28 @@ export const EditorName = styled.div`
     width: 24px;
     height: auto;
     object-fit: cover;
+  }
+`
+export const EditorConsoleSwitchBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.313rem;
+  height: 32px;
+  position: absolute;
+  background: transparent;
+  z-index: 10;
+  top: 10px;
+  left: 10px;
+  border-radius:  0 9px 9px 0;
+  border: 2px solid ${props => props.theme.color.gray};
+  padding: 0 1.438rem 0 0.25rem;
+  transition: 0.2s;
+  &:hover{
+    cursor: pointer;
+    padding-right: 2.813rem;
+  }
+  i{
+    margin: 0 9px;
   }
 `
