@@ -250,3 +250,8 @@ export interface IFPropsCodeEditorHeader {
 export interface IFPropsCodeEditorContent {
     editorSettings : IFEditorSettings
 }
+
+export interface IFTransformQuizItem {
+    X : number,
+    Y : number
+}
