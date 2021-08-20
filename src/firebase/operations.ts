@@ -1,5 +1,5 @@
 import {db} from "./firebaseIndex";
-import {IFAllTasks, IFHtmlTask, IFCssTask, IFJsTask} from "../types/types";
+import {IFAllTasks, IFHtmlTask, IFCssTask, IFJsTask, IFQuizElement} from "../types/types";
 import {
     checkSolvedTask,
     getCssTaskCodeFromLS, getCssTaskTargetsFromLS, getHtmlTaskCodeFromLS, getHtmlTaskTargetsFromLS,
@@ -129,4 +129,24 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
 
             return saveDataCallback(tasks)
         })
+}
+/**
+ * fetch quiz questions
+ * @param type - type of quiz elements that you want to get - html, css or js
+ * @param saveDataCallback - function that saved incoming data to component state
+ */
+export const getQuizQuestions = (type: string, saveDataCallback: (data : IFQuizElement[]) => void ) => {
+    db.collection("quiz").where("type", "==", type)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+
+                // shuffle the questions
+                const shuffledQuestions : IFQuizElement[] = doc.data().questions.sort(()=> Math.random() - .5)
+                saveDataCallback(shuffledQuestions)
+            });
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
 }

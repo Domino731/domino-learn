@@ -259,3 +259,10 @@ export interface IFTransformQuizItem {
 
 export interface IFPropsQuiz extends RouteComponentProps<IFMatchParams> {
 }
+export interface IFQuizElement {
+    question: string
+    answers: {
+        correct: boolean
+        text: string
+    }[]
+}
