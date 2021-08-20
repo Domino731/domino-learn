@@ -15,10 +15,13 @@ width: 100vw;
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
+  a{
+    display: block;
+    width: 25%;
+  }
 `
 export const QuizMenuItem = styled.div`
-  position: relative;
-  width: 25%;
+  width: 100%;
   padding: 27px 17px;
   border: 4px solid black;
   border-radius: 38px;

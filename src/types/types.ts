@@ -5,6 +5,7 @@ import React from "react";
 
 interface IFMatchParams {
     taskNumber: string
+    item: string
 }
 //// For components ////
 
@@ -254,4 +255,7 @@ export interface IFPropsCodeEditorContent {
 export interface IFTransformQuizItem {
     X : number,
     Y : number
+}
+
+export interface IFPropsQuiz extends RouteComponentProps<IFMatchParams> {
 }

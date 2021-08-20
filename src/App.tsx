@@ -7,6 +7,7 @@ import {CssTask} from "./components/cssTask/CssTask";
 import {JsTask} from "./components/jsTask/JsTask";
 import {QuizMenu} from "./components/quiz/QuizMenu";
 import {CodeEditor} from "./components/CodeEditor/CodeEditor";
+import {Quiz} from "./components/quiz/Quiz";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/js-task/:taskNumber" component={JsTask}/>
             <Route path="/code-editor" component={CodeEditor}/>
             <Route path="/quiz-menu" component={QuizMenu}/>
+            <Route path="/quiz/:item" component={Quiz}/>
         </Router>
     );
 }

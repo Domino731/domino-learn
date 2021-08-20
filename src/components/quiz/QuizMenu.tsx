@@ -6,24 +6,31 @@ import {htmlClass} from "../../properties/htmlClass";
 import {cssClass} from "../../properties/cssClass";
 import {jsClass} from "../../properties/jsClass";
 
-export const QuizMenu : FunctionComponent = () : JSX.Element => {
+export const QuizMenu: FunctionComponent = (): JSX.Element => {
     return <Container>
         <QuizHeader>
             <QuizHeaderLink><Link to="/">DOMINO LEARN</Link></QuizHeaderLink>
         </QuizHeader>
         <QuizMenuWrapper>
 
-           <QuizMenuItem>
-               <img src={htmlClass.getIconSrc()} alt={htmlClass.getIconAlt()}/>
-           </QuizMenuItem>
+            <Link to="/quiz/html">
+                <QuizMenuItem>
+                    <img src={htmlClass.getIconSrc()} alt={htmlClass.getIconAlt()}/>
+                </QuizMenuItem>
 
-            <QuizMenuItem>
-                <img src={cssClass.getIconSrc()} alt={cssClass.getIconAlt()}/>
-            </QuizMenuItem>
+            </Link>
+            <Link to="/quiz/css">
+                <QuizMenuItem>
+                    <img src={cssClass.getIconSrc()} alt={cssClass.getIconAlt()}/>
+                </QuizMenuItem>
+            </Link>
 
-            <QuizMenuItem>
-                <img src={jsClass.getIconSrc()} alt={jsClass.getIconAlt()}/>
-            </QuizMenuItem>
+            <Link to="/quiz/js">
+                <QuizMenuItem>
+                    <img src={jsClass.getIconSrc()} alt={jsClass.getIconAlt()}/>
+                </QuizMenuItem>
+            </Link>
+
         </QuizMenuWrapper>
     </Container>
 }
