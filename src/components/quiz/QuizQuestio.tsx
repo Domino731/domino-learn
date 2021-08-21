@@ -40,7 +40,7 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({
     }
 
     // function that change checkbox background color when user select his answer
-    const validateAnswer = (e: any) => {
+    const changeCheckboxBg = (e: any) => {
         if (selectedAnswer !== "") {
             if (e.correct === true) {
                 return true
@@ -69,7 +69,7 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({
 
         {/*show only if user hasn't chosen answer*/}
         {
-            data.answers.map((el: any, num: any) => <QuizAnswer correct={validateAnswer(el)}>
+            data.answers.map((el: any, num: any) => <QuizAnswer correct={changeCheckboxBg(el)}>
                 <QuizAnswerLetter>{alphabet[num]}</QuizAnswerLetter>
                 <label>{el.text}
                     <input type="checkbox"

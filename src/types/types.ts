@@ -293,3 +293,15 @@ export interface IFAnswer {
     text: string
     correctly?: boolean
 }
+export interface IFPropsQuizSummary{
+   item: {
+       figureSrc: string
+       figureAlt: string
+       iconSrc: string
+       iconAlt: string
+   }
+    restartPath: string
+    coinsAmount: number
+    questionsAmount: number
+    correctQuestions: number
+}
