@@ -142,6 +142,7 @@ export const EditorFormThemesWrapper = styled.div`
 interface props__EditorFormTheme {
     areas: string
 }
+
 export const EditorFormTheme = styled.label<props__EditorFormTheme>`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -151,21 +152,26 @@ export const EditorFormTheme = styled.label<props__EditorFormTheme>`
   grid-template-areas: ${props => props.areas};
   margin: 5px;
   position: relative;
-  input{
+
+  &:hover{
+    cursor: pointer;
+  }
+  input {
     visibility: hidden;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+
     &:checked ~ div i {
-     display: block;
+      display: block;
     }
-  ;
   }
 `
 
 const EditorFormThemeItem = styled.div`
+  display: block;
   margin: 3px;
   border-radius: 6px;
 `

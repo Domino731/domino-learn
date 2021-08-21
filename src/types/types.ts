@@ -1,5 +1,6 @@
 import {RouteComponentProps} from "react-router";
 import React from "react";
+import {QuizQuestion} from "../components/quiz/QuizQuestio";
 
 //// general ////
 
@@ -7,6 +8,7 @@ interface IFMatchParams {
     taskNumber: string
     item: string
 }
+
 //// For components ////
 
 export interface IFPropsDescriptionItem {
@@ -56,20 +58,24 @@ export interface IFPropsTaskSelect {
         getFigureAlt: () => string,
     }
 }
+
 export interface IFPropsTasksBoard {
-    selectedTasks:  string
+    selectedTasks: string
 }
+
 export interface IFPropsTaskIntroduction {
     title: string
     introductionInnerHtml: string | number
     imgAlt: string
     imgSrc: string
 }
+
 export interface IFPropsTaskTargets {
     targets: (IFTaskTargets | IFJsTaskTargets | IFCssTaskTargetCss | IfCssTaskTargetHtml)[]
     title: string
     aidArr: IFTaskAid[]
 }
+
 export interface IFPropsHtmlTaskFooter {
     allTasks: {
         title: string,
@@ -165,8 +171,8 @@ export interface IFCssTask {
         css: string
     }
     originalCode: {
-    html: string
-    css: string
+        html: string
+        css: string
     }
     targets: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []
 }
@@ -226,6 +232,7 @@ export interface IFLSjsTaskSolutions {
     title: string,
     userCode: string
 }
+
 export interface IFProgramingCode {
     type: string
     code: string
@@ -237,32 +244,47 @@ export interface IFEditorCode {
     css: string
     js: string
 }
+
 export interface IFEditorSettings {
     theme: string
     fontSize: string | number
     areas: string
 }
+
 export interface IFPropsCodeEditorHeader {
-    editorSettings : IFEditorSettings
+    editorSettings: IFEditorSettings
     changeFs: (e: React.ChangeEvent<HTMLInputElement>) => void
     changeTheme: (e: React.ChangeEvent<HTMLInputElement>) => void
-    changeAreas:  (e: React.ChangeEvent<HTMLInputElement>) => void
+    changeAreas: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
+
 export interface IFPropsCodeEditorContent {
-    editorSettings : IFEditorSettings
+    editorSettings: IFEditorSettings
 }
 
 export interface IFTransformQuizItem {
-    X : number,
-    Y : number
+    X: number,
+    Y: number
 }
 
 export interface IFPropsQuiz extends RouteComponentProps<IFMatchParams> {
 }
-export interface IFQuizElement {
+
+export interface IFQuizQuestion {
     question: string
     answers: {
         correct: boolean
         text: string
     }[]
+}
+
+export interface IFPropsQuizQuestion {
+    data: IFQuizQuestion
+    currQuestionIndex: number
+}
+
+export interface IFAnswer {
+    correct: boolean
+    text: string
+    correctly?: boolean
 }
