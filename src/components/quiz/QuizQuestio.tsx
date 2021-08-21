@@ -24,10 +24,14 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({
     const [selectedAnswer, setSelectedAnswer] = useState<string>("")
 
     // selecting answer
-    const handleChangeSelectedAnswer = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeSelectedAnswer = async (e: React.ChangeEvent<HTMLInputElement>, answer: any) => {
         // checking if user already select the answer
         if (selectedAnswer === "") {
             setSelectedAnswer(e.target.value)
+            if(answer.correct){
+                addCoins(data.coins)
+                addPoint()
+            }
         }
     }
 
@@ -46,8 +50,6 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({
                 return true
             }
             if (e.text === selectedAnswer && e.correct) {
-                addCoins(data.coins)
-                addPoint()
                 return true
             }
             if (e.text === selectedAnswer && e.correct === false) {
@@ -75,7 +77,7 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({
                     <input type="checkbox"
                            value={el.text}
                            checked={selectedAnswer === el.text}
-                           onChange={handleChangeSelectedAnswer}
+                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChangeSelectedAnswer(e, el)}
                            name={`${data.question}_${alphabet[num]}`}
                     />
                 </label>
