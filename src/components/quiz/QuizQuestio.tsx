@@ -6,7 +6,7 @@ import {alphabet} from "../../properties/other";
 export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({data, currQuestionIndex}): JSX.Element => {
 
 
-    const [userAnswers, setUserAnswers] = useState<any>([])
+    const [userAnswers, setUserAnswers] = useState<any>(data.answers)
 
     const [selectedAnswer, setSelectedAnswer] = useState<string>("")
 
@@ -14,9 +14,27 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({data, curr
     const handleChangeSelectedAnswer = (e:React.ChangeEvent<HTMLInputElement>) : void => {
         // checking if user already select the answer
       if(selectedAnswer === ""){
-           setSelectedAnswer(e.target.value)
-          const answerIndex = data.answers.findIndex(el => el.text === e.target.value)
-          console.log(answerIndex);
+          setSelectedAnswer(e.target.value)
+          const userAnswerIndex = data.answers.findIndex(el => el.text === e.target.value)
+          const correctAnswerIndex = data.answers.findIndex(el => el.correct === true)
+          let updatedUserAnswers : any = data.answers
+          if(e.target.value === data.answers[correctAnswerIndex].text){
+              updatedUserAnswers[currQuestionIndex] = {
+                  ...data.answers[correctAnswerIndex],
+                  selected: true
+              }
+          }
+          else{
+              updatedUserAnswers[currQuestionIndex] = {
+                  ...data.answers[correctAnswerIndex],
+                  selected: true
+              }
+              updatedUserAnswers[userAnswerIndex] = {
+                  ...data.answers[correctAnswerIndex],
+                  selected: false
+              }
+          }
+          setUserAnswers(updatedUserAnswers)
       }
     }
 
@@ -24,9 +42,9 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({data, curr
         <QuizQuestionNumber>{currQuestionIndex + 1}.</QuizQuestionNumber>
         <QuizQuestionTitle>{data.question}</QuizQuestionTitle>
 
-      {/*show only if user hasn't chosen answer*/}
+
         {
-            selectedAnswer === "" && data.answers.map((el, num) => <QuizAnswer>
+            userAnswers.map((el : any, num : any) => <QuizAnswer correct={el.selected}>
                   <QuizAnswerLetter>{alphabet[num]}</QuizAnswerLetter>
                 <label>{el.text}
                     <input type="checkbox"
@@ -39,7 +57,11 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({data, curr
             </QuizAnswer>)
         }
 
-        <QuizQuestionBtn>Next</QuizQuestionBtn>
+        {/*show only if user hasn't chosen answer*/}
+
+        {selectedAnswer !== "" &&  <QuizQuestionBtn>Next</QuizQuestionBtn>}
+
+
 
     </QuizQuestionWrapper>
 }

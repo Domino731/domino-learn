@@ -38,22 +38,47 @@ export const QuizAnswerLetter = styled.span`
   color: #fff;
   background: ${props => props.theme.color.purple};
 `
-export const QuizAnswer = styled.div`
+
+interface props__QuizAnswer {
+    correct?: boolean | undefined
+}
+
+export const QuizAnswer = styled.div<props__QuizAnswer>`
   position: relative;
   display: flex;
   font-size: 1.25rem;
   margin: 0.625rem 0;
-  padding: 0.375rem  0.313rem;
+  padding: 0.375rem 0.313rem;
   border-radius: 0.813rem;
   transition: 0.1s;
-  &:hover{
-    background: ${props => props.theme.color.white};
+  background: ${(props) => {
+    switch (props.correct) {
+      case true:
+        return props.theme.color.green
+      case false:
+        return props.theme.color.red
+    }
+  }};
+
+  &:hover {
+    background: ${(props) => {
+      switch (props.correct) {
+        case true:
+          return props.theme.color.green
+        case false:
+          return props.theme.color.red
+        default:
+          return props.theme.color.white
+      }
+    }};
   }
-  label{
+
+  label {
     margin-left: 0.563rem;
     padding-top: 0.438rem;
   }
-  input{
+
+  input {
     position: absolute;
     left: 0;
     top: 0;
@@ -69,7 +94,8 @@ export const QuizQuestionBtn = styled.button`
   background: ${props => props.theme.color.purple};
   color: #fff;
   transition: 0.2s;
-  &:hover{
+
+  &:hover {
     padding: 0.563rem 2.25rem;
   }
 `
