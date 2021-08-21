@@ -14,6 +14,43 @@ export const QuizQuestionWrapper = styled.form`
   background: #fff;
   padding: 1.563rem 0.938rem;
 `
+export const QuizQuestionsLeft = styled.span`
+  display: block;
+  margin-bottom: 0.688rem;
+`
+export const QuizFreepik = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-bottom: 1.563rem;
+  margin-top: 2rem;
+
+  img {
+    width: 39px;
+    margin-right: 5px;
+  }
+`
+export const QuizQuestionRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+export const QuizCoins = styled.div`
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 39px;
+  }
+
+  span {
+    display: block;
+    margin-left: 5px;
+    font-size: 33px;
+    text-decoration: underline;
+    text-decoration-color: ${props => props.theme.color.gray};
+  }
+`
 export const QuizQuestionNumber = styled.span`
   display: block;
   font-weight: 900;
@@ -89,7 +126,7 @@ export const QuizAnswer = styled.div<props__QuizAnswer>`
 `
 export const QuizQuestionBtn = styled.button`
   display: block;
-  margin: 2px auto;
+  margin: 0.125rem auto 1.625rem;
   padding: 0.563rem 1.438rem;
   background: ${props => props.theme.color.purple};
   color: #fff;

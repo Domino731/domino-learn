@@ -272,6 +272,7 @@ export interface IFPropsQuiz extends RouteComponentProps<IFMatchParams> {
 
 export interface IFQuizQuestion {
     question: string
+    coins: number
     answers: {
         correct: boolean
         text: string
@@ -282,6 +283,9 @@ export interface IFPropsQuizQuestion {
     data: IFQuizQuestion
     currQuestionIndex: number
     switchToNextQuestion: () => void
+    questionsLeft: number | string
+    addPoint: () => void
+    addCoins: (coins: number) => void
 }
 
 export interface IFAnswer {
