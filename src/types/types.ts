@@ -281,6 +281,7 @@ export interface IFQuizQuestion {
 export interface IFPropsQuizQuestion {
     data: IFQuizQuestion
     currQuestionIndex: number
+    switchToNextQuestion: () => void
 }
 
 export interface IFAnswer {

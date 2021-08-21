@@ -3,7 +3,7 @@ import {IFPropsQuizQuestion} from "../../types/types";
 import {QuizQuestionWrapper, QuizQuestionTitle, QuizQuestionNumber, QuizAnswer, QuizAnswerLetter, QuizQuestionBtn} from "../../style/elements/quiz/quiz";
 import {alphabet} from "../../properties/other";
 
-export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({data, currQuestionIndex}): JSX.Element => {
+export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({data, currQuestionIndex, switchToNextQuestion}): JSX.Element => {
 
 
     const [userAnswers, setUserAnswers] = useState<any>(data.answers)
@@ -11,40 +11,39 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({data, curr
     const [selectedAnswer, setSelectedAnswer] = useState<string>("")
 
     // selecting answer
-    const handleChangeSelectedAnswer = (e:React.ChangeEvent<HTMLInputElement>) : void => {
+    const handleChangeSelectedAnswer = async (e:React.ChangeEvent<HTMLInputElement>)  => {
         // checking if user already select the answer
       if(selectedAnswer === ""){
           setSelectedAnswer(e.target.value)
-          const userAnswerIndex = data.answers.findIndex(el => el.text === e.target.value)
-          const correctAnswerIndex = data.answers.findIndex(el => el.correct === true)
-          let updatedUserAnswers : any = data.answers
-          if(e.target.value === data.answers[correctAnswerIndex].text){
-              updatedUserAnswers[currQuestionIndex] = {
-                  ...data.answers[correctAnswerIndex],
-                  selected: true
-              }
-          }
-          else{
-              updatedUserAnswers[currQuestionIndex] = {
-                  ...data.answers[correctAnswerIndex],
-                  selected: true
-              }
-              updatedUserAnswers[userAnswerIndex] = {
-                  ...data.answers[correctAnswerIndex],
-                  selected: false
-              }
-          }
-          setUserAnswers(updatedUserAnswers)
       }
     }
 
-    return <QuizQuestionWrapper>
+    const switchToNext = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        switchToNextQuestion()
+    }
+const validateAnswer = (e : any) => {
+        if(selectedAnswer !== ""){
+            if(e.correct === true){
+                return true
+            }
+            if(e.text === selectedAnswer && e.correct){
+                return true
+            }
+            if(e.text === selectedAnswer && e.correct === false){
+                return false
+            }
+        }
+
+
+}
+    return <QuizQuestionWrapper onSubmit={switchToNext}>
         <QuizQuestionNumber>{currQuestionIndex + 1}.</QuizQuestionNumber>
         <QuizQuestionTitle>{data.question}</QuizQuestionTitle>
 
-
+        {/*show only if user hasn't chosen answer*/}
         {
-            userAnswers.map((el : any, num : any) => <QuizAnswer correct={el.selected}>
+            userAnswers.map((el : any, num : any) => <QuizAnswer correct={validateAnswer(el)}>
                   <QuizAnswerLetter>{alphabet[num]}</QuizAnswerLetter>
                 <label>{el.text}
                     <input type="checkbox"
@@ -57,7 +56,7 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({data, curr
             </QuizAnswer>)
         }
 
-        {/*show only if user hasn't chosen answer*/}
+
 
         {selectedAnswer !== "" &&  <QuizQuestionBtn>Next</QuizQuestionBtn>}
 
