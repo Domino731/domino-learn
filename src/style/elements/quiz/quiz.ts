@@ -13,7 +13,10 @@ export const QuizQuestionWrapper = styled.form`
   width: 35%;
   background: #fff;
   padding: 1.563rem 0.938rem;
+  box-shadow: 20px 20px ${props => props.theme.color.gray};
+  border-radius: 20px;
 `
+
 export const QuizQuestionsLeft = styled.span`
   display: block;
   margin-bottom: 0.688rem;
@@ -135,4 +138,52 @@ export const QuizQuestionBtn = styled.button`
   &:hover {
     padding: 0.563rem 2.25rem;
   }
+`
+
+export const QuizSummaryWrapper = styled.div`
+  width: 35%;
+  height: 600px;
+  background: #fff;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-template-rows: repeat(10,1fr);
+  padding: 1.563rem 0.938rem;
+  box-shadow: 20px 20px ${props => props.theme.color.gray};
+  border-radius: 20px;
+`
+export const QuizSummaryTitle = styled.h2`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: 1 / 3;
+  grid-row: 1 / 1;
+  font-size: 33px;
+  font-weight: 900;
+`
+export const QuizSummaryImages = styled.div`
+  grid-column: 1 / 2;
+  grid-row: 2 / 7;
+  background: purple;
+`
+export const QuizSummaryTable = styled.table`
+  grid-column: 2 / 3;
+  grid-row: 2 / 5;
+  background: aquamarine;
+`
+
+export const QuizSummaryBar = styled.div`
+  grid-column: 2 / 3;
+  grid-row: 5 / 7;
+  background: #3d1fb1;
+`
+export const QuizSummaryPanel = styled.div`
+  grid-column: 1 / 3;
+  grid-row: 9 / 11;
+  background: #47db20;
+`
+
+export const QuizSummaryCoins = styled.div`
+  grid-column: 1 / 3;
+  grid-row: 7 / 9;
+  background: #ee10f6;
 `

@@ -3,6 +3,7 @@ import {IFPropsQuiz, IFQuizQuestion} from "../../types/types";
 import {getQuizQuestions} from "../../firebase/operations";
 import {QuizContainer, QuizFreepik} from "../../style/elements/quiz/quiz";
 import {QuizQuestion} from "./QuizQuestio";
+import {QuizSummary} from "./QuizSummary";
 
 export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
 
@@ -44,6 +45,6 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
                                                               addPoint={addPoints}
                                                               addCoins={addCoins}
         />}
-        {currQuestionIndex >= quizData.length && <div>summary</div>}
+        {currQuestionIndex >= quizData.length && <QuizSummary/>}
     </QuizContainer>
 }
