@@ -27,11 +27,11 @@ export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}
     useEffect(() => {
         switch (selectedTasks) {
             case "htmlTasks":
-                return getAllTasks("htmlTasks", "solvedCssTasks", setTasks)
+                return getAllTasks("htmlTasks", "solvedHtmlTasks", setTasks)
             case "cssTasks":
                 return getAllTasks("cssTasks", "solvedCssTasks", setTasks)
             case "jsTasks":
-                return getAllTasks("jsTasks", "solvedCssTasks", setTasks)
+                return getAllTasks("jsTasks", "solvedJsTasks", setTasks)
             default:
                 return setTasks([])
         }
