@@ -9,13 +9,13 @@ export const QuizHeader = styled.header`
 export const QuizHeaderLink = styled(EditorHeaderLink)``
 
 export const QuizMenuWrapper = styled.main`
-width: 100vw;
+  width: 100%;
   height: calc(100vh - 53px);
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-  a{
+  a {
     display: block;
     width: 25%;
   }
@@ -27,16 +27,43 @@ export const QuizMenuItem = styled.div`
   border-radius: 38px;
   box-shadow: 18px 18px ${props => props.theme.color.gray};
   transition: 0.2s;
-  img{
+
+  img {
     width: 100%;
     height: auto;
     object-fit: cover;
   }
-  &:hover{
+
+  &:hover {
     cursor: pointer;
     box-shadow: 32px 32px ${props => props.theme.color.gray},
     0 114px ${props => props.theme.color.blue} inset;
-  
+
   }
 `
+export const QuizMenuCoins = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 7px;
 
+  img {
+    width: 57px;
+    margin-right: 5px;
+  }
+
+  strong {
+    font-weight: 900;
+    font-size: 1.813rem;
+    color: ${props => props.theme.color.gray};
+  }
+`
+export const QuizMenuFreepik = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img{
+    width: 57px;
+    margin-right: 5px;
+  }
+`

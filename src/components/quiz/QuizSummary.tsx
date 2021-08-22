@@ -48,7 +48,7 @@ export const QuizSummary: FunctionComponent<IFPropsQuizSummary> = ({
                 Wrong answers: <span>{questionsAmount - correctQuestions}</span>
             </div>
         </QuizSummaryGeneral>
-        <QuizSummaryBar questions={12} correct={6}>
+        <QuizSummaryBar questions={questionsAmount} correct={correctQuestions}>
             <div/>
         </QuizSummaryBar>
         <QuizSummaryCoins>
