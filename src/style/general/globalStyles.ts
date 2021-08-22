@@ -8,6 +8,15 @@ export const GlobalStyles = createGlobalStyle`
     &:hover {
       cursor: default;
     }
+    &::-webkit-scrollbar {
+      width: 7px;
+        background: #404040;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 2px;
+        background: #00b9f1;
+    }
   }
 
   button {

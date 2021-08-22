@@ -41,7 +41,9 @@ export const JsIntroduction = styled.div`
   max-width: 100%;
   position: relative;
   overflow: auto;
-
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 `
 
 export const JsTargets = styled.div`
@@ -49,7 +51,11 @@ export const JsTargets = styled.div`
   grid-row: 2 / 2;
   max-width: 100%;
   position: relative;
-  overflow: auto;`
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+`
 export const JsConsoleWrapper = styled.div`
  & > div {
    & > div {
@@ -106,7 +112,6 @@ export const JsFooterDecorations = styled(TaskFooterDecoration)`
   #4cc9f0 5px, #b5179e 5px, #b5179e 10px);
 `
 export const JsDecorationIntroduction = styled(TaskIntroductionDecoration)`
-  background: repeating-linear-gradient(
-          90deg
-          ,#b5179e 0px,#b5179e 5px,white 5px,white 10px);
+  background: repeating-linear-gradient(0deg, #4cc9f0 0px,
+  #4cc9f0 5px, #fff 5px, #fff 10px);
 `

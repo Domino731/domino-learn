@@ -22,15 +22,8 @@ export const HtmlTaskIntroduction = styled.div`
   max-width: 100%;
   position: relative;
   overflow: auto;
-
   &::-webkit-scrollbar {
-    width: 7px;
-    background: ${props => props.theme.color.gray};
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 2px;
-    background: ${props => props.theme.color.blue};
+    width: 0;
   }
 `
 
@@ -40,15 +33,9 @@ export const HtmlTaskTarget = styled.div`
   max-width: 100%;
   position: relative;
   overflow: auto;
-
+  scroll-margin: 50px 0 0 50px;
   &::-webkit-scrollbar {
-    width: 7px;
-    background: ${props => props.theme.color.gray};
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 2px;
-    background: ${props => props.theme.color.blue};
+    width: 0;
   }
 `
 export const HtmlTaskSuccessful = styled.div`

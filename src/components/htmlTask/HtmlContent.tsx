@@ -163,10 +163,10 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
         {successfulFlag === false && <>
             {/*introduction*/}
             <HtmlTaskIntroduction>
-                <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
-                                  imgAlt={htmlClass.getFigureAlt()} imgSrc={htmlClass.getFigureSrc()}/>
-                {/*decorations*/}
-                <HtmlDecorationIntroduction/>
+                    <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
+                                      imgAlt={htmlClass.getFigureAlt()} imgSrc={htmlClass.getFigureSrc()}/>
+                    {/*decorations*/}
+                    <HtmlDecorationIntroduction/>
             </HtmlTaskIntroduction>
             {/*task target and instructions*/}
             <HtmlTaskTarget>

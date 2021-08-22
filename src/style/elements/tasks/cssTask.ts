@@ -13,13 +13,20 @@ export const CssIntroduction = styled.div`
   max-width: 100%;
   position: relative;
   overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+  
 `
 export const CssTarget = styled.div`
   grid-column: 3 / 3;
   grid-row: 2 / 3;
   max-width: 100%;
   position: relative;
-  overflow: auto;
+  overflow : scroll;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 `
 
 export const CssCodeEditorWrapper = styled.div`

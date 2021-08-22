@@ -9,9 +9,7 @@ export const TaskIntroduction : FunctionComponent<IFPropsTaskIntroduction > = ({
             <img src={imgSrc} alt={imgAlt}/>
             <h3>{title}</h3>
         </TaskIntroductionBar>
-
         {/*@ts-ignore*/}
         <TaskIntroductionText dangerouslySetInnerHTML={{__html: introductionInnerHtml}}/>
-
     </>
 }

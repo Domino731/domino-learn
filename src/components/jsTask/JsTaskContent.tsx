@@ -188,10 +188,13 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
         {successfulFlag === false && <>
             <JsIntroduction>
+
                 <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
                                   imgAlt={jsClass.getFigureAlt()} imgSrc={jsClass.getFigureSrc()}/>
                 {/*decorations*/}
                 <JsDecorationIntroduction/>
+
+
             </JsIntroduction>
 
             <JsTargets>

@@ -34,6 +34,9 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
                 return saveDataCallback(data)
             });
         })
+        .catch((error) => {
+            console.log("Error getting document:", error);
+        });
 }
 
 /**
@@ -72,6 +75,9 @@ export const getSpecificCssTask = (taskNumber: number , saveDataCallback: (data:
                 return saveDataCallback(data)
             });
         })
+        .catch((error) => {
+            console.log("Error getting document:", error);
+        });
 }
 
 /**
@@ -103,6 +109,9 @@ export const getSpecificJsTask = (taskNumber: number , saveDataCallback: (data: 
             });
 
         })
+        .catch((error) => {
+            console.log("Error getting document:", error);
+        });
 }
 
 /**
@@ -129,6 +138,7 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
 
             return saveDataCallback(tasks)
         })
+
 }
 /**
  * fetch quiz questions
