@@ -300,7 +300,7 @@ export interface IFPropsQuizSummary{
        iconSrc: string
        iconAlt: string
    }
-    restartPath: string
+    itemPath: string
     coinsAmount: number
     questionsAmount: number
     correctQuestions: number

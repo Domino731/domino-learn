@@ -1,4 +1,4 @@
-import {FunctionComponent} from "react";
+import {FunctionComponent, useEffect} from "react";
 import {QuizFreepik, QuizSummaryWrapper} from "../../style/elements/quiz/quiz";
 import {
     QuizSummaryBar,
@@ -13,9 +13,24 @@ import {
 } from "../../style/elements/quiz/quiz";
 import coins from "../../images/coins.png";
 import {IFPropsQuizSummary} from "../../types/types";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import {getQuizCoins, saveQuizCoinsToLS} from "../../functions/localStorage";
 
-export const QuizSummary: FunctionComponent<IFPropsQuizSummary> = ({item, restartPath, coinsAmount, correctQuestions , questionsAmount}): JSX.Element => {
+export const QuizSummary: FunctionComponent<IFPropsQuizSummary> = ({
+                                                                       item,
+                                                                       itemPath,
+                                                                       coinsAmount,
+                                                                       correctQuestions,
+                                                                       questionsAmount
+                                                                   }): JSX.Element => {
+
+    useEffect(()=>{
+        saveQuizCoinsToLS(coinsAmount, itemPath)
+    },[])
+
+
+    const history = useHistory()
+
     return <QuizSummaryWrapper>
         <QuizSummaryTitle>Summary</QuizSummaryTitle>
         <QuizSummaryImages>
@@ -41,12 +56,12 @@ export const QuizSummary: FunctionComponent<IFPropsQuizSummary> = ({item, restar
                 <img src={coins} alt="coins"/> Coins earned: <span>{coinsAmount}</span>
             </div>
             <div>
-                <img src={coins} alt="coins"/> Coins owned: <span>1220</span>
+                <img src={coins} alt="coins"/> Coins owned: <span>{getQuizCoins(itemPath) + coinsAmount}</span>
             </div>
         </QuizSummaryCoins>
         <QuizSummaryPanel>
             <div>
-              <Link to={`/quiz/${restartPath}`}>Once more!</Link>
+                <strong onClick={() => history.go(0)}>Once more!</strong>
             </div>
             <div>
                 <Link to="/quiz-menu">Return</Link>

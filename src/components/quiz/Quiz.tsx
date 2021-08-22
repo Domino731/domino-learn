@@ -71,7 +71,7 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
                                                               addCoins={addCoins}
         />}
         {currQuestionIndex >= quizData.length && <QuizSummary item={item}
-                                                              restartPath={props.match.params.item}
+                                                              itemPath={props.match.params.item}
          questionsAmount={quizData.length}
                                                               correctQuestions={points}
                                                               coinsAmount={coins}

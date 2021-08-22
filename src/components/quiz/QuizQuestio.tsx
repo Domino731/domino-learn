@@ -71,7 +71,7 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({
 
         {/*show only if user hasn't chosen answer*/}
         {
-            data.answers.map((el: any, num: any) => <QuizAnswer correct={changeCheckboxBg(el)}>
+            data.answers.map((el: any, num: any) => <QuizAnswer correct={changeCheckboxBg(el)} key={`answer_${alphabet[num]}_${num}`}>
                 <QuizAnswerLetter>{alphabet[num]}</QuizAnswerLetter>
                 <label>{el.text}
                     <input type="checkbox"

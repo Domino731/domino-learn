@@ -226,7 +226,7 @@ export const QuizSummaryPanel = styled(QuizSummaryItem)`
     align-items: center;
     width: 50%;
     height: 100%;
-    a{
+    a, strong{
       margin: 0.125rem auto 1.625rem;
       padding: 0.563rem 1.438rem;
       background: ${props => props.theme.color.purple};
@@ -234,6 +234,7 @@ export const QuizSummaryPanel = styled(QuizSummaryItem)`
       transition: 0.2s;
       border-radius: 0.813rem;
       &:hover {
+        cursor: pointer;
         padding: 0.563rem 2.25rem;
       }
     }

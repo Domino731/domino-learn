@@ -363,3 +363,32 @@ export const getEditorAreas = () : string => {
         return codeEditorAreas[0]
     }
 }
+
+export const saveQuizCoinsToLS = (coins: number, item: string) : void => {
+    const localStorageData = localStorage.getItem("quizCoins")
+    if(localStorageData != null){
+        let oldLocalStorageData = JSON.parse(localStorageData)
+        oldLocalStorageData[item] = oldLocalStorageData[item] + coins
+       return  localStorage.setItem("quizCoins", JSON.stringify(oldLocalStorageData))
+    }
+    else{
+        const quizCoins = {
+            html: 0,
+            css: 0,
+            js: 0,
+            [item]: coins
+        }
+        return localStorage.setItem("quizCoins", JSON.stringify(quizCoins))
+    }
+}
+
+export const getQuizCoins = (item : string) : number => {
+    const localStorageData = localStorage.getItem("quizCoins")
+    if(localStorageData != null){
+        const quizCoins = JSON.parse(localStorageData)
+        return  quizCoins[item]
+    }
+    else{
+        return 0
+    }
+}
