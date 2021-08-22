@@ -117,7 +117,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     useEffect(() => {
         const consoleTextArr = logs.map(el => el.data[0]);
         if (consoleTextArr.length > 0 && annotations.length === 0) {
-            task.targets.forEach(el => taskValidationJS(consoleTextArr, el, addPoints));
+            task.targets.forEach(el => taskValidationJS(consoleTextArr, userCode, el, addPoints));
             saveJsTaskSolutionToLS(task.targets, task.title, userCode);
             // save solved task title to ls, so that the user knows which tasks he has completed
             saveSolvedTaskToLS(task.title, "solvedJsTasks");
