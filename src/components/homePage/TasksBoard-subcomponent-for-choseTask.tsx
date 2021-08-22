@@ -50,19 +50,19 @@ export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}
                 <TasksBoardTitle7>Chose Your World</TasksBoardTitle7>
             </TasksBoardTitleWrapper>}
             {selectedTasks === "cssTasks" && <TasksList>
-                {tasks.map((el, num) => <TasksListItem solved={el.solved}>
+                {tasks.map((el, num) => <TasksListItem solved={el.solved}  key={`tasks_board_css_${num}`}>
                     <Link to={`/css-task/${el.number}`}>{el.number}</Link>
                 </TasksListItem>)}
                     </TasksList>}
 
             {selectedTasks === "jsTasks" && <TasksList>
-                {tasks.map((el, num) => <TasksListItem solved={el.solved}>
+                {tasks.map((el, num) => <TasksListItem solved={el.solved}  key={`tasks_board_js_${num}`}>
                     <Link to={`/js-task/${el.number}`}>{el.number}</Link>
                 </TasksListItem>)}
             </TasksList>}
 
             {selectedTasks === "htmlTasks" && <TasksList>
-                {tasks.map((el, num) => <TasksListItem solved={el.solved} key={`tasks_board_${num}`}>
+                {tasks.map((el, num) => <TasksListItem solved={el.solved} key={`tasks_board_html_${num}`}>
                     <Link to={`/html-task/${el.number}`}>{el.number}</Link>
                 </TasksListItem>)}
             </TasksList>}

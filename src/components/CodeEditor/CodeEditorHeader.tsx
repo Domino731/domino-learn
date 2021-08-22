@@ -68,7 +68,7 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
         {formFlag && <EditorSettingsForm>
             <EditorFormItem>
                 <EditorFormLabel>Font size
-                    <input type="number" min="1" max="60" step="1" value={editorSettings.fontSize}
+                    <input type="number" min="1" max="60" step="1" name="editorFontSize" value={editorSettings.fontSize}
                            onChange={changeFs}/>
                 </EditorFormLabel>
             </EditorFormItem>
@@ -78,49 +78,49 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
             <EditorFormThemes>
                 <label>
                     Monokai
-                    <input type="checkbox" value="monokai" checked={editorSettings.theme === "monokai"}
+                    <input type="checkbox" value="monokai"  name="monokai" checked={editorSettings.theme === "monokai"}
                            onChange={changeTheme}/>
                     <span/>
                 </label>
                 <label>
                     Ambiance
-                    <input type="checkbox" value="ambiance" checked={editorSettings.theme === "ambiance"}
+                    <input type="checkbox" value="ambiance"  name="ambiance"  checked={editorSettings.theme === "ambiance"}
                            onChange={changeTheme}/>
                     <span/>
                 </label>
                 <label>
                     Clouds
-                    <input type="checkbox" value="clouds" checked={editorSettings.theme === "clouds"}
+                    <input type="checkbox" value="clouds" name="clouds"  checked={editorSettings.theme === "clouds"}
                            onChange={changeTheme}/>
                     <span/>
                 </label>
                 <label>
                     Dracula
-                    <input type="checkbox" value="dracula" checked={editorSettings.theme === "dracula"}
+                    <input type="checkbox" value="dracula"  name="dracula" checked={editorSettings.theme === "dracula"}
                            onChange={changeTheme}/>
                     <span/>
                 </label>
                 <label>
                     Solarized light
-                    <input type="checkbox" value="solarized_light" checked={editorSettings.theme === "solarized_light"}
+                    <input type="checkbox" value="solarized_light" name="solarized_light" checked={editorSettings.theme === "solarized_light"}
                            onChange={changeTheme}/>
                     <span/>
                 </label>
                 <label>
                     Crimson editor
-                    <input type="checkbox" value="crimson_editor" checked={editorSettings.theme === "crimson_editor"}
+                    <input type="checkbox" value="crimson_editor" name="crimson_editor" checked={editorSettings.theme === "crimson_editor"}
                            onChange={changeTheme}/>
                     <span/>
                 </label>
                 <label>
                     Github
-                    <input type="checkbox" value="github" checked={editorSettings.theme === "github"}
+                    <input type="checkbox" value="github"  name="github" checked={editorSettings.theme === "github"}
                            onChange={changeTheme}/>
                     <span/>
                 </label>
                 <label>
                     Terminal
-                    <input type="checkbox" value="terminal" checked={editorSettings.theme === "terminal"}
+                    <input type="checkbox" value="terminal"  name="terminal" checked={editorSettings.theme === "terminal"}
                            onChange={changeTheme}/>
                     <span/>
                 </label>

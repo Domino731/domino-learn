@@ -164,13 +164,13 @@ export const EditorFormTheme = styled.label<props__EditorFormTheme>`
     width: 100%;
     height: 100%;
 
-    &:checked ~ div i {
+    &:checked ~ span i {
       display: block;
     }
   }
 `
 
-const EditorFormThemeItem = styled.div`
+const EditorFormThemeItem = styled.span`
   display: block;
   margin: 3px;
   border-radius: 6px;
