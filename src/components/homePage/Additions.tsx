@@ -12,7 +12,7 @@ export const Additions : FunctionComponent = ():JSX.Element => {
                   <AdditionTitle>Quiz</AdditionTitle>
               </AdditionItem>
           </Link>
-           <Link to="code-editor">
+           <Link to="/code-editor">
                <AdditionItem>
                    <AdditionImg src={coding} alt="coding"/>
                    <AdditionTitle>Code Editor</AdditionTitle>

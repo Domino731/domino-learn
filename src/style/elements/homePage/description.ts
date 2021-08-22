@@ -10,6 +10,9 @@ export const DscContainer = styled.section`
   padding-top: 93px;
   position: relative;
   overflow: hidden;
+  &:hover{
+    cursor: default;
+  }
 `
 export const DscPlanetColorful = styled.img`
   position: absolute;

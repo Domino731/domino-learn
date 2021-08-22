@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const AdditionsWrapper = styled.section`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   height: 500px;
   background: ${props => props.theme.color.purple};
 `
@@ -14,8 +14,6 @@ export const AdditionItem = styled.div`
   flex-direction: column;
   width: 330px;
   height: 100%;
-  margin-left: 125px;
-  margin-right: 125px;
   padding: 0 30px;
   transition: 0.1s;
   &:hover{

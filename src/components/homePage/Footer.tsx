@@ -57,7 +57,7 @@ export const Footer: FunctionComponent = (): JSX.Element => {
                    rel="noopener noreferrer"><i className="fab fa-linkedin"/></a>
             </FooterMediaItem>
             <FooterMediaItem>
-                <a href="https://github.com/Domino731?tab=repositories" target="_blank" rel="noopener noreferrer"><i
+                <a href="https://github.com/Domino731" target="_blank" rel="noopener noreferrer"><i
                     className="fab fa-github"/></a>
             </FooterMediaItem>
             <FooterMediaItem>

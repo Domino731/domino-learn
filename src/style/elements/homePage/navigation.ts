@@ -15,6 +15,9 @@ export const NavTitle = styled.h1`
   font-size: 3.438rem;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
+  &:hover{
+    cursor: default;
+  }
   
 `
 export const NavList = styled.ul`
@@ -33,6 +36,9 @@ export const NavListItem = styled.li`
   position: relative;
   overflow: hidden;
   transition: 1s;
+  a{
+    color: ${props => props.theme.color.gray};
+  }
   &:after, &:before{
     content: "";
     display: block;

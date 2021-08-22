@@ -155,7 +155,7 @@ export const TasksSelectTitle = styled.div`
   display: flex;
   align-items: center;
 
-  label {
+  strong {
     margin-left: 9px;
     font-size: 2.75rem;
     text-transform: uppercase;

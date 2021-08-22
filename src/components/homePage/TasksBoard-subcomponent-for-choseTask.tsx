@@ -57,13 +57,13 @@ export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}
 
             {selectedTasks === "jsTasks" && <TasksList>
                 {tasks.map((el, num) => <TasksListItem solved={el.solved}>
-                    <Link to={`/css-task/${el.number}`}>{el.number}</Link>
+                    <Link to={`/js-task/${el.number}`}>{el.number}</Link>
                 </TasksListItem>)}
             </TasksList>}
 
             {selectedTasks === "htmlTasks" && <TasksList>
-                {tasks.map((el, num) => <TasksListItem solved={el.solved}>
-                    <Link to={`/css-task/${el.number}`}>{el.number}</Link>
+                {tasks.map((el, num) => <TasksListItem solved={el.solved} key={`tasks_board_${num}`}>
+                    <Link to={`/html-task/${el.number}`}>{el.number}</Link>
                 </TasksListItem>)}
             </TasksList>}
 

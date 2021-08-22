@@ -20,11 +20,11 @@ export const TaskSelectSingle: FunctionComponent<IFPropsTaskSelect> = ({
     return <TasksSelectWrapper>
 
         <TasksSelectFigure src={language.getFigureSrc()} alt={language.getFigureAlt()}/>
-        <input type="radio" value={task} onChange={changeTasks} checked={chosenTask === task}/>
+        <input type="radio" name={language.getLanguageName()} value={task} onChange={changeTasks} checked={chosenTask === task}/>
         <span/>
         <TasksSelectTitle>
             <TasksSelectIcon src={language.getIconSrc()} alt={language.getIconAlt()}/>
-            <label>{language.getLanguageName()}</label>
+            <strong>{language.getLanguageName()}</strong>
         </TasksSelectTitle>
     </TasksSelectWrapper>
 }

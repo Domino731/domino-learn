@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const HeroContainer = styled.section`
   display: flex;
   height: 860px;
+  &:hover{
+    cursor: default;
+  }
 `
 export const HeroFigure = styled.div`
   width: 30%;
