@@ -6,7 +6,7 @@ import {LoadingContainer,
     LoadingRadius3,
     LoadingRadius4,
     LoadingAstronaut} from "../../style/elements/other/loading";
-import astronaut from "../../images/astronaut.png"
+import astronaut from "../../images/astronautOnMoon.png"
 export const Loading : FunctionComponent = () : JSX.Element => {
     return <LoadingContainer>
         <LoadingBox>

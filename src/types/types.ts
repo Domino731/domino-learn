@@ -306,3 +306,7 @@ export interface IFPropsQuizSummary{
     questionsAmount: number
     correctQuestions: number
 }
+
+export interface IFPropsError404{
+    redirectPath: string
+}
