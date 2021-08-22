@@ -1,11 +1,12 @@
 import {db} from "./firebaseIndex";
-import {IFAllTasks, IFHtmlTask, IFCssTask, IFJsTask,IFQuizQuestion} from "../types/types";
+import {IFAllTasks, IFHtmlTask, IFCssTask, IFJsTask, IFQuizQuestion} from "../types/types";
 import {
     checkSolvedTask,
     getCssTaskCodeFromLS, getCssTaskTargetsFromLS, getHtmlTaskCodeFromLS, getHtmlTaskTargetsFromLS,
     getJsTaskCodeFromLS,
     getJsTaskTargetsFromLS
 } from "../functions/localStorage";
+import {formatCode} from "../functions/formatCode";
 
 const beautifyHtml = require('js-beautify').html
 const beautifyCss = require('js-beautify').css
@@ -20,12 +21,16 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-                const data : IFHtmlTask = {
+                const data: IFHtmlTask = {
                     title: doc.data().title,
                     introduction: doc.data().introduction,
                     number: doc.data().number,
                     aid: doc.data().aid,
-                    originalCode: beautifyHtml(doc.data().code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}),
+                    originalCode: beautifyHtml(doc.data().code, {
+                        indent_size: 1,
+                        space_in_empty_paren: false,
+                        wrap_line_length: 50
+                    }),
                     // check if the user hasn't already solved the task, if he  has solved it,
                     // get it from local storage and if not, return the default value (task.targets)
                     code: getHtmlTaskCodeFromLS(doc.data().title, doc.data().taskCode),
@@ -44,33 +49,33 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
  * @param taskNumber  - number of task
  * @param saveDataCallback - function that saved incoming data to component state
  */
-export const getSpecificCssTask = (taskNumber: number , saveDataCallback: (data: IFCssTask) => void) => {
+export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: IFCssTask) => void) => {
     db.collection("cssTasks").where("number", "==", taskNumber)
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-                const data : IFCssTask = {
-                   title: doc.data().title,
-                   number: doc.data().number,
-                   introduction: doc.data().introduction,
-                   aid: doc.data().aid,
+                const data: IFCssTask = {
+                    title: doc.data().title,
+                    number: doc.data().number,
+                    introduction: doc.data().introduction,
+                    aid: doc.data().aid,
                     // check if the user hasn't already solved the task, if he  has solved it,
                     // get it from local storage and if not, return the default value (task.targets)
                     // @ts-ignore
-                   code: getCssTaskCodeFromLS(doc.data().title, doc.data().code),
-                   targets: getCssTaskTargetsFromLS(doc.data().title, doc.data().targets),
-                   originalCode: {
-                       html: beautifyHtml(doc.data().code.html, {
-                           indent_size: 1,
-                           space_in_empty_paren: false,
-                           wrap_line_length: 50
-                       }),
-                       css: beautifyCss(doc.data().code.css, {
-                           indent_size: 1,
-                           space_in_empty_paren: false,
-                           wrap_line_length: 50
-                       }),
-                   }
+                    code: getCssTaskCodeFromLS(doc.data().title, doc.data().code),
+                    targets: getCssTaskTargetsFromLS(doc.data().title, doc.data().targets),
+                    originalCode: {
+                        html: beautifyHtml(doc.data().code.html, {
+                            indent_size: 1,
+                            space_in_empty_paren: false,
+                            wrap_line_length: 50
+                        }),
+                        css: beautifyCss(doc.data().code.css, {
+                            indent_size: 1,
+                            space_in_empty_paren: false,
+                            wrap_line_length: 50
+                        }),
+                    }
                 }
                 return saveDataCallback(data)
             });
@@ -85,26 +90,30 @@ export const getSpecificCssTask = (taskNumber: number , saveDataCallback: (data:
  * @param taskNumber  - number of task
  * @param saveDataCallback - function that saved incoming data to component state
  */
-export const getSpecificJsTask = (taskNumber: number , saveDataCallback: (data: IFJsTask) => void) => {
+export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: IFJsTask) => void) => {
     db.collection("jsTasks").where("number", "==", taskNumber)
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
+                const codeJs: string = beautifyJs(doc.data().code, {
+                    indent_size: 1,
+                    wrap_line_length: 2,
+                })
+
+                const formattedCode = codeJs.replaceAll('@', '')
+
                 const data: IFJsTask = {
                     title: doc.data().title,
                     introduction: doc.data().introduction,
                     number: doc.data().number,
                     aid: doc.data().aid,
-                    originalCode:  beautifyJs(doc.data().code,{
-                        indent_size: 1,
-                        space_in_empty_paren: false,
-                        wrap_line_length: 50
-                    }),
+                    originalCode: formattedCode,
                     // check if the user hasn't already solved the task, if he  has solved it,
                     // get it from local storage and if not, return the default value (task.targets)
-                    code:  getJsTaskCodeFromLS(doc.data().title, doc.data().code),
+                    code: getJsTaskCodeFromLS(doc.data().title, formattedCode),
                     targets: getJsTaskTargetsFromLS(doc.data().title, doc.data().targets),
                 }
+                console.log(data)
                 return saveDataCallback(data)
             });
 
@@ -145,14 +154,14 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
  * @param type - type of quiz elements that you want to get - html, css or js
  * @param saveDataCallback - function that saved incoming data to component state
  */
-export const getQuizQuestions = (type: string, saveDataCallback: (data : IFQuizQuestion[]) => void ) => {
+export const getQuizQuestions = (type: string, saveDataCallback: (data: IFQuizQuestion[]) => void) => {
     db.collection("quiz").where("type", "==", type)
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
 
                 // shuffle the questions
-                const shuffledQuestions : IFQuizQuestion[] = doc.data().questions.sort(()=> Math.random() - .5)
+                const shuffledQuestions: IFQuizQuestion[] = doc.data().questions.sort(() => Math.random() - .5)
                 saveDataCallback(shuffledQuestions)
             });
         })

@@ -141,6 +141,7 @@ export interface IFJsTaskTargets {
     solutions: string[]
     number: number
     solved: null | boolean
+    type: "code" | "console"
 }
 
 

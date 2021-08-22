@@ -50,6 +50,7 @@ import {jsClass} from "../../properties/jsClass";
 import {TaskIntroduction} from "../task/TaskIntroduction";
 import {TaskTargets} from "../task/TaskTargets";
 import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
+import {formatCode} from "../../functions/formatCode";
 
 const beautifyJs = require('js-beautify').js;
 
@@ -108,7 +109,6 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
         // @ts-ignore
         return () => Unhook(window.console)
     }, []);
-
     useEffect(() => {
         setConsoleTextArr(logs.map(el => el.data[0]))
     }, [logs.length])

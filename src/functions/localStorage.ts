@@ -291,12 +291,11 @@ export const getJsTaskCodeFromLS = (taskTitle: string, defaultValue: string) => 
                 wrap_line_length: 50
             });
         } else {
-            return beautifyHtml(defaultValue, {
-                indent_size: 1,
-                space_in_empty_paren: false,
-                wrap_line_length: 50
-            });
+            return defaultValue
         }
+    }
+    else{
+        return defaultValue
     }
 };
 
