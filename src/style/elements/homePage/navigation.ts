@@ -8,6 +8,9 @@ export const NavContainer = styled.nav`
   @media ${device.desktopM} {
      height: 73px;
   }
+  @media ${device.laptopL} {
+    height: 68px;
+  }
 `
 export const NavTitle = styled.h1`
   display: flex;

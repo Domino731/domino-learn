@@ -10,7 +10,9 @@ export const ChoseTaskContainer = styled.section`
   @media ${device.desktopS} {
     height: 493px;
   }
-  
+  @media ${device.laptopL} {
+    height: 465px;
+  }
 `
 export const TasksBoardContainer = styled.div`
   width: 30%;
@@ -48,6 +50,9 @@ export const TasksBoardTitleWrapper = styled.div`
 
   @media ${device.desktopS} {
     font-size: 48px;
+  }
+  @media ${device.laptopL} {
+  font-size: 45px;
   }
 `
 export const TasksBoardTitle1 = styled.h2`
@@ -99,15 +104,27 @@ const TasksPlanet = styled.img`
   width: 488px;
   height: auto;
   object-fit: cover;
+  @media ${device.laptopL} {
+    height: 381px;
+    height: 100%;
+  }
 `
 export const TasksPlanet1 = styled(TasksPlanet)`
   top: -214px;
   left: -114px;
+  @media ${device.laptopL} {
+    top: -251px;
+    left: -187px;
+  }
 `
 
 export const TasksPlanet2 = styled(TasksPlanet)`
   bottom: -214px;
   right: -114px;
+  @media ${device.laptopL} {
+    bottom: -251px;
+    right: -187px;
+  }
 `
 
 export const TasksSelect = styled.form`
@@ -222,5 +239,10 @@ export const TasksListItem = styled.div<props__TasksListItem>`
     justify-content: center;
     align-items: center;
     color: ${props => props.theme.color.gray}
+  }
+  @media ${device.laptopL}{
+    width: 87px;
+    height: 87px;
+    border: 4px solid ${props => props.theme.color.gray};
   }
 `

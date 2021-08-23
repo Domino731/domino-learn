@@ -16,23 +16,6 @@ export const DscContainer = styled.section`
   }
 `
 
-
-export const DscPlanetJupiter = styled.img`
-  position: absolute;
-  width: 482px;
-  height: auto;
-  object-fit: cover;
-  top: 817px;
-  left: -201px;
-`
-export const DscPlanetMercury = styled.img`
-  position: absolute;
-  width: 618px;
-  height: auto;
-  object-fit: cover;
-  bottom: -93px;
-  right: -107px;
-`
 export const DscItemContainer = styled.section<DscReverseProps>`
   display: flex;
  justify-content: ${props => props.reverse ? "flex-end" : "flex-start"};
@@ -57,6 +40,11 @@ export const DscItem = styled.div<DscReverseProps>`
   
   @media ${device.desktopS} {
     height: 475px;
+  }
+
+  @media ${device.laptopL} {
+    height: 440px;
+    width: 1184px;
   }
 `
 export const DscContent = styled.div`
@@ -113,11 +101,16 @@ export const DscFigure = styled.div`
 `
 
 export const DscFigureImg = styled.img`
-width: 32%;
+width: 296px;
   height: auto;
   object-fit: cover;
 
-  
+  @media ${device.desktopS} {
+    width: 270px;
+  }
+  @media ${device.laptopL} {
+    width: 240px;
+  }
 `
 export const DscCode = styled.div<DscReverseProps>`
   width: 100%;
@@ -165,6 +158,35 @@ export const DscPlanetColorful = styled.img`
   object-fit: cover;
   top: 313px;
   right: 91px;
+  
+  @media ${device.laptopL}{
+    width: 293px;
+    top: 316px;
+    right: 15px;
+  }
 `
-
+export const DscPlanetJupiter = styled.img`
+  position: absolute;
+  width: 482px;
+  height: auto;
+  object-fit: cover;
+  top: 817px;
+  left: -201px;
+  @media ${device.laptopL}{
+    width: 324px;
+    top: 828px;
+    left: -194px;
+  }
+`
+export const DscPlanetMercury = styled.img`
+  position: absolute;
+  width: 618px;
+  height: auto;
+  object-fit: cover;
+  bottom: -93px;
+  right: -107px;
+  @media ${device.laptopL}{
+    width: 392px;
+  }
+`
 export {}

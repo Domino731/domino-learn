@@ -17,8 +17,14 @@ export const GlobalStyles = createGlobalStyle`
       border-radius: 2px;
         background: #00b9f1;
     }
+   
   }
-
+  :root{
+    @media (max-width: 1440px){
+      font-size: 15px;
+    }
+    
+  }
   button {
     border: none;
     background: transparent;

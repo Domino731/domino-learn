@@ -43,6 +43,10 @@ export const HeroTitleH2 = styled.h2`
     color: ${props => props.theme.color.gray};
     text-shadow: 0 3px 3px #000;
   }
+  
+  @media ${device.laptopL} {
+    font-size: 80px;
+  }
 `
 export const HeroTitleH3 = styled.h3`
   margin-top: 4px;
@@ -54,6 +58,9 @@ export const HeroTitleH3 = styled.h3`
   span{
     color: ${props => props.theme.color.gray};
     text-shadow: 0 3px 3px #000;
+  }
+  @media ${device.laptopL} {
+    font-size: 63px;
   }
 `
 export const HeroIntroductionImg = styled.img`

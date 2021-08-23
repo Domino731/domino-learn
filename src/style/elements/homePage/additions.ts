@@ -1,10 +1,14 @@
 import styled from "styled-components";
+import {device} from "../../general/breakpoints";
 
 export const AdditionsWrapper = styled.section`
   display: flex;
   justify-content: space-evenly;
   height: 500px;
   background: ${props => props.theme.color.purple};
+  @media ${device.laptopL} {
+  height: 440px;
+  }
 `
 export const AdditionItem = styled.div`
   position: relative;
