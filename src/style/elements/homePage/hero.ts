@@ -21,6 +21,9 @@ export const HeroContainer = styled.section`
   @media ${device.tablet} {
     height: 250px;
   }
+  @media ${device.mobileM} {
+    height: 220px;
+  }
 `
 export const HeroFigure = styled.div`
   width: 30%;
@@ -72,6 +75,9 @@ export const HeroTitleH2 = styled.h2`
     font-size: 26px;
     text-shadow: 0 1px 1px #000;
   }
+  @media ${device.mobileM} {
+    font-size: 23px;
+  }
 `
 export const HeroTitleH3 = styled.h3`
   margin-top: 4px;
@@ -99,6 +105,9 @@ export const HeroTitleH3 = styled.h3`
     -webkit-text-stroke: 1px ${props => props.theme.color.gray};
     font-size: 21px;
     text-shadow: 0 1px 1px #000;
+  }
+  @media ${device.mobileM} {
+    font-size: 19px;
   }
 `
 export const HeroIntroductionImg = styled.img`
@@ -132,5 +141,8 @@ export const HeroPlanet = styled.img`
     width: 171px;
     right: -21px;
     bottom: -4px;
+  }
+  @media ${device.mobileM} {
+   width: 146px;
   }
 `

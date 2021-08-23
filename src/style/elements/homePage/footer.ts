@@ -25,6 +25,9 @@ export const FooterMediaList = styled.ul`
     justify-content: space-between;
     flex-wrap: wrap;
   }
+  @media ${device.mobileM} {
+    width: 125px;
+  }
 `
 
 export const FooterMediaItem = styled.li`

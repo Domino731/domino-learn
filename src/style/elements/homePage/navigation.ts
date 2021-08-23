@@ -17,6 +17,9 @@ export const NavContainer = styled.nav`
   @media ${device.tablet} {
     height: 40px;
   }
+  @media ${device.mobileL} {
+    height: 35px;
+  }
 `
 export const NavTitle = styled.h1`
   display: flex;
@@ -41,6 +44,12 @@ export const NavTitle = styled.h1`
   }
   @media ${device.tablet} {
     font-size: 1.7rem;
+  }
+  @media ${device.mobileL} {
+    font-size: 1.5rem;
+  }
+  @media ${device.mobileM} {
+    font-size: 13px;
   }
 `
 export const NavList = styled.ul`
@@ -103,6 +112,13 @@ export const NavListItem = styled.li`
   @media ${device.tablet} {
     font-size: 1.3rem;
     padding: 12px 7px;
+  }
+  @media ${device.mobileM} {
+    font-size: 1.2rem;
+
+  }
+  @media ${device.mobileM} {
+    font-size: 10px;
   }
 `
 export {}

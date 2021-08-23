@@ -138,6 +138,7 @@ export const DscExemplaryCodeBtn = styled.button`
 
     @media ${device.tablet} {
       right: -1px;
+      padding: 2px 0;
       top: 30px;
       width: 149px;
       height: 31px;

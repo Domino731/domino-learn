@@ -19,7 +19,7 @@ export const ChoseTaskContainer = styled.section`
   @media ${device.laptopSM} {
     height: 395px;
   }
-  @media (max-width: 961px) {
+  @media (max-width: 590px) {
     height: 300px;
   }
 `
@@ -80,6 +80,12 @@ export const TasksBoardTitleWrapper = styled.div`
   }
   @media ${device.tablet}{
     font-size: 19px;
+  }
+  @media (max-width: 590px) {
+    font-size: 33px;
+  }
+  @media ${device.mobileM} {
+    font-size: 29px;
   }
 `
 export const TasksBoardTitle1 = styled.h2`
@@ -212,6 +218,7 @@ export const TasksSelectWrapper = styled.div`
   }
 
   input {
+    border: none;
     appearance: none;
     position: absolute;
     border-radius: 0;
