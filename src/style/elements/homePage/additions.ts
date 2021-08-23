@@ -29,6 +29,9 @@ export const AdditionItem = styled.div`
     cursor: pointer;
     background: white;
   }
+  @media ${device.laptopSM} {
+    width: 267px;
+  }
 `
 export const AdditionImg = styled.img`
   width: 100%;
@@ -40,5 +43,8 @@ export const AdditionTitle = styled.h2`
   font-weight: 650;
   margin-top: 1.25rem;
   text-align: center;
-  color: ${props => props.theme.color.white}
+  color: ${props => props.theme.color.white};
+  @media ${device.laptopSM} {
+    font-size: 2.214rem;
+  }
 `

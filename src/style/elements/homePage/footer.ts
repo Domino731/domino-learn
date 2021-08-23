@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {device} from "../../general/breakpoints";
 
 export const FooterContainer = styled.footer`
   display: flex;
@@ -11,6 +12,9 @@ export const FooterMediaList = styled.ul`
   justify-content: space-between;
   width: 261px;
   margin-right: 23px;
+  @media ${device.laptopSM} {
+    justify-content: space-around;
+  }
 `
 
 export const FooterMediaItem = styled.li`
@@ -21,6 +25,9 @@ export const FooterMediaItem = styled.li`
    &:hover{
      transition: 0.2s;
      color: ${props => props.theme.color.red};
+   }
+   @media ${device.laptopSM} {
+     font-size: 41px;
    }
  }
 `

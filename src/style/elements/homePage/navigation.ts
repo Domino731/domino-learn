@@ -6,10 +6,13 @@ export const NavContainer = styled.nav`
   height: 80px;
   border-bottom: 3px solid ${props => props.theme.color.gray};
   @media ${device.desktopM} {
-     height: 73px;
+    height: 73px;
   }
   @media ${device.laptopL} {
     height: 68px;
+  }
+  @media ${device.laptopSM} {
+    height: 50px;
   }
 `
 export const NavTitle = styled.h1`
@@ -18,14 +21,18 @@ export const NavTitle = styled.h1`
   align-items: center;
   width: 30%;
   height: 100%;
- 
+
   font-size: 3.438rem;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
-  &:hover{
+
+  &:hover {
     cursor: default;
   }
-  
+
+  @media ${device.laptopSM} {
+    font-size: 2.786rem;
+  }
 `
 export const NavList = styled.ul`
   display: flex;
@@ -34,6 +41,9 @@ export const NavList = styled.ul`
   height: 100%;
   padding-right: 122px;
   background: ${props => props.theme.color.blue};
+  @media ${device.laptopSM} {
+    padding-right: 20px;
+  }
 `
 
 export const NavListItem = styled.li`
@@ -43,10 +53,12 @@ export const NavListItem = styled.li`
   position: relative;
   overflow: hidden;
   transition: 1s;
-  a{
+
+  a {
     color: ${props => props.theme.color.gray};
   }
-  &:after, &:before{
+
+  &:after, &:before {
     content: "";
     display: block;
     position: absolute;
@@ -55,20 +67,26 @@ export const NavListItem = styled.li`
     height: 0.313rem;
     background: ${props => props.theme.color.red};
   }
-  &:after{
+
+  &:after {
     left: 50%;
   }
-  &:before{
+
+  &:before {
     right: 50%;
   }
-  
-  &:hover{
+
+  &:hover {
     cursor: pointer;
   }
+
   &:hover:after, &:hover:before {
     transition: 0.6s;
- width: 100%;
+    width: 100%;
   }
-  
+
+  @media ${device.laptopSM} {
+    padding: 13px 17px;
+  }
 `
 export {}

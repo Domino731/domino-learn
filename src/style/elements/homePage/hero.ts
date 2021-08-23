@@ -10,6 +10,9 @@ export const HeroContainer = styled.section`
   &:hover{
     cursor: default;
   }
+  @media ${device.laptopSM} {
+   height: 650px;
+  }
 `
 export const HeroFigure = styled.div`
   width: 30%;
@@ -47,6 +50,9 @@ export const HeroTitleH2 = styled.h2`
   @media ${device.laptopL} {
     font-size: 80px;
   }
+  @media ${device.laptopSM} {
+    font-size: 64px;
+  }
 `
 export const HeroTitleH3 = styled.h3`
   margin-top: 4px;
@@ -61,6 +67,9 @@ export const HeroTitleH3 = styled.h3`
   }
   @media ${device.laptopL} {
     font-size: 63px;
+  }
+  @media ${device.laptopSM} {
+    font-size: 52px;
   }
 `
 export const HeroIntroductionImg = styled.img`

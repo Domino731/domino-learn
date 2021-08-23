@@ -16,6 +16,9 @@ export const ChoseTaskContainer = styled.section`
   @media ${device.laptopM} {
     height: 440px;
   }
+  @media ${device.laptopSM} {
+    height: 395px;
+  }
 `
 export const TasksBoardContainer = styled.div`
   width: 30%;
@@ -59,6 +62,9 @@ export const TasksBoardTitleWrapper = styled.div`
   }
   @media ${device.laptopM} {
   font-size: 43px;
+  }
+  @media ${device.laptopSM} {
+    font-size: 34px;
   }
 `
 export const TasksBoardTitle1 = styled.h2`
@@ -114,6 +120,9 @@ const TasksPlanet = styled.img`
     height: 381px;
     height: 100%;
   }
+  @media ${device.laptopSM} {
+    width: 476px;
+  }
 `
 export const TasksPlanet1 = styled(TasksPlanet)`
   top: -214px;
@@ -121,6 +130,10 @@ export const TasksPlanet1 = styled(TasksPlanet)`
   @media ${device.laptopL} {
     top: -251px;
     left: -187px;
+  }
+  @media ${device.laptopSM} {
+    width: 467px;
+    height: 422px;
   }
 `
 
@@ -133,7 +146,7 @@ export const TasksPlanet2 = styled(TasksPlanet)`
   }
 `
 
-export const TasksSelect = styled.form`
+export const TasksSelect = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -183,12 +196,28 @@ export const TasksSelectWrapper = styled.div`
     top: -2px;
     width: 100%;
     height: 100%;
-    border-radius: 34px;
+    border-radius: 32px;
   }
 
   input:checked ~ span {
     font-size: 44px;
     box-shadow: 0 262px ${props => props.theme.color.blue} inset;
+  }
+
+  @media ${device.laptopSM} {
+    width: 30%;
+    box-shadow: 5px 5px ${props => props.theme.color.gray};
+    border-radius: 25px;
+    height: 95%;
+    span{
+      border-radius: 23px;
+    }
+    &:hover {
+      box-shadow:  12px 12px ${props => props.theme.color.gray};
+    }
+    input:checked ~ span {
+      box-shadow: 0 170px ${props => props.theme.color.blue} inset;
+    }
   }
 `
 export const TasksSelectTitle = styled.div`
@@ -206,7 +235,12 @@ export const TasksSelectFigure = styled.img`
   width: 100%;
   height: auto;
   object-fit: cover;
-  margin-top: -10px;
+  margin-top: 10px;
+  @media ${device.laptopSM}{
+    margin-top: 25px;
+    height: 290px;
+    object-fit: contain;
+  }
 `
 export const TasksSelectIcon = styled.img`
   width: 30px;
@@ -250,5 +284,10 @@ export const TasksListItem = styled.div<props__TasksListItem>`
     width: 87px;
     height: 87px;
     border: 4px solid ${props => props.theme.color.gray};
+  }
+  @media ${device.laptopSM}{
+    font-size: 48px;
+    height: 70px;
+    width: 70px;
   }
 `

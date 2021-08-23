@@ -46,6 +46,10 @@ export const DscItem = styled.div<DscReverseProps>`
     height: 440px;
     width: 1184px;
   }
+  @media ${device.laptopSM} {
+   width: 900px;
+    height: 507px;
+  }
 `
 export const DscContent = styled.div`
   width: 360px;
@@ -91,6 +95,10 @@ export const DscExemplaryCodeBtn = styled.button`
     color: #fff;
     border: none;
   }
+  @media ${device.laptopSM} {
+    width: 200px;
+   height: 50px;
+  }
 `
 
 export const DscFigure = styled.div`
@@ -110,6 +118,10 @@ width: 296px;
   }
   @media ${device.laptopL} {
     width: 240px;
+  }
+  @media ${device.laptopSM} {
+    width: 281px;
+   
   }
 `
 export const DscCode = styled.div<DscReverseProps>`
@@ -164,6 +176,9 @@ export const DscPlanetColorful = styled.img`
     top: 316px;
     right: 15px;
   }
+  @media ${device.laptopSM} {
+    display: none;
+  }
 `
 export const DscPlanetJupiter = styled.img`
   position: absolute;
@@ -177,6 +192,9 @@ export const DscPlanetJupiter = styled.img`
     top: 828px;
     left: -194px;
   }
+  @media ${device.laptopSM} {
+    display: none;
+  }
 `
 export const DscPlanetMercury = styled.img`
   position: absolute;
@@ -187,6 +205,9 @@ export const DscPlanetMercury = styled.img`
   right: -107px;
   @media ${device.laptopL}{
     width: 392px;
+  }
+  @media ${device.laptopSM} {
+    display: none;
   }
 `
 export {}
