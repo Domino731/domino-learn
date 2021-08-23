@@ -14,6 +14,9 @@ export const NavContainer = styled.nav`
   @media ${device.laptopSM} {
     height: 50px;
   }
+  @media ${device.tablet} {
+    height: 40px;
+  }
 `
 export const NavTitle = styled.h1`
   display: flex;
@@ -36,6 +39,9 @@ export const NavTitle = styled.h1`
   @media ${device.laptopS} {
     font-size: 2.583rem;
   }
+  @media ${device.tablet} {
+    font-size: 1.7rem;
+  }
 `
 export const NavList = styled.ul`
   display: flex;
@@ -46,6 +52,9 @@ export const NavList = styled.ul`
   background: ${props => props.theme.color.blue};
   @media ${device.laptopSM} {
     padding-right: 20px;
+  }
+  @media ${device.tablet} {
+    padding-right: 5px;
   }
 `
 
@@ -90,6 +99,10 @@ export const NavListItem = styled.li`
 
   @media ${device.laptopSM} {
     padding: 13px 17px;
+  }
+  @media ${device.tablet} {
+    font-size: 1.3rem;
+    padding: 12px 7px;
   }
 `
 export {}

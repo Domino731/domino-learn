@@ -45,7 +45,7 @@ export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({lang
             }
 
             {flag && <DscCode reverse={reverse}>
-                <DscEditorWrapper>
+                <DscEditorWrapper mode={language.getLanguageName()}>
                     <AceEditor
                         enableBasicAutocompletion={true}
                         enableLiveAutocompletion={true}
@@ -77,7 +77,7 @@ export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({lang
                     </div>
                 </DscArrow>
 
-                <DscCodeResultWrapper>
+                <DscCodeResultWrapper mode={language.getLanguageName()}>
                     <WebBrowserWindow>
                         <WebBrowserTopBar>
                             <WebBrowserGreenBox/>

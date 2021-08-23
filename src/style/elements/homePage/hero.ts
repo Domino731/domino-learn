@@ -18,6 +18,9 @@ export const HeroContainer = styled.section`
   @media ${device.laptopS} {
     height: 425px;
   }
+  @media ${device.tablet} {
+    height: 250px;
+  }
 `
 export const HeroFigure = styled.div`
   width: 30%;
@@ -63,6 +66,12 @@ export const HeroTitleH2 = styled.h2`
     text-shadow: 0 2px 2px #000;
     font-size: 48px;
   }
+  @media ${device.tablet} {
+    -webkit-text-stroke: 1px ${props => props.theme.color.gray};
+    margin-top: 15px;
+    font-size: 26px;
+    text-shadow: 0 1px 1px #000;
+  }
 `
 export const HeroTitleH3 = styled.h3`
   margin-top: 4px;
@@ -86,6 +95,11 @@ export const HeroTitleH3 = styled.h3`
     text-shadow: 0 2px 2px #000;
     font-size: 39px;
   }
+  @media ${device.tablet} {
+    -webkit-text-stroke: 1px ${props => props.theme.color.gray};
+    font-size: 21px;
+    text-shadow: 0 1px 1px #000;
+  }
 `
 export const HeroIntroductionImg = styled.img`
   position: absolute;
@@ -97,6 +111,9 @@ export const HeroIntroductionImg = styled.img`
   z-index: 4;
   @media ${device.laptopS} {
     margin-top: 30px;
+  }
+  @media ${device.tablet} {
+    margin-top: 15px;
   }
 `
 export const HeroPlanet = styled.img`
@@ -110,5 +127,10 @@ export const HeroPlanet = styled.img`
     width: 373px;
     right: -65px;
     bottom: -117px;
+  }
+  @media ${device.tablet} {
+    width: 171px;
+    right: -21px;
+    bottom: -4px;
   }
 `

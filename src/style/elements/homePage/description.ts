@@ -15,8 +15,9 @@ export const DscContainer = styled.section`
   &:hover {
     cursor: default;
   }
+
   @media (max-width: 961px) {
-   padding-top: 60px;
+    padding-top: 60px;
   }
 `
 
@@ -61,6 +62,15 @@ export const DscItem = styled.div<DscReverseProps>`
     box-shadow: 0 13px ${props => props.theme.color.gray};
     padding: 20px;
     margin-bottom: 85px;
+  }
+  @media ${device.tablet} {
+    align-items: center;
+    flex-direction: column;
+    height: 540px;
+  }
+  @media ${device.tablet} {
+    padding: 10px;
+    height: auto;
   }
 `
 export const DscContent = styled.div`
@@ -125,14 +135,21 @@ export const DscExemplaryCodeBtn = styled.button`
   @media (max-width: 961px) {
     width: 178px;
     height: 39px;
-  }
+
+    @media ${device.tablet} {
+      right: -1px;
+      top: 30px;
+      width: 149px;
+      height: 31px;
+    }
 `
 
 export const DscFigure = styled.div`
-
-  width: 841px;
   display: flex;
   justify-content: center;
+  @media ${device.tablet} {
+    // margin-top: 52px;
+  }
 `
 
 export const DscFigureImg = styled.img`
@@ -153,6 +170,10 @@ export const DscFigureImg = styled.img`
     height: 100%;
     width: auto;
   }
+  @media ${device.tablet} {
+    width: auto;
+    height: 340px;
+  }
 `
 export const DscCode = styled.div<DscReverseProps>`
   width: 100%;
@@ -160,10 +181,35 @@ export const DscCode = styled.div<DscReverseProps>`
   display: flex;
   justify-content: center;
   flex-direction: ${props => props.reverse ? "row-reverse" : "row"};
+
+  @media ${device.tablet} {
+    flex-direction: column;
+  }
 `
-export const DscEditorWrapper = styled.div`
+
+interface props__DscEditorWrapper {
+    mode: string
+}
+
+export const DscEditorWrapper = styled.div<props__DscEditorWrapper>`
   width: 40%;
   height: 100%;
+
+  @media ${device.tablet} {
+    width: 100%;
+    height: ${(props) => {
+      switch (props.mode) {
+        case "Html":
+          return "460px";
+        case "JS":
+          return "290px";
+        case "CSS":
+          return "1040px";
+        default:
+          return "300px"
+      }
+    }
+    }
 `
 export const DscArrow = styled.div<DscReverseProps>`
   position: relative;
@@ -191,16 +237,48 @@ export const DscArrow = styled.div<DscReverseProps>`
       cursor: pointer;
     }
   }
+
   @media (max-width: 961px) {
-   font-size: 100px;
-    div{
+    font-size: 100px;
+    div {
+      font-size: 50px;
+    }
+  }
+
+  @media ${device.tablet} {
+    font-size: 0;
+    height: 100px;
+    width: 100%;
+    div {
+      margin: 0 auto;
       font-size: 50px;
     }
   }
 `
-export const DscCodeResultWrapper = styled.div`
+
+interface props__DscCodeResultWrapper {
+    mode: string
+}
+
+export const DscCodeResultWrapper = styled.div<props__DscCodeResultWrapper>`
   width: 40%;
   height: 100%;
+  @media ${device.tablet} {
+    width: 100%;
+    height: ${(props) => {
+      switch (props.mode) {
+        case "Html":
+          return "650px";
+        case "JS":
+          return "290px";
+        case "CSS":
+          return "650px";
+        default:
+          return "150px"
+      }
+    }
+    }
+  }
 `
 export const DscPlanetColorful = styled.img`
   position: absolute;
