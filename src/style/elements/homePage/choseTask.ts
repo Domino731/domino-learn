@@ -200,7 +200,7 @@ export const TasksSelect = styled.div`
 
 export const TasksSelectWrapper = styled.div`
   width: 25%;
-  height: 90%;
+  height: 94%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -371,6 +371,7 @@ export const TasksList = styled.div`
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
   z-index: 1;
   padding: 14px;
 `

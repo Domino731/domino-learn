@@ -54,7 +54,6 @@ export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}
                     <Link to={`/css-task/${el.number}`}>{el.number}</Link>
                 </TasksListItem>)}
                     </TasksList>}
-
             {selectedTasks === "jsTasks" && <TasksList>
                 {tasks.map((el, num) => <TasksListItem solved={el.solved}  key={`tasks_board_js_${num}`}>
                     <Link to={`/js-task/${el.number}`}>{el.number}</Link>
