@@ -26,7 +26,7 @@ export const FooterMediaList = styled.ul`
     flex-wrap: wrap;
   }
   @media ${device.mobileM} {
-    width: 125px;
+    width: 150px;
   }
 `
 
@@ -56,4 +56,5 @@ export const FooterMediaItem = styled.li`
       font-size: 40px;
     }
   }
+  
 `

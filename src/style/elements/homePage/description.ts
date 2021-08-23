@@ -76,6 +76,9 @@ export const DscItem = styled.div<DscReverseProps>`
 export const DscContent = styled.div`
   width: 360px;
   position: relative;
+  @media ${device.mobileL}{
+    width: 100%;
+  }
 `
 export const DscTitleContainer = styled.div`
   height: 91px;
@@ -89,6 +92,9 @@ export const DscTitle = styled.h2`
   font-weight: bold;
   @media (max-width: 961px) {
     font-size: 3.333rem;
+  }
+  @media ${device.mobileM}{
+    font-size: 2rem;
   }
 `
 export const DscTitleImg = styled.img`

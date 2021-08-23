@@ -19,6 +19,9 @@ export const AdditionsWrapper = styled.section`
   @media ${device.tablet}{
     height: 240px;
   }
+  @media ${device.mobileM} {
+    height: 180px;
+  }
 `
 export const AdditionItem = styled.div`
   position: relative;
@@ -47,6 +50,10 @@ export const AdditionItem = styled.div`
   @media ${device.tablet}{
     width: 190px;
   }
+  @media ${device.mobileM} {
+    width: 110px;
+    padding: 0 10px;
+  }
 `
 export const AdditionImg = styled.img`
   width: 100%;
@@ -61,5 +68,8 @@ export const AdditionTitle = styled.h2`
   color: ${props => props.theme.color.white};
   @media ${device.laptopSM} {
     font-size: 2.214rem;
+  }
+  @media ${device.mobileM} {
+    font-size: 1.5rem;
   }
 `

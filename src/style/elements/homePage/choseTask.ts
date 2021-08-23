@@ -82,10 +82,10 @@ export const TasksBoardTitleWrapper = styled.div`
     font-size: 19px;
   }
   @media (max-width: 590px) {
-    font-size: 33px;
+    font-size: 29px;
   }
   @media ${device.mobileM} {
-    font-size: 29px;
+    font-size: 24px;
   }
 `
 export const TasksBoardTitle1 = styled.h2`

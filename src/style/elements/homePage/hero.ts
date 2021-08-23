@@ -76,7 +76,7 @@ export const HeroTitleH2 = styled.h2`
     text-shadow: 0 1px 1px #000;
   }
   @media ${device.mobileM} {
-    font-size: 23px;
+    font-size: 19px;
   }
 `
 export const HeroTitleH3 = styled.h3`
@@ -107,7 +107,7 @@ export const HeroTitleH3 = styled.h3`
     text-shadow: 0 1px 1px #000;
   }
   @media ${device.mobileM} {
-    font-size: 19px;
+    font-size: 16px;
   }
 `
 export const HeroIntroductionImg = styled.img`
