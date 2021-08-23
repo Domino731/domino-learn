@@ -9,6 +9,9 @@ export const AdditionsWrapper = styled.section`
   @media ${device.laptopL} {
   height: 440px;
   }
+  @media ${device.laptopM} {
+    height: 390px;
+  }
 `
 export const AdditionItem = styled.div`
   position: relative;

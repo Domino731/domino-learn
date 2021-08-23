@@ -23,7 +23,9 @@ export const GlobalStyles = createGlobalStyle`
     @media (max-width: 1440px){
       font-size: 15px;
     }
-    
+    @media (max-width: 1280px){
+      font-size: 14px;
+    }
   }
   button {
     border: none;

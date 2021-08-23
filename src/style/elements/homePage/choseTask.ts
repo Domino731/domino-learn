@@ -13,6 +13,9 @@ export const ChoseTaskContainer = styled.section`
   @media ${device.laptopL} {
     height: 465px;
   }
+  @media ${device.laptopM} {
+    height: 440px;
+  }
 `
 export const TasksBoardContainer = styled.div`
   width: 30%;
@@ -53,6 +56,9 @@ export const TasksBoardTitleWrapper = styled.div`
   }
   @media ${device.laptopL} {
   font-size: 45px;
+  }
+  @media ${device.laptopM} {
+  font-size: 43px;
   }
 `
 export const TasksBoardTitle1 = styled.h2`
