@@ -18,6 +18,14 @@ export const FooterMediaList = styled.ul`
   @media (max-width: 961px) {
     width: 190px;
   }
+  
+  @media ${device.tablet}{
+    width: 90px;
+    height: 110px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border: 2px solid red;
+  }
 `
 
 export const FooterMediaItem = styled.li`
@@ -39,6 +47,11 @@ export const FooterMediaItem = styled.li`
   @media (max-width: 961px) {
     a{
      font-size: 30px; 
+    }
+  }
+  @media ${device.tablet}{
+    a{
+      font-size: 40px;
     }
   }
 `

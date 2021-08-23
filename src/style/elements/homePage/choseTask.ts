@@ -174,6 +174,11 @@ export const TasksSelect = styled.div`
   align-items: center;
   width: 70%;
   height: 100%;
+  @media ${device.tablet} {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 10px;
+  }
 `
 
 
@@ -254,6 +259,28 @@ export const TasksSelectWrapper = styled.div`
       box-shadow: 0 130px ${props => props.theme.color.blue} inset;
     }
   }
+  @media ${device.tablet} {
+    width: 180px;
+    flex-grow: 1;
+    height: 47%;
+    flex-direction: row;
+  }
+  @media ${device.tablet} {
+    border-radius: 15px;
+    box-shadow: none;
+    border: 3px solid ${props => props.theme.color.black};
+    span {
+      border-radius: 10px;
+    }
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    input:checked ~ span {
+      box-shadow: 0 50px ${props => props.theme.color.blue} inset;
+    }
+  }
 `
 export const TasksSelectTitle = styled.div`
   margin-top: 5px;
@@ -268,6 +295,11 @@ export const TasksSelectTitle = styled.div`
 
   @media (max-width: 961px) {
     font-size: 2.083rem;
+  }
+  @media ${device.tablet} {
+    strong {
+      font-size: 0;
+    }
   }
 `
 export const TasksSelectFigure = styled.img`
@@ -285,6 +317,10 @@ export const TasksSelectFigure = styled.img`
     width: auto;
     margin-top: 0;
   }
+  @media ${device.tablet} {
+    height: 100%;
+  }
+
 `
 export const TasksSelectIcon = styled.img`
   width: 30px;
@@ -293,6 +329,9 @@ export const TasksSelectIcon = styled.img`
   @media (max-width: 961px) {
     width: 25px;
     font-size: 20px;
+  }
+  @media ${device.tablet} {
+    width: 60px;
   }
 `
 export const TasksList = styled.div`
@@ -348,6 +387,15 @@ export const TasksListItem = styled.div<props__TasksListItem>`
     height: 50px;
     margin: 5px;
     width: 50px;
+    font-size: 30px ;
+  }
+
+  @media ${device.tablet} {
+    border: 3px solid ${props => props.theme.color.gray};
+    border-radius: 7px;
+    height: 43px;
+    margin: 3px;
+    width: 43px;
     font-size: 30px ;
   }
 `

@@ -15,6 +15,10 @@ export const AdditionsWrapper = styled.section`
   @media (max-width: 961px) {
     height: 300px;
   }
+  
+  @media ${device.tablet}{
+    height: 240px;
+  }
 `
 export const AdditionItem = styled.div`
   position: relative;
@@ -39,6 +43,9 @@ export const AdditionItem = styled.div`
   }
   @media (max-width: 961px) {
     width: 240px;
+  }
+  @media ${device.tablet}{
+    width: 190px;
   }
 `
 export const AdditionImg = styled.img`
