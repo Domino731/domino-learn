@@ -63,7 +63,6 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     const [annotations, setAnnotations] = useState<any[]>([])
 
 
-
     // state with flag, when user change it, editor settings form will be showed
     const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false);
 
@@ -79,7 +78,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     const [errorFlag, setErrorFlag] = useState<boolean>(false)
 
     // state with editor settings
-    const [editorSettings, setEditorSettings] = useState<{fontSize: number, theme: string}>({
+    const [editorSettings, setEditorSettings] = useState<{ fontSize: number, theme: string }>({
         fontSize: getEditorFSize(),
         theme: getEditorTheme()
     })
@@ -115,17 +114,6 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
 
     useEffect(() => {
-        const consoleTextArr = logs.map(el => el.data[0]);
-        if (consoleTextArr.length > 0 && annotations.length === 0) {
-            task.targets.forEach(el => taskValidationJS(consoleTextArr, userCode, el, addPoints));
-            saveJsTaskSolutionToLS(task.targets, task.title, userCode);
-            // save solved task title to ls, so that the user knows which tasks he has completed
-            saveSolvedTaskToLS(task.title, "solvedJsTasks");
-        }
-
-    }, [logs.length]);
-
-    useEffect(() => {
         if (points.user >= points.needed) {
             setSuccessfulFlag(true)
         } else {
@@ -157,7 +145,11 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     // reset code in editor by original code from task
     const handleResetCode = (): void => {
-        return setUserCode(beautifyJs(task.originalCode, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50}));
+        return setUserCode(beautifyJs(task.originalCode, {
+            indent_size: 1,
+            space_in_empty_paren: false,
+            wrap_line_length: 50
+        }));
     }
     const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag)
     const handleResetPoints = (): void => setPoints({user: 0, needed: task.targets.length})
@@ -165,21 +157,52 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     // set the console logs by which useEffect will start the task validation
     const setConsole = () => {
+         if(annotations.length === 0){
 
-        // prevent of console duplicates
-        setLogs([])
-        // set the console
-        Logs(userCode);
+             // prevent of console duplicates
+             setLogs([])
+             // set the console
+             Logs(userCode);
 
-        // format user code
-        setUserCode(beautifyJs(userCode, {
-            indent_size: 1,
-            space_in_empty_paren: false,
-            wrap_line_length: 50
-        }));
 
+             // points needed to pass
+             const pointsNeeded: number = task.targets.length
+
+             // user points
+             let userPoints = 0
+
+// function that add pun when user complete task correctly
+             const changeUserPoints = (): number => userPoints++
+
+             if (consoleTextArr.length > 0 && annotations.length === 0) {
+                 task.targets.forEach(el => taskValidationJS(userCode, el, changeUserPoints));
+                 saveJsTaskSolutionToLS(task.targets, task.title, userCode);
+                 // save solved task title to ls, so that the user knows which tasks he has completed
+                 saveSolvedTaskToLS(task.title, "solvedJsTasks");
+             }
+
+
+             // check if user has executed all targets, if he did display animation
+             if (userPoints === pointsNeeded) {
+                 // set the animation
+                 setSuccessfulFlag(true)
+                 // save solved task title to ls, so that the user knows which tasks he has completed
+                 saveSolvedTaskToLS(task.title, "solvedHtmlTasks")
+             } else {
+                 setSuccessfulFlag(false)
+             }
+
+
+             // format user code
+             setUserCode(beautifyJs(userCode, {
+                 indent_size: 1,
+                 space_in_empty_paren: false,
+                 wrap_line_length: 50
+             }));
+
+         }
         // display the error window when user code have warnings
-        if(annotations.length > 0){
+        else{
             setErrorFlag(true)
         }
     };
