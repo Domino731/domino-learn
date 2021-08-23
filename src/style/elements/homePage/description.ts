@@ -1,24 +1,28 @@
 import styled from "styled-components";
 import {device} from "../../general/breakpoints";
 
-interface DscReverseProps  {
+interface DscReverseProps {
     reverse: boolean
 }
 
 export const DscContainer = styled.section`
-  background: rgb(87,7,159);
-  background: linear-gradient(90deg, rgba(87,7,159,1) 29%, rgba(114,1,216,1) 71%);
+  background: rgb(87, 7, 159);
+  background: linear-gradient(90deg, rgba(87, 7, 159, 1) 29%, rgba(114, 1, 216, 1) 71%);
   padding-top: 93px;
   position: relative;
   overflow: hidden;
-  &:hover{
+
+  &:hover {
     cursor: default;
+  }
+  @media (max-width: 961px) {
+   padding-top: 60px;
   }
 `
 
 export const DscItemContainer = styled.section<DscReverseProps>`
   display: flex;
- justify-content: ${props => props.reverse ? "flex-end" : "flex-start"};
+  justify-content: ${props => props.reverse ? "flex-end" : "flex-start"};
 `
 export const DscItem = styled.div<DscReverseProps>`
   z-index: 3;
@@ -37,7 +41,7 @@ export const DscItem = styled.div<DscReverseProps>`
     transition: 0.4s;
     box-shadow: ${props => props.reverse ? "40px 30px" : "-20px 30px"} ${props => props.theme.color.yellow};
   }
-  
+
   @media ${device.desktopS} {
     height: 475px;
   }
@@ -47,8 +51,16 @@ export const DscItem = styled.div<DscReverseProps>`
     width: 1184px;
   }
   @media ${device.laptopSM} {
-   width: 900px;
+    width: 900px;
     height: 507px;
+  }
+  @media (max-width: 961px) {
+    width: 100%;
+    height: 400px;
+    border-radius: 0;
+    box-shadow: 0 13px ${props => props.theme.color.gray};
+    padding: 20px;
+    margin-bottom: 85px;
   }
 `
 export const DscContent = styled.div`
@@ -65,16 +77,25 @@ export const DscTitle = styled.h2`
   margin-left: 10px;
   font-size: 4.25rem;
   font-weight: bold;
+  @media (max-width: 961px) {
+    font-size: 3.333rem;
+  }
 `
 export const DscTitleImg = styled.img`
   width: 70px;
   height: auto;
   object-fit: cover;
+  @media (max-width: 961px) {
+    width: 44px;
+  }
 `
 export const DscDescription = styled.p`
   margin-top: 12px;
   font-size: 1.313rem;
   font-weight: 550;
+  @media (max-width: 961px) {
+    margin-top: 0;
+  }
 `
 
 export const DscExemplaryCodeBtn = styled.button`
@@ -89,15 +110,21 @@ export const DscExemplaryCodeBtn = styled.button`
   color: ${props => props.theme.color.blue};
   overflow: hidden;
   transition: 0.1s;
-  &:hover{
+
+  &:hover {
     transition: 0.1s;
     background: ${props => props.theme.color.blue};
     color: #fff;
     border: none;
   }
+
   @media ${device.laptopSM} {
     width: 200px;
-   height: 50px;
+    height: 50px;
+  }
+  @media (max-width: 961px) {
+    width: 178px;
+    height: 39px;
   }
 `
 
@@ -109,7 +136,7 @@ export const DscFigure = styled.div`
 `
 
 export const DscFigureImg = styled.img`
-width: 296px;
+  width: 296px;
   height: auto;
   object-fit: cover;
 
@@ -121,7 +148,10 @@ width: 296px;
   }
   @media ${device.laptopSM} {
     width: 281px;
-   
+  }
+  @media (max-width: 961px) {
+    height: 100%;
+    width: auto;
   }
 `
 export const DscCode = styled.div<DscReverseProps>`
@@ -143,19 +173,28 @@ export const DscArrow = styled.div<DscReverseProps>`
   width: 20%;
   height: 100%;
   font-size: 120px;
-  i{
-    transform: rotate( ${props => props.reverse ? "180deg" : "0deg"})
+
+  i {
+    transform: rotate(${props => props.reverse ? "180deg" : "0deg"})
   }
-  div{
+
+  div {
     color: ${props => props.theme.color.red};
     position: absolute;
     bottom: 0;
     font-size: 61px;
     transition: 0.2s;
-    &:hover{
+
+    &:hover {
       transition: 0.2s;
       font-size: 72px;
       cursor: pointer;
+    }
+  }
+  @media (max-width: 961px) {
+   font-size: 100px;
+    div{
+      font-size: 50px;
     }
   }
 `
@@ -170,8 +209,8 @@ export const DscPlanetColorful = styled.img`
   object-fit: cover;
   top: 313px;
   right: 91px;
-  
-  @media ${device.laptopL}{
+
+  @media ${device.laptopL} {
     width: 293px;
     top: 316px;
     right: 15px;
@@ -187,7 +226,7 @@ export const DscPlanetJupiter = styled.img`
   object-fit: cover;
   top: 817px;
   left: -201px;
-  @media ${device.laptopL}{
+  @media ${device.laptopL} {
     width: 324px;
     top: 828px;
     left: -194px;
@@ -203,7 +242,7 @@ export const DscPlanetMercury = styled.img`
   object-fit: cover;
   bottom: -93px;
   right: -107px;
-  @media ${device.laptopL}{
+  @media ${device.laptopL} {
     width: 392px;
   }
   @media ${device.laptopSM} {

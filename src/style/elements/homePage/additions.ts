@@ -7,10 +7,13 @@ export const AdditionsWrapper = styled.section`
   height: 500px;
   background: ${props => props.theme.color.purple};
   @media ${device.laptopL} {
-  height: 440px;
+    height: 440px;
   }
   @media ${device.laptopM} {
     height: 390px;
+  }
+  @media (max-width: 961px) {
+    height: 300px;
   }
 `
 export const AdditionItem = styled.div`
@@ -23,14 +26,19 @@ export const AdditionItem = styled.div`
   height: 100%;
   padding: 0 30px;
   transition: 0.1s;
-  &:hover{
+
+  &:hover {
     letter-spacing: 0.125rem;
     transition: 0.1s;
     cursor: pointer;
     background: white;
   }
+
   @media ${device.laptopSM} {
     width: 267px;
+  }
+  @media (max-width: 961px) {
+    width: 240px;
   }
 `
 export const AdditionImg = styled.img`

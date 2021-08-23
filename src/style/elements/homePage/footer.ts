@@ -15,6 +15,9 @@ export const FooterMediaList = styled.ul`
   @media ${device.laptopSM} {
     justify-content: space-around;
   }
+  @media (max-width: 961px) {
+    width: 190px;
+  }
 `
 
 export const FooterMediaItem = styled.li`
@@ -26,8 +29,16 @@ export const FooterMediaItem = styled.li`
      transition: 0.2s;
      color: ${props => props.theme.color.red};
    }
-   @media ${device.laptopSM} {
-     font-size: 41px;
-   }
+  
  }
+  @media ${device.laptopSM} {
+    a{
+      font-size: 41px;
+    }
+  }
+  @media (max-width: 961px) {
+    a{
+     font-size: 30px; 
+    }
+  }
 `

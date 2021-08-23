@@ -7,11 +7,16 @@ export const HeroContainer = styled.section`
   position: relative;
   z-index: 1;
   overflow: hidden;
-  &:hover{
+
+  &:hover {
     cursor: default;
   }
+
   @media ${device.laptopSM} {
-   height: 650px;
+    height: 650px;
+  }
+  @media ${device.laptopS} {
+    height: 425px;
   }
 `
 export const HeroFigure = styled.div`
@@ -30,28 +35,33 @@ export const HeroImg = styled.img`
 `
 export const HeroIntroduction = styled.div`
   width: 70%;
-  height:  100%;
-  background: rgb(0,185,241);
-  background: linear-gradient(40deg, rgba(0,185,241,1) 33%, rgba(70,212,255,1) 71%);
+  height: 100%;
+  background: rgb(0, 185, 241);
+  background: linear-gradient(40deg, rgba(0, 185, 241, 1) 33%, rgba(70, 212, 255, 1) 71%);
   position: relative;
 `
 export const HeroTitleH2 = styled.h2`
   margin-top: 76px;
   color: #fff;
- font-size: 5.625rem;
+  font-size: 5.625rem;
   font-weight: bold;
   text-shadow: 0 3px 3px #000;
   -webkit-text-stroke: 2px ${props => props.theme.color.gray};
-  span{
+
+  span {
     color: ${props => props.theme.color.gray};
-    text-shadow: 0 3px 3px #000;
   }
-  
+
   @media ${device.laptopL} {
     font-size: 80px;
   }
   @media ${device.laptopSM} {
     font-size: 64px;
+  }
+  @media ${device.laptopS} {
+    margin-top: 40px;
+    text-shadow: 0 2px 2px #000;
+    font-size: 48px;
   }
 `
 export const HeroTitleH3 = styled.h3`
@@ -61,26 +71,33 @@ export const HeroTitleH3 = styled.h3`
   font-weight: bold;
   text-shadow: 0 3px 3px #000;
   -webkit-text-stroke: 2px ${props => props.theme.color.gray};
-  span{
+
+  span {
     color: ${props => props.theme.color.gray};
-    text-shadow: 0 3px 3px #000;
   }
+
   @media ${device.laptopL} {
     font-size: 63px;
   }
   @media ${device.laptopSM} {
     font-size: 52px;
   }
+  @media ${device.laptopS} {
+    text-shadow: 0 2px 2px #000;
+    font-size: 39px;
+  }
 `
 export const HeroIntroductionImg = styled.img`
   position: absolute;
- width: 73%;
+  width: 73%;
   display: block;
-  margin: 90px  auto 0;
+  margin: 90px auto 0;
   height: auto;
   object-fit: cover;
   z-index: 4;
-  
+  @media ${device.laptopS} {
+    margin-top: 30px;
+  }
 `
 export const HeroPlanet = styled.img`
   position: absolute;
@@ -89,4 +106,9 @@ export const HeroPlanet = styled.img`
   object-fit: cover;
   right: -83px;
   bottom: -45px;
+  @media ${device.laptopS} {
+    width: 373px;
+    right: -65px;
+    bottom: -117px;
+  }
 `

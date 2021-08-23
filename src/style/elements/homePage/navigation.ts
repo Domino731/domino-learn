@@ -33,6 +33,9 @@ export const NavTitle = styled.h1`
   @media ${device.laptopSM} {
     font-size: 2.786rem;
   }
+  @media ${device.laptopS} {
+    font-size: 2.583rem;
+  }
 `
 export const NavList = styled.ul`
   display: flex;
