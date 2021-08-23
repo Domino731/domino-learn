@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {device} from "../../general/breakpoints";
 
 interface DscReverseProps  {
     reverse: boolean
@@ -14,14 +15,7 @@ export const DscContainer = styled.section`
     cursor: default;
   }
 `
-export const DscPlanetColorful = styled.img`
-  position: absolute;
-  width: 250px;
-  height: auto;
-  object-fit: cover;
-  top: 313px;
-  right: 91px;
-`
+
 
 export const DscPlanetJupiter = styled.img`
   position: absolute;
@@ -59,6 +53,10 @@ export const DscItem = styled.div<DscReverseProps>`
   &:hover {
     transition: 0.4s;
     box-shadow: ${props => props.reverse ? "40px 30px" : "-20px 30px"} ${props => props.theme.color.yellow};
+  }
+  
+  @media ${device.desktopS} {
+    height: 475px;
   }
 `
 export const DscContent = styled.div`
@@ -115,9 +113,11 @@ export const DscFigure = styled.div`
 `
 
 export const DscFigureImg = styled.img`
-width: 296px;
+width: 32%;
   height: auto;
   object-fit: cover;
+
+  
 `
 export const DscCode = styled.div<DscReverseProps>`
   width: 100%;
@@ -158,4 +158,13 @@ export const DscCodeResultWrapper = styled.div`
   width: 40%;
   height: 100%;
 `
+export const DscPlanetColorful = styled.img`
+  position: absolute;
+  width: 250px;
+  height: auto;
+  object-fit: cover;
+  top: 313px;
+  right: 91px;
+`
+
 export {}
