@@ -20,11 +20,10 @@ export const FooterMediaList = styled.ul`
   }
   
   @media ${device.tablet}{
-    width: 90px;
+    width: 100px;
     height: 110px;
     justify-content: space-between;
     flex-wrap: wrap;
-    border: 2px solid red;
   }
 `
 
