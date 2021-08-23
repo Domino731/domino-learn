@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {device} from "../../general/breakpoints";
 
 export const QuizContainer = styled.main`
   max-width: 1980px;
@@ -13,8 +14,21 @@ export const QuizQuestionWrapper = styled.form`
   width: 35%;
   background: #fff;
   padding: 1.563rem 0.938rem;
-  box-shadow: 20px 20px ${props => props.theme.color.gray};
+  box-shadow: 1.25rem 1.25rem ${props => props.theme.color.gray};
   border-radius: 20px;
+  
+  @media ${device.laptopSM} {
+    width: 450px;
+  }
+  @media ${device.tablet} {
+    width: 390px;
+  }
+  @media ${device.mobileL} {
+    width: 344px;
+  }
+  @media ${device.mobileM} {
+    width: 300px;
+  }
 `
 
 export const QuizQuestionsLeft = styled.span`
@@ -43,13 +57,13 @@ export const QuizCoins = styled.div`
   align-items: center;
 
   img {
-    width: 39px;
+    width: 2.438rem;
   }
 
   span {
     display: block;
     margin-left: 5px;
-    font-size: 33px;
+    font-size: 2.063rem;
     text-decoration: underline;
     text-decoration-color: ${props => props.theme.color.gray};
   }
@@ -148,8 +162,26 @@ export const QuizSummaryWrapper = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(11, 1fr);
   padding: 1.563rem 0.938rem;
-  box-shadow: 20px 20px ${props => props.theme.color.gray};
+  box-shadow: 1.25rem 1.25rem ${props => props.theme.color.gray};
   border-radius: 20px;
+  
+  @media ${device.laptopSM} {
+    width: 450px;
+    height: 581px;
+  }
+  @media ${device.laptopM} {
+    height: 500px;
+  }
+  @media ${device.tablet} {
+    width: 390px;
+    height: 427px;
+  }
+  @media ${device.mobileL} {
+    width: 344px;
+  }
+  @media ${device.mobileM} {
+    width: 300px;
+  }
 `
 export const QuizSummaryTitle = styled.h2`
   display: flex;
@@ -213,6 +245,12 @@ export const QuizSummaryBar = styled(QuizSummaryItem)<props__QuizSummaryBar>`
       height: 100%;
       width: ${props => ((props.correct / props.questions) * 100) + "%"};
     }
+  }
+
+  @media ${device.tablet} {
+   div{
+     height: 40px;
+   }
   }
 `
 export const QuizSummaryPanel = styled(QuizSummaryItem)`
@@ -278,13 +316,17 @@ export const QuizSummaryFigure = styled.img`
   position: absolute;
   z-index: 3;
   right: 0;
-  width: 148px;
-  height: auto;
+  width: auto;
+  height: 100%;
   object-fit: cover;
 `
 export const QuizSummaryIcon = styled.img`
   position: absolute;
-  width: 148px;
+  width: 50%;
   z-index: 2;
   top: -44px;
+  
+  @media ${device.tablet}{
+    top: -21px;
+  }
 `
