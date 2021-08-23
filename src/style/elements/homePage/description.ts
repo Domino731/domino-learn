@@ -16,11 +16,11 @@ export const DscContainer = styled.section`
 `
 export const DscPlanetColorful = styled.img`
   position: absolute;
-  width: 799px;
+  width: 250px;
   height: auto;
   object-fit: cover;
-  top: -535px;
-  right: -205px;
+  top: 313px;
+  right: 91px;
 `
 
 export const DscPlanetJupiter = styled.img`

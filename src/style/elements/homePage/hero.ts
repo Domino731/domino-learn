@@ -1,8 +1,12 @@
 import styled from "styled-components";
+import {device} from "../../general/breakpoints";
 
 export const HeroContainer = styled.section`
   display: flex;
-  height: 860px;
+  height: 900px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
   &:hover{
     cursor: default;
   }
@@ -14,18 +18,19 @@ export const HeroFigure = styled.div`
   justify-content: center;
 `
 export const HeroImg = styled.img`
-  margin-top: 83px;
   width: 430px;
-  height: auto;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
+  @media ${device.desktopM} {
+    width: 100%;
+  }
 `
 export const HeroIntroduction = styled.div`
   width: 70%;
-  height: 100%;
+  height:  100%;
   background: rgb(0,185,241);
   background: linear-gradient(40deg, rgba(0,185,241,1) 33%, rgba(70,212,255,1) 71%);
   position: relative;
-  overflow: hidden;
 `
 export const HeroTitleH2 = styled.h2`
   margin-top: 76px;
@@ -53,18 +58,19 @@ export const HeroTitleH3 = styled.h3`
 `
 export const HeroIntroductionImg = styled.img`
   position: absolute;
- width: 950px;
+ width: 73%;
   display: block;
   margin: 90px  auto 0;
   height: auto;
   object-fit: cover;
   z-index: 4;
+  
 `
 export const HeroPlanet = styled.img`
   position: absolute;
-  width: 799px;
+  width: 53%;
   height: auto;
   object-fit: cover;
-  right: -205px;
-  bottom: -265px;
+  right: -83px;
+  bottom: -45px;
 `

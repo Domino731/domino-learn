@@ -1,9 +1,13 @@
 import styled from "styled-components";
+import {device} from "../../general/breakpoints";
 
 export const NavContainer = styled.nav`
   display: flex;
   height: 80px;
   border-bottom: 3px solid ${props => props.theme.color.gray};
+  @media ${device.desktopM} {
+     height: 73px;
+  }
 `
 export const NavTitle = styled.h1`
   display: flex;

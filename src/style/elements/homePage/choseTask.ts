@@ -1,4 +1,5 @@
 import styled, {keyframes} from "styled-components";
+import {device} from "../../general/breakpoints";
 
 export const ChoseTaskContainer = styled.section`
   display: flex;
@@ -31,6 +32,10 @@ export const TasksBoardTitleWrapper = styled.div`
   align-items: center;
   font-size: 59px;
   font-weight: 900;
+  
+  @media (max-width: 1774px) {
+    font-size: 56px;
+  }
 `
 export const TasksBoardTitle1 = styled.h2`
   margin-top: -20px;

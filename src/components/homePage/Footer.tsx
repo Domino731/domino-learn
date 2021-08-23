@@ -7,6 +7,7 @@ import neptunePlanet from "../../images/planet_neptune.png"
 import jupiterPlanet from "../../images/planet_jupiter.png"
 import coding from "../../images/coding.png"
 import quiz from "../../images/quiz.png"
+import astronautHappy from "../../images/astronautHappy.png"
 export const Footer: FunctionComponent = (): JSX.Element => {
     return <FooterContainer>
 
@@ -48,6 +49,13 @@ export const Footer: FunctionComponent = (): JSX.Element => {
                 <span><img src={quiz} alt="quiz"/></span>
                 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
                     href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+            </div>
+
+            <div>
+                <span><img src={astronautHappy} alt="astronaut"/></span>
+                <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons"
+                                      title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/"
+                                                                                title="Flaticon">www.flaticon.com</a></div>
             </div>
         </FreepikThanks>
 

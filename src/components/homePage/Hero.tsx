@@ -7,6 +7,7 @@ import {
 import figure from "../../images/welcome_figure_full.png"
 import monitor from "../../images/monitor1.png"
 import {FunctionComponent} from "react";
+import astronaut from "../../images/astronautHappy.png"
 export const Hero : FunctionComponent = () : JSX.Element => {
     return <HeroContainer>
         <HeroFigure>
@@ -22,7 +23,7 @@ export const Hero : FunctionComponent = () : JSX.Element => {
             </HeroTitleH3>
 
             <HeroIntroductionImg src={monitor} alt="monitor"/>
-            <HeroPlanet src={colorfulPlanet} alt="colorful planet" />
+            <HeroPlanet src={astronaut} alt="astronaut" />
         </HeroIntroduction>
 
     </HeroContainer>
