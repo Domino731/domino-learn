@@ -41,6 +41,10 @@ export const TaskSuccessfulTitle = styled.h2`
   @media ${device.laptopSM} {
     font-size: 30px;
   }
+  @media (max-width: 650px){
+    padding: 15px;
+    font-size: 17px;
+  }
 `
 
 interface TaskSuccessfulBarProps {
@@ -52,7 +56,7 @@ export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
   background: ${props => props.color};
   display: flex;
   justify-content: center;
-
+   
   a, button {
     display: flex;
     justify-content: center;
@@ -77,6 +81,12 @@ export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
   @media ${device.laptopSM} {
     a, button {
       font-size: 24px;
+    }
+  }
+  @media (max-width: 650px){
+    a, button {
+      padding: 3px 0;
+      font-size: 15px;
     }
   }
 `
@@ -394,15 +404,22 @@ export const TaskIntroductionText = styled.div`
   }
   
   @media ${device.tablet}{
-    margin-top: 0;
+    margin-top: -20px;
   }
 `
 export const TaskTargetsWrapper = styled.div`
-  padding-top: 12px;
+  padding-top: 12px; 
+  @media ${device.mobileL} {
+  padding-top: 5px;
+}
 `
 export const TaskTarget = styled.div`
   display: flex;
   padding: 12px 9px;
+  
+  @media ${device.mobileL} {
+    padding: 8px 2px;
+  }
 `
 type TaskTargetCheckboxProps = {
     backgroundColor: string
@@ -422,6 +439,9 @@ export const TaskTargetCheckbox = styled.div<TaskTargetCheckboxProps>`
     height: 22px;
     min-width: 22px;
     font-size: 12px;
+  }
+  @media ${device.mobileL} {
+    margin-right: 5px;
   }
 `
 export const TaskTargetNumber = styled.div`
@@ -804,6 +824,9 @@ const TaskAidItem = styled.a`
     height: 60px;
     border-radius: 6px;
   }
+  @media ${device.tablet}{
+    height: 45px;
+  }
 `
 
 export const TaskAidItemVideo = styled(TaskAidItem)`
@@ -848,6 +871,11 @@ const TaskAidIcon = styled.div`
   @media ${device.tablet} {
     width: 78px;
   }
+
+  @media ${device.tablet}{
+    font-size: 30px;
+    width: 62px;
+  }
 `
 export const TaskAidIconVideo = styled(TaskAidIcon)`
   background: #3a86ff;
@@ -873,7 +901,11 @@ const TaskAidTitle = styled.div`
     font-size: 13px;
     max-height: 28px;
   }
-
+ @media ${device.mobileM}{
+   padding: 1px 1px;
+   font-size: 12px;
+   max-height: 25px;
+ }
 `
 export const TaskAidTitleVideo = styled(TaskAidTitle)`
   background: #ff006e;
@@ -885,8 +917,11 @@ export const TaskAidTitleArticle = styled(TaskAidTitle)`
 `
 const TaskAidAuthor = styled.span`
   display: inline-block;
-  padding: 7px 12px;
+  padding: 0.438rem 0.75rem;
   width: auto;
+  @media ${device.mobileM}{
+    padding: 2px 2px;
+  }
 `
 export const TaskAidAuthorVideo = styled(TaskAidAuthor)`
   background: #3a86ff;
@@ -942,4 +977,7 @@ export const MobileTaskEditorWrapper = styled.div`
 export const MobileTaskResult = styled.div`
   height: 85vh;
   padding: 30px;
+  @media ${device.mobileM}{
+    padding: 10px;
+  }
 `
