@@ -145,8 +145,8 @@ interface props__EditorFormTheme {
 
 export const EditorFormTheme = styled.label<props__EditorFormTheme>`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   width: 280px;
   height: 180px;
   grid-template-areas: ${props => props.areas};
@@ -215,8 +215,8 @@ interface props__EditorContentWrapper {
 
 export const EditorContentWrapper = styled.main<props__EditorContentWrapper>`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   grid-template-areas: ${props => props.areas};
 
   width: 100%;

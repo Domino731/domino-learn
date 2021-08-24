@@ -13,31 +13,7 @@ import {
 } from "../../style/elements/codeEditor/codeEditor";
 import {Link} from "react-router-dom";
 import {IFPropsCodeEditorHeader} from "../../types/types";
- const codeEditorAreas: string[] = [
-    `"html html result"
-     "css css result"
-     "js js result"`,
-
-    `"html result result"
-     "css result result"
-     "js result result"`,
-
-    `"result html html "
-     "result css css "
-     "result js js "`,
-
-    `"result result html "
-     "result result css "
-     "result result js "`,
-
-    `"html css js"
-     "result result result "
-     "result result result"`,
-
-    `"result result result"
-    "html css js"
-    "result result result"`
-]
+import {codeEditorAreas} from "../../properties/codeEditorAreas";
 
 export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
                                                                                  editorSettings,
