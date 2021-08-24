@@ -1,4 +1,4 @@
-import {FunctionComponent, useState} from "react";
+import {FunctionComponent, useEffect, useState} from "react";
 import {
     EditorHeaderWrapper,
     EditorHeaderLink,
@@ -25,6 +25,16 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
     // flag which is responsible for displaying editor settings
     const [formFlag, setFormFlag] = useState<boolean>(false)
 
+    const [windowWidth, setWindowWidth] = useState(0)
+
+    const resizeWindow = () : void =>   setWindowWidth(window.innerWidth);
+
+    useEffect(() => {
+        resizeWindow();
+        window.addEventListener("resize", resizeWindow);
+        return () => window.removeEventListener("resize", resizeWindow);
+    }, []);
+
     const handleChangeFormFlag = (): void => setFormFlag(!formFlag)
 
     return <EditorHeaderWrapper>
@@ -41,6 +51,8 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
             }
             <span>Settings</span>
         </EditorHeaderSettingsIcon>
+
+
         {formFlag && <EditorSettingsForm>
             <EditorFormItem>
                 <EditorFormLabel>Font size
@@ -102,19 +114,24 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
                 </label>
             </EditorFormThemes>
 
-            <EditorFormLabel>Layout</EditorFormLabel>
-            <EditorFormThemesWrapper>
-                {codeEditorAreas.map((el, num) => <EditorFormTheme key={`editor_layout_${num}`} areas={el}>
-                    <input type="checkbox" value={el} checked={editorSettings.areas === el}
-                           onChange={changeAreas}/>
-                    <EditorFormThemeHtml/>
-                    <EditorFormThemeCss/>
-                    <EditorFormThemeJs/>
-                    <EditorFormThemeResult>
-                        <i className="fas fa-check"/>
-                    </EditorFormThemeResult>
-                </EditorFormTheme>)}
-            </EditorFormThemesWrapper>
+            {windowWidth > 900 && <>
+                <EditorFormLabel>Layout</EditorFormLabel>
+                <EditorFormThemesWrapper>
+                    {codeEditorAreas.map((el, num) => <EditorFormTheme key={`editor_layout_${num}`} areas={el}>
+                        <input type="checkbox" value={el} checked={editorSettings.areas === el}
+                               onChange={changeAreas}/>
+                        <EditorFormThemeHtml/>
+                        <EditorFormThemeCss/>
+                        <EditorFormThemeJs/>
+                        <EditorFormThemeResult>
+                            <i className="fas fa-check"/>
+                        </EditorFormThemeResult>
+                    </EditorFormTheme>)}
+                </EditorFormThemesWrapper>
+            </>}
+
+
+
         </EditorSettingsForm>}
 
     </EditorHeaderWrapper>

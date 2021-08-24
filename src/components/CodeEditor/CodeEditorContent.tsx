@@ -23,7 +23,7 @@ import {
     EditorCss,
     EditorHtml,
     EditorJs, EditorName,
-    EditorResult
+    EditorResult, PocketEditorContentWrapper
 } from "../../style/elements/codeEditor/codeEditor";
 import {IFEditorCode, IFPropsCodeEditorContent} from "../../types/types";
 import {getEditorFSize, getEditorTheme, saveEditorCodeToLS, getEditorCodeFromLS} from "../../functions/localStorage";
@@ -54,9 +54,17 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
     // state which is responsible to display console or iframe window
     const [consoleFlag, setConsoleFlag] = useState<boolean>(false);
 
-useEffect(()=>{
+    const [windowWidth, setWindowWidth] = useState(0)
 
-},[])
+    const resizeWindow = (): void => setWindowWidth(window.innerWidth);
+
+    useEffect(() => {
+        resizeWindow();
+        window.addEventListener("resize", resizeWindow);
+        return () => window.removeEventListener("resize", resizeWindow);
+    }, []);
+
+
     // delay (300s) for displaying user code in iframe -> better for the browser, because it doesn't have to rerender
     // a new iframe with every code change
     useEffect(() => {
@@ -82,12 +90,12 @@ useEffect(()=>{
     }, [userCode]);
 
     // saving code into local storage
-    useEffect(()=>{
-        const timeout = setTimeout(()=>{
+    useEffect(() => {
+        const timeout = setTimeout(() => {
             saveEditorCodeToLS(userCode)
-        },600)
+        }, 600)
         return () => clearTimeout(timeout);
-    },[userCode])
+    }, [userCode])
 
 
     // run once!
@@ -117,108 +125,114 @@ useEffect(()=>{
     const handleChangeConsoleFlag = (): void => setConsoleFlag(!consoleFlag);
 
 
-    return <EditorContentWrapper areas={editorSettings.areas}>
-        <EditorHtml>
-            <EditorName>
-                <img src={htmlClass.getIconSrc()} alt="html icon"/>
-            </EditorName>
-            <AceEditor
-                enableBasicAutocompletion={true}
-                enableLiveAutocompletion={true}
-                enableSnippets={true}
-                onChange={(newValue) => changeUserCode(newValue, "html")}
-                mode="html"
-                theme={editorSettings.theme}
-                width="100%"
-                height="100%"
-                value={userCode.html}
-                fontSize={editorSettings.fontSize}
-                showPrintMargin={true}
-                showGutter={true}
-                highlightActiveLine={true}
-                setOptions={{
-                    enableBasicAutocompletion: false,
-                    enableLiveAutocompletion: false,
-                    enableSnippets: false,
-                    showLineNumbers: true,
-                    tabSize: 2,
-                }}
-            />
-        </EditorHtml>
-        <EditorCss>
-            <EditorName>
-                <img src={cssClass.getIconSrc()} alt="css icon"/>
-            </EditorName>
-            <AceEditor
-                enableBasicAutocompletion={true}
-                enableLiveAutocompletion={true}
-                enableSnippets={true}
-                onChange={(newValue) => changeUserCode(newValue, "css")}
-                mode="css"
-                theme={editorSettings.theme}
-                width="100%"
-                height="100%"
-                value={userCode.css}
-                fontSize={editorSettings.fontSize}
-                showPrintMargin={true}
-                showGutter={true}
-                highlightActiveLine={true}
-                setOptions={{
-                    enableBasicAutocompletion: false,
-                    enableLiveAutocompletion: false,
-                    enableSnippets: false,
-                    showLineNumbers: true,
-                    tabSize: 2,
-                }}
-            />
-        </EditorCss>
-        <EditorJs>
-            <EditorName>
-                <img src={jsClass.getIconSrc()} alt="javascript icon"/>
-            </EditorName>
-            <AceEditor
-                enableBasicAutocompletion={true}
-                enableLiveAutocompletion={true}
-                enableSnippets={true}
-                onChange={(newValue) => changeUserCode(newValue, "js")}
-                mode="javascript"
-                theme={editorSettings.theme}
-                width="100%"
-                height="100%"
-                value={userCode.js}
-                fontSize={editorSettings.fontSize}
-                showPrintMargin={true}
-                showGutter={true}
-                highlightActiveLine={true}
-                setOptions={{
-                    enableBasicAutocompletion: false,
-                    enableLiveAutocompletion: false,
-                    enableSnippets: false,
-                    showLineNumbers: true,
-                    tabSize: 2,
-                }}
-            />
-        </EditorJs>
-        <EditorResult>
-            <EditorConsoleSwitchBtn style={{background: "#e5e3f1"}} onClick={handleChangeConsoleFlag}>
-                {consoleFlag ?
-                    <><i className="fas fa-arrow-left"/> Back </>
-                    :
-                    <><i className="fas fa-terminal"/> Console </>
-                }
-            </EditorConsoleSwitchBtn>
-            <WebBrowserWindow>
-                <WebBrowserTopBar>
-                    <WebBrowserGreenBox/>
-                    <WebBrowserYellowBox/>
-                    <WebBrowserRedBox/>
-                </WebBrowserTopBar>
-                {consoleFlag === false && <iframe srcDoc={srcDoc}
-                                                  width="100%" height="100%" frameBorder="0" sandbox="allow-scripts"
-                                                  title="output"
-                />}
-                {consoleFlag && <Console logs={logs} variant="light"/>}
-            </WebBrowserWindow>
-        </EditorResult>
-    </EditorContentWrapper>
+    return <>
+        {windowWidth > 900 && <EditorContentWrapper areas={editorSettings.areas}>
+            <EditorHtml>
+                <EditorName>
+                    <img src={htmlClass.getIconSrc()} alt="html icon"/>
+                </EditorName>
+                <AceEditor
+                    enableBasicAutocompletion={true}
+                    enableLiveAutocompletion={true}
+                    enableSnippets={true}
+                    onChange={(newValue) => changeUserCode(newValue, "html")}
+                    mode="html"
+                    theme={editorSettings.theme}
+                    width="100%"
+                    height="100%"
+                    value={userCode.html}
+                    fontSize={editorSettings.fontSize}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    setOptions={{
+                        enableBasicAutocompletion: false,
+                        enableLiveAutocompletion: false,
+                        enableSnippets: false,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    }}
+                />
+            </EditorHtml>
+            <EditorCss>
+                <EditorName>
+                    <img src={cssClass.getIconSrc()} alt="css icon"/>
+                </EditorName>
+                <AceEditor
+                    enableBasicAutocompletion={true}
+                    enableLiveAutocompletion={true}
+                    enableSnippets={true}
+                    onChange={(newValue) => changeUserCode(newValue, "css")}
+                    mode="css"
+                    theme={editorSettings.theme}
+                    width="100%"
+                    height="100%"
+                    value={userCode.css}
+                    fontSize={editorSettings.fontSize}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    setOptions={{
+                        enableBasicAutocompletion: false,
+                        enableLiveAutocompletion: false,
+                        enableSnippets: false,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    }}
+                />
+            </EditorCss>
+            <EditorJs>
+                <EditorName>
+                    <img src={jsClass.getIconSrc()} alt="javascript icon"/>
+                </EditorName>
+                <AceEditor
+                    enableBasicAutocompletion={true}
+                    enableLiveAutocompletion={true}
+                    enableSnippets={true}
+                    onChange={(newValue) => changeUserCode(newValue, "js")}
+                    mode="javascript"
+                    theme={editorSettings.theme}
+                    width="100%"
+                    height="100%"
+                    value={userCode.js}
+                    fontSize={editorSettings.fontSize}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    setOptions={{
+                        enableBasicAutocompletion: false,
+                        enableLiveAutocompletion: false,
+                        enableSnippets: false,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    }}
+                />
+            </EditorJs>
+            <EditorResult>
+                <EditorConsoleSwitchBtn style={{background: "#e5e3f1"}} onClick={handleChangeConsoleFlag}>
+                    {consoleFlag ?
+                        <><i className="fas fa-arrow-left"/> Back </>
+                        :
+                        <><i className="fas fa-terminal"/> Console </>
+                    }
+                </EditorConsoleSwitchBtn>
+                <WebBrowserWindow>
+                    <WebBrowserTopBar>
+                        <WebBrowserGreenBox/>
+                        <WebBrowserYellowBox/>
+                        <WebBrowserRedBox/>
+                    </WebBrowserTopBar>
+                    {consoleFlag === false && <iframe srcDoc={srcDoc}
+                                                      width="100%" height="100%" frameBorder="0" sandbox="allow-scripts"
+                                                      title="output"
+                    />}
+                    {consoleFlag && <Console logs={logs} variant="light"/>}
+                </WebBrowserWindow>
+            </EditorResult>
+        </EditorContentWrapper>}
+        {windowWidth <= 900 && <PocketEditorContentWrapper>
+            <h1>asd</h1>
+        </PocketEditorContentWrapper>}
+
+    </>
 }

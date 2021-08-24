@@ -304,3 +304,12 @@ export const EditorConsoleSwitchBtn = styled.div`
     margin: 0 9px;
   }
 `
+
+
+
+// for small devices
+export const PocketEditorContentWrapper = styled.main`
+  width: 100%;
+  height: 100vh;
+  background: green;
+`
