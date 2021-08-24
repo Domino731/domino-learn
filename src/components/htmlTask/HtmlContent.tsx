@@ -28,7 +28,7 @@ import {
     CodeEditorPanelBtn,
     TaskSuccessfulImg,
     TaskSuccessfulBar,
-    TaskSuccessfulTitle, CodeEditorError,
+    TaskSuccessfulTitle, CodeEditorError, MobileTaskContentWrapper,MobileTaskDetailsWrapper, MobileTaskDetail
 } from "../../style/elements/tasks/task";
 import {htmlClass} from "../../properties/htmlClass";
 import {
@@ -76,6 +76,8 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
     // state with flag, which is responsible for displaying error about user code
     const [errorFlag, setErrorFlag] = useState<boolean>(false)
 
+    const [windowWidth, setWindowWidth] = useState(0)
+
     const [srcDoc, setSrcDoc] = useState<string>(`<!DOCTYPE html>
           <html lang="en">
           <head>
@@ -83,12 +85,20 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
         </head>
           <body></body>
           </html>`)
+
     // save editor settings into local storage
     useEffect(() => {
         localStorage.setItem("editorFontSize", editorSettings.fontSize.toString())
         localStorage.setItem("editorTheme", editorSettings.theme)
     }, [editorSettings])
 
+    const resizeWindow = (): void => setWindowWidth(window.innerWidth);
+
+    useEffect(() => {
+        resizeWindow();
+        window.addEventListener("resize", resizeWindow);
+        return () => window.removeEventListener("resize", resizeWindow);
+    }, []);
 
     // remove error when user type new code
     useEffect(() => {
@@ -158,74 +168,110 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
     const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag)
 
-    return <TaskContentWrapper>
-
-        {successfulFlag === false && <>
-            {/*introduction*/}
-            <HtmlTaskIntroduction>
+    return <>
+        {windowWidth > 768 && <TaskContentWrapper>
+            {successfulFlag === false && <>
+                {/*introduction*/}
+                <HtmlTaskIntroduction>
                     <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
                                       imgAlt={htmlClass.getFigureAlt()} imgSrc={htmlClass.getFigureSrc()}/>
                     {/*decorations*/}
                     <HtmlDecorationIntroduction/>
-            </HtmlTaskIntroduction>
-            {/*task target and instructions*/}
-            <HtmlTaskTarget>
-                <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
-            </HtmlTaskTarget>
-        </>}
+                </HtmlTaskIntroduction>
+                {/*task target and instructions*/}
+                <HtmlTaskTarget>
+                    <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
+                </HtmlTaskTarget>
+            </>}
 
-        {/*animation when user solves the task correctly*/}
-        {successfulFlag && <HtmlTaskSuccessful>
-            <TaskSuccessfulImg src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
-            <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
-            <TaskSuccessfulBar color="#ffca3a">
-                <button onClick={() => setSuccessfulFlag(false)}>Close</button>
-                {task.number < allTaskLength && <Link to={`/html-task/${task.number + 1}`}>Next task</Link>}
-            </TaskSuccessfulBar>
-        </HtmlTaskSuccessful>}
+            {/*animation when user solves the task correctly*/}
+            {successfulFlag && <HtmlTaskSuccessful>
+                <TaskSuccessfulImg src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
+                <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
+                <TaskSuccessfulBar color="#ffca3a">
+                    <button onClick={() => setSuccessfulFlag(false)}>Close</button>
+                    {task.number < allTaskLength && <Link to={`/html-task/${task.number + 1}`}>Next task</Link>}
+                </TaskSuccessfulBar>
+            </HtmlTaskSuccessful>}
 
 
-        {/*code editor - ace*/}
-        <HtmlTaskCodeEditor>
-            <AceEditor
-                enableBasicAutocompletion={true}
-                enableLiveAutocompletion={true}
-                enableSnippets={true}
-                onChange={changeUserCode}
-                onValidate={vl => setAnnotations(vl.filter((el: any) => el.type === "error"))}
-                mode="html"
-                theme={editorSettings.theme}
-                width="100%"
-                height="100%"
-                value={userCode}
-                fontSize={editorSettings.fontSize}
-                showPrintMargin={true}
-                showGutter={true}
-                highlightActiveLine={true}
-                setOptions={{
-                    enableBasicAutocompletion: false,
-                    enableLiveAutocompletion: false,
-                    enableSnippets: false,
-                    showLineNumbers: true,
-                    tabSize: 2,
-                }}
-            />
-            <CodeEditorPanel>
-                {editorFormFlag &&
-                <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
-                                       handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
-                                       toggleForm={handleToggleEditorSettings}/>}
-                <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                    className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
-                <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
-                <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
-            </CodeEditorPanel>
-            {errorFlag && <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
-        </HtmlTaskCodeEditor>
+            {/*code editor - ace*/}
+            <HtmlTaskCodeEditor>
+                <AceEditor
+                    enableBasicAutocompletion={true}
+                    enableLiveAutocompletion={true}
+                    enableSnippets={true}
+                    onChange={changeUserCode}
+                    onValidate={vl => setAnnotations(vl.filter((el: any) => el.type === "error"))}
+                    mode="html"
+                    theme={editorSettings.theme}
+                    width="100%"
+                    height="100%"
+                    value={userCode}
+                    fontSize={editorSettings.fontSize}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    setOptions={{
+                        enableBasicAutocompletion: false,
+                        enableLiveAutocompletion: false,
+                        enableSnippets: false,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    }}
+                />
+                <CodeEditorPanel>
+                    {editorFormFlag &&
+                    <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
+                                           handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
+                                           toggleForm={handleToggleEditorSettings}/>}
+                    <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
+                        className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+                </CodeEditorPanel>
+                {errorFlag && <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+            </HtmlTaskCodeEditor>
 
-        {/*user code*/}
-        <HtmlTaskResult>
-            <TaskResultWindow srcDoc={srcDoc}/>
-        </HtmlTaskResult>
-    </TaskContentWrapper>
+            {/*user code*/}
+            <HtmlTaskResult>
+                <TaskResultWindow srcDoc={srcDoc}/>
+            </HtmlTaskResult>
+        </TaskContentWrapper>}
+
+
+        {windowWidth <= 768 && <MobileTaskContentWrapper>
+            <MobileTaskDetailsWrapper>
+                <MobileTaskDetail>
+                    {successfulFlag === false && <>
+                        {/*introduction*/}
+                        <HtmlTaskIntroduction>
+                            <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
+                                              imgAlt={htmlClass.getFigureAlt()} imgSrc={htmlClass.getFigureSrc()}/>
+                            {/*decorations*/}
+                            <HtmlDecorationIntroduction/>
+                        </HtmlTaskIntroduction>
+                    </>}
+
+                    {/*animation when user solves the task correctly*/}
+                    {successfulFlag && <HtmlTaskSuccessful>
+                        <TaskSuccessfulImg src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
+                        <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
+                        <TaskSuccessfulBar color="#ffca3a">
+                            <button onClick={() => setSuccessfulFlag(false)}>Close</button>
+                            {task.number < allTaskLength && <Link to={`/html-task/${task.number + 1}`}>Next task</Link>}
+                        </TaskSuccessfulBar>
+                    </HtmlTaskSuccessful>}
+                </MobileTaskDetail>
+
+                <MobileTaskDetail>
+                    {/*task target and instructions*/}
+                    <HtmlTaskTarget>
+                        <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
+                    </HtmlTaskTarget>
+                </MobileTaskDetail>
+            </MobileTaskDetailsWrapper>
+        </MobileTaskContentWrapper>}
+
+    </>
 }

@@ -1,4 +1,5 @@
 import styled, {keyframes} from "styled-components";
+import {device} from "../../general/breakpoints";
 
 export const TaskContainer = styled.div`
   width: 100%;
@@ -9,6 +10,7 @@ export const TaskContainer = styled.div`
     border-radius: 4px;
     background: ${props => props.theme.color.white};
   }
+  
 `
 export const TaskContentWrapper = styled.main`
   display: grid;
@@ -16,6 +18,10 @@ export const TaskContentWrapper = styled.main`
   grid-template-rows: repeat(2, 1fr);
   height: 100vh;
   width: 100%;
+  
+  @media ${device.tablet} {
+    height: 150vh;
+  }
 `
 export const TaskSuccessfulImg = styled.img`
   width: 60%;
@@ -127,6 +133,10 @@ export const TaskFooterSwitchBar = styled.div`
   width: 33%;
   height: 50px;
   padding: 4px 0;
+  
+  @media ${device.laptopS}{
+    margin-right: 0;
+  }
 `
 
 interface TaskFooterSwitchButtonProps {
@@ -193,6 +203,12 @@ export const TaskFooterTasksWrapper = styled.div`
   ::-webkit-scrollbar-thumb {
     background: ${props => props.theme.color.gray};
   }
+  
+  @media ${device.laptopS}{
+    width: 170px;
+    height: 290px;
+    top: -297px;
+  }
 `
 export const TaskFooterTasksList = styled.ul`
   position: absolute;
@@ -207,7 +223,7 @@ interface props__TaskFooterTaskItem {
     solved: boolean
 }
 export const TaskFooterTasksItem = styled.li<props__TaskFooterTaskItem>`
-  width: 53px;
+  width: 30%;
   height: 53px;
   border: 5px solid ${props => props.theme.color.gray};
   border-radius: 7px;
@@ -231,6 +247,12 @@ export const TaskFooterTasksItem = styled.li<props__TaskFooterTaskItem>`
     height: 100%;
     color: ${props => props.theme.color.gray};
   }
+  
+  @media ${device.laptopS}{
+    border: 3px solid ${props => props.theme.color.gray};
+    margin: 2px;
+    height: 47px;
+  }
 `
 export const TaskFooterTasksPlanets = styled.div`
   position: absolute;
@@ -247,6 +269,11 @@ export const TaskFooterTasksPlanet1 = styled.img`
   right: -63px;
   height: auto;
   object-fit: cover;
+  
+  @media ${device.laptopS}{
+    width: 162px;
+    right: -50px;
+  }
 `
 export const TaskFooterTasksPlanet2 = styled.img`
   position: absolute;
@@ -263,6 +290,12 @@ export const TaskFooterTasksPlanet3 = styled.img`
   width: 156px;
   height: auto;
   object-fit: cover;
+  
+  @media ${device.laptopS}{
+    bottom: 18px;
+    left: -59px;
+    width: 119px;
+  }
 `
 
 export const TaskSectionHeader = styled.h2`
@@ -428,6 +461,11 @@ export const CodeEditorPanelBtn = styled.div`
     transition: 0.1s;
     border: 2px solid ${props => props.theme.color.blue};
   }
+  
+  @media ${device.laptopS} {
+    margin-right: 0;
+    padding: 12px 6px;
+  }
 `
 const an__CodeEditorError = keyframes`
   100% {
@@ -581,6 +619,11 @@ export const EditorSettingsWrapper = styled.form`
   input {
     border-radius: 5px;
   }
+  
+  @media (max-width: 1760px){
+    top: -261px;
+    height: 263px;
+  }
 `
 export const EditorSettingsLabel = styled.label`
   display: flex;
@@ -691,6 +734,13 @@ const TaskAidItem = styled.a`
   div:last-child {
     width: 100%;
   }
+  
+  @media ${device.laptopL}{
+    height: 75px;
+  }
+  @media ${device.laptopS}{
+    height: 65px;
+  }
 `
 
 export const TaskAidItemVideo = styled(TaskAidItem)`
@@ -721,8 +771,16 @@ const TaskAidIcon = styled.div`
   align-items: center;
   width: 105px;
   height: 100%;
-
   font-size: 55px;
+
+  @media ${device.laptopL}{
+    width: 88px;
+    font-size: 50px;
+  }
+
+  @media ${device.laptopS}{
+    font-size: 40px;
+  }
 `
 export const TaskAidIconVideo = styled(TaskAidIcon)`
   background: #3a86ff;
@@ -735,10 +793,14 @@ export const TaskAidIconArticle = styled(TaskAidIcon)`
 
 const TaskAidTitle = styled.div`
   width: 100%;
-  font-size: 21px;
+  font-size: 1.313rem;
   padding: 3px 7px;
   max-height: 47px;
   overflow: hidden;
+  @media ${device.laptopS}{
+    padding: 1px 3px;
+    max-height: 33px;
+  }
 `
 export const TaskAidTitleVideo = styled(TaskAidTitle)`
   background: #ff006e;
@@ -770,6 +832,9 @@ export const TaskFooterDecoration = styled.div`
   z-index: 0;
   width: 50%;
   height: 74px;
+  @media ${device.laptopS} {
+    height: 65px;
+  }
 `
 export const TaskIntroductionDecoration = styled.div`
   position: absolute;
@@ -778,4 +843,18 @@ export const TaskIntroductionDecoration = styled.div`
   z-index: -1;
   width: 43%;
   height: 74px;
+  
+  @media ${device.laptopSM}{
+    height: 60px;
+  }
+`
+
+export const MobileTaskContentWrapper = styled.main`
+width: 100%;
+`
+export const MobileTaskDetailsWrapper = styled.div`
+display: flex;
+`
+export const MobileTaskDetail = styled.div`
+width: 50%;
 `

@@ -3,9 +3,8 @@ import {EditorHeaderLink} from "../codeEditor/codeEditor";
 import {device} from "../../general/breakpoints";
 
 export const QuizHeader = styled.header`
-  height: 53px;
   background: ${props => props.theme.color.yellow};
-  padding: 0 41px;
+  padding: 5px 0;
 `
 export const QuizHeaderLink = styled(EditorHeaderLink)``
 

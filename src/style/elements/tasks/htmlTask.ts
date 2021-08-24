@@ -3,7 +3,7 @@ import {
     TaskFooter,
     TaskFooterListBtn,
     TaskHeader,
-    TaskFooterTasksWrapper, TaskFooterDecoration
+    TaskFooterTasksWrapper, TaskFooterDecoration, TaskIntroductionDecoration
 } from "./task";
 
 export const HtmlTaskContainer = styled.div`
@@ -90,13 +90,7 @@ export const HtmlFooterTasksWrapper = styled(TaskFooterTasksWrapper)`
 `
 
 //decorations
-export const HtmlDecorationIntroduction = styled.div`
-  position: absolute;
-  top: 44px;
-  right: 0;
-  z-index: -1;
-  width: 43%;
-  height: 74px;
+export const HtmlDecorationIntroduction = styled(TaskIntroductionDecoration)`
   background: repeating-linear-gradient(0deg, ${props => props.theme.color.red} 0px, ${props => props.theme.color.red} 5px, white 5px, white 10px);
 `
 export const HtmlDecorationFooter = styled(TaskFooterDecoration)`

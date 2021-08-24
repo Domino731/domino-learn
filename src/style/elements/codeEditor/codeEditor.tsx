@@ -1,6 +1,8 @@
 import styled, {keyframes} from "styled-components";
 import {device} from "../../general/breakpoints";
-
+export const EditorContainer = styled.main`
+width: 100vw;
+`
 export const EditorHeaderWrapper = styled.header`
   position: relative;
   display: flex;

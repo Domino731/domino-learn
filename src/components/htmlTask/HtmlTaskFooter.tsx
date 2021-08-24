@@ -69,6 +69,12 @@ export const HtmlTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, 
                             {el.number}
                         </Link>
                     </TaskFooterTasksItem>)}
+
+                    <TaskFooterTasksItem solved={false}>
+                        <Link to={`/1`}>
+                            123
+                        </Link>
+                    </TaskFooterTasksItem>
                 </TaskFooterTasksList>
             </HtmlFooterTasksWrapper>}
         </TaskFooterSwitchBar>

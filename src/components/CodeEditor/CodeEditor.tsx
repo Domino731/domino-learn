@@ -4,7 +4,7 @@ import {CodeEditorHeader} from "./CodeEditorHeader";
 import {CodeEditorContent} from "./CodeEditorContent";
 import {IFEditorSettings} from "../../types/types";
 import {getEditorAreas, getEditorFSize, getEditorTheme} from "../../functions/localStorage";
-
+import {EditorContainer} from "../../style/elements/codeEditor/codeEditor";
 
 export const CodeEditor: FunctionComponent = (): JSX.Element => {
 
@@ -39,8 +39,8 @@ export const CodeEditor: FunctionComponent = (): JSX.Element => {
     }))
 
 
-    return <Container>
+    return <EditorContainer>
         <CodeEditorHeader editorSettings={editorSettings} changeFs={handleChangeFs} changeTheme={handleChangeTheme} changeAreas={handleChangeAreas}/>
         <CodeEditorContent editorSettings={editorSettings}/>
-    </Container>
+    </EditorContainer>
 }
