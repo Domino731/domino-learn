@@ -34,11 +34,11 @@ export const TaskSuccessfulTitle = styled.h2`
   font-size: 44px;
   text-align: center;
   background: ${props => props.theme.color.gray};
-  
-  @media ${device.laptopL}{
+
+  @media ${device.laptopL} {
     font-size: 36px;
   }
-  @media ${device.laptopSM}{
+  @media ${device.laptopSM} {
     font-size: 30px;
   }
 `
@@ -73,8 +73,9 @@ export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
       letter-spacing: 0.125rem;
     }
   }
-  @media ${device.laptopSM}{
-    a, button{
+
+  @media ${device.laptopSM} {
+    a, button {
       font-size: 24px;
     }
   }
@@ -412,8 +413,8 @@ export const TaskTargetCheckbox = styled.div<TaskTargetCheckboxProps>`
   border-radius: 5px;
   background: ${props => props.backgroundColor};
   color: ${props => props.theme.color.white};
-  
-  @media ${device.tablet}{
+
+  @media ${device.tablet} {
     height: 24px;
     min-width: 24px;
     font-size: 20px;
@@ -454,7 +455,10 @@ export const TaskCodeEditorMultiple = styled.div`
   padding: 53px 0;
   width: 100%;
   height: 100%;
-  background: red;
+  background: ${props => props.theme.color.gray};
+  @media ${device.tablet}{
+    padding: 40px 0;
+  }
 `
 export const CodeEditorPanel = styled.div`
   position: absolute;
@@ -503,13 +507,17 @@ export const CodeEditorError = styled.div`
   left: 0;
   width: 100%;
   padding: 10px 20px;
-  background: red;
+  background: ${props => props.theme.color.red};
   color: #fff;
   font-size: 1.313rem;
   animation: 0.4s ${an__CodeEditorError} forwards ease-in-out;
 
   i {
     margin-right: 0.5rem;
+  }
+  @media ${device.tablet}{
+    padding: 7px 16px;
+    bottom: 46px;
   }
 `
 const an__TaskResultLoadingWrapper = keyframes`
@@ -574,6 +582,10 @@ export const ChangeEditor = styled.form`
   width: 100%;
   height: 53px;
   background: ${props => props.theme.color.gray};
+
+  @media ${device.tablet} {
+    height: 40px;
+  }
 `
 
 interface ChangeEditorCheckboxProps {
@@ -648,8 +660,8 @@ export const EditorSettingsWrapper = styled.form`
     top: -261px;
     height: 263px;
   }
-  
-  @media ${device.tablet}{
+
+  @media ${device.tablet} {
     top: -189px;
     height: 190px;
   }
@@ -730,8 +742,8 @@ export const EditorSettingsCloseIcon = styled.div`
     transition: 0.2s;
     font-size: 2.75rem;
   }
-  
-  @media ${device.tablet}{
+
+  @media ${device.tablet} {
     margin-right: 20px;
   }
 `
@@ -837,12 +849,12 @@ const TaskAidTitle = styled.div`
     padding: 1px 3px;
     max-height: 33px;
   }
-  @media ${device.tablet}{
+  @media ${device.tablet} {
     padding: 2px 3px;
     font-size: 20px;
     max-height: 45px;
   }
-  
+
 `
 export const TaskAidTitleVideo = styled(TaskAidTitle)`
   background: #ff006e;

@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import {
+    MobileTaskEditorWrapper,
     TaskFooter,
     TaskFooterDecoration,
     TaskFooterSwitchBar,
     TaskFooterTasksWrapper, TaskIntroductionDecoration,
 } from "./task";
+import {device} from "../../general/breakpoints";
 
 
 export const CssIntroduction = styled.div`
@@ -70,6 +72,10 @@ export const CssTaskSuccessful = styled.div`
   background-position: -30px 0,-30px 0,0 0,0 0;
   background-size: 60px 60px;
   background-repeat: repeat;
+  
+  @media ${device.tablet}{
+    height: 100%;
+  }
 `
 
 export const CssFooter = styled(TaskFooter)`
@@ -102,4 +108,8 @@ export const CssDecorationIntroduction = styled(TaskIntroductionDecoration)`
 export const CssFooterDecoration = styled(TaskFooterDecoration)`
   background: repeating-linear-gradient(0deg, #00f5d4 0px,
   #00f5d4 5px, #f15bb5 5px, #f15bb5 10px);
+`
+
+
+export const MobileCssEditorWrapper = styled(MobileTaskEditorWrapper)`
 `

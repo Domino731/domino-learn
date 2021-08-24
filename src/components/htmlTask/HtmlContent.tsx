@@ -82,7 +82,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
     // state with flag, which is responsible for displaying error about user code
     const [errorFlag, setErrorFlag] = useState<boolean>(false)
 
-    const [windowWidth, setWindowWidth] = useState(0)
+    const [windowWidth, setWindowWidth] = useState<number>(0)
 
     const [srcDoc, setSrcDoc] = useState<string>(`<!DOCTYPE html>
           <html lang="en">
