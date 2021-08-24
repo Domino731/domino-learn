@@ -89,6 +89,13 @@ export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
       font-size: 15px;
     }
   }
+  @media (max-width: 360px){
+    a, button{
+      padding: 0;
+      font-size: 12px;
+    }
+  
+  }
 `
 export const TaskHeader = styled.header`
   display: flex;
@@ -132,6 +139,9 @@ export const TaskFooterTitle = styled.div`
     transition: 0.2s;
     letter-spacing: 0.188rem;
   }
+  @media (max-width: 360px){
+    font-size: 21px;
+  }
 `
 export const TaskFooterIcons = styled.div`
   display: block;
@@ -143,6 +153,9 @@ export const TaskFooterTaskNumber = styled.div`
   font-weight: 900;
   width: 32%;
   text-align: center;
+  @media (max-width: 360px){
+    font-size: 21px;
+  }
 `
 
 export const TaskFooterSwitchBar = styled.div`
@@ -699,6 +712,14 @@ export const EditorSettingsWrapper = styled.form`
     top: -189px;
     height: 190px;
   }
+  @media (max-width: 460px){
+    height: 205px;
+    top: -205px;
+  }
+  @media (max-width: 340px){
+    height: 239px;
+    top: -237px;
+  }
 `
 export const EditorSettingsLabel = styled.label`
   display: flex;
@@ -962,9 +983,15 @@ export const MobileTaskContentWrapper = styled.main`
 `
 export const MobileTaskDetailsWrapper = styled.div`
   display: flex;
+  @media ${device.mobileM}{
+   flex-direction: column;
+  }
 `
 export const MobileTaskDetail = styled.div`
   width: 50%;
+  @media ${device.mobileM}{
+    width: 100%;
+  }
 `
 
 export const MobileTaskEditorWrapper = styled.div`
