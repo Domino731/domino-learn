@@ -1,4 +1,5 @@
 import styled, {keyframes} from "styled-components";
+import {device} from "../../general/breakpoints";
 
 export const EditorHeaderWrapper = styled.header`
   position: relative;
@@ -32,7 +33,6 @@ export const EditorHeaderSettingsIcon = styled.div`
   align-items: center;
   width: 48px;
   margin-right: 89px;
-  overflow: hidden;
   transition: 0.2s;
 
   i {
@@ -46,19 +46,22 @@ export const EditorHeaderSettingsIcon = styled.div`
 
   &:hover {
     cursor: pointer;
-    width: 178px;
-    margin: 0;
   }
 `
 export const EditorSettingsForm = styled.form`
   position: absolute;
   width: 33%;
   height: 100vh;
+  overflow: auto;
   right: 0;
   background: ${props => props.theme.color.gray};
   bottom: -100vh;
   z-index: 11;
   padding-top: 40px;
+  
+  ::-webkit-scrollbar{
+    width: 1px;
+  }
 `
 export const EditorFormItem = styled.div`
   display: flex;
@@ -147,7 +150,7 @@ export const EditorFormTheme = styled.label<props__EditorFormTheme>`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  width: 280px;
+  width: 45%;
   height: 180px;
   grid-template-areas: ${props => props.areas};
   margin: 5px;
@@ -167,6 +170,13 @@ export const EditorFormTheme = styled.label<props__EditorFormTheme>`
     &:checked ~ span i {
       display: block;
     }
+  }
+  @media ${device.laptopL}{
+    height: 150px;
+  }
+  @media ${device.laptopSM}{
+    height: 125px;
+    margin: 3px;
   }
 `
 
@@ -205,6 +215,11 @@ export const EditorFormThemeResult = styled(EditorFormThemeItem)`
     display: none;
     font-size: 78px;
     color: ${props => props.theme.color.green}
+  }
+  @media ${device.laptopSM}{
+    i{
+      font-size: 50px;
+    }
   }
 `
 
