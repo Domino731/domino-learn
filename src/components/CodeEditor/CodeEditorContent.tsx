@@ -23,7 +23,7 @@ import {
     EditorCss,
     EditorHtml,
     EditorJs, EditorName,
-    EditorResult, MobileEditorContentWrapper, MobileEditorSwitchBar, MobileEditorSwitchOption
+    EditorResult, MobileEditorContentWrapper, MobileEditorSwitchBar, MobileEditorSwitchOption, MobileItemWrapper
 } from "../../style/elements/codeEditor/codeEditor";
 import {IFEditorCode, IFPropsCodeEditorContent} from "../../types/types";
 import {getEditorFSize, getEditorTheme, saveEditorCodeToLS, getEditorCodeFromLS} from "../../functions/localStorage";
@@ -236,30 +236,138 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
         {windowWidth <= 900 && <MobileEditorContentWrapper>
             <MobileEditorSwitchBar>
                 <MobileEditorSwitchOption>
-                        <input type="checkbox"
-                               value="html"
-                               name="switchToHtml"
-                               checked={activeEditor === "html"}
-                               onChange={handleChangeActiveEditor}/>
+                    <input type="checkbox"
+                           value="html"
+                           name="switchToHtml"
+                           checked={activeEditor === "html"}
+                           onChange={handleChangeActiveEditor}/>
                     <span>HTML</span>
                 </MobileEditorSwitchOption>
                 <MobileEditorSwitchOption>
-                        <input type="checkbox"
-                               value="css"
-                               name="switchToHtml"
-                               checked={activeEditor === "css"}
-                               onChange={handleChangeActiveEditor}/>
+                    <input type="checkbox"
+                           value="css"
+                           name="switchToCss"
+                           checked={activeEditor === "css"}
+                           onChange={handleChangeActiveEditor}/>
                     <span>CSS</span>
                 </MobileEditorSwitchOption>
                 <MobileEditorSwitchOption>
-                        <input type="checkbox"
-                               value="js"
-                               name="switchToHtml"
-                               checked={activeEditor === "js"}
-                               onChange={handleChangeActiveEditor}/>
+                    <input type="checkbox"
+                           value="js"
+                           name="switchToJs"
+                           checked={activeEditor === "js"}
+                           onChange={handleChangeActiveEditor}/>
                     <span>JS</span>
                 </MobileEditorSwitchOption>
+                <MobileEditorSwitchOption>
+                    <input type="checkbox"
+                           value="result"
+                           name="switchToResult"
+                           checked={activeEditor === "result"}
+                           onChange={handleChangeActiveEditor}/>
+                    <span>Result</span>
+                </MobileEditorSwitchOption>
+                <MobileEditorSwitchOption>
+                    <input type="checkbox"
+                           value="console"
+                           name="switchToConsole"
+                           checked={activeEditor === "console"}
+                           onChange={handleChangeActiveEditor}/>
+                    <span>Result</span>
+                </MobileEditorSwitchOption>
             </MobileEditorSwitchBar>
+            <MobileItemWrapper>
+                {activeEditor === "html" && <AceEditor
+                    enableBasicAutocompletion={true}
+                    enableLiveAutocompletion={true}
+                    enableSnippets={true}
+                    onChange={(newValue) => changeUserCode(newValue, "html")}
+                    mode="html"
+                    theme={editorSettings.theme}
+                    width="100%"
+                    height="100%"
+                    value={userCode.html}
+                    fontSize={editorSettings.fontSize}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    setOptions={{
+                        enableBasicAutocompletion: false,
+                        enableLiveAutocompletion: false,
+                        enableSnippets: false,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    }}
+                />}
+
+                {activeEditor === "css" && <AceEditor
+                    enableBasicAutocompletion={true}
+                    enableLiveAutocompletion={true}
+                    enableSnippets={true}
+                    onChange={(newValue) => changeUserCode(newValue, "css")}
+                    mode="css"
+                    theme={editorSettings.theme}
+                    width="100%"
+                    height="100%"
+                    value={userCode.css}
+                    fontSize={editorSettings.fontSize}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    setOptions={{
+                        enableBasicAutocompletion: false,
+                        enableLiveAutocompletion: false,
+                        enableSnippets: false,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    }}
+                />}
+
+                {activeEditor === "js" && <AceEditor
+                    enableBasicAutocompletion={true}
+                    enableLiveAutocompletion={true}
+                    enableSnippets={true}
+                    onChange={(newValue) => changeUserCode(newValue, "js")}
+                    mode="javascript"
+                    theme={editorSettings.theme}
+                    width="100%"
+                    height="100%"
+                    value={userCode.js}
+                    fontSize={editorSettings.fontSize}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    setOptions={{
+                        enableBasicAutocompletion: false,
+                        enableLiveAutocompletion: false,
+                        enableSnippets: false,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    }}
+                />}
+                {activeEditor === "result" && <WebBrowserWindow>
+                    <WebBrowserTopBar>
+                        <WebBrowserGreenBox/>
+                        <WebBrowserYellowBox/>
+                        <WebBrowserRedBox/>
+                    </WebBrowserTopBar>
+                    <iframe srcDoc={srcDoc}
+                            width="100%" height="100%" frameBorder="0" sandbox="allow-scripts"
+                            title="output"
+                    />
+
+                </WebBrowserWindow>}
+
+                {activeEditor === "console" && <WebBrowserWindow>
+                    <WebBrowserTopBar>
+                        <WebBrowserGreenBox/>
+                        <WebBrowserYellowBox/>
+                        <WebBrowserRedBox/>
+                    </WebBrowserTopBar>
+                    <Console logs={logs} variant="light"/>
+                </WebBrowserWindow>}
+
+            </MobileItemWrapper>
         </MobileEditorContentWrapper>}
 
     </>

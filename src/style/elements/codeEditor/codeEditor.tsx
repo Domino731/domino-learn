@@ -324,7 +324,7 @@ export const MobileEditorSwitchOption = styled.div`
   position: relative;
   font-size: 1.313rem;
   color: ${props => props.theme.color.white};
-  
+
 
   input {
     position: absolute;
@@ -335,6 +335,7 @@ export const MobileEditorSwitchOption = styled.div`
     &:checked ~ span {
       border-bottom: 4px solid ${props => props.theme.color.yellow};
     }
+
     &:hover {
       cursor: pointer;
     }
@@ -347,5 +348,8 @@ export const MobileEditorSwitchOption = styled.div`
     padding: 0 1.063rem;
     border-bottom: 4px solid ${props => props.theme.color.white};
   }
-
+`
+export const MobileItemWrapper = styled.div`
+  width: 100%;
+  height: calc(100vh - 42px);
 `
