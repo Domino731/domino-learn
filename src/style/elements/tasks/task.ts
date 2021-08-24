@@ -162,7 +162,7 @@ export const TaskFooterSwitchButton = styled.div<TaskFooterSwitchButtonProps>`
   height: 100%;
   box-sizing: border-box;
   border-radius: 5px;
-  padding: 0 13px;
+  padding: 0 0.813rem;
   background: ${props => props.theme.color.gray};
   transition: 0.1s;
   margin: 0 0.313rem;
@@ -343,7 +343,7 @@ export const TaskIntroductionText = styled.div`
   font-size: 1.25rem;
   margin-top: 20px;
   padding: 8px 11px;
-
+  line-height: 1.438rem;
   p {
     text-align: left;
     margin-top: 20px;
@@ -392,6 +392,10 @@ export const TaskIntroductionText = styled.div`
       }
     }
   }
+  
+  @media ${device.tablet}{
+    margin-top: 0;
+  }
 `
 export const TaskTargetsWrapper = styled.div`
   padding-top: 12px;
@@ -415,9 +419,9 @@ export const TaskTargetCheckbox = styled.div<TaskTargetCheckboxProps>`
   color: ${props => props.theme.color.white};
 
   @media ${device.tablet} {
-    height: 24px;
-    min-width: 24px;
-    font-size: 20px;
+    height: 22px;
+    min-width: 22px;
+    font-size: 12px;
   }
 `
 export const TaskTargetNumber = styled.div`
@@ -427,7 +431,7 @@ export const TaskTargetNumber = styled.div`
 `
 export const TaskTargetText = styled.div`
   font-size: 1.25rem;
-
+ line-height: 1.438rem;
   span {
     display: inline-block;
     position: relative;
@@ -448,6 +452,16 @@ export const TaskTargetText = styled.div`
   a {
     text-decoration: underline;
     text-decoration-color: ${props => props.theme.color.blue};
+  }
+
+  @media ${device.tablet} {
+   a{
+     &::after{
+       height: 3px;
+       top: 0;
+       background-size: 4px;
+     }
+   }
   }
 `
 export const TaskCodeEditorMultiple = styled.div`
@@ -787,7 +801,8 @@ const TaskAidItem = styled.a`
     height: 65px;
   }
   @media ${device.tablet} {
-    height: 68px;
+    height: 60px;
+    border-radius: 6px;
   }
 `
 
@@ -829,6 +844,10 @@ const TaskAidIcon = styled.div`
   @media ${device.laptopS} {
     font-size: 40px;
   }
+  
+  @media ${device.tablet} {
+    width: 78px;
+  }
 `
 export const TaskAidIconVideo = styled(TaskAidIcon)`
   background: #3a86ff;
@@ -851,8 +870,8 @@ const TaskAidTitle = styled.div`
   }
   @media ${device.tablet} {
     padding: 2px 3px;
-    font-size: 20px;
-    max-height: 45px;
+    font-size: 13px;
+    max-height: 28px;
   }
 
 `

@@ -114,4 +114,7 @@ export const JsFooterDecorations = styled(TaskFooterDecoration)`
 export const JsDecorationIntroduction = styled(TaskIntroductionDecoration)`
   background: repeating-linear-gradient(0deg, #4cc9f0 0px,
   #4cc9f0 5px, #fff 5px, #fff 10px);
+  @media (max-width: 650px){
+    display: none;
+  }
 `

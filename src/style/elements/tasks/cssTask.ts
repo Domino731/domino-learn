@@ -104,6 +104,9 @@ export const CssDecorationIntroduction = styled(TaskIntroductionDecoration)`
   background: repeating-linear-gradient(
           90deg
           ,#f15bb5 0px,#f15bb5 5px,white 5px,white 10px);
+  @media (max-width: 650px){
+    display: none;
+  }
 `
 export const CssFooterDecoration = styled(TaskFooterDecoration)`
   background: repeating-linear-gradient(0deg, #00f5d4 0px,

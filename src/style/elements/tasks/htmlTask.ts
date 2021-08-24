@@ -97,6 +97,9 @@ export const HtmlFooterTasksWrapper = styled(TaskFooterTasksWrapper)`
 //decorations
 export const HtmlDecorationIntroduction = styled(TaskIntroductionDecoration)`
   background: repeating-linear-gradient(0deg, ${props => props.theme.color.red} 0px, ${props => props.theme.color.red} 5px, white 5px, white 10px);
+  @media (max-width: 650px){
+    display: none;
+  }
 `
 export const HtmlDecorationFooter = styled(TaskFooterDecoration)`
   background: repeating-linear-gradient(0deg, #ff595e 0px,
