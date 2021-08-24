@@ -28,7 +28,13 @@ import {
     CodeEditorPanelBtn,
     TaskSuccessfulImg,
     TaskSuccessfulBar,
-    TaskSuccessfulTitle, CodeEditorError, MobileTaskContentWrapper,MobileTaskDetailsWrapper, MobileTaskDetail
+    TaskSuccessfulTitle,
+    CodeEditorError,
+    MobileTaskContentWrapper,
+    MobileTaskDetailsWrapper,
+    MobileTaskDetail,
+    MobileTaskEditorWrapper,
+    MobileTaskResult
 } from "../../style/elements/tasks/task";
 import {htmlClass} from "../../properties/htmlClass";
 import {
@@ -105,6 +111,9 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
         setErrorFlag(false)
     }, [annotations])
 
+    useEffect(()=>{
+        successfulFlag && window.scrollTo(0,0)
+    },[successfulFlag])
     // task validation
     const checkTask = (): void => {
         if (annotations.length === 0) {
@@ -241,6 +250,8 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
 
         {windowWidth <= 768 && <MobileTaskContentWrapper>
+
+
             <MobileTaskDetailsWrapper>
                 <MobileTaskDetail>
                     {successfulFlag === false && <>
@@ -271,6 +282,49 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                     </HtmlTaskTarget>
                 </MobileTaskDetail>
             </MobileTaskDetailsWrapper>
+
+
+
+            <MobileTaskEditorWrapper>
+                <AceEditor
+                    enableBasicAutocompletion={true}
+                    enableLiveAutocompletion={true}
+                    enableSnippets={true}
+                    onChange={changeUserCode}
+                    onValidate={vl => setAnnotations(vl.filter((el: any) => el.type === "error"))}
+                    mode="html"
+                    theme={editorSettings.theme}
+                    width="100%"
+                    height="100%"
+                    value={userCode}
+                    fontSize={editorSettings.fontSize}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    setOptions={{
+                        enableBasicAutocompletion: false,
+                        enableLiveAutocompletion: false,
+                        enableSnippets: false,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    }}
+                />
+                <CodeEditorPanel>
+                    {editorFormFlag &&
+                    <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
+                                           handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
+                                           toggleForm={handleToggleEditorSettings}/>}
+                    <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
+                        className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+                </CodeEditorPanel>
+                {errorFlag && <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+            </MobileTaskEditorWrapper>
+
+            <MobileTaskResult>
+                <TaskResultWindow srcDoc={srcDoc}/>
+            </MobileTaskResult>
         </MobileTaskContentWrapper>}
 
     </>

@@ -5,6 +5,7 @@ import {
     TaskHeader,
     TaskFooterTasksWrapper, TaskFooterDecoration, TaskIntroductionDecoration
 } from "./task";
+import {device} from "../../general/breakpoints";
 
 export const HtmlTaskContainer = styled.div`
   width: 100%;
@@ -50,6 +51,10 @@ export const HtmlTaskSuccessful = styled.div`
   background-position: -30px 0, -30px 0, 0 0, 0 0;
   background-size: 60px 60px;
   background-repeat: repeat;
+  
+  @media ${device.tablet}{
+    height: 100%;
+  }
 `
 
 export const HtmlTaskCodeEditor = styled.div`

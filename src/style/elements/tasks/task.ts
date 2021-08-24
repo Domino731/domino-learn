@@ -10,7 +10,7 @@ export const TaskContainer = styled.div`
     border-radius: 4px;
     background: ${props => props.theme.color.white};
   }
-  
+
 `
 export const TaskContentWrapper = styled.main`
   display: grid;
@@ -18,7 +18,7 @@ export const TaskContentWrapper = styled.main`
   grid-template-rows: repeat(2, 1fr);
   height: 100vh;
   width: 100%;
-  
+
   @media ${device.tablet} {
     height: 150vh;
   }
@@ -34,6 +34,13 @@ export const TaskSuccessfulTitle = styled.h2`
   font-size: 44px;
   text-align: center;
   background: ${props => props.theme.color.gray};
+  
+  @media ${device.laptopL}{
+    font-size: 36px;
+  }
+  @media ${device.laptopSM}{
+    font-size: 30px;
+  }
 `
 
 interface TaskSuccessfulBarProps {
@@ -66,7 +73,11 @@ export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
       letter-spacing: 0.125rem;
     }
   }
-
+  @media ${device.laptopSM}{
+    a, button{
+      font-size: 24px;
+    }
+  }
 `
 export const TaskHeader = styled.header`
   display: flex;
@@ -133,8 +144,8 @@ export const TaskFooterSwitchBar = styled.div`
   width: 33%;
   height: 50px;
   padding: 4px 0;
-  
-  @media ${device.laptopS}{
+
+  @media ${device.laptopS} {
     margin-right: 0;
   }
 `
@@ -203,8 +214,8 @@ export const TaskFooterTasksWrapper = styled.div`
   ::-webkit-scrollbar-thumb {
     background: ${props => props.theme.color.gray};
   }
-  
-  @media ${device.laptopS}{
+
+  @media ${device.laptopS} {
     width: 170px;
     height: 290px;
     top: -297px;
@@ -219,9 +230,11 @@ export const TaskFooterTasksList = styled.ul`
   z-index: 3;
   width: 100%;
 `
+
 interface props__TaskFooterTaskItem {
     solved: boolean
 }
+
 export const TaskFooterTasksItem = styled.li<props__TaskFooterTaskItem>`
   width: 30%;
   height: 53px;
@@ -247,8 +260,8 @@ export const TaskFooterTasksItem = styled.li<props__TaskFooterTaskItem>`
     height: 100%;
     color: ${props => props.theme.color.gray};
   }
-  
-  @media ${device.laptopS}{
+
+  @media ${device.laptopS} {
     border: 3px solid ${props => props.theme.color.gray};
     margin: 2px;
     height: 47px;
@@ -269,8 +282,8 @@ export const TaskFooterTasksPlanet1 = styled.img`
   right: -63px;
   height: auto;
   object-fit: cover;
-  
-  @media ${device.laptopS}{
+
+  @media ${device.laptopS} {
     width: 162px;
     right: -50px;
   }
@@ -290,8 +303,8 @@ export const TaskFooterTasksPlanet3 = styled.img`
   width: 156px;
   height: auto;
   object-fit: cover;
-  
-  @media ${device.laptopS}{
+
+  @media ${device.laptopS} {
     bottom: 18px;
     left: -59px;
     width: 119px;
@@ -398,7 +411,13 @@ export const TaskTargetCheckbox = styled.div<TaskTargetCheckboxProps>`
   margin-right: 11px;
   border-radius: 5px;
   background: ${props => props.backgroundColor};
-  color: ${props => props.theme.color.white}
+  color: ${props => props.theme.color.white};
+  
+  @media ${device.tablet}{
+    height: 24px;
+    min-width: 24px;
+    font-size: 20px;
+  }
 `
 export const TaskTargetNumber = styled.div`
   font-size: 1.25rem;
@@ -446,6 +465,10 @@ export const CodeEditorPanel = styled.div`
   width: 100%;
   height: 53px;
   background: ${props => props.theme.color.gray};
+  @media ${device.tablet} {
+    z-index: 4;
+    height: 40px;
+  }
 `
 export const CodeEditorPanelBtn = styled.div`
   display: block;
@@ -461,7 +484,7 @@ export const CodeEditorPanelBtn = styled.div`
     transition: 0.1s;
     border: 2px solid ${props => props.theme.color.blue};
   }
-  
+
   @media ${device.laptopS} {
     margin-right: 0;
     padding: 12px 6px;
@@ -501,9 +524,10 @@ export const TaskResultLoadingWrapper = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 15.625rem;
-  i{
+
+  i {
     display: block;
-    animation: 4s ${an__TaskResultLoadingWrapper} infinite  alternate-reverse ease-in-out;
+    animation: 4s ${an__TaskResultLoadingWrapper} infinite alternate-reverse ease-in-out;
   }
 `
 export const WebBrowserWindow = styled.div`
@@ -523,7 +547,7 @@ export const WebBrowserTopBar = styled.div`
   width: 100%;
   height: 32px;
   background: ${props => props.theme.color.white};
-  
+
   span {
     width: 53px;
     height: 19px;
@@ -619,10 +643,15 @@ export const EditorSettingsWrapper = styled.form`
   input {
     border-radius: 5px;
   }
-  
-  @media (max-width: 1760px){
+
+  @media (max-width: 1760px) {
     top: -261px;
     height: 263px;
+  }
+  
+  @media ${device.tablet}{
+    top: -189px;
+    height: 190px;
   }
 `
 export const EditorSettingsLabel = styled.label`
@@ -701,6 +730,10 @@ export const EditorSettingsCloseIcon = styled.div`
     transition: 0.2s;
     font-size: 2.75rem;
   }
+  
+  @media ${device.tablet}{
+    margin-right: 20px;
+  }
 `
 
 export const TaskAidsTitle = styled.h3`
@@ -734,12 +767,15 @@ const TaskAidItem = styled.a`
   div:last-child {
     width: 100%;
   }
-  
-  @media ${device.laptopL}{
+
+  @media ${device.laptopL} {
     height: 75px;
   }
-  @media ${device.laptopS}{
+  @media ${device.laptopS} {
     height: 65px;
+  }
+  @media ${device.tablet} {
+    height: 68px;
   }
 `
 
@@ -773,12 +809,12 @@ const TaskAidIcon = styled.div`
   height: 100%;
   font-size: 55px;
 
-  @media ${device.laptopL}{
+  @media ${device.laptopL} {
     width: 88px;
     font-size: 50px;
   }
 
-  @media ${device.laptopS}{
+  @media ${device.laptopS} {
     font-size: 40px;
   }
 `
@@ -797,10 +833,16 @@ const TaskAidTitle = styled.div`
   padding: 3px 7px;
   max-height: 47px;
   overflow: hidden;
-  @media ${device.laptopS}{
+  @media ${device.laptopS} {
     padding: 1px 3px;
     max-height: 33px;
   }
+  @media ${device.tablet}{
+    padding: 2px 3px;
+    font-size: 20px;
+    max-height: 45px;
+  }
+  
 `
 export const TaskAidTitleVideo = styled(TaskAidTitle)`
   background: #ff006e;
@@ -843,18 +885,30 @@ export const TaskIntroductionDecoration = styled.div`
   z-index: -1;
   width: 43%;
   height: 74px;
-  
-  @media ${device.laptopSM}{
+
+  @media ${device.laptopSM} {
     height: 60px;
   }
 `
 
 export const MobileTaskContentWrapper = styled.main`
-width: 100%;
+  width: 100%;
 `
 export const MobileTaskDetailsWrapper = styled.div`
-display: flex;
+  display: flex;
 `
 export const MobileTaskDetail = styled.div`
-width: 50%;
+  width: 50%;
+`
+
+export const MobileTaskEditorWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 320px;
+  padding-bottom: 30px;
+  background: black;
+`
+export const MobileTaskResult = styled.div`
+  height: 85vh;
+  padding: 30px;
 `
