@@ -273,7 +273,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
                            name="switchToConsole"
                            checked={activeEditor === "console"}
                            onChange={handleChangeActiveEditor}/>
-                    <span>Result</span>
+                    <span>Console</span>
                 </MobileEditorSwitchOption>
             </MobileEditorSwitchBar>
             <MobileItemWrapper>

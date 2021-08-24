@@ -5,10 +5,17 @@ export const EditorHeaderWrapper = styled.header`
   position: relative;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  height: 53px;
   background: ${props => props.theme.color.yellow};
-  padding: 0 41px;
+  padding: 5px 41px;
+
+  @media ${device.tablet} {
+    padding: 4px 20px;
+  }
+  @media ${device.mobileL} {
+    flex-direction: column;
+    padding: 5px 0;
+    align-items: center;
+  }
 `
 export const EditorHeaderLink = styled.div`
   font-size: 2.75rem;
@@ -47,6 +54,10 @@ export const EditorHeaderSettingsIcon = styled.div`
   &:hover {
     cursor: pointer;
   }
+
+  @media ${device.mobileL} {
+    margin-top: 5px;
+  }
 `
 export const EditorSettingsForm = styled.form`
   position: absolute;
@@ -61,6 +72,10 @@ export const EditorSettingsForm = styled.form`
 
   ::-webkit-scrollbar {
     width: 1px;
+  }
+  
+  @media (max-width: 900px){
+    border-left: 2px solid ${props => props.theme.color.yellow};
   }
 `
 export const EditorFormItem = styled.div`
@@ -96,7 +111,7 @@ export const EditorFormThemes = styled.div`
   flex-wrap: wrap;
   color: ${props => props.theme.color.white};
   font-weight: 600;
-
+  
   label {
     display: flex;
     justify-content: center;
@@ -135,6 +150,16 @@ export const EditorFormThemes = styled.div`
 
   input:checked ~ span {
     display: none;
+  }
+  
+  @media ${device.tablet}{
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    label{
+      padding: 5px 0;
+      width: 94%;
+    }
   }
 `
 export const EditorFormThemesWrapper = styled.div`
