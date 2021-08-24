@@ -58,8 +58,8 @@ export const EditorSettingsForm = styled.form`
   bottom: -100vh;
   z-index: 11;
   padding-top: 40px;
-  
-  ::-webkit-scrollbar{
+
+  ::-webkit-scrollbar {
     width: 1px;
   }
 `
@@ -156,9 +156,10 @@ export const EditorFormTheme = styled.label<props__EditorFormTheme>`
   margin: 5px;
   position: relative;
 
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
+
   input {
     visibility: hidden;
     position: absolute;
@@ -171,10 +172,11 @@ export const EditorFormTheme = styled.label<props__EditorFormTheme>`
       display: block;
     }
   }
-  @media ${device.laptopL}{
+
+  @media ${device.laptopL} {
     height: 150px;
   }
-  @media ${device.laptopSM}{
+  @media ${device.laptopSM} {
     height: 125px;
     margin: 3px;
   }
@@ -216,8 +218,9 @@ export const EditorFormThemeResult = styled(EditorFormThemeItem)`
     font-size: 78px;
     color: ${props => props.theme.color.green}
   }
-  @media ${device.laptopSM}{
-    i{
+
+  @media ${device.laptopSM} {
+    i {
       font-size: 50px;
     }
   }
@@ -306,10 +309,43 @@ export const EditorConsoleSwitchBtn = styled.div`
 `
 
 
-
 // for small devices
-export const PocketEditorContentWrapper = styled.main`
+export const MobileEditorContentWrapper = styled.main`
   width: 100%;
   height: 100vh;
-  background: green;
+`
+export const MobileEditorSwitchBar = styled.div`
+  width: 100%;
+  height: 42px;
+  background: ${props => props.theme.color.gray};
+  display: flex;
+`
+export const MobileEditorSwitchOption = styled.div`
+  position: relative;
+  font-size: 1.313rem;
+  color: ${props => props.theme.color.white};
+  
+
+  input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    appearance: none;
+
+    &:checked ~ span {
+      border-bottom: 4px solid ${props => props.theme.color.yellow};
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1.063rem;
+    border-bottom: 4px solid ${props => props.theme.color.white};
+  }
+
 `

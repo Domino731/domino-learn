@@ -23,7 +23,7 @@ import {
     EditorCss,
     EditorHtml,
     EditorJs, EditorName,
-    EditorResult, PocketEditorContentWrapper
+    EditorResult, MobileEditorContentWrapper, MobileEditorSwitchBar, MobileEditorSwitchOption
 } from "../../style/elements/codeEditor/codeEditor";
 import {IFEditorCode, IFPropsCodeEditorContent} from "../../types/types";
 import {getEditorFSize, getEditorTheme, saveEditorCodeToLS, getEditorCodeFromLS} from "../../functions/localStorage";
@@ -56,6 +56,9 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
 
     const [windowWidth, setWindowWidth] = useState(0)
 
+    const [activeEditor, setActiveEditor] = useState<string>("html")
+
+
     const resizeWindow = (): void => setWindowWidth(window.innerWidth);
 
     useEffect(() => {
@@ -63,7 +66,6 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
         window.addEventListener("resize", resizeWindow);
         return () => window.removeEventListener("resize", resizeWindow);
     }, []);
-
 
     // delay (300s) for displaying user code in iframe -> better for the browser, because it doesn't have to rerender
     // a new iframe with every code change
@@ -97,7 +99,6 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
         return () => clearTimeout(timeout);
     }, [userCode])
 
-
     // run once!
     // @ts-ignore
     useEffect(() => {
@@ -116,6 +117,8 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
         return () => Unhook(window.console);
     }, []);
 
+
+    const handleChangeActiveEditor = (e: React.ChangeEvent<HTMLInputElement>): void => setActiveEditor(e.target.value)
 
     const changeUserCode = (newValue: any, key: "html" | "css" | "js"): void => setUserCode(prev => ({
         ...prev,
@@ -230,9 +233,34 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
                 </WebBrowserWindow>
             </EditorResult>
         </EditorContentWrapper>}
-        {windowWidth <= 900 && <PocketEditorContentWrapper>
-            <h1>asd</h1>
-        </PocketEditorContentWrapper>}
+        {windowWidth <= 900 && <MobileEditorContentWrapper>
+            <MobileEditorSwitchBar>
+                <MobileEditorSwitchOption>
+                        <input type="checkbox"
+                               value="html"
+                               name="switchToHtml"
+                               checked={activeEditor === "html"}
+                               onChange={handleChangeActiveEditor}/>
+                    <span>HTML</span>
+                </MobileEditorSwitchOption>
+                <MobileEditorSwitchOption>
+                        <input type="checkbox"
+                               value="css"
+                               name="switchToHtml"
+                               checked={activeEditor === "css"}
+                               onChange={handleChangeActiveEditor}/>
+                    <span>CSS</span>
+                </MobileEditorSwitchOption>
+                <MobileEditorSwitchOption>
+                        <input type="checkbox"
+                               value="js"
+                               name="switchToHtml"
+                               checked={activeEditor === "js"}
+                               onChange={handleChangeActiveEditor}/>
+                    <span>JS</span>
+                </MobileEditorSwitchOption>
+            </MobileEditorSwitchBar>
+        </MobileEditorContentWrapper>}
 
     </>
 }
