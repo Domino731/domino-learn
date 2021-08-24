@@ -233,8 +233,21 @@ export const getHtmlTaskCodeFromLS = (taskTitle: string, defaultValue: string) =
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
 export const getCssTaskCodeFromLS = (taskTitle: string, defaultValue: { html: string, css: string }) => {
-    if (localStorage.getItem("cssTasksSolutions") != null) {
 
+    const defaultCode: { html: string, css: string } = {
+        html: beautifyHtml(defaultValue.html, {
+            indent_size: 1,
+            space_in_empty_paren: false,
+            wrap_line_length: 50
+        }),
+        css: beautifyCss(defaultValue.css, {
+            indent_size: 1,
+            space_in_empty_paren: false,
+            wrap_line_length: 50
+        })
+    }
+
+    if (localStorage.getItem("cssTasksSolutions") != null) {
         // @ts-ignore
         let localStorageData: IFLSCssTaskSolutions[] = JSON.parse(localStorage.getItem("cssTasksSolutions"));
         const taskSolution = localStorageData.filter(el => el.title === taskTitle)
@@ -253,20 +266,11 @@ export const getCssTaskCodeFromLS = (taskTitle: string, defaultValue: { html: st
             }
             return taskCode
         } else {
-            const taskCode: { html: string, css: string } = {
-                html: beautifyHtml(defaultValue.html, {
-                    indent_size: 1,
-                    space_in_empty_paren: false,
-                    wrap_line_length: 50
-                }),
-                css: beautifyCss(defaultValue.css, {
-                    indent_size: 1,
-                    space_in_empty_paren: false,
-                    wrap_line_length: 50
-                })
-            }
-            return taskCode
+            return defaultCode
         }
+    }
+    else{
+        return defaultCode
     }
 }
 
