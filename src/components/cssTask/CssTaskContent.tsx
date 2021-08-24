@@ -124,6 +124,9 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         setErrorFlag(false)
     }, [annotations])
 
+    useEffect(()=>{
+        successfulFlag && window.scrollTo(0,0)
+    },[successfulFlag])
 
     const changeUserCodeHtml = (newValue: string): void => {
         setUserCode(prev => ({

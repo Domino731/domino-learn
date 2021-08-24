@@ -11,7 +11,12 @@ import {
     WebBrowserRedBox,
     WebBrowserTopBar,
     WebBrowserWindow,
-    WebBrowserYellowBox
+    WebBrowserYellowBox,
+    MobileTaskContentWrapper,
+    MobileTaskDetailsWrapper,
+    MobileTaskDetail,
+    MobileTaskEditorWrapper,
+    MobileTaskResult
 } from "../../style/elements/tasks/task";
 import {IFPropsJsTask} from "../../types/types";
 import 'ace-builds/src-noconflict/mode-javascript'
@@ -85,6 +90,20 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     const [points, setPoints] = useState<{ user: number, needed: number }>({user: 0, needed: task.targets.length})
 
+    const [windowWidth, setWindowWidth] = useState<number>(0)
+
+    const resizeWindow = (): void => setWindowWidth(window.innerWidth);
+
+    useEffect(() => {
+        resizeWindow();
+        window.addEventListener("resize", resizeWindow);
+        return () => window.removeEventListener("resize", resizeWindow);
+    }, []);
+
+    useEffect(() => {
+        successfulFlag && window.scrollTo(0, 0)
+    }, [successfulFlag])
+
     // save editor settings into local storage
     useEffect(() => {
         localStorage.setItem("editorFontSize", editorSettings.fontSize.toString())
@@ -157,135 +176,228 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     // set the console logs by which useEffect will start the task validation
     const setConsole = () => {
-         if(annotations.length === 0){
+        if (annotations.length === 0) {
 
-             // prevent of console duplicates
-             setLogs([])
-             // set the console
-             Logs(userCode);
+            // prevent of console duplicates
+            setLogs([])
+            // set the console
+            Logs(userCode);
 
 
-             // points needed to pass
-             const pointsNeeded: number = task.targets.length
+            // points needed to pass
+            const pointsNeeded: number = task.targets.length
 
-             // user points
-             let userPoints = 0
+            // user points
+            let userPoints = 0
 
 // function that add pun when user complete task correctly
-             const changeUserPoints = (): number => userPoints++
+            const changeUserPoints = (): number => userPoints++
 
-             if (consoleTextArr.length > 0 && annotations.length === 0) {
-                 task.targets.forEach(el => taskValidationJS(userCode, el, changeUserPoints));
-                 saveJsTaskSolutionToLS(task.targets, task.title, userCode);
-                 // save solved task title to ls, so that the user knows which tasks he has completed
-                 saveSolvedTaskToLS(task.title, "solvedJsTasks");
-             }
-
-
-             // check if user has executed all targets, if he did display animation
-             if (userPoints === pointsNeeded) {
-                 // set the animation
-                 setSuccessfulFlag(true)
-                 // save solved task title to ls, so that the user knows which tasks he has completed
-                 saveSolvedTaskToLS(task.title, "solvedHtmlTasks")
-             } else {
-                 setSuccessfulFlag(false)
-             }
+            if (consoleTextArr.length > 0 && annotations.length === 0) {
+                task.targets.forEach(el => taskValidationJS(userCode, el, changeUserPoints));
+                saveJsTaskSolutionToLS(task.targets, task.title, userCode);
+                // save solved task title to ls, so that the user knows which tasks he has completed
+                saveSolvedTaskToLS(task.title, "solvedJsTasks");
+            }
 
 
-             // format user code
-             setUserCode(beautifyJs(userCode, {
-                 indent_size: 1,
-                 space_in_empty_paren: false,
-                 wrap_line_length: 50
-             }));
+            // check if user has executed all targets, if he did display animation
+            if (userPoints === pointsNeeded) {
+                // set the animation
+                setSuccessfulFlag(true)
+                // save solved task title to ls, so that the user knows which tasks he has completed
+                saveSolvedTaskToLS(task.title, "solvedHtmlTasks")
+            } else {
+                setSuccessfulFlag(false)
+            }
 
-         }
+
+            // format user code
+            setUserCode(beautifyJs(userCode, {
+                indent_size: 1,
+                space_in_empty_paren: false,
+                wrap_line_length: 50
+            }));
+
+        }
         // display the error window when user code have warnings
-        else{
+        else {
             setErrorFlag(true)
         }
     };
 
-    return <TaskContentWrapper>
+    return <>
+        {windowWidth > 768 && <TaskContentWrapper>
 
-        {successfulFlag === false && <>
-            <JsIntroduction>
+            {successfulFlag === false && <>
+                <JsIntroduction>
 
-                <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
-                                  imgAlt={jsClass.getFigureAlt()} imgSrc={jsClass.getFigureSrc()}/>
-                {/*decorations*/}
-                <JsDecorationIntroduction/>
+                    <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
+                                      imgAlt={jsClass.getFigureAlt()} imgSrc={jsClass.getFigureSrc()}/>
+                    {/*decorations*/}
+                    <JsDecorationIntroduction/>
 
 
-            </JsIntroduction>
+                </JsIntroduction>
 
-            <JsTargets>
-                <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
-            </JsTargets>
-        </>}
+                <JsTargets>
+                    <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
+                </JsTargets>
+            </>}
 
-        {successfulFlag && <JsTaskSuccessful>
-            <TaskSuccessfulImg src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()}/>
-            <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
-            <TaskSuccessfulBar color="#b5179e">
-                <button onClick={handleResetPoints}>Close</button>
-                {task.number < allTaskLength && <Link to={`/js-task/${task.number + 1}`}>Next task</Link>}
-            </TaskSuccessfulBar>
-        </JsTaskSuccessful>}
+            {successfulFlag && <JsTaskSuccessful>
+                <TaskSuccessfulImg src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()}/>
+                <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
+                <TaskSuccessfulBar color="#b5179e">
+                    <button onClick={handleResetPoints}>Close</button>
+                    {task.number < allTaskLength && <Link to={`/js-task/${task.number + 1}`}>Next task</Link>}
+                </TaskSuccessfulBar>
+            </JsTaskSuccessful>}
 
-        <JsResult>
-            <WebBrowserWindow>
-                <WebBrowserTopBar>
-                    <WebBrowserGreenBox/>
-                    <WebBrowserYellowBox/>
-                    <WebBrowserRedBox/>
-                </WebBrowserTopBar>
-                <JsConsoleWrapper ref={consoleRef}>
-                    <Console logs={logs} variant="light"/>
-                </JsConsoleWrapper>
-            </WebBrowserWindow>
-        </JsResult>
+            <JsResult>
+                <WebBrowserWindow>
+                    <WebBrowserTopBar>
+                        <WebBrowserGreenBox/>
+                        <WebBrowserYellowBox/>
+                        <WebBrowserRedBox/>
+                    </WebBrowserTopBar>
+                    <JsConsoleWrapper ref={consoleRef}>
+                        <Console logs={logs} variant="light"/>
+                    </JsConsoleWrapper>
+                </WebBrowserWindow>
+            </JsResult>
 
-        <JsCodeEditorWrapper>
-            {/*code editor - ace*/}
-            <AceEditor
-                enableBasicAutocompletion={true}
-                enableLiveAutocompletion={true}
-                enableSnippets={true}
-                onChange={changeUserCode}
-                mode="javascript"
-                theme={editorSettings.theme}
-                width="100%"
-                height="100%"
-                value={userCode}
-                fontSize={editorSettings.fontSize}
-                showPrintMargin={true}
-                showGutter={true}
-                highlightActiveLine={true}
-                onValidate={vl => setAnnotations(vl.filter((el: any) => el.type === "error"))}
-                setOptions={{
-                    enableBasicAutocompletion: false,
-                    enableLiveAutocompletion: false,
-                    enableSnippets: false,
-                    showLineNumbers: true,
-                    tabSize: 2,
-                }}
-            />
+            <JsCodeEditorWrapper>
+                {/*code editor - ace*/}
+                <AceEditor
+                    enableBasicAutocompletion={true}
+                    enableLiveAutocompletion={true}
+                    enableSnippets={true}
+                    onChange={changeUserCode}
+                    mode="javascript"
+                    theme={editorSettings.theme}
+                    width="100%"
+                    height="100%"
+                    value={userCode}
+                    fontSize={editorSettings.fontSize}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    onValidate={vl => setAnnotations(vl.filter((el: any) => el.type === "error"))}
+                    setOptions={{
+                        enableBasicAutocompletion: false,
+                        enableLiveAutocompletion: false,
+                        enableSnippets: false,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    }}
+                />
 
-            <CodeEditorPanel>
-                {editorFormFlag &&
-                <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
-                                       handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
-                                       toggleForm={handleToggleEditorSettings}/>}
+                <CodeEditorPanel>
+                    {editorFormFlag &&
+                    <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
+                                           handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
+                                           toggleForm={handleToggleEditorSettings}/>}
 
-                <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                    className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
-                <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
-                <CodeEditorPanelBtn onClick={setConsole}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
-            </CodeEditorPanel>
-            {errorFlag && <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
-        </JsCodeEditorWrapper>
+                    <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
+                        className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset
+                    </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={setConsole}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+                </CodeEditorPanel>
+                {errorFlag &&
+                <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+            </JsCodeEditorWrapper>
 
-    </TaskContentWrapper>
+        </TaskContentWrapper>}
+        {windowWidth <= 768 && <MobileTaskContentWrapper>
+            <MobileTaskDetailsWrapper>
+                <MobileTaskDetail>
+
+                    {successfulFlag === false && <>
+                        <JsIntroduction>
+
+                            <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
+                                              imgAlt={jsClass.getFigureAlt()} imgSrc={jsClass.getFigureSrc()}/>
+                            {/*decorations*/}
+                            <JsDecorationIntroduction/>
+                        </JsIntroduction>
+                    </>}
+
+                    {successfulFlag && <JsTaskSuccessful>
+                        <TaskSuccessfulImg src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()}/>
+                        <TaskSuccessfulTitle>Congratulations, you have completed the task
+                            correctly</TaskSuccessfulTitle>
+                        <TaskSuccessfulBar color="#b5179e">
+                            <button onClick={handleResetPoints}>Close</button>
+                            {task.number < allTaskLength && <Link to={`/js-task/${task.number + 1}`}>Next task</Link>}
+                        </TaskSuccessfulBar>
+                    </JsTaskSuccessful>}
+
+                </MobileTaskDetail>
+                <MobileTaskDetail>
+                    <JsTargets>
+                        <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
+                    </JsTargets>
+                </MobileTaskDetail>
+            </MobileTaskDetailsWrapper>
+
+
+            <MobileTaskEditorWrapper>
+                    {/*code editor - ace*/}
+                    <AceEditor
+                        enableBasicAutocompletion={true}
+                        enableLiveAutocompletion={true}
+                        enableSnippets={true}
+                        onChange={changeUserCode}
+                        mode="javascript"
+                        theme={editorSettings.theme}
+                        width="100%"
+                        height="100%"
+                        value={userCode}
+                        fontSize={editorSettings.fontSize}
+                        showPrintMargin={true}
+                        showGutter={true}
+                        highlightActiveLine={true}
+                        onValidate={vl => setAnnotations(vl.filter((el: any) => el.type === "error"))}
+                        setOptions={{
+                            enableBasicAutocompletion: false,
+                            enableLiveAutocompletion: false,
+                            enableSnippets: false,
+                            showLineNumbers: true,
+                            tabSize: 2,
+                        }}
+                    />
+
+                    <CodeEditorPanel>
+                        {editorFormFlag &&
+                        <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
+                                               handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
+                                               toggleForm={handleToggleEditorSettings}/>}
+
+                        <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
+                            className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
+                        <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset
+                        </CodeEditorPanelBtn>
+                        <CodeEditorPanelBtn onClick={setConsole}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+                    </CodeEditorPanel>
+                    {errorFlag &&
+                    <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+            </MobileTaskEditorWrapper>
+
+
+            <MobileTaskResult>
+                    <WebBrowserWindow>
+                        <WebBrowserTopBar>
+                            <WebBrowserGreenBox/>
+                            <WebBrowserYellowBox/>
+                            <WebBrowserRedBox/>
+                        </WebBrowserTopBar>
+                        <JsConsoleWrapper ref={consoleRef}>
+                            <Console logs={logs} variant="light"/>
+                        </JsConsoleWrapper>
+                    </WebBrowserWindow>
+            </MobileTaskResult>
+        </MobileTaskContentWrapper>}
+    </>
 }
