@@ -21,6 +21,7 @@ export const QuizMenuWrapper = styled.main`
     width: 25%;
   }
 
+ 
   @media ${device.laptopS} {
     flex-wrap: wrap;
     height: auto;
@@ -28,12 +29,22 @@ export const QuizMenuWrapper = styled.main`
       width: 267px;
     }
   }
-
+  @media (max-height: 600px){
+    a{
+      width: 200px;
+    }
+  }
   @media ${device.tablet} {
     align-items: flex-start;
     a {
       height: 33vh;
       margin-bottom: 85px;
+    }
+  }
+  @media (max-height: 400px){
+    a{
+      width: 110px;
+      border-top: 10px;
     }
   }
 `
@@ -88,6 +99,14 @@ export const QuizMenuItem = styled.div`
       width: auto;
     }
   }
+
+  @media (max-height: 400px){
+    box-shadow: 2px 2px ${props => props.theme.color.gray},
+    0 20px ${props => props.theme.color.blue} inset;
+    border-radius: 16px;
+  }
+  
+  
 `
 export const QuizMenuCoins = styled.div`
   display: flex;
@@ -110,6 +129,14 @@ export const QuizMenuCoins = styled.div`
     margin-top: 23px;
     margin-bottom: 10px;
   }
+ 
+  @media (max-height: 400px){
+    width: 100%;
+    img{
+      width: 22px;
+    }
+  }
+  
 `
 export const QuizMenuFreepik = styled.div`
   display: flex;
@@ -124,5 +151,16 @@ export const QuizMenuFreepik = styled.div`
   @media ${device.laptopS} {
     margin-top: 23px;
     margin-bottom: 10px;
+  }
+  @media (max-height: 600px){
+    img{
+      width: 22px;
+    }
+  }
+  @media (max-height: 400px){
+    img{
+      width: 15px;
+    }
+    
   }
 `
