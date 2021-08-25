@@ -16,7 +16,7 @@ export const Loading : FunctionComponent = () : JSX.Element => {
             <LoadingRadius4/>
             <LoadingAstronaut src={astronaut} alt="astronaut"/>
         </LoadingBox>
-        <h1>Loading</h1>
+        <h1>Loading...</h1>
         <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
     </LoadingContainer>
 }

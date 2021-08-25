@@ -49,7 +49,8 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
  * @param taskNumber  - number of task
  * @param saveDataCallback - function that saved incoming data to component state
  */
-export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: IFCssTask) => void) => {
+export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: (IFCssTask | null)) => void) => {
+    saveDataCallback(null)
     db.collection("cssTasks").where("number", "==", taskNumber)
         .get()
         .then((querySnapshot) => {
@@ -147,7 +148,6 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
 
             return saveDataCallback(tasks)
         })
-
 }
 /**
  * fetch quiz questions

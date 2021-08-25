@@ -1,6 +1,11 @@
 import {IFPropsTaskFooter} from "../../types/types";
 import {FunctionComponent, useState} from "react";
-import {CssFooter, CssFooterSwitchBar, CssFooterTasksWrapper, CssFooterDecoration} from "../../style/elements/tasks/cssTask";
+import {
+    CssFooter,
+    CssFooterSwitchBar,
+    CssFooterTasksWrapper,
+    CssFooterDecoration
+} from "../../style/elements/tasks/cssTask";
 import {
     TaskFooterTaskNumber,
     TaskFooterTitle,
@@ -18,27 +23,38 @@ import marsPlanet from "../../images/planet_mars.png";
 import {FreepikThanks} from "../../style/general/generalStyles";
 import neptunePlanet from "../../images/planet_neptune.png";
 
-export const CssTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, taskNumber}) : JSX.Element => {
+
+/**
+ * Footer for css task, which contains the number of the current task, lists with tasks
+ * @param allTasks - array with tasks, which will be used to render the list with tasks
+ * @param taskNumber - current task number
+ */
+export const CssTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, taskNumber}): JSX.Element => {
 
     // state with flag, when user change this state(icon with list <HtmlFooterListBtn>), list with tasks will be showed
-    const [flag, setFlag] = useState<boolean>(false)
+    const [flag, setFlag] = useState<boolean>(false);
 
-    const handleChangeFlag = (): void => setFlag(!flag)
+    // toggle flag state -> show or hide tasks list
+    const handleChangeFlag = (): void => setFlag(!flag);
 
-    const scrollToTop = () : void => window.scrollTo(0,0)
     return <CssFooter>
 
+        {/*panel by which user can select next task*/}
         <CssFooterSwitchBar>
 
+            {/*when user click on this button, tasks list will be showed*/}
             <TaskFooterListBtn onClick={handleChangeFlag}>
                 <i className="fas fa-clipboard-list"/>
             </TaskFooterListBtn>
 
             {taskNumber !== 1 &&
-            <TaskFooterSwitchButton onClick={scrollToTop} color="#00f5d4"> <Link to={`/css-task/${taskNumber - 1}`}>Back</Link></TaskFooterSwitchButton>}
+            <TaskFooterSwitchButton color="#00f5d4"> <Link
+                to={`/css-task/${taskNumber - 1}`}>Back</Link></TaskFooterSwitchButton>}
             {taskNumber < allTasks.length &&
-            <TaskFooterSwitchButton onClick={scrollToTop} color="#00f5d4"><Link to={`/css-task/${taskNumber + 1}`}>Next</Link></TaskFooterSwitchButton>}
+            <TaskFooterSwitchButton color="#00f5d4"><Link
+                to={`/css-task/${taskNumber + 1}`}>Next</Link></TaskFooterSwitchButton>}
 
+            {/*tasks list*/}
             {flag && <CssFooterTasksWrapper>
                 {/*background for list with planets :)*/}
                 <TaskFooterTasksPlanets>
@@ -47,8 +63,10 @@ export const CssTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, t
                     <TaskFooterTasksPlanet3 src={marsPlanet}/>
                 </TaskFooterTasksPlanets>
 
+                {/*list*/}
                 <TaskFooterTasksList>
-                    {allTasks.map((el, num) => <TaskFooterTasksItem key={`cssFooterTasks-${el.title}-${num}`} onClick={() => setFlag(false)} solved={el.solved}>
+                    {allTasks.map((el, num) => <TaskFooterTasksItem key={`cssFooterTasks-${el.title}-${num}`}
+                                                                    onClick={() => setFlag(false)} solved={el.solved}>
                         <Link to={`/css-task/${el.number}`}>
                             {el.number}
                         </Link>
@@ -57,17 +75,18 @@ export const CssTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, t
             </CssFooterTasksWrapper>}
 
         </CssFooterSwitchBar>
+
+        {/*current task number*/}
         <TaskFooterTaskNumber> {taskNumber} / {allTasks.length}</TaskFooterTaskNumber>
 
-
+        {/*title, link to home page*/}
         <TaskFooterTitle>
             <Link to="/">
                 DOMINO LEARN
             </Link>
         </TaskFooterTitle>
 
-
-
+        {/*freepik authors */}
         <TaskFooterIcons>
             <FreepikThanks style={{fontSize: "1.063rem"}}>
                 <div>
@@ -87,7 +106,6 @@ export const CssTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, t
                     <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
                         href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
                 </div>
-
             </FreepikThanks>
         </TaskFooterIcons>
 

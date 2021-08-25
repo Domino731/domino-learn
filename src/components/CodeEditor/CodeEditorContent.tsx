@@ -14,8 +14,6 @@ import 'ace-builds/src-noconflict/theme-terminal'
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
-
-
 import React, {FunctionComponent, useEffect, useState} from "react";
 import {
     EditorConsoleSwitchBtn,
@@ -26,7 +24,7 @@ import {
     EditorResult, MobileEditorContentWrapper, MobileEditorSwitchBar, MobileEditorSwitchOption, MobileItemWrapper
 } from "../../style/elements/codeEditor/codeEditor";
 import {IFEditorCode, IFPropsCodeEditorContent} from "../../types/types";
-import {getEditorFSize, getEditorTheme, saveEditorCodeToLS, getEditorCodeFromLS} from "../../functions/localStorage";
+import {saveEditorCodeToLS, getEditorCodeFromLS} from "../../functions/localStorage";
 import {htmlClass} from "../../properties/htmlClass";
 import {cssClass} from "../../properties/cssClass";
 import {jsClass} from "../../properties/jsClass";
@@ -39,7 +37,8 @@ import {
 import {Console, Hook, Unhook} from "console-feed";
 import {Logs} from "../../functions/jsConsole";
 
-
+// Component which is responsible for the editor, there are two versions - for mobile devices (below 900px window width)
+// and for larger devices (above 900px)
 export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({editorSettings}): JSX.Element => {
 
     // State with user code
@@ -48,26 +47,29 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
     // state with final code which is in iframe
     const [srcDoc, setSrcDoc] = useState<string>("");
 
-    // state with console logs
+    // state with console logs which are passed to Console component,
+    // by which user can see console
     const [logs, setLogs] = useState<any[]>([]);
 
     // state which is responsible to display console or iframe window
     const [consoleFlag, setConsoleFlag] = useState<boolean>(false);
 
-    const [windowWidth, setWindowWidth] = useState(0)
+    // state which is needed to display editor for mobile devices (less than 900px window width)
+    const [windowWidth, setWindowWidth] = useState(0);
 
-    const [activeEditor, setActiveEditor] = useState<string>("html")
+    // specifies which editor is active on mobile devices (less than 900px window width)
+    const [activeEditor, setActiveEditor] = useState<string>("html");
 
-
+    // set the windowWidth state based on window width
     const resizeWindow = (): void => setWindowWidth(window.innerWidth);
-
     useEffect(() => {
         resizeWindow();
         window.addEventListener("resize", resizeWindow);
         return () => window.removeEventListener("resize", resizeWindow);
     }, []);
 
-    // delay (300s) for displaying user code in iframe -> better for the browser, because it doesn't have to rerender
+    // delay (300s) for displaying user code in iframe -> better for the browser,
+    // because it doesn't have to rerender on every code change,
     // a new iframe with every code change
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -91,7 +93,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
         return () => clearTimeout(timeout);
     }, [userCode]);
 
-    // saving code into local storage
+    // saving code into local storage with 600ms delay
     useEffect(() => {
         const timeout = setTimeout(() => {
             saveEditorCodeToLS(userCode)
@@ -99,16 +101,17 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
         return () => clearTimeout(timeout);
     }, [userCode])
 
-    // run once!
+
+    // run once!, hook  which sets the logs state,
+    // which is responsible for displaying the content in the console
     // @ts-ignore
     useEffect(() => {
         setLogs([]);
         Hook(
             window.console,
             (log) => {
-                // @ts-ignore
                 if (log.method === "log") {
-                    setLogs((currLogs) => [...currLogs, log])
+                    setLogs((currLogs) => [...currLogs, log]);
                 }
             },
             false,
@@ -117,18 +120,20 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
         return () => Unhook(window.console);
     }, []);
 
-
+    // toggle editor on mobile devices (only less than 900px window width);
     const handleChangeActiveEditor = (e: React.ChangeEvent<HTMLInputElement>): void => setActiveEditor(e.target.value)
 
+    // change userCode state
     const changeUserCode = (newValue: any, key: "html" | "css" | "js"): void => setUserCode(prev => ({
         ...prev,
         [key]: newValue
     }));
 
+    // show or hide console
     const handleChangeConsoleFlag = (): void => setConsoleFlag(!consoleFlag);
 
-
     return <>
+        {/*editor for bigger devices!!!!*/}
         {windowWidth > 900 && <EditorContentWrapper areas={editorSettings.areas}>
             <EditorHtml>
                 <EditorName>
@@ -212,6 +217,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
                 />
             </EditorJs>
             <EditorResult>
+                {/*toggle to console*/}
                 <EditorConsoleSwitchBtn style={{background: "#e5e3f1"}} onClick={handleChangeConsoleFlag}>
                     {consoleFlag ?
                         <><i className="fas fa-arrow-left"/> Back </>
@@ -219,6 +225,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
                         <><i className="fas fa-terminal"/> Console </>
                     }
                 </EditorConsoleSwitchBtn>
+                {/*iframe window or console with user code*/}
                 <WebBrowserWindow>
                     <WebBrowserTopBar>
                         <WebBrowserGreenBox/>
@@ -233,7 +240,12 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
                 </WebBrowserWindow>
             </EditorResult>
         </EditorContentWrapper>}
+
+
+        {/*editor for mobiles devices!!!!*/}
         {windowWidth <= 900 && <MobileEditorContentWrapper>
+
+            {/*header where the user can switch between editor, window with his code(iframe) or console*/}
             <MobileEditorSwitchBar>
                 <MobileEditorSwitchOption>
                     <input type="checkbox"
@@ -276,6 +288,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
                     <span>Console</span>
                 </MobileEditorSwitchOption>
             </MobileEditorSwitchBar>
+
             <MobileItemWrapper>
                 {activeEditor === "html" && <AceEditor
                     enableBasicAutocompletion={true}
@@ -345,6 +358,8 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
                         tabSize: 2,
                     }}
                 />}
+
+                {/*iframe window with user code*/}
                 {activeEditor === "result" && <WebBrowserWindow>
                     <WebBrowserTopBar>
                         <WebBrowserGreenBox/>
@@ -358,6 +373,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
 
                 </WebBrowserWindow>}
 
+                {/*console with user js code*/}
                 {activeEditor === "console" && <WebBrowserWindow>
                     <WebBrowserTopBar>
                         <WebBrowserGreenBox/>
