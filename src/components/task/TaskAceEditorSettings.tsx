@@ -7,6 +7,14 @@ import {
 } from "../../style/elements/tasks/task";
 import {IFPropsTaskAceEditorSettings} from "../../types/types";
 
+/**
+ * Component which allows to change editor settings
+ * @param handleChangeTheme - function that change theme
+ * @param editorTheme - selected theme
+ * @param handleChangeFs - function that change font size
+ * @param editorFs - actual font-size
+ * @param toggleForm - function that hide this component
+ */
 export const TaskAceEditorSettings: FunctionComponent<IFPropsTaskAceEditorSettings> = ({
                                                                                            handleChangeTheme,
                                                                                            editorTheme,
@@ -14,14 +22,17 @@ export const TaskAceEditorSettings: FunctionComponent<IFPropsTaskAceEditorSettin
                                                                                            editorFs,
                                                                                            toggleForm
                                                                                        }): JSX.Element => {
+
     return <EditorSettingsWrapper>
         <EditorSettingsCloseIcon onClick={toggleForm}><i
             className="far fa-window-close"/></EditorSettingsCloseIcon>
+
         <EditorSettingsLabel>
             Change font size
             <EditorSettingsFSize type="number" min="1" max="60" step="1" value={editorFs}
                                  onChange={handleChangeFs}/>
         </EditorSettingsLabel>
+
 
         <EditorSettingsLabel>
             Change theme

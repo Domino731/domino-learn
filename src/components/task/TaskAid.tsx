@@ -18,7 +18,11 @@ type TaskAidProps = {
         link?: string
     }
 }
-
+/**
+ * Component which renders aid for task - link to a page that helps the user solve the task,
+ * there are two color types depending on the type
+ * @param aid - aid date - title, type, link source
+ */
 export const TaskAid: FunctionComponent<TaskAidProps> = ({aid}): JSX.Element | null => {
     if (aid.type === "video") {
         return <TaskAidItemVideo href={aid.link} target="_blank"

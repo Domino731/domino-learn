@@ -7,6 +7,10 @@ import {
 } from "../../style/elements/tasks/task";
 import {IFPropsTaskResultWindow} from "../../types/types";
 
+/**
+ * Component which return browser window in which there is an iframe with the user code
+ * @param srcDoc - code which will be passed into iframe
+ */
 export const TaskResultWindow : FunctionComponent< IFPropsTaskResultWindow> = ({srcDoc}) : JSX.Element => {
     return  <WebBrowserWindow>
         <WebBrowserTopBar>
