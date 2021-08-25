@@ -16,7 +16,8 @@ const beautifyJs = require('js-beautify').js;
  * @param taskNumber  - number of task
  * @param saveDataCallback - function that saved incoming data to component state
  */
-export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data: IFHtmlTask) => void) => {
+export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data: (IFHtmlTask) | null) => void) => {
+    saveDataCallback(null)
     db.collection("htmlTasks").where("number", "==", taskNumber)
         .get()
         .then((querySnapshot) => {

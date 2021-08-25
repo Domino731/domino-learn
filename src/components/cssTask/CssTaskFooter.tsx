@@ -25,7 +25,7 @@ import neptunePlanet from "../../images/planet_neptune.png";
 
 
 /**
- * Footer for css task, which contains the number of the current task, lists with tasks
+ * Footer for cssTask, which contains the number of the current task, lists with tasks
  * @param allTasks - array with tasks, which will be used to render the list with tasks
  * @param taskNumber - current task number
  */

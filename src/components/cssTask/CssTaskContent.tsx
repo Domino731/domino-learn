@@ -75,7 +75,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // state which indicates which editor is active -> css editor or html
     const [currentEditor, setCurrentEditor] = useState<"css" | "html">("css");
 
-    // state with editor settings
+    // state with editor settings, which are passed into ace editor component
     const [editorSettings, setEditorSettings] = useState<{ fontSize: number, theme: string }>({
         fontSize: getEditorFSize(),
         theme: getEditorTheme()
@@ -112,6 +112,12 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         return () => window.removeEventListener("resize", resizeWindow);
     }, []);
 
+    // when the user solves the task correctly, scroll up to know that he did it correctly.
+    // This works for mobile devices
+    useEffect(() => {
+        windowWidth <= 768 && successfulFlag && window.scrollTo(0, 0);
+    }, [successfulFlag]);
+
     // save editor settings into local storage, when the user changes it
     useEffect(() => {
         localStorage.setItem("editorFontSize", editorSettings.fontSize.toString());
@@ -122,12 +128,6 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     useEffect(() => {
         setErrorFlag(false);
     }, [annotations]);
-
-    // when the user solves the task correctly, scroll up to know that he did it correctly.
-    // This works for mobile devices
-    useEffect(() => {
-        windowWidth <= 768 && successfulFlag && window.scrollTo(0, 0);
-    }, [successfulFlag]);
 
     // change userCode state (for html)
     const changeUserCodeHtml = (newValue: string): void => {
@@ -168,7 +168,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // switch between code editors - css and html
     const handleSwitchEditor = (): void => setCurrentEditor(() => currentEditor === "css" ? "html" : "css");
 
-    // show or hide editor settings form
+    // change editorFormFlag -> show or hide editor settings form
     const handleToggleEditorSettings = (): void => setEditorFormFlag(!editorFormFlag);
 
     // reset code to original
@@ -282,6 +282,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                     </ChangeEditorCheckbox>
                 </ChangeEditor>
 
+                {/*editors rendered depending on the selected*/}
                 <TaskCodeEditorMultiple>
                     {currentEditor === "css" &&
                     <AceEditor
@@ -349,11 +350,13 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                     <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset
                     </CodeEditorPanelBtn>
                     <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+
                 </CodeEditorPanel>
 
                 {/*Notification that user code contains errors*/}
                 {errorFlag &&
                 <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+
             </CssCodeEditorWrapper>
 
             {/*task introduction and targets*/}

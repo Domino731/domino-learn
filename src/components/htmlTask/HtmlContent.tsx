@@ -50,8 +50,6 @@ import {TaskTargets} from "../task/TaskTargets";
 import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
 import {TaskResultWindow} from "../task/TaskResultWindow";
 
-const beautifyHtml = require('js-beautify').html
-
 
 export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                                                                                task,
@@ -59,63 +57,70 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                                                                            }): JSX.Element | null => {
 
     // state with userCode from editor output
-    const [userCode, setUserCode] = useState<string>(task.code)
+    const [userCode, setUserCode] = useState<string>(task.code);
 
-    // state with result code, which is display in iFrame
-    const [resultCode, setResultCode] = useState<string>("")
-
-    // state with annotations from editor
-    const [annotations, setAnnotations] = useState<any[]>([])
+    // state with annotations from editor, which are used to check the user code for errors
+    const [annotations, setAnnotations] = useState<any[]>([]);
 
     // state with flag, when user change it, editor settings form will be showed
-    const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false)
+    const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false);
 
-
+    // state with editor settings, which are passed into ace editor component
     const [editorSettings, setEditorSettings] = useState<{ fontSize: number, theme: string }>({
         fontSize: getEditorFSize(),
         theme: getEditorTheme()
-    })
+    });
 
     // state with flag, which is responsible for animation when the user correctly completes the task targets
-    const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false)
+    const [successfulFlag, setSuccessfulFlag] = useState<boolean>(false);
 
     // state with flag, which is responsible for displaying error about user code
-    const [errorFlag, setErrorFlag] = useState<boolean>(false)
+    const [errorFlag, setErrorFlag] = useState<boolean>(false);
 
-    const [windowWidth, setWindowWidth] = useState<number>(0)
+    // width of the window on which the corresponding content will be rendered to the device,
+    // for devices below 768px width there is a different arrangement of elements
+    const [windowWidth, setWindowWidth] = useState<number>(0);
 
+    // code that is passed to iframe window
     const [srcDoc, setSrcDoc] = useState<string>(`<!DOCTYPE html>
           <html lang="en">
           <head>
           <title>${task.title}</title>
-        </head>
+          </head>
           <body></body>
-          </html>`)
+          </html>`);
 
-    // save editor settings into local storage
+    // save editor settings into local storage, when the user changes it
     useEffect(() => {
-        localStorage.setItem("editorFontSize", editorSettings.fontSize.toString())
-        localStorage.setItem("editorTheme", editorSettings.theme)
-    }, [editorSettings])
+        localStorage.setItem("editorFontSize", editorSettings.fontSize.toString());
+        localStorage.setItem("editorTheme", editorSettings.theme);
+    }, [editorSettings]);
 
+    // set the windowWidth state
     const resizeWindow = (): void => setWindowWidth(window.innerWidth);
-
     useEffect(() => {
         resizeWindow();
         window.addEventListener("resize", resizeWindow);
         return () => window.removeEventListener("resize", resizeWindow);
     }, []);
 
+    // when the user solves the task correctly, scroll up to know that he did it correctly.
+    // This works for mobile devices
+    useEffect(() => {
+        windowWidth <= 768 && successfulFlag && window.scrollTo(0, 0);
+    }, [successfulFlag]);
+
     // remove error when user type new code
     useEffect(() => {
-        setErrorFlag(false)
-    }, [annotations])
+        return setErrorFlag(false);
+    }, [annotations]);
 
-    useEffect(()=>{
-        successfulFlag && window.scrollTo(0,0)
-    },[successfulFlag])
-    // task validation
+    // function responsible for task validation checks if all targets of the task have been met,
+    // if so, it shows a screen about the correct execution of the task. It works only when user code
+    // dont have errors
     const checkTask = (): void => {
+
+        // start the task checking only if the user code does not contain errors
         if (annotations.length === 0) {
             // set the result (display user html code)
             setSrcDoc(`
@@ -126,32 +131,32 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
           </html>`)
 
             // points needed to pass
-            const pointsNeeded: number = task.targets.length
+            const pointsNeeded: number = task.targets.length;
 
             // user points
-            let userPoints = 0
+            let userPoints = 0;
 
-// function that add pun when user complete task correctly
-            const changeUserPoints = (): number => userPoints++
+            // function that add pun when user complete task correctly
+            const changeUserPoints = (): number => userPoints++;
 
             // // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
             // // depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
-            task.targets.forEach(el => taskValidationHtml(userCode, el, changeUserPoints))
+            task.targets.forEach(el => taskValidationHtml(userCode, el, changeUserPoints));
 
             // save solution into local storage, so when user comes back he will have their solution
-            saveHtmlTaskSolutionToLS(task.targets, task.title, userCode)
+            saveHtmlTaskSolutionToLS(task.targets, task.title, userCode);
 
             // check if user has executed all targets, if he did display animation
             if (userPoints === pointsNeeded) {
                 // set the animation
-                setSuccessfulFlag(true)
+                setSuccessfulFlag(true);
                 // save solved task title to ls, so that the user knows which tasks he has completed
-                saveSolvedTaskToLS(task.title, "solvedHtmlTasks")
+                saveSolvedTaskToLS(task.title, "solvedHtmlTasks");
             } else {
-                setSuccessfulFlag(false)
+                setSuccessfulFlag(false);
             }
         } else {
-            setErrorFlag(true)
+            setErrorFlag(true);
         }
 
     }
@@ -160,22 +165,24 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
         ...prev,
         fontSize: parseFloat(e.target.value)
-    }))
+    }));
+
     // change theme
     const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
         ...prev,
         theme: e.target.value
-    }))
+    }));
 
-    // change code from
+    // change userCode state
     const changeUserCode = (newValue: string): void => {
         setUserCode(newValue)
-    }
+    };
 
     // reset code in editor by original code from task
-    const handleResetCode = (): void => setUserCode(task.originalCode)
+    const handleResetCode = (): void => setUserCode(task.originalCode);
 
-    const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag)
+    // change editorFormFlag -> show or hide editor settings form
+    const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag);
 
     return <>
         {windowWidth > 768 && <TaskContentWrapper>
@@ -204,8 +211,9 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
             </HtmlTaskSuccessful>}
 
 
-            {/*code editor - ace*/}
+            {/*editor*/}
             <HtmlTaskCodeEditor>
+                {/* ace code editor*/}
                 <AceEditor
                     enableBasicAutocompletion={true}
                     enableLiveAutocompletion={true}
@@ -229,30 +237,45 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                         tabSize: 2,
                     }}
                 />
+
+                {/*editor panel where the user can change settings, check his solution or reset the code*/}
                 <CodeEditorPanel>
+
+                    {/*change the settings form*/}
                     {editorFormFlag &&
                     <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
                                            handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
                                            toggleForm={handleToggleEditorSettings}/>}
+
+                    {/*buttons*/}
                     <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
                         className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset
+                    </CodeEditorPanelBtn>
                     <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+
                 </CodeEditorPanel>
-                {errorFlag && <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+
+                {/*Notification that user code contains errors*/}
+                {errorFlag &&
+                <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+
             </HtmlTaskCodeEditor>
 
-            {/*user code*/}
+            {/*iframe with user code*/}
             <HtmlTaskResult>
                 <TaskResultWindow srcDoc={srcDoc}/>
             </HtmlTaskResult>
+
         </TaskContentWrapper>}
 
 
+        {/*content for mobile devices*/}
         {windowWidth <= 768 && <MobileTaskContentWrapper>
 
-
+            {/*task introduction and targets*/}
             <MobileTaskDetailsWrapper>
+
                 <MobileTaskDetail>
                     {successfulFlag === false && <>
                         {/*introduction*/}
@@ -264,27 +287,30 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                         </HtmlTaskIntroduction>
                     </>}
 
-                    {/*animation when user solves the task correctly*/}
+                    {/*animation which notifies the user that the task has been successfully completed*/}
                     {successfulFlag && <HtmlTaskSuccessful>
                         <TaskSuccessfulImg src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
-                        <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
+                        <TaskSuccessfulTitle>Congratulations, you have completed the task
+                            correctly</TaskSuccessfulTitle>
                         <TaskSuccessfulBar color="#ffca3a">
+
+                            {/*user has a choice to stay with the task or move to another task if there is one*/}
                             <button onClick={() => setSuccessfulFlag(false)}>Close</button>
                             {task.number < allTaskLength && <Link to={`/html-task/${task.number + 1}`}>Next task</Link>}
                         </TaskSuccessfulBar>
                     </HtmlTaskSuccessful>}
                 </MobileTaskDetail>
 
+                {/*task target and instructions*/}
                 <MobileTaskDetail>
-                    {/*task target and instructions*/}
                     <HtmlTaskTarget>
                         <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
                     </HtmlTaskTarget>
                 </MobileTaskDetail>
+
             </MobileTaskDetailsWrapper>
 
-
-
+            {/*editor*/}
             <MobileTaskEditorWrapper>
                 <AceEditor
                     enableBasicAutocompletion={true}
@@ -309,19 +335,31 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                         tabSize: 2,
                     }}
                 />
+
+                {/*editor panel where the user can change settings, check his solution or reset the code*/}
                 <CodeEditorPanel>
+
+                    {/*change the settings form*/}
                     {editorFormFlag &&
                     <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
                                            handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
                                            toggleForm={handleToggleEditorSettings}/>}
+
+                    {/*buttons*/}
                     <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
                         className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset
+                    </CodeEditorPanelBtn>
                     <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+
+                    {/*Notification that user code contains errors*/}
                 </CodeEditorPanel>
-                {errorFlag && <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+                {errorFlag &&
+                <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+
             </MobileTaskEditorWrapper>
 
+            {/*iframe with user code*/}
             <MobileTaskResult>
                 <TaskResultWindow srcDoc={srcDoc}/>
             </MobileTaskResult>
