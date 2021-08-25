@@ -4,6 +4,7 @@ import {IFAllTasks, IFJsTask, IFPropsTask} from "../../types/types";
 import {JsTaskContent} from "./JsTaskContent";
 import {getAllTasks, getSpecificJsTask} from "../../firebase/operations";
 import {JsTaskFooter} from "./JsTaskFooter";
+import {Loading} from "../other/Loading";
 
 export const JsTask: FunctionComponent<IFPropsTask> = (props): JSX.Element => {
 
@@ -19,8 +20,9 @@ export const JsTask: FunctionComponent<IFPropsTask> = (props): JSX.Element => {
         getAllTasks("jsTasks", "solvedJsTasks", setAllTasks);
     }, [props.match.params.taskNumber]);
 
+
     if (task === null || allTasks === null) {
-        return <h1>loading...</h1>
+        return <Loading/>
     }
 
     return <TaskContainer>

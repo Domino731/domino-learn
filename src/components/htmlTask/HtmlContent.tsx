@@ -50,7 +50,11 @@ import {TaskTargets} from "../task/TaskTargets";
 import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
 import {TaskResultWindow} from "../task/TaskResultWindow";
 
-
+/**
+ * Component with the main content for html task -> targets, introduction, editor.
+ * @param task - task data (targets, introduction, code, solution...)
+ * @param allTaskLength - number of all task of particular type
+ */
 export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                                                                                task,
                                                                                allTaskLength
@@ -115,6 +119,29 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
         return setErrorFlag(false);
     }, [annotations]);
 
+    // change editor font-size
+    const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
+        ...prev,
+        fontSize: parseFloat(e.target.value)
+    }));
+
+    // change theme
+    const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
+        ...prev,
+        theme: e.target.value
+    }));
+
+    // change userCode state
+    const changeUserCode = (newValue: string): void => {
+        setUserCode(newValue)
+    };
+
+    // reset code in editor by original code from task
+    const handleResetCode = (): void => setUserCode(task.originalCode);
+
+    // change editorFormFlag -> show or hide editor settings form
+    const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag);
+
     // function responsible for task validation checks if all targets of the task have been met,
     // if so, it shows a screen about the correct execution of the task. It works only when user code
     // dont have errors
@@ -139,8 +166,8 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
             // function that add pun when user complete task correctly
             const changeUserPoints = (): number => userPoints++;
 
-            // // checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
-            // // depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
+            //  checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
+            //  depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
             task.targets.forEach(el => taskValidationHtml(userCode, el, changeUserPoints));
 
             // save solution into local storage, so when user comes back he will have their solution
@@ -161,31 +188,15 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
     }
 
-    // change editor font-size
-    const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
-        ...prev,
-        fontSize: parseFloat(e.target.value)
-    }));
 
-    // change theme
-    const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
-        ...prev,
-        theme: e.target.value
-    }));
 
-    // change userCode state
-    const changeUserCode = (newValue: string): void => {
-        setUserCode(newValue)
-    };
 
-    // reset code in editor by original code from task
-    const handleResetCode = (): void => setUserCode(task.originalCode);
 
-    // change editorFormFlag -> show or hide editor settings form
-    const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag);
 
     return <>
         {windowWidth > 768 && <TaskContentWrapper>
+
+            {/*when the user successfully completes the task, these elements are hidden and an animation is displayed*/}
             {successfulFlag === false && <>
                 {/*introduction*/}
                 <HtmlTaskIntroduction>
@@ -270,6 +281,10 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
         </TaskContentWrapper>}
 
 
+
+
+
+
         {/*content for mobile devices*/}
         {windowWidth <= 768 && <MobileTaskContentWrapper>
 
@@ -277,27 +292,34 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
             <MobileTaskDetailsWrapper>
 
                 <MobileTaskDetail>
+
+                    {/*when the user successfully completes the task, these elements are hidden and an animation is displayed*/}
                     {successfulFlag === false && <>
-                        {/*introduction*/}
                         <HtmlTaskIntroduction>
+
+                            {/*introduction*/}
                             <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
                                               imgAlt={htmlClass.getFigureAlt()} imgSrc={htmlClass.getFigureSrc()}/>
+
                             {/*decorations*/}
                             <HtmlDecorationIntroduction/>
+
                         </HtmlTaskIntroduction>
                     </>}
 
                     {/*animation which notifies the user that the task has been successfully completed*/}
                     {successfulFlag && <HtmlTaskSuccessful>
+
                         <TaskSuccessfulImg src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
                         <TaskSuccessfulTitle>Congratulations, you have completed the task
                             correctly</TaskSuccessfulTitle>
-                        <TaskSuccessfulBar color="#ffca3a">
 
+                        <TaskSuccessfulBar color="#ffca3a">
                             {/*user has a choice to stay with the task or move to another task if there is one*/}
                             <button onClick={() => setSuccessfulFlag(false)}>Close</button>
                             {task.number < allTaskLength && <Link to={`/html-task/${task.number + 1}`}>Next task</Link>}
                         </TaskSuccessfulBar>
+
                     </HtmlTaskSuccessful>}
                 </MobileTaskDetail>
 

@@ -254,6 +254,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         setLoadingResult(false);
     };
 
+
     return <>
         {windowWidth > 768 && <TaskContentWrapper>
 
@@ -359,8 +360,11 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
             </CssCodeEditorWrapper>
 
+
             {/*task introduction and targets*/}
+            {/*when the user successfully completes the task, these elements are hidden and an animation is displayed*/}
             {successfulFlag === false && <>
+
                 <CssIntroduction>
                     <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
                                       imgAlt={cssClass.getFigureAlt()} imgSrc={cssClass.getFigureSrc()}/>

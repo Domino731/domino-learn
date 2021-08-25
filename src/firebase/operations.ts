@@ -92,7 +92,8 @@ export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: 
  * @param taskNumber  - number of task
  * @param saveDataCallback - function that saved incoming data to component state
  */
-export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: IFJsTask) => void) => {
+export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: (IFJsTask | null)) => void) => {
+    saveDataCallback(null)
     db.collection("jsTasks").where("number", "==", taskNumber)
         .get()
         .then((querySnapshot) => {
