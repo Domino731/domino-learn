@@ -63,6 +63,7 @@ export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: 
                     number: doc.data().number,
                     introduction: doc.data().introduction,
                     aid: doc.data().aid,
+                    includeHtml: doc.data().includeHtml,
                     originalCode: {
                         html: formatCode("html", doc.data().code.html),
                         css: formatCode("css", doc.data().code.css)

@@ -1,14 +1,9 @@
 import {RouteComponentProps} from "react-router";
 import React from "react";
 
-//// general ////
-
-interface IFMatchParams {
-    taskNumber: string
-    item: string
-}
-
-//// For components ////
+///////////////////////////////////////
+//// For components //////////////////
+/////////////////////////////////////
 
 export interface IFPropsDescriptionItem {
     language: {
@@ -91,6 +86,55 @@ export interface IFPropsTaskFooter {
 export interface IFPropsTask extends RouteComponentProps<IFMatchParams> {
 }
 
+export interface IFPropsCodeEditorHeader {
+    editorSettings: IFEditorSettings
+    changeFs: (e: React.ChangeEvent<HTMLInputElement>) => void
+    changeTheme: (e: React.ChangeEvent<HTMLInputElement>) => void
+    changeAreas: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+export interface IFPropsCodeEditorContent {
+    editorSettings: IFEditorSettings
+}
+
+export interface IFPropsQuiz extends RouteComponentProps<IFMatchParams> {
+}
+
+export interface IFPropsError404 {
+    redirectPath: string
+}
+
+export interface IFPropsQuizQuestion {
+    data: IFQuizQuestion
+    currQuestionIndex: number
+    switchToNextQuestion: () => void
+    questionsLeft: number | string
+    addPoint: () => void
+    addCoins: (coins: number) => void
+}
+
+export interface IFPropsQuizSummary {
+    item: {
+        figureSrc: string
+        figureAlt: string
+        iconSrc: string
+        iconAlt: string
+    }
+    itemPath: string
+    coinsAmount: number
+    questionsAmount: number
+    correctQuestions: number
+}
+
+export interface IFPropsError404 {
+    redirectPath: string
+}
+
+
+///////////////////////////////////////
+//// For tasks ///////////////////////
+/////////////////////////////////////
+
 export type TypeHtmlTaskSolution = {
     target: string
     solution: string
@@ -144,6 +188,7 @@ export interface IFCssTask {
     introduction: number
     number: number
     aid: IFTaskAid[],
+    includeHtml: boolean,
     code: {
         html: string
         css: string
@@ -188,7 +233,9 @@ export interface IFJsConsoleInitial {
 }
 
 
-
+///////////////////////////////////////
+//// For local storage //////////////////
+/////////////////////////////////////
 
 export type TypeLSHtmlTaskSolutions = {
     taskSolutions: TypeHtmlTaskSolution[]
@@ -208,6 +255,7 @@ export interface IFLSjsTaskSolutions {
     userCode: string
 }
 
+
 export interface IFProgramingCode {
     type: string
     code: string
@@ -226,20 +274,6 @@ export interface IFEditorSettings {
     areas: string
 }
 
-export interface IFPropsCodeEditorHeader {
-    editorSettings: IFEditorSettings
-    changeFs: (e: React.ChangeEvent<HTMLInputElement>) => void
-    changeTheme: (e: React.ChangeEvent<HTMLInputElement>) => void
-    changeAreas: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
-
-export interface IFPropsCodeEditorContent {
-    editorSettings: IFEditorSettings
-}
-
-export interface IFPropsQuiz extends RouteComponentProps<IFMatchParams> {
-}
-
 export interface IFQuizQuestion {
     question: string
     coins: number
@@ -249,35 +283,17 @@ export interface IFQuizQuestion {
     }[]
 }
 
-export interface IFPropsQuizQuestion {
-    data: IFQuizQuestion
-    currQuestionIndex: number
-    switchToNextQuestion: () => void
-    questionsLeft: number | string
-    addPoint: () => void
-    addCoins: (coins: number) => void
-}
-
-export interface IFPropsQuizSummary{
-   item: {
-       figureSrc: string
-       figureAlt: string
-       iconSrc: string
-       iconAlt: string
-   }
-    itemPath: string
-    coinsAmount: number
-    questionsAmount: number
-    correctQuestions: number
-}
-
-export interface IFPropsError404{
-    redirectPath: string
-}
-
 export interface IFQuizItem {
-    figureSrc:  string,
-    figureAlt:  string,
-    iconSrc:  string,
-    iconAlt:  string
+    figureSrc: string,
+    figureAlt: string,
+    iconSrc: string,
+    iconAlt: string
+}
+
+
+//// general ////
+
+interface IFMatchParams {
+    taskNumber: string
+    item: string
 }

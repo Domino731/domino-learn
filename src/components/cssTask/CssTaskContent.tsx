@@ -275,12 +275,16 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                         <span/>
                     </ChangeEditorCheckbox>
 
-                    <ChangeEditorCheckbox lineColor="#e44d26">
+                    {/*some tasks do not require interference with html code*/}
+                    {task.includeHtml && <ChangeEditorCheckbox lineColor="#e44d26">
                         <label>index.html </label>
                         <input type="checkbox" checked={currentEditor === "html"} onChange={handleSwitchEditor}/>
                         <i className="fab fa-html5"/>
                         <span/>
-                    </ChangeEditorCheckbox>
+                    </ChangeEditorCheckbox>}
+
+
+
                 </ChangeEditor>
 
                 {/*editors rendered depending on the selected*/}
@@ -443,12 +447,14 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                         <span/>
                     </ChangeEditorCheckbox>
 
-                    <ChangeEditorCheckbox lineColor="#e44d26">
+                    {/*some tasks do not require interference with html code*/}
+                    {task.includeHtml && <ChangeEditorCheckbox lineColor="#e44d26">
                         <label>index.html </label>
                         <input type="checkbox" checked={currentEditor === "html"} onChange={handleSwitchEditor}/>
                         <i className="fab fa-html5"/>
                         <span/>
-                    </ChangeEditorCheckbox>
+                    </ChangeEditorCheckbox>}
+
                 </ChangeEditor>
 
                 {/*editor*/}
