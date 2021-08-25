@@ -9,6 +9,7 @@ export const QuizContainer = styled.main`
   justify-content: center;
   align-items: center;
   background: ${props => props.theme.color.yellow};
+
   @media (max-height: 570px){
     height: auto;
     min-height: 100vh;
@@ -139,6 +140,7 @@ export const QuizAnswer = styled.div<props__QuizAnswer>`
   }
 
   input {
+    border: none;
     position: absolute;
     left: 0;
     top: 0;

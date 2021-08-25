@@ -2,7 +2,8 @@ import styled, {keyframes} from "styled-components";
 import {device} from "../../general/breakpoints";
 
 export const EditorContainer = styled.main`
-  width: 100vw;
+  width: 100%;
+  overflow-x: hidden;
 `
 export const EditorHeaderWrapper = styled.header`
   position: relative;

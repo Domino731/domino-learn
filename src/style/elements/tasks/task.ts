@@ -587,14 +587,14 @@ export const WebBrowserTopBar = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-  height: 32px;
+  height: 2rem;
   background: ${props => props.theme.color.white};
 
   span {
-    width: 53px;
-    height: 19px;
-    border-radius: 6px;
-    margin-right: 8px;
+    width: 3.313rem;
+    height: 1.188rem;
+    border-radius: 0.375rem;
+    margin-right: 0.5rem;
   }
 `
 export const WebBrowserGreenBox = styled.span`
