@@ -18,9 +18,13 @@ import {IFAllTasks, IFPropsTasksBoard} from "../../types/types";
 import {getAllTasks} from "../../firebase/operations";
 import {Link} from "react-router-dom";
 
+/**
+ * subcomponent for ChoseTask, renders animated text, or a list with tasks selected by the user
+ * @param selectedTasks - type of tasks on the basis of which they will be collected
+ */
 export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}): JSX.Element => {
 
-    // state with all tasks of a particular type
+    // state with all tasks of a particular type, based on this state the list with tasks will be rendered
     const [tasks, setTasks] = useState<IFAllTasks[]>([])
 
     // get the tasks when user select task type
@@ -40,6 +44,8 @@ export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}
 
     return <TasksBoardContainer>
         <TasksBoardPosterContainer>
+
+            {/*animated text*/}
             {selectedTasks === "" && <TasksBoardTitleWrapper>
                 <TasksBoardTitle1>Chose Your World</TasksBoardTitle1>
                 <TasksBoardTitle2>Chose Your World</TasksBoardTitle2>
@@ -49,13 +55,15 @@ export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}
                 <TasksBoardTitle6>Chose Your World</TasksBoardTitle6>
                 <TasksBoardTitle7>Chose Your World</TasksBoardTitle7>
             </TasksBoardTitleWrapper>}
+
+            {/*tasks list of particular type*/}
             {selectedTasks === "cssTasks" && <TasksList>
-                {tasks.map((el, num) => <TasksListItem solved={el.solved}  key={`tasks_board_css_${num}`}>
+                {tasks.map((el, num) => <TasksListItem solved={el.solved} key={`tasks_board_css_${num}`}>
                     <Link to={`/css-task/${el.number}`}>{el.number}</Link>
                 </TasksListItem>)}
-                    </TasksList>}
+            </TasksList>}
             {selectedTasks === "jsTasks" && <TasksList>
-                {tasks.map((el, num) => <TasksListItem solved={el.solved}  key={`tasks_board_js_${num}`}>
+                {tasks.map((el, num) => <TasksListItem solved={el.solved} key={`tasks_board_js_${num}`}>
                     <Link to={`/js-task/${el.number}`}>{el.number}</Link>
                 </TasksListItem>)}
             </TasksList>}
@@ -66,14 +74,13 @@ export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}
                 </TasksListItem>)}
             </TasksList>}
 
-                    <TasksPlanetWrapper>
-                        <TasksPlanet1 src={saturnPlanet} alt="saturn"/>
-                        <TasksPlanet2 src={colorfulPlanet} alt="colorful planet"/>
-                    </TasksPlanetWrapper>
-                </TasksBoardPosterContainer>
+            {/*background with planets*/}
+            <TasksPlanetWrapper>
+                <TasksPlanet1 src={saturnPlanet} alt="saturn"/>
+                <TasksPlanet2 src={colorfulPlanet} alt="colorful planet"/>
+            </TasksPlanetWrapper>
 
+        </TasksBoardPosterContainer>
 
-
-
-                    </TasksBoardContainer>
-                    }
+    </TasksBoardContainer>
+}

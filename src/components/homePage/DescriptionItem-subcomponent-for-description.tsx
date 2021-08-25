@@ -4,11 +4,13 @@ import 'ace-builds/src-noconflict/mode-css'
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/theme-monokai'
 import {FunctionComponent, useState} from "react";
-import {DscItem, DscContent,
+import {
+    DscItem, DscContent,
     DscTitleContainer, DscTitle
     , DscTitleImg,
     DscDescription, DscExemplaryCodeBtn, DscFigure,
-DscFigureImg, DscItemContainer, DscCode, DscEditorWrapper, DscArrow, DscCodeResultWrapper} from "../../style/elements/homePage/description";
+    DscFigureImg, DscItemContainer, DscCode, DscEditorWrapper, DscArrow, DscCodeResultWrapper
+} from "../../style/elements/homePage/description";
 import {IFProgramingCode, IFPropsDescriptionItem} from "../../types/types";
 import {
     WebBrowserGreenBox,
@@ -17,17 +19,26 @@ import {
     WebBrowserYellowBox
 } from "../../style/elements/tasks/task";
 
-export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({language, reverse= false}) => {
-    const code : IFProgramingCode = language.getCode()
+/**
+ * Subcomponent for Description, which render description for a single language and sample code
+ * @param language - object with language data - icon, figure, text, code...
+ * @param reverse - boolean, with which the description will be rotated horizontally (only above 768px width)
+ */
+export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({language, reverse = false}) => {
+    const code: IFProgramingCode = language.getCode()
 
+    // state which is responsible for displaying code example
     const [flag, setFlag] = useState<boolean>(false)
 
-    const handleChangeFlag = () => setFlag(!flag)
+    // change flag state -> show or hide code example
+    const handleChangeFlag = (): void => setFlag(!flag)
 
 
     return <DscItemContainer reverse={reverse}>
         <DscItem reverse={reverse}>
+            {/* description*/}
             {flag === false && <>
+
                 <DscContent>
                     <DscTitleContainer>
                         <DscTitleImg src={language.getIconSrc()} alt={language.getIconAlt()}/>
@@ -39,12 +50,14 @@ export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({lang
                     <DscExemplaryCodeBtn onClick={handleChangeFlag}>See exemplary code</DscExemplaryCodeBtn>
                 </DscContent>
                 <DscFigure>
-                    <DscFigureImg src={language.getFigureSrc()} alt={language.getFigureAlt()} />
+                    <DscFigureImg src={language.getFigureSrc()} alt={language.getFigureAlt()}/>
                 </DscFigure>
+
             </>
             }
-
+            {/*code example*/}
             {flag && <DscCode reverse={reverse}>
+                {/*editor with code*/}
                 <DscEditorWrapper mode={language.getLanguageName()}>
                     <AceEditor
                         enableBasicAutocompletion={true}
@@ -70,6 +83,7 @@ export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({lang
                     />
                 </DscEditorWrapper>
 
+                {/*arrow toward the window iframe*/}
                 <DscArrow reverse={reverse}>
                     <i className="fas fa-long-arrow-alt-right"/>
                     <div onClick={handleChangeFlag}>
@@ -77,6 +91,7 @@ export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({lang
                     </div>
                 </DscArrow>
 
+                {/*iframe with code result*/}
                 <DscCodeResultWrapper mode={language.getLanguageName()}>
                     <WebBrowserWindow>
                         <WebBrowserTopBar>
@@ -91,8 +106,6 @@ export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({lang
                 </DscCodeResultWrapper>
             </DscCode>}
         </DscItem>
-
-
 
     </DscItemContainer>
 

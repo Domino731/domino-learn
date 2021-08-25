@@ -131,7 +131,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // change userCode state (for html)
     const changeUserCodeHtml = (newValue: string): void => {
-        setUserCode(prev => ({
+        return setUserCode(prev => ({
             ...prev,
             html: newValue
         }));
@@ -139,7 +139,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // change userCode state (for css)
     const changeUserCodeCss = (newValue: string): void => {
-        setUserCode(prev => ({
+        return setUserCode(prev => ({
             ...prev,
             css: newValue
         }));
@@ -147,7 +147,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // add editor annotations into Annotations state
     const changeAnnotations = (newValue: any, key: "css" | "html") => {
-        setAnnotations((prev) => ({
+        return setAnnotations((prev) => ({
             ...prev,
             [key]: newValue.filter((el: any) => el.type === "error")
         }));
@@ -174,12 +174,12 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // reset code to original
     const handleResetCode = (): void => {
         if (currentEditor === "css") {
-            setUserCode(prev => ({
+            return setUserCode(prev => ({
                 ...prev,
                 css: task.originalCode.css
             }));
         } else {
-            setUserCode(prev => ({
+            return setUserCode(prev => ({
                 ...prev,
                 html: task.originalCode.html
             }));

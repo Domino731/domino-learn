@@ -8,9 +8,12 @@ import jupiterPlanet from "../../images/planet_jupiter.png"
 import coding from "../../images/coding.png"
 import quiz from "../../images/quiz.png"
 import astronautHappy from "../../images/astronautHappy.png"
+
+// subcomponent for HomePage, renders freepik icons authors, and socials links
 export const Footer: FunctionComponent = (): JSX.Element => {
     return <FooterContainer>
 
+        {/*icons*/}
         <FreepikThanks>
             <div>
                 <span><img src={saturnPlanet} alt="saturn"/></span>
@@ -59,6 +62,7 @@ export const Footer: FunctionComponent = (): JSX.Element => {
             </div>
         </FreepikThanks>
 
+        {/*socials*/}
         <FooterMediaList>
             <FooterMediaItem>
                 <a href="https://www.linkedin.com/in/dominik-orzechowski-2aa553212/" target="_blank"

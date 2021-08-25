@@ -7,6 +7,14 @@ import {
 import {FunctionComponent} from "react";
 import {IFPropsTaskSelect} from "../../types/types";
 
+/**
+ * subcomponent for ChoseTask, renders single box with checkbox, whose change will retrieve jobs from a specific category
+ * @param task -  value that is needed to check if the checkbox is checked
+ * @param chosenTask - currently selected task type by the user
+ * @param setTasks - change selected tasks type
+ * @param language - language data -> figure src, icon src, name
+ * @constructor
+ */
 export const TaskSelectSingle: FunctionComponent<IFPropsTaskSelect> = ({
                                                                            task,
                                                                            chosenTask,
@@ -14,13 +22,11 @@ export const TaskSelectSingle: FunctionComponent<IFPropsTaskSelect> = ({
                                                                            language
                                                                        }): JSX.Element => {
 
-    const changeTasks = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setTasks(e)
-    }
     return <TasksSelectWrapper>
 
         <TasksSelectFigure src={language.getFigureSrc()} alt={language.getFigureAlt()}/>
-        <input type="radio" name={language.getLanguageName()} value={task} onChange={changeTasks} checked={chosenTask === task}/>
+        <input type="radio" name={`${language.getLanguageName()}_checkbox`} value={task} onChange={setTasks}
+               checked={chosenTask === task}/>
         <span/>
         <TasksSelectTitle>
             <TasksSelectIcon src={language.getIconSrc()} alt={language.getIconAlt()}/>

@@ -7,13 +7,16 @@ import {jsClass} from "../../properties/jsClass";
 import {DscPlanetColorful, DscPlanetJupiter, DscPlanetMercury} from "../../style/elements/homePage/description";
 import colorfulPlanet from "../../images/planet_colorful.png";
 import jupiterPlanet from "../../images/planet_jupiter.png";
-import mercuryPlanet from "../../images/planet_mercury.png"
+import mercuryPlanet from "../../images/planet_mercury.png";
+
+// Subcomponent for HomePage, renders description for every language
 export const Description: FunctionComponent = () : JSX.Element => {
     return <DscContainer>
         <DescriptionItem language={htmlClass}/>
         <DescriptionItem language={cssClass} reverse/>
         <DescriptionItem language={jsClass}/>
 
+        {/*decorations*/}
         <DscPlanetColorful src={colorfulPlanet} alt="colorful planet"/>
         <DscPlanetJupiter src={jupiterPlanet} alt="jupiter"/>
         <DscPlanetMercury src={mercuryPlanet} alt="mercury"/>

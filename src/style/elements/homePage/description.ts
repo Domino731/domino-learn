@@ -50,6 +50,7 @@ export const DscItem = styled.div<DscReverseProps>`
   @media ${device.laptopL} {
     height: 440px;
     width: 1184px;
+    border-radius: ${props => props.reverse ? "70x 0 0 70px" : "0 70px 70px 0"};
   }
   @media ${device.laptopSM} {
     width: 900px;
@@ -62,6 +63,9 @@ export const DscItem = styled.div<DscReverseProps>`
     box-shadow: 0 13px ${props => props.theme.color.gray};
     padding: 20px;
     margin-bottom: 85px;
+    &:hover{
+      box-shadow: 0 20px ${props => props.theme.color.yellow};
+    }
   }
   @media ${device.tablet} {
     align-items: center;
