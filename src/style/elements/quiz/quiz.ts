@@ -9,6 +9,12 @@ export const QuizContainer = styled.main`
   justify-content: center;
   align-items: center;
   background: ${props => props.theme.color.yellow};
+  @media (max-height: 570px){
+    height: auto;
+    min-height: 100vh;
+    padding: 32px 0 ;
+    justify-content: flex-start;
+  }
 `
 export const QuizQuestionWrapper = styled.form`
   width: 35%;
