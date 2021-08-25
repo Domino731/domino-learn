@@ -1,6 +1,7 @@
 import {RouteComponentProps} from "react-router";
 import React from "react";
 import {QuizQuestion} from "../components/quiz/QuizQuestio";
+import {htmlClass} from "../properties/htmlClass";
 
 //// general ////
 
@@ -309,4 +310,11 @@ export interface IFPropsQuizSummary{
 
 export interface IFPropsError404{
     redirectPath: string
+}
+
+export interface IFQuizItem {
+    figureSrc:  string,
+    figureAlt:  string,
+    iconSrc:  string,
+    iconAlt:  string
 }

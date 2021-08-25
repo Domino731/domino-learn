@@ -1,6 +1,7 @@
 import {FunctionComponent} from "react";
 import {Container} from "../../style/general/generalStyles";
-import {QuizHeader,
+import {
+    QuizHeader,
     QuizHeaderLink,
     QuizMenuItem,
     QuizMenuWrapper,
@@ -13,6 +14,8 @@ import {cssClass} from "../../properties/cssClass";
 import {jsClass} from "../../properties/jsClass";
 import coins from "../../images/coins.png"
 import {getQuizCoins} from "../../functions/localStorage";
+
+// Component renders menu by which the user can select the quiz
 export const QuizMenu: FunctionComponent = (): JSX.Element => {
     return <Container>
         <QuizHeader>

@@ -156,7 +156,8 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
  * @param type - type of quiz elements that you want to get - html, css or js
  * @param saveDataCallback - function that saved incoming data to component state
  */
-export const getQuizQuestions = (type: string, saveDataCallback: (data: IFQuizQuestion[]) => void) => {
+export const getQuizQuestions = (type: string, saveDataCallback: (data: (IFQuizQuestion[] | null )) => void) => {
+    saveDataCallback(null)
     db.collection("quiz").where("type", "==", type)
         .get()
         .then((querySnapshot) => {
