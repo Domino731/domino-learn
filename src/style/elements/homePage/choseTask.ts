@@ -29,7 +29,7 @@ export const TasksBoardContainer = styled.div`
   background: rgb(0, 185, 241);
   background: linear-gradient(40deg, rgba(0, 185, 241, 1) 33%, rgba(70, 212, 255, 1) 71%);
 
-  @media (max-width: 590px){
+  @media (max-width: 590px) {
     width: 70%;
   }
 `
@@ -78,7 +78,7 @@ export const TasksBoardTitleWrapper = styled.div`
   @media (max-width: 961px) {
     font-size: 25px;
   }
-  @media ${device.tablet}{
+  @media ${device.tablet} {
     font-size: 19px;
   }
   @media (max-width: 590px) {
@@ -190,7 +190,7 @@ export const TasksSelect = styled.div`
     justify-content: space-between;
     padding: 0 10px;
   }
-  @media (max-width: 590px){
+  @media (max-width: 590px) {
     width: 30%;
     flex-wrap: nowrap;
     flex-direction: column;
@@ -299,16 +299,17 @@ export const TasksSelectWrapper = styled.div`
     }
   }
 
-  @media (max-width: 590px){
+  @media (max-width: 590px) {
     flex-grow: 0;
     width: 100%;
     height: 32%;
-    span{
+    span {
       border-radius: 10px;
     }
+
     input:checked ~ span {
-      
-      box-shadow: 0 15px  ${props => props.theme.color.blue} inset;
+
+      box-shadow: 0 15px ${props => props.theme.color.blue} inset;
     }
   }
 `
@@ -350,7 +351,7 @@ export const TasksSelectFigure = styled.img`
   @media ${device.tablet} {
     height: 100%;
   }
-  @media (max-width: 590px){
+  @media (max-width: 590px) {
     display: none;
   }
 `
@@ -431,7 +432,7 @@ export const TasksListItem = styled.div<props__TasksListItem>`
     margin: 3px;
     font-size: 30px ;
   }
-  @media (max-width: 590px){
+  @media (max-width: 590px) {
     height: 61px;
     width: 61px;
     margin: 3px;

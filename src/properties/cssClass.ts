@@ -2,6 +2,7 @@ import {ProgramingLanguage} from "./front_end_languages";
 import cssIcon from "../images/css_icon.png";
 import painter from "../images/css_painter.png";
 import {IFProgramingCode} from "../types/types";
+
 const cssDsc = `Cascading Style Sheets is a language that is used to describe
  the appearance of our website. 
 Thanks to it, we can change, for example, the background color, set the capitalization or decorations. To create a style for a 
@@ -41,7 +42,7 @@ h2:hover{
    transition: 0.4s;
 }
 
-.list__element--coffe{
+.list__element--coffee{
   border-left: 2px solid black;
 }
 .list__element--tea{
@@ -51,7 +52,7 @@ h2:hover{
   border-right: 2px solid black;
 }
 
-.list__element--coffe:hover{
+.list__element--coffee:hover{
   background: red;
 }
 
@@ -82,7 +83,7 @@ const htmlCode = ` <h1>My first Heading</h1>
  <h2>An Unordered HTML List</h2>
 
  <ul class="list">
-  <li class="list__element list__element--coffe">Coffee</li>
+  <li class="list__element list__element--coffee">Coffee</li>
   <li class="list__element list__element--tea">Tea</li>
   <li class="list__element list__element--milk">Milk</li>
  </ul>
@@ -95,7 +96,7 @@ const htmlCode = ` <h1>My first Heading</h1>
   <li  class="list__element">Milk</li>
  </ol>
 `
-const code : IFProgramingCode = {
+const code: IFProgramingCode = {
     type: "css",
     code: styles,
     srcDoc: `
@@ -107,5 +108,7 @@ const code : IFProgramingCode = {
           <body>${htmlCode}</body>
           </html>`
 };
+
+// css language data
 export const cssClass = new ProgramingLanguage("CSS", cssIcon,
     "Css icon", cssDsc, painter, "The painter symbolizes styling in css", code);

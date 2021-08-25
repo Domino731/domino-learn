@@ -16,18 +16,21 @@ export const ErrorText = styled.div`
   height: 300px;
   margin-left: 20px;
   position: relative;
-  h1{
+
+  h1 {
     font-size: 68px;
     font-weight: bold;
     margin-bottom: 16px;
     text-decoration: underline;
     text-decoration-color: ${props => props.theme.color.red};
   }
-  strong{
+
+  strong {
     font-size: 19px;
     font-weight: 700;
   }
-  div{
+
+  div {
     position: absolute;
     bottom: 0;
   }

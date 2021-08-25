@@ -46,6 +46,8 @@ const code : IFProgramingCode = {
     code: formatCode("html", htmlCode),
     srcDoc: htmlCode
 }
+
+// html language data
 export const htmlClass: ProgramingLanguage =
     new ProgramingLanguage("Html", htmlIcon, "Html icon",
         htmlDsc, builder,

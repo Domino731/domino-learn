@@ -1,7 +1,5 @@
 import {RouteComponentProps} from "react-router";
 import React from "react";
-import {QuizQuestion} from "../components/quiz/QuizQuestio";
-import {htmlClass} from "../properties/htmlClass";
 
 //// general ////
 
@@ -28,15 +26,6 @@ export interface IFPropsDescriptionItem {
 
 export interface IFPropsTaskResultWindow {
     srcDoc: string
-}
-
-export interface IFPropsTaskAceEditor {
-    mode: string
-    editorTheme: string
-    userCode: string
-    editorFS: string | number
-    changeUserCode: (newValue: string) => void
-    addAnnotations: (value: any) => void
 }
 
 export interface IFPropsTaskAceEditorSettings {
@@ -77,15 +66,6 @@ export interface IFPropsTaskTargets {
     aidArr: IFTaskAid[]
 }
 
-export interface IFPropsHtmlTaskFooter {
-    allTasks: {
-        title: string,
-        introduction: string,
-        targets: string[],
-        number: number
-    }[]
-    taskNumber: number
-}
 
 export interface IFPropsHtmlTaskContent {
     task: IFHtmlTask
@@ -97,10 +77,6 @@ export interface IFPropsCssTaskContent {
     allTaskLength: number
 }
 
-export interface IFPropsCssTaskFooter {
-    allTasks: IFAllTasks[],
-    taskNumber: number
-}
 
 export interface IFPropsJsTask {
     task: IFJsTask,
@@ -211,10 +187,7 @@ export interface IFJsConsoleInitial {
     data: (string | number)[]
 }
 
-export interface IFJsConsoleLogs {
-    data: any[]
-    amount?: number
-}
+
 
 
 export type TypeLSHtmlTaskSolutions = {
@@ -264,11 +237,6 @@ export interface IFPropsCodeEditorContent {
     editorSettings: IFEditorSettings
 }
 
-export interface IFTransformQuizItem {
-    X: number,
-    Y: number
-}
-
 export interface IFPropsQuiz extends RouteComponentProps<IFMatchParams> {
 }
 
@@ -290,11 +258,6 @@ export interface IFPropsQuizQuestion {
     addCoins: (coins: number) => void
 }
 
-export interface IFAnswer {
-    correct: boolean
-    text: string
-    correctly?: boolean
-}
 export interface IFPropsQuizSummary{
    item: {
        figureSrc: string

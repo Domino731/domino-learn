@@ -1,7 +1,8 @@
 import styled, {keyframes} from "styled-components";
 import {device} from "../../general/breakpoints";
+
 export const EditorContainer = styled.main`
-width: 100vw;
+  width: 100vw;
 `
 export const EditorHeaderWrapper = styled.header`
   position: relative;
@@ -75,8 +76,8 @@ export const EditorSettingsForm = styled.form`
   ::-webkit-scrollbar {
     width: 1px;
   }
-  
-  @media (max-width: 900px){
+
+  @media (max-width: 900px) {
     border-left: 2px solid ${props => props.theme.color.yellow};
   }
 `
@@ -113,7 +114,7 @@ export const EditorFormThemes = styled.div`
   flex-wrap: wrap;
   color: ${props => props.theme.color.white};
   font-weight: 600;
-  
+
   label {
     display: flex;
     justify-content: center;
@@ -153,12 +154,12 @@ export const EditorFormThemes = styled.div`
   input:checked ~ span {
     display: none;
   }
-  
-  @media ${device.tablet}{
+
+  @media ${device.tablet} {
     flex-wrap: nowrap;
     flex-direction: column;
     align-items: center;
-    label{
+    label {
       padding: 5px 0;
       width: 94%;
     }

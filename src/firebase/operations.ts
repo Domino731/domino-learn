@@ -8,8 +8,6 @@ import {
 } from "../functions/localStorage";
 import {formatCode} from "../functions/formatCode";
 
-const beautifyHtml = require('js-beautify').html
-const beautifyCss = require('js-beautify').css
 const beautifyJs = require('js-beautify').js;
 /**
  * fetch  specific html task
@@ -17,7 +15,11 @@ const beautifyJs = require('js-beautify').js;
  * @param saveDataCallback - function that saved incoming data to component state
  */
 export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data: (IFHtmlTask) | null) => void) => {
-    saveDataCallback(null)
+
+    // set loading screen
+    saveDataCallback(null);
+
+    // fetch task
     db.collection("htmlTasks").where("number", "==", taskNumber)
         .get()
         .then((querySnapshot) => {
@@ -27,11 +29,7 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
                     introduction: doc.data().introduction,
                     number: doc.data().number,
                     aid: doc.data().aid,
-                    originalCode: beautifyHtml(doc.data().code, {
-                        indent_size: 1,
-                        space_in_empty_paren: false,
-                        wrap_line_length: 50
-                    }),
+                    originalCode: formatCode("html", doc.data().code),
                     // check if the user hasn't already solved the task, if he  has solved it,
                     // get it from local storage and if not, return the default value (task.targets)
                     code: getHtmlTaskCodeFromLS(doc.data().title, doc.data().taskCode),
@@ -43,7 +41,7 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
         .catch((error) => {
             console.log("Error getting document:", error);
         });
-}
+};
 
 /**
  * fetch specific css task
@@ -51,7 +49,11 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
  * @param saveDataCallback - function that saved incoming data to component state
  */
 export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: (IFCssTask | null)) => void) => {
+
+    // set loading screen
     saveDataCallback(null)
+
+    // fetch task
     db.collection("cssTasks").where("number", "==", taskNumber)
         .get()
         .then((querySnapshot) => {
@@ -61,31 +63,23 @@ export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: 
                     number: doc.data().number,
                     introduction: doc.data().introduction,
                     aid: doc.data().aid,
+                    originalCode: {
+                        html: formatCode("html", doc.data().code.html),
+                        css: formatCode("css", doc.data().code.css)
+                    },
                     // check if the user hasn't already solved the task, if he  has solved it,
                     // get it from local storage and if not, return the default value (task.targets)
                     // @ts-ignore
                     code: getCssTaskCodeFromLS(doc.data().title, doc.data().code),
                     targets: getCssTaskTargetsFromLS(doc.data().title, doc.data().targets),
-                    originalCode: {
-                        html: beautifyHtml(doc.data().code.html, {
-                            indent_size: 1,
-                            space_in_empty_paren: false,
-                            wrap_line_length: 50
-                        }),
-                        css: beautifyCss(doc.data().code.css, {
-                            indent_size: 1,
-                            space_in_empty_paren: false,
-                            wrap_line_length: 50
-                        }),
-                    }
                 }
-                return saveDataCallback(data)
+                return saveDataCallback(data);
             });
         })
         .catch((error) => {
             console.log("Error getting document:", error);
         });
-}
+};
 
 /**
  * fetch specific css task
@@ -93,17 +87,26 @@ export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: 
  * @param saveDataCallback - function that saved incoming data to component state
  */
 export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: (IFJsTask | null)) => void) => {
+
+    // set loading screen
     saveDataCallback(null)
+
+    // fetch task
     db.collection("jsTasks").where("number", "==", taskNumber)
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
+
+                // The beautify module does not support formatting javascript comments,
+                // and they are important for checking the task, so you have to do it manually.
+                // Any code in firestore will contain "@",
+                // which gives you the ability to create comment formatting.
                 const codeJs: string = beautifyJs(doc.data().code, {
                     indent_size: 1,
                     wrap_line_length: 2,
                 })
-
                 const formattedCode = codeJs.replaceAll('@', '')
+
 
                 const data: IFJsTask = {
                     title: doc.data().title,
@@ -116,15 +119,14 @@ export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: (
                     code: getJsTaskCodeFromLS(doc.data().title, formattedCode),
                     targets: getJsTaskTargetsFromLS(doc.data().title, doc.data().targets),
                 }
-                console.log(data)
-                return saveDataCallback(data)
+                return saveDataCallback(data);
             });
 
         })
         .catch((error) => {
             console.log("Error getting document:", error);
         });
-}
+};
 
 /**
  * fetch all tasks
@@ -145,19 +147,22 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
                     number: doc.data().number,
                     solved: checkSolvedTask(doc.data().title, checkItem)
                 }
-                return tasks.push(data)
+                return tasks.push(data);
             });
-
-            return saveDataCallback(tasks)
+            return saveDataCallback(tasks);
         })
-}
+};
+
+
 /**
- * fetch quiz questions
+ * fetch quiz questions (max 10 questions)
  * @param type - type of quiz elements that you want to get - html, css or js
  * @param saveDataCallback - function that saved incoming data to component state
  */
-export const getQuizQuestions = (type: string, saveDataCallback: (data: (IFQuizQuestion[] | null )) => void) => {
-    saveDataCallback(null)
+export const getQuizQuestions = (type: string, saveDataCallback: (data: (IFQuizQuestion[] | null)) => void) => {
+
+    // set loading screen
+    saveDataCallback(null);
     db.collection("quiz").where("type", "==", type)
         .get()
         .then((querySnapshot) => {
@@ -165,10 +170,10 @@ export const getQuizQuestions = (type: string, saveDataCallback: (data: (IFQuizQ
 
                 // shuffle the questions
                 const shuffledQuestions: IFQuizQuestion[] = doc.data().questions.sort(() => Math.random() - .5)
-                saveDataCallback(shuffledQuestions)
+                saveDataCallback(shuffledQuestions.slice(0, 10));
             });
         })
         .catch((error) => {
             console.log("Error getting documents: ", error);
         });
-}
+};

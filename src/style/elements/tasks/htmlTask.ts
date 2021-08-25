@@ -1,28 +1,17 @@
 import styled from "styled-components";
 import {
     TaskFooter,
-    TaskFooterListBtn,
-    TaskHeader,
     TaskFooterTasksWrapper, TaskFooterDecoration, TaskIntroductionDecoration
 } from "./task";
 import {device} from "../../general/breakpoints";
 
-export const HtmlTaskContainer = styled.div`
-  width: 100%;
-
-  code {
-    display: inline-block;
-    padding: 0 3px;
-    border-radius: 4px;
-    background: ${props => props.theme.color.white};
-  }
-`
 export const HtmlTaskIntroduction = styled.div`
   grid-column: 1 / 1;
   grid-row: 1 / 1;
   max-width: 100%;
   position: relative;
   overflow: auto;
+
   &::-webkit-scrollbar {
     width: 0;
   }
@@ -35,6 +24,7 @@ export const HtmlTaskTarget = styled.div`
   position: relative;
   overflow: auto;
   scroll-margin: 50px 0 0 50px;
+
   &::-webkit-scrollbar {
     width: 0;
   }
@@ -51,8 +41,8 @@ export const HtmlTaskSuccessful = styled.div`
   background-position: -30px 0, -30px 0, 0 0, 0 0;
   background-size: 60px 60px;
   background-repeat: repeat;
-  
-  @media ${device.tablet}{
+
+  @media ${device.tablet} {
     height: 100%;
   }
 `
@@ -76,16 +66,11 @@ export const HtmlTaskResult = styled.div`
     background: #fff;
   }
 `
-export const HtmlHeader = styled(TaskHeader)`
-  background: ${props => props.theme.color.blue};
-`
+
 export const HtmlFooter = styled(TaskFooter)`
   background: #ff595e;
 `
 
-export const HtmlFooterListBtn = styled(TaskFooterListBtn)`
-  color: ${props => props.theme.color.gray};
-`
 export const HtmlFooterTasksWrapper = styled(TaskFooterTasksWrapper)`
   background-color: #ff595e;
   background-image: linear-gradient(135deg, #ffca3a 25%, transparent 25%), linear-gradient(225deg, #1982c4 25%, transparent 25%), linear-gradient(315deg, #ffca3a 25%, transparent 25%), linear-gradient(45deg, #1982c4 25%, transparent 25%);
@@ -97,7 +82,7 @@ export const HtmlFooterTasksWrapper = styled(TaskFooterTasksWrapper)`
 //decorations
 export const HtmlDecorationIntroduction = styled(TaskIntroductionDecoration)`
   background: repeating-linear-gradient(0deg, ${props => props.theme.color.red} 0px, ${props => props.theme.color.red} 5px, white 5px, white 10px);
-  @media (max-width: 650px){
+  @media (max-width: 650px) {
     display: none;
   }
 `

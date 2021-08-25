@@ -1,41 +1,39 @@
 import {
     IFCssTaskTargetCss,
-    IfCssTaskTargetHtml, IFEditorCode, IFEditorSettings, IFJsTaskTargets,
+    IfCssTaskTargetHtml, IFEditorCode, IFJsTaskTargets,
     IFLSCssTaskSolutions, IFLSjsTaskSolutions,
     TypeHtmlTaskSolution,
     TypeLSHtmlTaskSolutions
 } from "../types/types";
 import {IFTaskTargets} from "../types/types";
 import {codeEditorAreas} from "../properties/codeEditorAreas";
+import {formatCode} from "./formatCode";
 
-const beautifyHtml = require('js-beautify').html
-const beautifyCss = require('js-beautify').css
-const beautifyJs = require('js-beautify').js;
+// get editor font size from local storage
 export const getEditorFSize = (): number => {
-    const fontSize = localStorage.getItem("editorFontSize")
+    const fontSize = localStorage.getItem("editorFontSize");
     if (fontSize !== null) {
-        return parseFloat(fontSize)
+        return parseFloat(fontSize);
     } else {
-        return 19
+        return 19;
     }
+};
 
-}
 
-/**
- * get editor theme from local storage, it not exist return default theme - monokai
- */
+// get editor theme from local storage, it not exist return default theme - monokai
 export const getEditorTheme = (): string => {
-    const theme = localStorage.getItem("editorTheme")
+    const theme = localStorage.getItem("editorTheme");
     if (theme !== null) {
-        return theme
+        return theme;
     }
-    return "monokai"
+    return "monokai";
 }
+
 /**
  * Save task solution so that when the user returns to this task, he will have his solution
  * @param taskSolutions - taskSolutions that you want to save in local storage,
  * is needed, it has keys (false or true) that display the single task target has been completed (checkboxes)
- * @param.taskTitle - task name for solutions, is needed after to download specific solutions for task
+ * @param taskTitle - task name for solutions, is needed after to download specific solutions for task
  * @param userCode - code with solution, when user comes back he will have this code
  */
 export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], taskTitle: string, userCode: string): void => {
@@ -43,7 +41,7 @@ export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], 
     const taskObj: TypeLSHtmlTaskSolutions = {
         title: taskTitle,
         code: userCode, taskSolutions
-    }
+    };
 
     // save solution into local storage
     if (localStorage.getItem("htmlTasksSolutions") != null) {
@@ -51,30 +49,34 @@ export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], 
         let localStorageData: TypeLSHtmlTaskSolutions[] = JSON.parse(localStorage.getItem("htmlTasksSolutions"));
 
         //  array with updated local storage data
-        let updatedLocalStorageData: TypeLSHtmlTaskSolutions[] = []
+        let updatedLocalStorageData: TypeLSHtmlTaskSolutions[] = [];
 
         //prevention of duplicates
         localStorageData.forEach(el => {
             if (el.title !== taskTitle) {
-                updatedLocalStorageData.push(el)
+                updatedLocalStorageData.push(el);
             }
         })
 
         // add new data into local storage
-        updatedLocalStorageData.push(taskObj)
-        localStorage.setItem("htmlTasksSolutions", JSON.stringify(updatedLocalStorageData))
+        updatedLocalStorageData.push(taskObj);
+        return localStorage.setItem("htmlTasksSolutions", JSON.stringify(updatedLocalStorageData));
     } else {
-        let localStorageData: TypeLSHtmlTaskSolutions[] = []
-        localStorageData.push(taskObj)
-        localStorage.setItem("htmlTasksSolutions", JSON.stringify(localStorageData));
+
+        // if cssTasksSolutions doesnt exist in local storage create new data
+        let localStorageData: TypeLSHtmlTaskSolutions[] = [];
+        localStorageData.push(taskObj);
+        return localStorage.setItem("htmlTasksSolutions", JSON.stringify(localStorageData));
     }
-}
+};
 
 export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfCssTaskTargetHtml) [], taskTitle: string, userCode: { html: string, css: string }): void => {
+
+    // object with task name, solutions, code
     const taskObj: IFLSCssTaskSolutions = {
         title: taskTitle,
         userCode, taskSolutions
-    }
+    };
 
     // save solution into local storage
     if (localStorage.getItem("cssTasksSolutions") != null) {
@@ -82,78 +84,87 @@ export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfC
         let localStorageData: IFLSCssTaskSolutions[] = JSON.parse(localStorage.getItem("cssTasksSolutions"));
 
         //  array with updated local storage data
-        let updatedLocalStorageData: IFLSCssTaskSolutions[] = []
+        let updatedLocalStorageData: IFLSCssTaskSolutions[] = [];
 
         //prevention of duplicates
         localStorageData.forEach(el => {
             if (el.title !== taskTitle) {
-                updatedLocalStorageData.push(el)
+                updatedLocalStorageData.push(el);
             }
         })
 
         // add new data into local storage
-        updatedLocalStorageData.push(taskObj)
-        localStorage.setItem("cssTasksSolutions", JSON.stringify(updatedLocalStorageData))
+        updatedLocalStorageData.push(taskObj);
+        return localStorage.setItem("cssTasksSolutions", JSON.stringify(updatedLocalStorageData));
     } else {
-        let localStorageData: IFLSCssTaskSolutions[] = []
-        localStorageData.push(taskObj)
-        localStorage.setItem("cssTasksSolutions", JSON.stringify(localStorageData));
+
+        // if cssTasksSolutions doesnt exist in local storage create new data
+        let localStorageData: IFLSCssTaskSolutions[] = [];
+        localStorageData.push(taskObj);
+        return localStorage.setItem("cssTasksSolutions", JSON.stringify(localStorageData));
     }
-}
+};
+
 
 export const saveJsTaskSolutionToLS = (taskSolutions: IFJsTaskTargets[], taskTitle: string, userCode: string): void => {
+
+    // object with task name, solutions, code
     const taskObj: IFLSjsTaskSolutions = {
         title: taskTitle,
         userCode, taskSolutions
-    }
+    };
+
     // save solution into local storage
     if (localStorage.getItem("jsTasksSolutions") != null) {
         // @ts-ignore
         let localStorageData: IFLSjsTaskSolutions[] = JSON.parse(localStorage.getItem("jsTasksSolutions"));
 
         //  array with updated local storage data
-        let updatedLocalStorageData: IFLSjsTaskSolutions[] = []
+        let updatedLocalStorageData: IFLSjsTaskSolutions[] = [];
 
         //prevention of duplicates
         localStorageData.forEach(el => {
             if (el.title !== taskTitle) {
-                updatedLocalStorageData.push(el)
+                updatedLocalStorageData.push(el);
             }
         })
 
         // add new data into local storage
-        updatedLocalStorageData.push(taskObj)
-        localStorage.setItem("jsTasksSolutions", JSON.stringify(updatedLocalStorageData))
+        updatedLocalStorageData.push(taskObj);
+        return localStorage.setItem("jsTasksSolutions", JSON.stringify(updatedLocalStorageData));
     } else {
-        let localStorageData: IFLSjsTaskSolutions[] = []
-        localStorageData.push(taskObj)
-        localStorage.setItem("jsTasksSolutions", JSON.stringify(localStorageData));
+
+        // if cssTasksSolutions doesnt exist in local storage create new data
+        let localStorageData: IFLSjsTaskSolutions[] = [];
+        localStorageData.push(taskObj);
+        return localStorage.setItem("jsTasksSolutions", JSON.stringify(localStorageData));
     }
 }
 
 /**
- * Get html task targets - information about which task is completed (checkboxes)
+ * Get html task targets - information about which task is completed (color in checkbox will be red or green)
  * @param taskTitle - name of task
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
 export const getHtmlTaskTargetsFromLS = (taskTitle: string, defaultValue: IFTaskTargets[]) => {
     if (localStorage.getItem("htmlTasksSolutions") != null) {
-
         // @ts-ignore
         let localStorageData: TypeLSHtmlTaskSolutions[] = JSON.parse(localStorage.getItem("htmlTasksSolutions"));
-        const taskTargets = localStorageData.filter(el => el.title === taskTitle)
+
+        // check if the task has been saved
+        const taskTargets = localStorageData.filter(el => el.title === taskTitle);
         if (taskTargets.length !== 0) {
-            return taskTargets[0].taskSolutions
+            return taskTargets[0].taskSolutions;
         } else {
-            return defaultValue
+            return defaultValue;
         }
     } else {
-        return defaultValue
+        return defaultValue;
     }
 }
 
 /**
- * Get css task targets - information about which task is completed (checkboxes)
+ * Get css task targets - information about which task is completed  (color in checkbox will be red or green)
  * @param taskTitle - name of task
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
@@ -164,37 +175,38 @@ export const getCssTaskTargetsFromLS = (
 
         // @ts-ignore
         let localStorageData: IFLSCssTaskSolutions[] = JSON.parse(localStorage.getItem("cssTasksSolutions"));
-        const taskTargets = localStorageData.filter(el => el.title === taskTitle)
+
+        // check if the task has been saved
+        const taskTargets = localStorageData.filter(el => el.title === taskTitle);
         if (taskTargets.length !== 0) {
-            return taskTargets[0].taskSolutions
+            return taskTargets[0].taskSolutions;
         } else {
-            return defaultValue
+            return defaultValue;
         }
     } else {
-        return defaultValue
+        return defaultValue;
     }
 }
 
 /**
- * Get js task targets - information about which task is completed (checkboxes)
+ * Get js task targets - information about which task is completed  (color in checkbox will be red or green)
  * @param taskTitle - name of task
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
-export const getJsTaskTargetsFromLS = (
-    taskTitle: string,
-    defaultValue: IFJsTaskTargets []) => {
+export const getJsTaskTargetsFromLS = (taskTitle: string, defaultValue: IFJsTaskTargets []) => {
     if (localStorage.getItem("jsTasksSolutions") != null) {
-
         // @ts-ignore
         let localStorageData: IFLSjsTaskSolutions[] = JSON.parse(localStorage.getItem("jsTasksSolutions"));
-        const taskTargets = localStorageData.filter(el => el.title === taskTitle)
+
+        // check if the task has been saved
+        const taskTargets = localStorageData.filter(el => el.title === taskTitle);
         if (taskTargets.length > 0) {
-            return taskTargets[0].taskSolutions
+            return taskTargets[0].taskSolutions;
         } else {
-            return defaultValue
+            return defaultValue;
         }
     } else {
-        return defaultValue
+        return defaultValue;
     }
 }
 
@@ -210,20 +222,14 @@ export const getHtmlTaskCodeFromLS = (taskTitle: string, defaultValue: string) =
         // @ts-ignore
         let localStorageData: TypeLSHtmlTaskSolutions[] = JSON.parse(localStorage.getItem("htmlTasksSolutions"));
 
-        const taskSolutionCode = localStorageData.filter(el => el.title === taskTitle)
+        const taskSolutionCode = localStorageData.filter(el => el.title === taskTitle);
         if (taskSolutionCode.length !== 0) {
-            return beautifyHtml(taskSolutionCode[0].code, {
-                indent_size: 1,
-                space_in_empty_paren: false,
-                wrap_line_length: 50
-            })
+            return formatCode("html", taskSolutionCode[0].code);
         } else {
-            return beautifyHtml(defaultValue, {
-                indent_size: 1,
-                space_in_empty_paren: false,
-                wrap_line_length: 50
-            })
+            return formatCode("html", defaultValue);
         }
+    } else {
+        return defaultValue;
     }
 }
 
@@ -234,18 +240,11 @@ export const getHtmlTaskCodeFromLS = (taskTitle: string, defaultValue: string) =
  */
 export const getCssTaskCodeFromLS = (taskTitle: string, defaultValue: { html: string, css: string }) => {
 
+    // formatted default code that will be returned if this job is not saved in local storage
     const defaultCode: { html: string, css: string } = {
-        html: beautifyHtml(defaultValue.html, {
-            indent_size: 1,
-            space_in_empty_paren: false,
-            wrap_line_length: 50
-        }),
-        css: beautifyCss(defaultValue.css, {
-            indent_size: 1,
-            space_in_empty_paren: false,
-            wrap_line_length: 50
-        })
-    }
+        html: formatCode("html", defaultValue.html),
+        css: formatCode("css", defaultValue.css)
+    };
 
     if (localStorage.getItem("cssTasksSolutions") != null) {
         // @ts-ignore
@@ -253,26 +252,17 @@ export const getCssTaskCodeFromLS = (taskTitle: string, defaultValue: { html: st
         const taskSolution = localStorageData.filter(el => el.title === taskTitle)
         if (taskSolution.length !== 0) {
             const taskCode: { html: string, css: string } = {
-                html: beautifyHtml(taskSolution[0].userCode.html, {
-                    indent_size: 1,
-                    space_in_empty_paren: false,
-                    wrap_line_length: 50
-                }),
-                css: beautifyCss(taskSolution[0].userCode.css, {
-                    indent_size: 1,
-                    space_in_empty_paren: false,
-                    wrap_line_length: 50
-                }),
-            }
-            return taskCode
+                html: formatCode("html", taskSolution[0].userCode.html),
+                css: formatCode("css", taskSolution[0].userCode.css)
+            };
+            return taskCode;
         } else {
-            return defaultCode
+            return defaultCode;
         }
+    } else {
+        return defaultCode;
     }
-    else{
-        return defaultCode
-    }
-}
+};
 
 /**
  * Get user's html task solution code
@@ -289,16 +279,11 @@ export const getJsTaskCodeFromLS = (taskTitle: string, defaultValue: string) => 
         const taskSolutionCode = localStorageData.filter(el => el.title === taskTitle);
 
         if (taskSolutionCode.length !== 0) {
-            return beautifyJs(taskSolutionCode[0].userCode, {
-                indent_size: 1,
-                space_in_empty_paren: false,
-                wrap_line_length: 50
-            });
+            return formatCode("js", taskSolutionCode[0].userCode)
         } else {
             return defaultValue
         }
-    }
-    else{
+    } else {
         return defaultValue
     }
 };
@@ -315,29 +300,35 @@ export const saveSolvedTaskToLS =
             let localStorageData: string[] = JSON.parse(localStorage.getItem(item));
             localStorageData.push(taskTitle);
             //  array with updated local storage data
-            let updatedLocalStorageData: string[] = []
+            let updatedLocalStorageData: string[] = [];
             //prevention of duplicates
             localStorageData.forEach(el => {
                 if (el !== taskTitle) {
-                    updatedLocalStorageData.push(el)
+                    updatedLocalStorageData.push(el);
                 }
             })
-            updatedLocalStorageData.push(taskTitle)
-            localStorage.setItem(item, JSON.stringify(updatedLocalStorageData))
+            updatedLocalStorageData.push(taskTitle);
+            localStorage.setItem(item, JSON.stringify(updatedLocalStorageData));
         } else {
+            // if item that you want to save doesn't exist, create new data
             let localStorageData: string[] = [];
             localStorageData.push(taskTitle);
-            localStorage.setItem(item, JSON.stringify(localStorageData))
+            localStorage.setItem(item, JSON.stringify(localStorageData));
         }
     }
 
+/**
+ * check if the task has been solved correctly
+ * @param taskTitle
+ * @param item
+ */
 export const checkSolvedTask = (taskTitle: string, item: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks"): boolean => {
     if (localStorage.getItem(item) != null) {
         // @ts-ignore
         let localStorageData: string[] = JSON.parse(localStorage.getItem(item));
-        return localStorageData.includes(taskTitle)
+        return localStorageData.includes(taskTitle);
     } else {
-        return false
+        return false;
     }
 }
 
@@ -345,36 +336,39 @@ export const checkSolvedTask = (taskTitle: string, item: "solvedJsTasks" | "solv
  * Save user code to local storage so that when he comes back he has his code from the previous session
  * @param code - code that you want to save
  */
-export const saveEditorCodeToLS = (code : IFEditorCode) : void => localStorage.setItem("EditorCode", JSON.stringify(code))
+export const saveEditorCodeToLS = (code: IFEditorCode): void => localStorage.setItem("EditorCode", JSON.stringify(code));
 
-export const getEditorCodeFromLS = (defaultValue : IFEditorCode) : IFEditorCode => {
+export const getEditorCodeFromLS = (defaultValue: IFEditorCode): IFEditorCode => {
     const localStorageData = localStorage.getItem("EditorCode");
-    if(localStorageData != null){
+    if (localStorageData != null) {
         return JSON.parse(localStorageData)
-    }
-    else {
+    } else {
         return defaultValue
     }
 }
-export const getEditorAreas = () : string => {
+
+// get editor areas from local storage
+export const getEditorAreas = (): string => {
     const localStorageData = localStorage.getItem("editorAreas");
-    console.log(localStorageData);
-    if(localStorageData != null){
+    if (localStorageData != null) {
         return localStorageData
-    }
-    else {
+    } else {
         return codeEditorAreas[0]
     }
 }
 
-export const saveQuizCoinsToLS = (coins: number, item: string) : void => {
+/**
+ * save gained quiz coins into local storage
+ * @param coins - amount of coins that you want to save
+ * @param item - name where you want to save data
+ */
+export const saveQuizCoinsToLS = (coins: number, item: string): void => {
     const localStorageData = localStorage.getItem("quizCoins")
-    if(localStorageData != null){
+    if (localStorageData != null) {
         let oldLocalStorageData = JSON.parse(localStorageData)
         oldLocalStorageData[item] = oldLocalStorageData[item] + coins
-       return  localStorage.setItem("quizCoins", JSON.stringify(oldLocalStorageData))
-    }
-    else{
+        return localStorage.setItem("quizCoins", JSON.stringify(oldLocalStorageData))
+    } else {
         const quizCoins = {
             html: 0,
             css: 0,
@@ -385,13 +379,16 @@ export const saveQuizCoinsToLS = (coins: number, item: string) : void => {
     }
 }
 
-export const getQuizCoins = (item : string) : number => {
-    const localStorageData = localStorage.getItem("quizCoins")
-    if(localStorageData != null){
-        const quizCoins = JSON.parse(localStorageData)
-        return  quizCoins[item]
+/**
+ * get quiz coins
+ * @param item - name of local storage from where data will be retrieved
+ */
+export const getQuizCoins = (item: string): number => {
+    const localStorageData = localStorage.getItem("quizCoins");
+    if (localStorageData != null) {
+        const quizCoins = JSON.parse(localStorageData);
+        return quizCoins[item];
+    } else {
+        return 0;
     }
-    else{
-        return 0
-    }
-}
+};

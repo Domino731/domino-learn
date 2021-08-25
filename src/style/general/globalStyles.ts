@@ -5,34 +5,38 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'Inter', sans-serif !Important;
     color: #404040;
     scroll-behavior: smooth;
+
     &:hover {
       cursor: default;
     }
+
     &::-webkit-scrollbar {
       width: 7px;
-        background: #404040;
+      background: #404040;
     }
 
     &::-webkit-scrollbar-thumb {
       border-radius: 2px;
-        background: #00b9f1;
+      background: #00b9f1;
     }
-   
+
   }
-  :root{
-    @media (max-width: 1440px){
+
+  :root {
+    @media (max-width: 1440px) {
       font-size: 15px;
     }
-    @media (max-width: 1280px){
+    @media (max-width: 1280px) {
       font-size: 14px;
     }
-    @media (max-width: 1024px){
+    @media (max-width: 1024px) {
       font-size: 12px;
     }
-    @media (max-width: 768px){
+    @media (max-width: 768px) {
       font-size: 10px;
     }
   }
+
   button {
     border: none;
     background: transparent;

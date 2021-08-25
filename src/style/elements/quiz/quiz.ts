@@ -16,7 +16,7 @@ export const QuizQuestionWrapper = styled.form`
   padding: 1.563rem 0.938rem;
   box-shadow: 1.25rem 1.25rem ${props => props.theme.color.gray};
   border-radius: 20px;
-  
+
   @media ${device.laptopSM} {
     width: 450px;
   }
@@ -164,7 +164,7 @@ export const QuizSummaryWrapper = styled.div`
   padding: 1.563rem 0.938rem;
   box-shadow: 1.25rem 1.25rem ${props => props.theme.color.gray};
   border-radius: 20px;
-  
+
   @media ${device.laptopSM} {
     width: 450px;
     height: 581px;
@@ -248,9 +248,9 @@ export const QuizSummaryBar = styled(QuizSummaryItem)<props__QuizSummaryBar>`
   }
 
   @media ${device.tablet} {
-   div{
-     height: 40px;
-   }
+    div {
+      height: 40px;
+    }
   }
 `
 export const QuizSummaryPanel = styled(QuizSummaryItem)`
@@ -258,19 +258,22 @@ export const QuizSummaryPanel = styled(QuizSummaryItem)`
   grid-row: 9 / 11;
   display: flex;
   font-size: 1.375rem;
-  div{
+
+  div {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 50%;
     height: 100%;
-    a, strong{
+
+    a, strong {
       margin: 0.125rem auto 1.625rem;
       padding: 0.563rem 1.438rem;
       background: ${props => props.theme.color.purple};
       color: #fff;
       transition: 0.2s;
       border-radius: 0.813rem;
+
       &:hover {
         cursor: pointer;
         padding: 0.563rem 2.25rem;
@@ -325,8 +328,8 @@ export const QuizSummaryIcon = styled.img`
   width: 50%;
   z-index: 2;
   top: -44px;
-  
-  @media ${device.tablet}{
+
+  @media ${device.tablet} {
     top: -21px;
   }
 `

@@ -21,6 +21,7 @@ export const HtmlTask: FunctionComponent<IFPropsTask> = (props): JSX.Element => 
         getAllTasks("htmlTasks", "solvedHtmlTasks", setAllTasks);
     }, [props.match.params.taskNumber]);
 
+
     if (task === null || allTasks === null) {
         return <Loading/>
     }

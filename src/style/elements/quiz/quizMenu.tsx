@@ -82,7 +82,7 @@ export const QuizMenuItem = styled.div`
       box-shadow: 10px 10px ${props => props.theme.color.gray},
       0 48px ${props => props.theme.color.blue} inset;
     }
-    
+
     img {
       height: 100%;
       width: auto;

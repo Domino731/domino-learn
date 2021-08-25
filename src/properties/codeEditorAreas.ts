@@ -1,3 +1,4 @@
+// array with grid areas based on which the code editor layout options are rendered
 export const codeEditorAreas: string[] = [
     `"html html html html result result"
     "html html html html result result"
@@ -34,7 +35,7 @@ export const codeEditorAreas: string[] = [
      "result result result result result result"
      "result result result result result result"`,
 
-     `"result result result result result result"
+    `"result result result result result result"
      "result result result result result result"
      "result result result result result result"
     "html  html css css js js"
@@ -54,6 +55,4 @@ export const codeEditorAreas: string[] = [
      "css css css result result result"
      "js js js result result result"
      "js js js result result result"`,
-
-
 ]

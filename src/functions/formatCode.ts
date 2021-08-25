@@ -2,6 +2,7 @@ const beautifyHtml = require('js-beautify').html
 const beautifyCss = require('js-beautify').css
 const beautifyJs = require('js-beautify').js;
 
+// This function formats the code
 export const formatCode = (type: "css" | "html" | "js", code: string) : string => {
     switch (type){
         case "css":

@@ -143,6 +143,6 @@ export const HeroPlanet = styled.img`
     bottom: -4px;
   }
   @media ${device.mobileM} {
-   width: 146px;
+    width: 146px;
   }
 `

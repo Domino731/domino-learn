@@ -59,6 +59,8 @@ const code : IFProgramingCode = {
           <body>${htmlCode}</body>
           </html>`
 }
+
+// js language data
 export const jsClass = new ProgramingLanguage(
     "JS",
     jsIcon,
