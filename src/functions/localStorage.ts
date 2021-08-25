@@ -9,13 +9,36 @@ import {IFTaskTargets} from "../types/types";
 import {codeEditorAreas} from "../properties/codeEditorAreas";
 import {formatCode} from "./formatCode";
 
+const width = window.innerWidth;
+
+// get font size which depends on the window width
+const defaultFontSize = (): number => {
+   if(width > 1440){
+       return 19;
+   }
+   else if (width <= 1440){
+       return 16;
+   }
+   else if (width <= 1024){
+       return 14;
+   }
+   else if (width <= 768){
+       return 12;
+   }
+   else{
+       return 16;
+   }
+}
+
+
 // get editor font size from local storage
 export const getEditorFSize = (): number => {
+
     const fontSize = localStorage.getItem("editorFontSize");
     if (fontSize !== null) {
         return parseFloat(fontSize);
     } else {
-        return 19;
+        return defaultFontSize();
     }
 };
 
@@ -217,6 +240,7 @@ export const getJsTaskTargetsFromLS = (taskTitle: string, defaultValue: IFJsTask
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
 export const getHtmlTaskCodeFromLS = (taskTitle: string, defaultValue: string) => {
+    console.log(defaultValue);
     if (localStorage.getItem("htmlTasksSolutions") != null) {
 
         // @ts-ignore
@@ -229,7 +253,7 @@ export const getHtmlTaskCodeFromLS = (taskTitle: string, defaultValue: string) =
             return formatCode("html", defaultValue);
         }
     } else {
-        return defaultValue;
+        return formatCode("html", defaultValue);
     }
 }
 

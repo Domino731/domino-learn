@@ -32,7 +32,7 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
                     originalCode: formatCode("html", doc.data().code),
                     // check if the user hasn't already solved the task, if he  has solved it,
                     // get it from local storage and if not, return the default value (task.targets)
-                    code: getHtmlTaskCodeFromLS(doc.data().title, doc.data().taskCode),
+                    code: getHtmlTaskCodeFromLS(doc.data().title, doc.data().code),
                     targets: getHtmlTaskTargetsFromLS(doc.data().title, doc.data().targets),
                 }
                 return saveDataCallback(data)

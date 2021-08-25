@@ -94,6 +94,10 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
           <body></body>
           </html>`);
 
+    useEffect(()=>{
+        console.log(task.code);
+    },[task])
+
     // save editor settings into local storage, when the user changes it
     useEffect(() => {
         localStorage.setItem("editorFontSize", editorSettings.fontSize.toString());

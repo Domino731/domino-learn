@@ -6,10 +6,10 @@ const beautifyJs = require('js-beautify').js;
 export const formatCode = (type: "css" | "html" | "js", code: string) : string => {
     switch (type){
         case "css":
-            return beautifyCss(code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: "auto"})
+            return beautifyCss(code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50})
         case "html":
-            return beautifyHtml(code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: "auto"})
+            return beautifyHtml(code, {indent_size: 1, space_in_empty_paren: true, wrap_line_length: 50})
         case "js":
-            return beautifyJs(code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: "auto"})
+            return beautifyJs(code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50})
     }
 }

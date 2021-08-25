@@ -1,6 +1,6 @@
 import {ProgramingLanguage} from "./front_end_languages";
-import htmlIcon from "../images/html_icon.png"
-import builder from "../images/htmlBuilder_desciption.png"
+import htmlIcon from "../images/html_icon.png";
+import builder from "../images/html_builder.png";
 import {IFProgramingCode} from "../types/types";
 import {formatCode} from "../functions/formatCode";
 
@@ -38,17 +38,17 @@ const htmlCode = `
 </ol> 
 </body>
 </html>
-`
+`;
 
 
 const code : IFProgramingCode = {
     type: "html",
     code: formatCode("html", htmlCode),
     srcDoc: htmlCode
-}
+};
 
 // html language data
 export const htmlClass: ProgramingLanguage =
     new ProgramingLanguage("Html", htmlIcon, "Html icon",
         htmlDsc, builder,
-        "the figure of the builder with a key symbolizes programming in html", code)
+        "the figure of the builder with a key symbolizes programming in html", code);

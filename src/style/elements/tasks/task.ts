@@ -469,8 +469,11 @@ export const TaskTargetText = styled.div`
   }
 
   a {
-    text-decoration: underline;
-    text-decoration-color: ${props => props.theme.color.blue};
+    color: ${props => props.theme.color.gray};
+    code{
+      text-decoration: underline;
+      text-decoration-color: ${props => props.theme.color.blue};
+    }
   }
 
   @media ${device.tablet} {
@@ -716,8 +719,8 @@ export const EditorSettingsLabel = styled.label`
 `
 export const EditorSettingsFSize = styled.input`
   margin-top: 11px;
-  width: 44px;
-  height: 31px;
+  width: 2.75rem;
+  height: 1.938rem;
   font-size: 1.125rem;
   border: none;
   background: ${props => props.theme.color.blue};
@@ -984,7 +987,7 @@ export const MobileTaskDetail = styled.div`
 export const MobileTaskEditorWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 320px;
+  height: calc(50vh - 30px);
   padding-bottom: 30px;
   background: black;
 `
