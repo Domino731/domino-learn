@@ -6,7 +6,9 @@ import {LoadingContainer,
     LoadingRadius3,
     LoadingRadius4,
     LoadingAstronaut} from "../../style/elements/other/loading";
-import astronaut from "../../images/astronautOnMoon.png"
+import astronaut from "../../images/astronautOnMoon.png";
+
+// Component responsible for loading screen with astronaut :)
 export const Loading : FunctionComponent = () : JSX.Element => {
     return <LoadingContainer>
         <LoadingBox>
