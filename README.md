@@ -190,8 +190,9 @@ valid and if the target it refers to can be passed. Here is how the whole `check
           without comments and check user solution
       * 7.2 - user code with lower case (without task comments and spaces) is created.
       * 7.3 - array of possible solutions is created
-      * 7.4 - function checks if the user code is equal to any of the solutions in the array
-      * 7.5 - If yes, add point and change color of checkbox to green, if no change color to red
+      * 7.4 - function checks if the user code is equal to any of the solutions in the array if the task target type is equal to "code",
+       otherwise, if the type is equal to "console", checks as before and that the console prints the required value e.g. Hello World.
+      * 7.5 - If conditions have been fulfilled, add point and change color of checkbox to green, if no change color to red
  
 * 8 - saves the user code in local storage, so when the user returns, he will have his solution
 * 7 - When the ` taskValidationJs` function adds the points, check if the number of user points is equal to the

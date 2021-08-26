@@ -92,6 +92,45 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     // for devices below 768px width there is a different arrangement of elements
     const [windowWidth, setWindowWidth] = useState<number>(0);
 
+    // object with user points and points needed to pass the task
+    const [points, setPoints] = useState<{ user: number, needed: number }>({user: 0, needed: task.targets.length})
+
+    // array with logs from console
+    const [consoleTextArr, setConsoleTextArr] = useState<any[]>([])
+
+
+
+    // logic responsible for task validation
+
+    useEffect(() => {
+        setConsoleTextArr(logs.map(el => el.data[0]))
+    }, [logs.length])
+
+
+
+
+    useEffect(() => {
+        const consoleTextArr = logs.map(el => el.data[0]);
+        if (consoleTextArr.length > 0 && annotations.length === 0) {
+            task.targets.forEach(el => taskValidationJS(consoleTextArr, userCode,  el, addPoints));
+            saveJsTaskSolutionToLS(task.targets, task.title, userCode);
+            // save solved task title to ls, so that the user knows which tasks he has completed
+            saveSolvedTaskToLS(task.title, "solvedJsTasks");
+        }
+
+    }, [logs.length]);
+
+    useEffect(() => {
+        if (points.user >= points.needed) {
+            setSuccessfulFlag(true)
+        } else {
+            setSuccessfulFlag(false)
+        }
+    }, [points])
+
+    // add points for user
+    const addPoints = () => setPoints(prev => ({...prev, user: prev.user++}))
+
     // set the windowWidth state
     const resizeWindow = (): void => setWindowWidth(window.innerWidth);
     useEffect(() => {
@@ -137,6 +176,15 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
         setErrorFlag(false)
     }, [annotations]);
 
+
+
+
+
+
+
+
+
+
     // change editor font-size
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
         ...prev,
@@ -160,9 +208,10 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     // change editorFormFlag -> show or hide editor settings form
     const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag);
 
-    // function responsible for task validation checks if all targets of the task have been met,
-    // if so, it shows a screen about the correct execution of the task. It works only when user code
-    // dont have errors
+    // function that reset points, and hide animation screen
+    const handleResetPoints = (): void => setPoints({user: 0, needed: task.targets.length})
+
+    // set the console logs by which useEffect will start the task validation
     const checkTask = () => {
         if (annotations.length === 0) {
 
@@ -176,32 +225,8 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
             // the display of the user code is handled by the above defined useEffect
             Logs(userCode);
 
-            // points needed to pass
-            const pointsNeeded: number = task.targets.length;
-
-            // user points
-            let userPoints = 0;
-
-            // function that add pun when user complete task correctly
-            const changeUserPoints = (): number => userPoints++;
-
-            //  checking each solution to a task is equal to the user's solution, at the end set updated taskTargets state
-            //  depending by task is solved correctly or not (checkboxes in task targets list will change their colors)
-            task.targets.forEach(el => taskValidationJS(userCode, el, changeUserPoints));
-
-            // save solution into local storage, so when user comes back he will have their solution
-            saveJsTaskSolutionToLS(task.targets, task.title, userCode);
-
-            // check if user has executed all targets, if he did display animation
-            if (userPoints === pointsNeeded) {
-                // set the animation
-                setSuccessfulFlag(true);
-                // save solved task title to ls, so that the user knows which tasks he has completed
-                saveSolvedTaskToLS(task.title, "solvedJsTasks");
-            } else {
-                setSuccessfulFlag(false);
-            }
         }
+
         // display the error window when user code have warnings
         else {
             setErrorFlag(true);
@@ -235,7 +260,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
                 <TaskSuccessfulBar color="#b5179e">
 
                     {/*user has a choice to stay with the task or move to another task if there is one*/}
-                    <button onClick={() => setSuccessfulFlag(false)}>Close</button>
+                    <button onClick={handleResetPoints}>Close</button>
                     {task.number < allTaskLength && <Link to={`/js-task/${task.number + 1}`}>Next task</Link>}
 
                 </TaskSuccessfulBar>
@@ -341,7 +366,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
                         <TaskSuccessfulBar color="#b5179e">
                             {/*user has a choice to stay with the task or move to another task if there is one*/}
-                            <button onClick={() => setSuccessfulFlag(false)}>Close</button>
+                            <button onClick={handleResetPoints}>Close</button>
                             {task.number < allTaskLength && <Link to={`/js-task/${task.number + 1}`}>Next task</Link>}
                         </TaskSuccessfulBar>
                     </JsTaskSuccessful>}
