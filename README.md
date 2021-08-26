@@ -61,7 +61,7 @@ Project is created with:
 | solutions | An array of solutions that will be used to check if a user's code matches one in this array. For a simple "Hello World" display, there are many approaches, so there is an array for that. It must look like this ` ["console.log("Hello World"); ", "console.log('Hello World'); ", "console.log("hello world") "]`.|
 | solved | A null value, based on its checkbox color will be green or red, the `checkTask` function will change this value to true if the user code is valid or false if it is not  | 
 | target | This is the html code that serves as the text to tell it what to do.|
-| console | Value to be displayed in the console, checked only if target type is `console`.|
+| console | Value to be printed in the console.|
 | type | If you want the user to write something to the console you must set the `console` value, if you want the user to write the code you must  set the `code` value.|
 
 ## How to add a new html task
