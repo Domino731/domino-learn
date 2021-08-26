@@ -2,13 +2,34 @@ const beautifyHtml = require('js-beautify').html
 const beautifyCss = require('js-beautify').css
 const beautifyJs = require('js-beautify').js;
 
+const width = window.innerWidth;
+
+// function that returns the number after which the code will wrap
+const getWrapLength = (): number => {
+    if (width > 1440) {
+        return 50;
+    } else if (width <= 425) {
+        return 44;
+    } else if (width <= 768) {
+        return 50;
+    } else if (width <= 1024) {
+        return 46;
+    } else if (width <= 1440) {
+        return 45;
+    } else {
+        return 16;
+    }
+};
+
+
 // This function formats the code
-export const formatCode = (type: "css" | "html" | "js", code: string) : string => {
-    switch (type){
+export const formatCode = (type: "css" | "html" | "js", code: string): string => {
+    console.log(width);
+    switch (type) {
         case "css":
             return beautifyCss(code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50})
         case "html":
-            return beautifyHtml(code, {indent_size: 1, space_in_empty_paren: true, wrap_line_length: 50})
+            return beautifyHtml(code, {indent_size: 1, space_in_empty_paren: true, wrap_line_length: getWrapLength()})
         case "js":
             return beautifyJs(code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50})
     }

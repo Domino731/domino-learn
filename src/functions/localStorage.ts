@@ -13,27 +13,38 @@ const width = window.innerWidth;
 
 // get font size which depends on the window width
 const defaultFontSize = (): number => {
-   if(width > 1440){
-       return 19;
-   }
-   else if (width <= 1440){
-       return 16;
-   }
-   else if (width <= 1024){
-       return 14;
-   }
-   else if (width <= 768){
-       return 12;
-   }
-   else{
-       return 16;
-   }
+    if (width > 1440) {
+        return 19;
+    }
+    else if (width <= 375) {
+        return 10
+    }
+    else if (width <= 425) {
+        return 12
+    }
+    else if (width <= 768) {
+        return 14;
+    }
+    else if (width <= 1024) {
+        return 11;
+    }
+    else if (width <= 1280) {
+        return 13
+    }
+    else if (width <= 1440) {
+        return 14;
+    }
+    else if (width <= 1600) {
+        return 16
+    }
+    else {
+        return 13;
+    }
 }
 
 
 // get editor font size from local storage
 export const getEditorFSize = (): number => {
-
     const fontSize = localStorage.getItem("editorFontSize");
     if (fontSize !== null) {
         return parseFloat(fontSize);

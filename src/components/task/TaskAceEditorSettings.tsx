@@ -30,7 +30,7 @@ export const TaskAceEditorSettings: FunctionComponent<IFPropsTaskAceEditorSettin
         <EditorSettingsLabel>
             Change font size
             <EditorSettingsFSize type="number" min="1" max="60" step="1" value={editorFs}
-                                 onChange={handleChangeFs}/>
+                                 onChange={handleChangeFs} name="editorFontSize"/>
         </EditorSettingsLabel>
 
 

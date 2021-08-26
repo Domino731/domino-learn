@@ -70,11 +70,8 @@ export const DscItem = styled.div<DscReverseProps>`
   @media ${device.tablet} {
     align-items: center;
     flex-direction: column;
-    height: 540px;
-  }
-  @media ${device.tablet} {
-    padding: 10px;
     height: auto;
+    padding: 10px;
   }
 `
 export const DscContent = styled.div`
@@ -113,6 +110,7 @@ export const DscDescription = styled.p`
   margin-top: 12px;
   font-size: 1.313rem;
   font-weight: 550;
+  text-align: justify;
   @media (max-width: 961px) {
     margin-top: 0;
   }
@@ -158,6 +156,7 @@ export const DscExemplaryCodeBtn = styled.button`
 export const DscFigure = styled.div`
   display: flex;
   justify-content: center;
+  width: calc(100% - 360px);
   @media ${device.tablet} {
     // margin-top: 52px;
   }
