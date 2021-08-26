@@ -46,7 +46,6 @@ import {TaskResultWindow} from "../task/TaskResultWindow";
 import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
 import {TaskIntroduction} from "../task/TaskIntroduction";
 import {TaskTargets} from "../task/TaskTargets";
-import {TaskResultLoading} from "../task/TaskLoading";
 import {formatCode} from "../../functions/formatCode";
 import {
     HtmlDecorationIntroduction,
@@ -87,8 +86,6 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // state with flag, which is responsible for displaying error about user code
     const [errorFlag, setErrorFlag] = useState<boolean>(false);
 
-    // state with flag, which is responsible for displaying loading screen during checking the task
-    const [loadingResult, setLoadingResult] = useState<boolean>(false);
 
     // width of the window on which the corresponding content will be rendered to the device,
     // for devices below 768px width there is a different arrangement of elements
@@ -190,8 +187,6 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     // if so, it shows a screen about the correct execution of the task. It works only when user code
     // dont have errors
     const checkTask = () => {
-        // set the loading screen
-        setLoadingResult(true);
 
         // start the task checking only if the user code does not contain errors
         if (annotations.html.length === 0 && annotations.css.length === 0) {
@@ -250,8 +245,6 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         } else {
             setErrorFlag(true);
         }
-        // remove the loading screen
-        setLoadingResult(false);
     };
 
 
@@ -260,8 +253,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
             {/*iframe with user code*/}
             <CssResult>
-                {loadingResult === false && <TaskResultWindow srcDoc={srcDoc}/>}
-                {loadingResult && <TaskResultLoading/>}
+                <TaskResultWindow srcDoc={srcDoc}/>
             </CssResult>
 
             {/*editor*/}

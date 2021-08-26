@@ -24,7 +24,6 @@ const getWrapLength = (): number => {
 
 // This function formats the code
 export const formatCode = (type: "css" | "html" | "js", code: string): string => {
-    console.log(width);
     switch (type) {
         case "css":
             return beautifyCss(code, {indent_size: 1, space_in_empty_paren: false, wrap_line_length: 50})

@@ -166,6 +166,9 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     const checkTask = () => {
         if (annotations.length === 0) {
 
+            // format user code
+            setUserCode(formatCode("js", userCode));
+
             // prevent of console duplicates
             setLogs([]);
 
@@ -194,14 +197,10 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
                 // set the animation
                 setSuccessfulFlag(true);
                 // save solved task title to ls, so that the user knows which tasks he has completed
-                saveSolvedTaskToLS(task.title, "solvedHtmlTasks");
+                saveSolvedTaskToLS(task.title, "solvedJsTasks");
             } else {
                 setSuccessfulFlag(false);
             }
-
-            // format user code
-            setUserCode(formatCode("js", userCode));
-
         }
         // display the error window when user code have warnings
         else {

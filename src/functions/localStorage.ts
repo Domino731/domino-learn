@@ -251,7 +251,6 @@ export const getJsTaskTargetsFromLS = (taskTitle: string, defaultValue: IFJsTask
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
 export const getHtmlTaskCodeFromLS = (taskTitle: string, defaultValue: string) => {
-    console.log(defaultValue);
     if (localStorage.getItem("htmlTasksSolutions") != null) {
 
         // @ts-ignore
@@ -373,6 +372,7 @@ export const checkSolvedTask = (taskTitle: string, item: "solvedJsTasks" | "solv
  */
 export const saveEditorCodeToLS = (code: IFEditorCode): void => localStorage.setItem("EditorCode", JSON.stringify(code));
 
+// get code for sandbox editor from last session
 export const getEditorCodeFromLS = (defaultValue: IFEditorCode): IFEditorCode => {
     const localStorageData = localStorage.getItem("EditorCode");
     if (localStorageData != null) {

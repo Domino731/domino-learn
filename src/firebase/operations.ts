@@ -156,7 +156,7 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
 
 
 /**
- * fetch quiz questions (max 10 questions)
+ * fetch random quiz questions (max 10 questions)
  * @param type - type of quiz elements that you want to get - html, css or js
  * @param saveDataCallback - function that saved incoming data to component state
  */
