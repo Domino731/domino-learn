@@ -15,29 +15,21 @@ const width = window.innerWidth;
 const defaultFontSize = (): number => {
     if (width > 1440) {
         return 19;
-    }
-    else if (width <= 375) {
+    } else if (width <= 375) {
         return 10
-    }
-    else if (width <= 425) {
+    } else if (width <= 425) {
         return 12
-    }
-    else if (width <= 768) {
+    } else if (width <= 768) {
         return 14;
-    }
-    else if (width <= 1024) {
+    } else if (width <= 1024) {
         return 11;
-    }
-    else if (width <= 1280) {
+    } else if (width <= 1280) {
         return 13
-    }
-    else if (width <= 1440) {
+    } else if (width <= 1440) {
         return 14;
-    }
-    else if (width <= 1600) {
+    } else if (width <= 1600) {
         return 16
-    }
-    else {
+    } else {
         return 13;
     }
 }
@@ -64,7 +56,7 @@ export const getEditorTheme = (): string => {
 }
 
 /**
- * Save task solution so that when the user returns to this task, he will have his solution
+ * Save task solution into localStorage, so that when the user returns to this task, he will have his solution
  * @param taskSolutions - taskSolutions that you want to save in local storage,
  * is needed, it has keys (false or true) that display the single task target has been completed (checkboxes)
  * @param taskTitle - task name for solutions, is needed after to download specific solutions for task
@@ -104,6 +96,13 @@ export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], 
     }
 };
 
+/**
+ * Save task solution into localStorage, so that when the user returns to this task, he will have his solution
+ * @param taskSolutions - taskSolutions that you want to save in local storage,
+ * is needed, it has keys (false or true) that display the single task target has been completed (checkboxes)
+ * @param taskTitle - task name for solutions, is needed after to download specific solutions for task
+ * @param userCode - code with solution, when user comes back he will have this code
+ */
 export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfCssTaskTargetHtml) [], taskTitle: string, userCode: { html: string, css: string }): void => {
 
     // object with task name, solutions, code
@@ -139,7 +138,13 @@ export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfC
     }
 };
 
-
+/**
+ * Save task solution into localStorage, so that when the user returns to this task, he will have his solution
+ * @param taskSolutions - taskSolutions that you want to save in local storage,
+ * is needed, it has keys (false or true) that display the single task target has been completed (checkboxes)
+ * @param taskTitle - task name for solutions, is needed after to download specific solutions for task
+ * @param userCode - code with solution, when user comes back he will have this code
+ */
 export const saveJsTaskSolutionToLS = (taskSolutions: IFJsTaskTargets[], taskTitle: string, userCode: string): void => {
 
     // object with task name, solutions, code

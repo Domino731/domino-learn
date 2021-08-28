@@ -200,7 +200,18 @@ valid and if the target it refers to can be passed. Here is how the whole `check
   solved is displayed, and the task is saved to local storage as solved, so that the user knows which task he or she has
   successfully completed when choosing a task.     
 
-  
+## LocalStorage
+
+| item | description |
+| --- | --- | 
+| editorFontSize | number with font size for editor |
+| editorTheme | string with theme for editor |
+| htmlTasksSolutions, cssTasksSolutions , jsTasksSolutions | object with data about which task targets are solved , and user code from the last session. | 
+| solvedHtmlTasks, solvedCssTasks, solvedJsTasks | An array with a list of tasks that have been completed, used to mark which task are solved (green background color) |
+| editorAreas | string which contains areas for grid |
+| EditorCode | user code for sandbox editor from last session |
+| quizCoins | object with data about coins for particular language | 
+
 ## Components
 
 ### Sandbox code editor
