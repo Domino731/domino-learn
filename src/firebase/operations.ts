@@ -150,7 +150,7 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
                 }
                 return tasks.push(data);
             });
-            return saveDataCallback(tasks);
+            return saveDataCallback(tasks.sort((a,b) => a.number - b.number));
         })
 };
 

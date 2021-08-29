@@ -28,9 +28,9 @@ const defaultFontSize = (): number => {
     } else if (width <= 1440) {
         return 14;
     } else if (width <= 1600) {
-        return 16
+        return 16;
     } else {
-        return 13;
+        return 16;
     }
 }
 
