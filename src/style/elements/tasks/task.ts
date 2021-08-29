@@ -343,6 +343,8 @@ export const TaskIntroductionBar = styled.div`
 
   h3 {
     font-size: 2.125rem;
+    padding-right: 0.125rem;
+    background: #fff;
   }
 `
 
