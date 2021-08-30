@@ -7,7 +7,8 @@ import {IFJsTaskTargets} from "../types/types";
  * @param addPoints - function that add points
  * @param logs - array with logs from console
  */
-export const taskValidationJS = (logs: any[], userCode: string, taskTarget: IFJsTaskTargets, addPoints: () => void) => {
+export const taskValidationJS =  (logs: any[], userCode: string, taskTarget: IFJsTaskTargets, addPoints: () => void) => {
+
     // locations of comments based on which it will be possible to get
     // clean html code without comments and check user solution
     const startPoint: number = userCode.indexOf(`/* Place your code for task ${taskTarget.number} below */`);

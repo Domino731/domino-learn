@@ -1,12 +1,12 @@
-import {db} from "./firebaseIndex";
-import {IFAllTasks, IFHtmlTask, IFCssTask, IFJsTask, IFQuizQuestion} from "../types/types";
+import { db } from "./firebaseIndex";
+import { IFAllTasks, IFHtmlTask, IFCssTask, IFJsTask, IFQuizQuestion } from "../types/types";
 import {
     checkSolvedTask,
     getCssTaskCodeFromLS, getCssTaskTargetsFromLS, getHtmlTaskCodeFromLS, getHtmlTaskTargetsFromLS,
     getJsTaskCodeFromLS,
     getJsTaskTargetsFromLS
 } from "../functions/localStorage";
-import {formatCode} from "../functions/formatCode";
+import { formatCode } from "../functions/formatCode";
 
 const beautifyJs = require('js-beautify').js;
 /**
@@ -102,12 +102,7 @@ export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: (
                 // and they are important for checking the task, so you have to do it manually.
                 // Any code in firestore will contain "@",
                 // which gives you the ability to create comment formatting.
-                const codeJs: string = beautifyJs(doc.data().code, {
-                    indent_size: 1,
-                    wrap_line_length: 2,
-                })
-                const formattedCode = codeJs.replaceAll('@', '')
-
+                const formattedCode = doc.data().code.replaceAll("@", "\n");
 
                 const data: IFJsTask = {
                     title: doc.data().title,
@@ -137,8 +132,8 @@ export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: (
  * checks whether the user has already solved the task
  */
 export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
-                            checkItem: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks",
-                            saveDataCallback: (data: IFAllTasks[]) => void) => {
+    checkItem: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks",
+    saveDataCallback: (data: IFAllTasks[]) => void) => {
     db.collection(tasks)
         .onSnapshot(querySnapshot => {
             let tasks: IFAllTasks[] = []
@@ -150,7 +145,7 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
                 }
                 return tasks.push(data);
             });
-            return saveDataCallback(tasks.sort((a,b) => a.number - b.number));
+            return saveDataCallback(tasks.sort((a, b) => a.number - b.number));
         })
 };
 

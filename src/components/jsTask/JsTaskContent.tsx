@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useState} from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import {
     CodeEditorError,
     CodeEditorPanel,
@@ -18,7 +18,7 @@ import {
     MobileTaskEditorWrapper,
     MobileTaskResult
 } from "../../style/elements/tasks/task";
-import {IFPropsJsTask} from "../../types/types";
+import { IFPropsJsTask } from "../../types/types";
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/theme-monokai'
 import 'ace-builds/src-noconflict/theme-ambiance'
@@ -47,22 +47,22 @@ import {
     getEditorTheme,
     saveJsTaskSolutionToLS, saveSolvedTaskToLS
 } from "../../functions/localStorage";
-import {Console, Hook, Unhook} from 'console-feed'
-import {Logs} from "../../functions/jsConsole";
-import {taskValidationJS} from "../../functions/taskValidationJS";
-import {Link} from "react-router-dom";
-import {jsClass} from "../../properties/jsClass";
-import {TaskIntroduction} from "../task/TaskIntroduction";
-import {TaskTargets} from "../task/TaskTargets";
-import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
-import {formatCode} from "../../functions/formatCode";
+import { Console, Hook, Unhook } from 'console-feed'
+import { Logs } from "../../functions/jsConsole";
+import { taskValidationJS } from "../../functions/taskValidationJS";
+import { Link } from "react-router-dom";
+import { jsClass } from "../../properties/jsClass";
+import { TaskIntroduction } from "../task/TaskIntroduction";
+import { TaskTargets } from "../task/TaskTargets";
+import { TaskAceEditorSettings } from "../task/TaskAceEditorSettings";
+import { formatCode } from "../../functions/formatCode";
 
 /**
  * Component with the main content for js task -> targets, introduction, editor.
  * @param task - task data (targets, introduction, code, solution...)
  * @param allTaskLength - number of all task of particular type
  */
-export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLength}): JSX.Element => {
+export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ task, allTaskLength }): JSX.Element => {
 
     // state with userCode from editor output
     const [userCode, setUserCode] = useState<string>(task.code);
@@ -93,43 +93,43 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     const [windowWidth, setWindowWidth] = useState<number>(0);
 
     // object with user points and points needed to pass the task
-    const [points, setPoints] = useState<{ user: number, needed: number }>({user: 0, needed: task.targets.length})
+    const [points, setPoints] = useState<{ user: number, needed: number }>({ user: 0, needed: task.targets.length });
 
     // array with logs from console
-    const [consoleTextArr, setConsoleTextArr] = useState<any[]>([])
-
-
+    const [consoleTextArr, setConsoleTextArr] = useState<any[]>([]);
 
     // logic responsible for task validation
-
     useEffect(() => {
         setConsoleTextArr(logs.map(el => el.data[0]))
-    }, [logs.length])
-
-
+    }, [logs.length]);
 
 
     useEffect(() => {
         const consoleTextArr = logs.map(el => el.data[0]);
         if (consoleTextArr.length > 0 && annotations.length === 0) {
-            task.targets.forEach(el => taskValidationJS(consoleTextArr, userCode,  el, addPoints));
+            task.targets.forEach(el => taskValidationJS(consoleTextArr, userCode, el, addPoints));
             saveJsTaskSolutionToLS(task.targets, task.title, userCode);
             // save solved task title to ls, so that the user knows which tasks he has completed
-            saveSolvedTaskToLS(task.title, "solvedJsTasks");
+            return saveSolvedTaskToLS(task.title, "solvedJsTasks");
         }
 
     }, [logs.length]);
 
+
+    // displaying animation
     useEffect(() => {
+
         if (points.user >= points.needed) {
-            setSuccessfulFlag(true)
+            return setSuccessfulFlag(true);
         } else {
-            setSuccessfulFlag(false)
+            return setSuccessfulFlag(false);
         }
-    }, [points])
+    }, [points.user]);
+
 
     // add points for user
-    const addPoints = () => setPoints(prev => ({...prev, user: prev.user++}))
+    const addPoints = () => setPoints(prev => ({ ...prev, user: prev.user++ }));
+
 
     // set the windowWidth state
     const resizeWindow = (): void => setWindowWidth(window.innerWidth);
@@ -148,8 +148,8 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     // save editor settings into local storage, when the user changes it
     useEffect(() => {
-        localStorage.setItem("editorFontSize", editorSettings.fontSize.toString())
-        localStorage.setItem("editorTheme", editorSettings.theme)
+        localStorage.setItem("editorFontSize", editorSettings.fontSize.toString());
+        localStorage.setItem("editorTheme", editorSettings.theme);
     }, [editorSettings]);
 
 
@@ -173,16 +173,8 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
     // remove error when user type new code
     useEffect(() => {
-        setErrorFlag(false)
+        setErrorFlag(false);
     }, [annotations]);
-
-
-
-
-
-
-
-
 
 
     // change editor font-size
@@ -209,7 +201,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
     const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag);
 
     // function that reset points, and hide animation screen
-    const handleResetPoints = (): void => setPoints({user: 0, needed: task.targets.length})
+    const handleResetPoints = (): void => setPoints({ user: 0, needed: task.targets.length });
 
     // set the console logs by which useEffect will start the task validation
     const checkTask = () => {
@@ -241,21 +233,21 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
                 {/*introduction*/}
                 <JsIntroduction>
                     <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
-                                      imgAlt={jsClass.getFigureAlt()} imgSrc={jsClass.getFigureSrc()}/>
+                        imgAlt={jsClass.getFigureAlt()} imgSrc={jsClass.getFigureSrc()} />
 
                     {/*decorations*/}
-                    <JsDecorationIntroduction/>
+                    <JsDecorationIntroduction />
                 </JsIntroduction>
 
                 {/*targets*/}
                 <JsTargets>
-                    <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
+                    <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid} />
                 </JsTargets>
             </>}
 
             {/*animation which notifies the user that the task has been successfully completed*/}
             {successfulFlag && <JsTaskSuccessful>
-                <TaskSuccessfulImg src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()}/>
+                <TaskSuccessfulImg src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()} />
                 <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
                 <TaskSuccessfulBar color="#b5179e">
 
@@ -270,12 +262,12 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
             <JsResult>
                 <WebBrowserWindow>
                     <WebBrowserTopBar>
-                        <WebBrowserGreenBox/>
-                        <WebBrowserYellowBox/>
-                        <WebBrowserRedBox/>
+                        <WebBrowserGreenBox />
+                        <WebBrowserYellowBox />
+                        <WebBrowserRedBox />
                     </WebBrowserTopBar>
                     <JsConsoleWrapper>
-                        <Console logs={logs} variant="light"/>
+                        <Console logs={logs} variant="light" />
                     </JsConsoleWrapper>
                 </WebBrowserWindow>
             </JsResult>
@@ -312,22 +304,22 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
                     {/*change the settings form*/}
                     {editorFormFlag &&
-                    <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
-                                           handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
-                                           toggleForm={handleToggleEditorSettings}/>}
+                        <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
+                            handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
+                            toggleForm={handleToggleEditorSettings} />}
 
                     {/*buttons*/}
                     <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                        className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset
+                        className="fas fa-cogs" /> Settings</CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser" /> Reset
                     </CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play" /> Run </CodeEditorPanelBtn>
 
                 </CodeEditorPanel>
 
                 {/*Notification that user code contains errors*/}
                 {errorFlag &&
-                <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+                    <CodeEditorError><i className="fas fa-exclamation-circle" />Check your code</CodeEditorError>}
 
             </JsCodeEditorWrapper>
 
@@ -348,11 +340,11 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
                             {/*introduction*/}
                             <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
-                                              imgAlt={jsClass.getFigureAlt()} imgSrc={jsClass.getFigureSrc()}/>
+                                imgAlt={jsClass.getFigureAlt()} imgSrc={jsClass.getFigureSrc()} />
 
 
                             {/*decorations*/}
-                            <JsDecorationIntroduction/>
+                            <JsDecorationIntroduction />
 
                         </JsIntroduction>
                     </>}
@@ -360,7 +352,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
                     {/*animation which notifies the user that the task has been successfully completed*/}
                     {successfulFlag && <JsTaskSuccessful>
 
-                        <TaskSuccessfulImg src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()}/>
+                        <TaskSuccessfulImg src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()} />
                         <TaskSuccessfulTitle>Congratulations, you have completed the task
                             correctly</TaskSuccessfulTitle>
 
@@ -376,7 +368,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
                 {/*task target and instructions*/}
                 <MobileTaskDetail>
                     <JsTargets>
-                        <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
+                        <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid} />
                     </JsTargets>
                 </MobileTaskDetail>
 
@@ -414,33 +406,33 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({task, allTaskLe
 
                     {/*change the settings form*/}
                     {editorFormFlag &&
-                    <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
-                                           handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
-                                           toggleForm={handleToggleEditorSettings}/>}
+                        <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
+                            handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
+                            toggleForm={handleToggleEditorSettings} />}
 
                     {/*buttons*/}
                     <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                        className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset
+                        className="fas fa-cogs" /> Settings</CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser" /> Reset
                     </CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play" /> Run </CodeEditorPanelBtn>
 
                     {/*Notification that user code contains errors*/}
                 </CodeEditorPanel>
                 {errorFlag &&
-                <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+                    <CodeEditorError><i className="fas fa-exclamation-circle" />Check your code</CodeEditorError>}
             </MobileTaskEditorWrapper>
 
             {/*console with user code*/}
             <MobileTaskResult>
                 <WebBrowserWindow>
                     <WebBrowserTopBar>
-                        <WebBrowserGreenBox/>
-                        <WebBrowserYellowBox/>
-                        <WebBrowserRedBox/>
+                        <WebBrowserGreenBox />
+                        <WebBrowserYellowBox />
+                        <WebBrowserRedBox />
                     </WebBrowserTopBar>
                     <JsConsoleWrapper>
-                        <Console logs={logs} variant="light"/>
+                        <Console logs={logs} variant="light" />
                     </JsConsoleWrapper>
                 </WebBrowserWindow>
             </MobileTaskResult>
