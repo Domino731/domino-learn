@@ -240,7 +240,8 @@ export interface IFJsConsoleInitial {
 export type TypeLSHtmlTaskSolutions = {
     taskSolutions: TypeHtmlTaskSolution[]
     title: string,
-    code: string
+    code: string,
+    solvedTargets: number[]
 }
 
 export interface IFLSCssTaskSolutions {

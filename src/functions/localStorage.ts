@@ -63,10 +63,16 @@ export const getEditorTheme = (): string => {
  * @param userCode - code with solution, when user comes back he will have this code
  */
 export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], taskTitle: string, userCode: string): void => {
+
+    const solvedTargets : number[] = [];
+
+    taskSolutions.forEach(el => el.solved && solvedTargets.push(el.number));
+    console.log(solvedTargets)
     // object with task name, solutions, code
     const taskObj: TypeLSHtmlTaskSolutions = {
         title: taskTitle,
-        code: userCode, taskSolutions
+        code: userCode, taskSolutions,
+        solvedTargets: solvedTargets
     };
 
     // save solution into local storage
@@ -191,9 +197,24 @@ export const getHtmlTaskTargetsFromLS = (taskTitle: string, defaultValue: IFTask
         let localStorageData: TypeLSHtmlTaskSolutions[] = JSON.parse(localStorage.getItem("htmlTasksSolutions"));
 
         // check if the task has been saved
-        const taskTargets = localStorageData.filter(el => el.title === taskTitle);
-        if (taskTargets.length !== 0) {
-            return taskTargets[0].taskSolutions;
+        let data = localStorageData.filter(el => el.title === taskTitle);
+
+        // array with task targets
+        const targetsData : IFTaskTargets[] = defaultValue;
+
+        // Numbers of targets that have been executed are stored in local storage.
+        // If there is a number then set the solved key  to true in specific element in targetsData array
+        // This will make the checkbox color will be green, and user will be know what left
+         data[0].solvedTargets.forEach(el => {
+            const solved = defaultValue.find(e => e.number === el);
+             if(solved !== undefined){
+                 const index = defaultValue.indexOf(solved);
+                 return targetsData[index].solved = true;
+             }
+         });
+
+        if (data.length !== 0) {
+            return targetsData;
         } else {
             return defaultValue;
         }
