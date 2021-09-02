@@ -39,7 +39,7 @@ import {
 import {htmlClass} from "../../properties/htmlClass";
 import {
     getEditorFSize,
-    getEditorTheme,
+    getEditorTheme, removeSolvedTaskFormLS,
     saveHtmlTaskSolutionToLS, saveSolvedTaskToLS
 } from "../../functions/localStorage";
 import {Link} from "react-router-dom";
@@ -178,12 +178,15 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                 // set the animation
                 setSuccessfulFlag(true);
                 // save solved task title to ls, so that the user knows which tasks he has completed
-                saveSolvedTaskToLS(task.title, "solvedHtmlTasks");
+                return saveSolvedTaskToLS(task.title, "solvedHtmlTasks");
             } else {
                 setSuccessfulFlag(false);
+
+                // remove this task from solved in local storage
+                return removeSolvedTaskFormLS(task.title, "solvedHtmlTasks")
             }
         } else {
-            setErrorFlag(true);
+          return setErrorFlag(true);
         }
 
     }

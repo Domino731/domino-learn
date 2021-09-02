@@ -44,7 +44,7 @@ import {
 import AceEditor from "react-ace";
 import {
     getEditorFSize,
-    getEditorTheme,
+    getEditorTheme, removeSolvedTaskFormLS,
     saveJsTaskSolutionToLS, saveSolvedTaskToLS
 } from "../../functions/localStorage";
 import { Console, Hook, Unhook } from 'console-feed'
@@ -105,23 +105,26 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ task, allTaskL
 
 
     useEffect(() => {
-        const consoleTextArr = logs.map(el => el.data[0]);
-        if (consoleTextArr.length > 0 && annotations.length === 0) {
-            task.targets.forEach(el => taskValidationJS(consoleTextArr, userCode, el, addPoints));
-            saveJsTaskSolutionToLS(task.targets, task.title, userCode);
-            // save solved task title to ls, so that the user knows which tasks he has completed
-            return saveSolvedTaskToLS(task.title, "solvedJsTasks");
+        const unSubscribe = () => {
+            const consoleTextArr = logs.map(el => el.data[0]);
+            if (consoleTextArr.length > 0 && annotations.length === 0) {
+                task.targets.forEach(el => taskValidationJS(consoleTextArr, userCode, el, addPoints));
+                return saveJsTaskSolutionToLS(task.targets, task.title, userCode);
+            }
         }
-
+        return unSubscribe();
     }, [logs.length]);
 
 
-    // displaying animation
+    // displaying animation and saving or removing solved task in local storage
     useEffect(() => {
-
         if (points.user >= points.needed) {
+            // save solved task title to ls, so that the user knows which tasks he has completed
+            saveSolvedTaskToLS(task.title, "solvedJsTasks");
             return setSuccessfulFlag(true);
         } else {
+            // remove this task from solved in local storage
+            removeSolvedTaskFormLS(task.title, "solvedJsTasks")
             return setSuccessfulFlag(false);
         }
     }, [points.user]);

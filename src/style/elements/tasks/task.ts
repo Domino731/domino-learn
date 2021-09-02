@@ -355,9 +355,8 @@ export const TaskIntroductionText = styled.div`
   line-height: 1.438rem;
 
   p {
-    text-align: left;
     margin-top: 20px;
-
+    text-align: justify;
     code {
       display: inline-block;
       padding: 0 3px;
@@ -407,6 +406,7 @@ export const TaskIntroductionText = styled.div`
     margin-top: -20px;
   }
 `
+
 export const TaskTargetsWrapper = styled.div`
   padding-top: 12px;
   @media ${device.mobileL} {
@@ -416,7 +416,7 @@ export const TaskTargetsWrapper = styled.div`
 export const TaskTarget = styled.div`
   display: flex;
   padding: 12px 9px;
-
+ 
   @media ${device.mobileL} {
     padding: 8px 2px;
   }
@@ -452,7 +452,6 @@ export const TaskTargetNumber = styled.div`
 export const TaskTargetText = styled.div`
   font-size: 1.25rem;
   line-height: 1.438rem;
-
   span {
     display: inline-block;
     position: relative;

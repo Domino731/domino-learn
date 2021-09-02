@@ -36,7 +36,7 @@ import {cssClass} from "../../properties/cssClass";
 import {IFPropsCssTaskContent} from "../../types/types";
 import {
     getEditorFSize,
-    getEditorTheme,
+    getEditorTheme, removeSolvedTaskFormLS,
     saveCssTaskSolutionToLS, saveSolvedTaskToLS,
 } from "../../functions/localStorage";
 import {taskValidationHtml} from "../../functions/taskValidationHtml";
@@ -238,12 +238,15 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                 saveSolvedTaskToLS(task.title, "solvedCssTasks");
             } else {
                 setSuccessfulFlag(false);
+
+                // remove this task from solved in local storage
+                 removeSolvedTaskFormLS(task.title, "solvedCssTasks")
             }
 
             // save solution into local storage, so when user comes back he will have their solution
-            saveCssTaskSolutionToLS(task.targets, task.title, userCode);
+            return saveCssTaskSolutionToLS(task.targets, task.title, userCode);
         } else {
-            setErrorFlag(true);
+            return setErrorFlag(true);
         }
     };
 

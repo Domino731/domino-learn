@@ -26,3 +26,4 @@ export const TaskIntroduction: FunctionComponent<IFPropsTaskIntroduction> = ({
         <TaskIntroductionText dangerouslySetInnerHTML={{__html: introductionInnerHtml}}/>
     </>
 }
+

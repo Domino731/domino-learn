@@ -354,8 +354,25 @@ export const saveSolvedTaskToLS =
             localStorageData.push(taskTitle);
             localStorage.setItem(item, JSON.stringify(localStorageData));
         }
-    }
+}
 
+/**
+ * remove solved task from local storage
+ * @param taskTitle - task title
+ * @param item - local storage name in which you want to save
+ */
+export const removeSolvedTaskFormLS = (taskTitle: string, item: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks") => {
+    // @ts-ignore
+    let localStorageData: string[] = JSON.parse(localStorage.getItem(item));
+    if(localStorageData != null){
+
+        const index = localStorageData.indexOf(taskTitle);
+        if (index > -1) {
+            localStorageData.splice(index, 1);
+        }
+        localStorage.setItem(item, JSON.stringify(localStorageData));
+    }
+}
 /**
  * check if the task has been solved correctly
  * @param taskTitle
