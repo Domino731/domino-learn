@@ -92,9 +92,6 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ task, allTaskL
     // for devices below 768px width there is a different arrangement of elements
     const [windowWidth, setWindowWidth] = useState<number>(0);
 
-    // object with user points and points needed to pass the task
-    const [points, setPoints] = useState<{ user: number, needed: number }>({ user: 0, needed: task.targets.length });
-
     // array with logs from console
     const [consoleTextArr, setConsoleTextArr] = useState<any[]>([]);
 
@@ -108,30 +105,32 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ task, allTaskL
         const unSubscribe = () => {
             const consoleTextArr = logs.map(el => el.data[0]);
             if (consoleTextArr.length > 0 && annotations.length === 0) {
+
+                // points needed to pass
+                const pointsNeeded: number = task.targets.length;
+
+                // user points
+                let userPoints = 0;
+
+                // function that add pun when user complete task correctly
+                const addPoints= (): number => userPoints++;
+
                 task.targets.forEach(el => taskValidationJS(consoleTextArr, userCode, el, addPoints));
+
+                // check if user solved all targets
+                if(userPoints === pointsNeeded){
+                    saveSolvedTaskToLS(task.title, "solvedJsTasks");
+                    setSuccessfulFlag(true);
+                }
+                else {
+                    removeSolvedTaskFormLS(task.title, "solvedJsTasks")
+                     setSuccessfulFlag(false);
+                }
                 return saveJsTaskSolutionToLS(task.targets, task.title, userCode);
             }
         }
         return unSubscribe();
     }, [logs.length]);
-
-
-    // displaying animation and saving or removing solved task in local storage
-    useEffect(() => {
-        if (points.user >= points.needed) {
-            // save solved task title to ls, so that the user knows which tasks he has completed
-            saveSolvedTaskToLS(task.title, "solvedJsTasks");
-            return setSuccessfulFlag(true);
-        } else {
-            // remove this task from solved in local storage
-            removeSolvedTaskFormLS(task.title, "solvedJsTasks")
-            return setSuccessfulFlag(false);
-        }
-    }, [points.user]);
-
-
-    // add points for user
-    const addPoints = () => setPoints(prev => ({ ...prev, user: prev.user++ }));
 
 
     // set the windowWidth state
@@ -203,9 +202,6 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ task, allTaskL
     // change editorFormFlag -> show or hide editor settings form
     const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag);
 
-    // function that reset points, and hide animation screen
-    const handleResetPoints = (): void => setPoints({ user: 0, needed: task.targets.length });
-
     // set the console logs by which useEffect will start the task validation
     const checkTask = () => {
         if (annotations.length === 0) {
@@ -255,7 +251,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ task, allTaskL
                 <TaskSuccessfulBar color="#b5179e">
 
                     {/*user has a choice to stay with the task or move to another task if there is one*/}
-                    <button onClick={handleResetPoints}>Close</button>
+                    <button onClick={()=> setSuccessfulFlag(false)}>Close</button>
                     {task.number < allTaskLength && <Link to={`/js-task/${task.number + 1}`}>Next task</Link>}
 
                 </TaskSuccessfulBar>
@@ -361,7 +357,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ task, allTaskL
 
                         <TaskSuccessfulBar color="#b5179e">
                             {/*user has a choice to stay with the task or move to another task if there is one*/}
-                            <button onClick={handleResetPoints}>Close</button>
+                            <button onClick={()=> setSuccessfulFlag(false)}>Close</button>
                             {task.number < allTaskLength && <Link to={`/js-task/${task.number + 1}`}>Next task</Link>}
                         </TaskSuccessfulBar>
                     </JsTaskSuccessful>}
