@@ -238,22 +238,21 @@ export interface IFJsConsoleInitial {
 /////////////////////////////////////
 
 export type TypeLSHtmlTaskSolutions = {
-    taskSolutions: TypeHtmlTaskSolution[]
     title: string,
     code: string,
     solvedTargets: number[]
 }
 
 export interface IFLSCssTaskSolutions {
-    taskSolutions: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []
     title: string,
-    userCode: { html: string, css: string }
+    userCode: { html: string, css: string },
+    solvedTargets: number[]
 }
 
 export interface IFLSjsTaskSolutions {
-    taskSolutions: IFJsTaskTargets[]
     title: string,
-    userCode: string
+    userCode: string,
+    solvedTargets: number[]
 }
 
 

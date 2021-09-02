@@ -64,15 +64,15 @@ export const getEditorTheme = (): string => {
  */
 export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], taskTitle: string, userCode: string): void => {
 
-    const solvedTargets : number[] = [];
+    const solvedTargets: number[] = [];
 
     taskSolutions.forEach(el => el.solved && solvedTargets.push(el.number));
-    console.log(solvedTargets)
+
     // object with task name, solutions, code
     const taskObj: TypeLSHtmlTaskSolutions = {
         title: taskTitle,
-        code: userCode, taskSolutions,
-        solvedTargets: solvedTargets
+        code: userCode,
+        solvedTargets
     };
 
     // save solution into local storage
@@ -111,10 +111,15 @@ export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], 
  */
 export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfCssTaskTargetHtml) [], taskTitle: string, userCode: { html: string, css: string }): void => {
 
+    const solvedTargets: number[] = [];
+
+    taskSolutions.forEach(el => el.solved && solvedTargets.push(el.number));
+
     // object with task name, solutions, code
     const taskObj: IFLSCssTaskSolutions = {
         title: taskTitle,
-        userCode, taskSolutions
+        userCode,
+        solvedTargets
     };
 
     // save solution into local storage
@@ -153,10 +158,15 @@ export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfC
  */
 export const saveJsTaskSolutionToLS = (taskSolutions: IFJsTaskTargets[], taskTitle: string, userCode: string): void => {
 
+    const solvedTargets: number[] = [];
+
+    taskSolutions.forEach(el => el.solved && solvedTargets.push(el.number));
+
     // object with task name, solutions, code
     const taskObj: IFLSjsTaskSolutions = {
         title: taskTitle,
-        userCode, taskSolutions
+        userCode,
+        solvedTargets
     };
 
     // save solution into local storage
@@ -191,7 +201,7 @@ export const saveJsTaskSolutionToLS = (taskSolutions: IFJsTaskTargets[], taskTit
  * @param taskTitle - name of task
  * @param defaultValue - the default value to be saved to the state if the user has not solved this task
  */
-export const getHtmlTaskTargetsFromLS = (taskTitle: string, defaultValue: IFTaskTargets[]) => {
+export const getHtmlTaskTargetsFromLS = (taskTitle: string, defaultValue: IFTaskTargets []) => {
     if (localStorage.getItem("htmlTasksSolutions") != null) {
         // @ts-ignore
         let localStorageData: TypeLSHtmlTaskSolutions[] = JSON.parse(localStorage.getItem("htmlTasksSolutions"));
@@ -200,18 +210,18 @@ export const getHtmlTaskTargetsFromLS = (taskTitle: string, defaultValue: IFTask
         let data = localStorageData.filter(el => el.title === taskTitle);
 
         // array with task targets
-        const targetsData : IFTaskTargets[] = defaultValue;
+        const targetsData = defaultValue;
 
         // Numbers of targets that have been executed are stored in local storage.
         // If there is a number then set the solved key  to true in specific element in targetsData array
         // This will make the checkbox color will be green, and user will be know what left
-         data[0].solvedTargets.forEach(el => {
+        data[0].solvedTargets.forEach(el => {
             const solved = defaultValue.find(e => e.number === el);
-             if(solved !== undefined){
-                 const index = defaultValue.indexOf(solved);
-                 return targetsData[index].solved = true;
-             }
-         });
+            if (solved !== undefined) {
+                const index = defaultValue.indexOf(solved);
+                return targetsData[index].solved = true;
+            }
+        });
 
         if (data.length !== 0) {
             return targetsData;
@@ -238,8 +248,27 @@ export const getCssTaskTargetsFromLS = (
 
         // check if the task has been saved
         const taskTargets = localStorageData.filter(el => el.title === taskTitle);
+
+        // check if the task has been saved
+        let data = localStorageData.filter(el => el.title === taskTitle);
+
+        // array with task targets
+        const targetsData = defaultValue;
+
+        // Numbers of targets that have been executed are stored in local storage.
+        // If there is a number then set the solved key  to true in specific element in targetsData array
+        // This will make the checkbox color will be green, and user will be know what left
+        data[0].solvedTargets.forEach(el => {
+            const solved = defaultValue.find(e => e.number === el);
+            if (solved !== undefined) {
+                const index = defaultValue.indexOf(solved);
+                return targetsData[index].solved = true;
+            }
+        });
+
+
         if (taskTargets.length !== 0) {
-            return taskTargets[0].taskSolutions;
+            return targetsData;
         } else {
             return defaultValue;
         }
@@ -260,8 +289,26 @@ export const getJsTaskTargetsFromLS = (taskTitle: string, defaultValue: IFJsTask
 
         // check if the task has been saved
         const taskTargets = localStorageData.filter(el => el.title === taskTitle);
+
+        // check if the task has been saved
+        let data = localStorageData.filter(el => el.title === taskTitle);
+
+        // array with task targets
+        const targetsData = defaultValue;
+
+        // Numbers of targets that have been executed are stored in local storage.
+        // If there is a number then set the solved key  to true in specific element in targetsData array
+        // This will make the checkbox color will be green, and user will be know what left
+        data[0].solvedTargets.forEach(el => {
+            const solved = defaultValue.find(e => e.number === el);
+            if (solved !== undefined) {
+                const index = defaultValue.indexOf(solved);
+                return targetsData[index].solved = true;
+            }
+        });
+
         if (taskTargets.length > 0) {
-            return taskTargets[0].taskSolutions;
+            return targetsData;
         } else {
             return defaultValue;
         }
@@ -375,7 +422,7 @@ export const saveSolvedTaskToLS =
             localStorageData.push(taskTitle);
             localStorage.setItem(item, JSON.stringify(localStorageData));
         }
-}
+    }
 
 /**
  * remove solved task from local storage
@@ -385,7 +432,7 @@ export const saveSolvedTaskToLS =
 export const removeSolvedTaskFormLS = (taskTitle: string, item: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks") => {
     // @ts-ignore
     let localStorageData: string[] = JSON.parse(localStorage.getItem(item));
-    if(localStorageData != null){
+    if (localStorageData != null) {
 
         const index = localStorageData.indexOf(taskTitle);
         if (index > -1) {
