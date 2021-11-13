@@ -24,11 +24,12 @@ display: block;
 margin: 61px auto;
 transform: rotate(35deg);
 `
-export const HeroEarthGraphic = styled.img`
+export const HeroMainPlanetGraphic = styled.img`
 position: relative;
 z-index: 1;
 width: 200vw;
 transform: translateX(-100vh);
+object-fit: cover;
 `
 export const HeroHTMLCometWrapper = styled.div`
 position: absolute;
@@ -59,33 +60,33 @@ img{
 }
 `
 
-
-export const HeroCSSCometWrapper = styled.div`
+export const HeroPlanet1 = styled.img`
 position: absolute;
-bottom: 0;
-right: 232px;
+width: 290px;
+    top: 174px;
+    left: 263px;
 `
-export const HeroCSSComet = styled.div`
-margin: 0 auto;
-width: 42px;
-    height: 298px;
-    background: #000046;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #1CB5E0, #000046);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #1CB5E0, #000046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+export const HeroPlanet2 = styled.img`
+position: absolute;
+width: 345px;
+    top: 496px;
+    right: 373px;
 `
-export const HeroCSSGraphicWrapper = styled.div`
-position: relative;
-z-index: 1;
-width: 100%;
-margin: 0 auto;
-background: #000046;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #1CB5E0, #000046);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #1CB5E0, #000046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-padding: 5px;
-border-radius: 50px;
-margin-bottom: -10px;
-img{
-  width: 62px;
-}
+export const HeroPlanet3 = styled.img`
+position: absolute;
+    width: 254px;
+    top: 136px;
+    right: 160px;
+`
+export const HeroPlanet4 = styled.img`
+position: absolute;
+width: 199px;
+    top: 533px;
+    left: 128px;
+`
+export const HeroPlanet5 = styled.img`
+position: absolute;
+width: 132px;
+    top: 529px;
+    left: 507px;
 `

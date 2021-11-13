@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {device} from "../../general/breakpoints";
 
 export const NavContainer = styled.nav`
+  background: ${props => props.theme.color.blue};
   display: flex;
   height: 57px;
   border-bottom: 3px solid ${props => props.theme.color.gray};
@@ -31,7 +32,6 @@ export const NavTitle = styled.h1`
   letter-spacing: 0.125rem;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
-  background: ${props => props.theme.color.blue};
   &:hover {
     cursor: default;
   }
@@ -58,7 +58,6 @@ export const NavList = styled.ul`
   width: 70%;
   height: 100%;
   padding-right: 33px;
-  background: ${props => props.theme.color.blue};
   @media ${device.laptopSM} {
     padding-right: 20px;
   }

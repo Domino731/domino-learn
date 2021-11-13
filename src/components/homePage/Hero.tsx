@@ -1,10 +1,12 @@
 import { FunctionComponent } from "react";
-import { HeroAustronaut, HeroAustronautWrapper, HeroContainer, HeroCSSComet, HeroCSSCometWrapper, HeroCSSGraphicWrapper, HeroEarthGraphic, HeroHTMLComet, HeroHTMLCometWrapper, HeroHTMLGraphicWrapper, HeroTitle } from '../../style/elements/homePage/hero';
+import { HeroAustronaut, HeroAustronautWrapper, HeroContainer, HeroMainPlanetGraphic,HeroPlanet4, HeroPlanet5, HeroPlanet1, HeroPlanet2, HeroPlanet3, HeroTitle} from '../../style/elements/homePage/hero';
 import austronautGraphic from "../../images/astronautHappy.png";
 import earth from "../../images/earth.svg";
-import htmlIcon from "../../images/html_hero_icon.svg";
-import cssIcon from "../../images/css_hero_icon.svg";
-
+import planet1 from "../../images/hero_planet_1.svg";
+import planet2 from "../../images/hero_planet_2.svg";
+import planet3 from "../../images/hero_planet_3.svg";
+import planet4 from "../../images/hero_planet_4.svg";
+import planet5 from "../../images/hero_planet_5.svg";
 // subcomponent for HomePage, responsible for page introduction
 export const Hero: FunctionComponent = (): JSX.Element => {
     return <HeroContainer>
@@ -14,24 +16,13 @@ export const Hero: FunctionComponent = (): JSX.Element => {
         <HeroAustronautWrapper>
             <HeroAustronaut src={austronautGraphic} alt='astronautHappy' />
         </HeroAustronautWrapper>
-        <HeroEarthGraphic src={earth} />
+        <HeroMainPlanetGraphic src={earth} />
 
         {/* comets */}
-
-        {/* html  */}
-        <HeroHTMLCometWrapper>
-            <HeroHTMLGraphicWrapper>
-                <img src={htmlIcon} alt='HTML icon' />
-            </HeroHTMLGraphicWrapper>
-            <HeroHTMLComet />
-        </HeroHTMLCometWrapper>
-
-        {/* css */}
-        <HeroCSSCometWrapper>
-            <HeroCSSGraphicWrapper>
-                <img src={cssIcon} alt='HTML icon' />
-            </HeroCSSGraphicWrapper>
-            <HeroCSSComet />
-        </HeroCSSCometWrapper>
+       <HeroPlanet1 src={planet1} alt='Planet'/>
+       <HeroPlanet2 src={planet2} alt='Planet'/>
+       <HeroPlanet3 src={planet3} alt='Planet'/>
+       <HeroPlanet4 src={planet4} alt='Planet'/>
+       <HeroPlanet5 src={planet5} alt='Planet'/>
     </HeroContainer>
 }
