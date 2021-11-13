@@ -56,7 +56,7 @@ export const getEditorTheme = (): string => {
 }
 
 /**
- * Save task solution into localStorage, so that when the user returns to this task, he will have his solution
+ * Save task solution into localStorage, so that when the user returns to this task, he will have+ his solution
  * @param taskSolutions - taskSolutions that you want to save in local storage,
  * is needed, it has keys (false or true) that display the single task target has been completed (checkboxes)
  * @param taskTitle - task name for solutions, is needed after to download specific solutions for task

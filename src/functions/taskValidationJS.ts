@@ -25,7 +25,7 @@ export const taskValidationJS =  (logs: any[], userCode: string, taskTarget: IFJ
     const taskSolutions: string[] = taskTarget.solutions.map(el => el.replace(/\s/g, '').toLowerCase());
 
     // checking that every solution is equal to user code,
-    // as we know in javascript we have infinite approaches to tasks, even to writing simple hello world
+    // as we know in javascript we have infinite approaches to tasks, even to writing simple hello world ->
     // console.log("Hello World"); or console.log("Hello World") or console.log("hello world")
     // all approaches are defined :)
 

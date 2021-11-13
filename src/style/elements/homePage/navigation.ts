@@ -3,7 +3,7 @@ import {device} from "../../general/breakpoints";
 
 export const NavContainer = styled.nav`
   display: flex;
-  height: 80px;
+  height: 57px;
   border-bottom: 3px solid ${props => props.theme.color.gray};
   @media ${device.desktopM} {
     height: 73px;
@@ -27,8 +27,8 @@ export const NavTitle = styled.h1`
   align-items: center;
   width: 30%;
   height: 100%;
-
-  font-size: 3.438rem;
+  font-size: 50px;
+  letter-spacing: 0.125rem;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
 
@@ -57,7 +57,7 @@ export const NavList = styled.ul`
   justify-content: flex-end;
   width: 70%;
   height: 100%;
-  padding-right: 122px;
+  padding-right: 33px;
   background: ${props => props.theme.color.blue};
   @media ${device.laptopSM} {
     padding-right: 20px;
@@ -69,8 +69,12 @@ export const NavList = styled.ul`
 
 export const NavListItem = styled.li`
   font-weight: bold;
-  padding: 24px 27px;
-  font-size: 1.625rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size:  29px;
+  margin-right: 31px;
   position: relative;
   overflow: hidden;
   transition: 1s;
@@ -87,6 +91,7 @@ export const NavListItem = styled.li`
     width: 0;
     height: 0.313rem;
     background: ${props => props.theme.color.red};
+    transition: 0.6s;
   }
 
   &:after {
@@ -102,7 +107,6 @@ export const NavListItem = styled.li`
   }
 
   &:hover:after, &:hover:before {
-    transition: 0.6s;
     width: 100%;
   }
 
