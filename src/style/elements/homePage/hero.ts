@@ -1,11 +1,14 @@
 
 import styled from "styled-components";
 import { device } from "../../general/breakpoints";
-import earth from "../../../images/earth.svg";
+
 export const HeroContainer = styled.div`
 height: 910px;
 overflow: hidden;
 position: relative;
+background: #5C258D;  /* fallback for old browsers */
+background: linear-gradient(180deg, #4389A2, #5C258D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 `
 export const HeroTitle = styled.h2`
     margin-top: 41px;
@@ -13,6 +16,7 @@ export const HeroTitle = styled.h2`
     text-align: center;
     letter-spacing: 0.188rem;
     font-weight: bold;
+    color: ${props => props.theme.color.white}
     //text-shadow: 2px 2px #ff006e;
 `
 export const HeroAustronautWrapper = styled.div`

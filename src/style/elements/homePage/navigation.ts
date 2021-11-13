@@ -127,6 +127,7 @@ export const NavListItem = styled.li`
 export const NavWave = styled.div`
 
 position: absolute;
+z-index: 1;
     top: 57px;
     left: 0;
     width: 100%;

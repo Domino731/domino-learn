@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { HeroAustronaut, HeroAustronautWrapper, HeroContainer, HeroMainPlanetGraphic,HeroPlanet4, HeroPlanet5, HeroPlanet1, HeroPlanet2, HeroPlanet3, HeroTitle} from '../../style/elements/homePage/hero';
-import austronautGraphic from "../../images/astronautHappy.png";
+import austronautGraphic from "../../images/hero_astronaut.svg";
 import earth from "../../images/earth.svg";
 import planet1 from "../../images/hero_planet_1.svg";
 import planet2 from "../../images/hero_planet_2.svg";
