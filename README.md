@@ -261,8 +261,7 @@ valid and if the target it refers to can be passed. Here is how the whole `check
 
 * `HomePage` - wraps all content.
 * `Navigation` - navigation, title and links list.
-* `Hero` - responsible for user introduction ,renders a character that represents the author of the page, and the title
-  along with a graphic of the monitor and the astronaut.
+* `Hero` - responsible for user introduction
 * `Description` - description for every language.
     * `DescriptionItem` - description for a single language and sample code.
 

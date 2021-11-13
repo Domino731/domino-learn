@@ -31,7 +31,7 @@ export const NavTitle = styled.h1`
   letter-spacing: 0.125rem;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
-
+  background: ${props => props.theme.color.blue};
   &:hover {
     cursor: default;
   }
@@ -125,4 +125,22 @@ export const NavListItem = styled.li`
     font-size: 10px;
   }
 `
+export const NavWave = styled.div`
+
+position: absolute;
+    top: 57px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    svg{
+      position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 95px;
+    }
+    path{
+      fill: #00B9F1;
+    }
+    `
 export {}

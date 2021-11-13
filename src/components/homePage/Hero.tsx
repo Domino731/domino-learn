@@ -1,34 +1,37 @@
-import {
-    HeroContainer, HeroIntroduction,
-    HeroImg, HeroFigure, HeroTitleH2,
-    HeroTitleH3, HeroIntroductionImg, HeroPlanet
-} from "../../style/elements/homePage/hero";
-import figure from "../../images/welcome_figure_full.png"
-import monitor from "../../images/monitor1.png"
-import {FunctionComponent} from "react";
-import astronaut from "../../images/astronautHappy.png";
+import { FunctionComponent } from "react";
+import { HeroAustronaut, HeroAustronautWrapper, HeroContainer, HeroCSSComet, HeroCSSCometWrapper, HeroCSSGraphicWrapper, HeroEarthGraphic, HeroHTMLComet, HeroHTMLCometWrapper, HeroHTMLGraphicWrapper, HeroTitle } from '../../style/elements/homePage/hero';
+import austronautGraphic from "../../images/astronautHappy.png";
+import earth from "../../images/earth.svg";
+import htmlIcon from "../../images/html_hero_icon.svg";
+import cssIcon from "../../images/css_hero_icon.svg";
 
-// subcomponent for HomePage, responsible for user introduction ,renders a character that represents the author of the page,
-// and the title along with a graphic of the monitor and the astronaut
+// subcomponent for HomePage, responsible for page introduction
 export const Hero: FunctionComponent = (): JSX.Element => {
     return <HeroContainer>
-        {/*character*/}
-        <HeroFigure>
-            <HeroImg src={figure} alt="figure"/>
-        </HeroFigure>
+        <HeroTitle>
+            Meet front-end<br />Discover his worlds
+        </HeroTitle>
+        <HeroAustronautWrapper>
+            <HeroAustronaut src={austronautGraphic} alt='astronautHappy' />
+        </HeroAustronautWrapper>
+        <HeroEarthGraphic src={earth} />
 
-        <HeroIntroduction>
+        {/* comets */}
 
-            <HeroTitleH2>
-                <span>MEET THE</span> FRONT END
-            </HeroTitleH2>
-            <HeroTitleH3>
-                <span>DISCOVER</span> HIS WORLDS
-            </HeroTitleH3>
+        {/* html  */}
+        <HeroHTMLCometWrapper>
+            <HeroHTMLGraphicWrapper>
+                <img src={htmlIcon} alt='HTML icon' />
+            </HeroHTMLGraphicWrapper>
+            <HeroHTMLComet />
+        </HeroHTMLCometWrapper>
 
-            <HeroIntroductionImg src={monitor} alt="monitor"/>
-            <HeroPlanet src={astronaut} alt="astronaut"/>
-        </HeroIntroduction>
-
+        {/* css */}
+        <HeroCSSCometWrapper>
+            <HeroCSSGraphicWrapper>
+                <img src={cssIcon} alt='HTML icon' />
+            </HeroCSSGraphicWrapper>
+            <HeroCSSComet />
+        </HeroCSSCometWrapper>
     </HeroContainer>
 }
