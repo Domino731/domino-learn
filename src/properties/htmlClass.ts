@@ -1,6 +1,6 @@
 import {ProgramingLanguage} from "./front_end_languages";
 import htmlIcon from "../images/html_icon.png";
-import builder from "../images/html_builder.png";
+import character from "../images/builder_character.svg";
 import {IFProgramingCode} from "../types/types";
 import {formatCode} from "../functions/formatCode";
 
@@ -10,6 +10,7 @@ Each tag has its own purpose, for example a tag is responsible
 for hyperlinks or anchors, and the img tag is responsible for graphics as 
 page content. The current html version is html5 which brought many improvements 
 over version 4`;
+
 const htmlCode = `
 <!DOCTYPE html>
 <html lang="en">
@@ -50,5 +51,5 @@ const code : IFProgramingCode = {
 // html language data
 export const htmlClass: ProgramingLanguage =
     new ProgramingLanguage("Html", htmlIcon, "Html icon",
-        htmlDsc, builder,
+        htmlDsc, character,
         "the figure of the builder with a key symbolizes programming in html", code);

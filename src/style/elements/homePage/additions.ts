@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import {device} from "../../general/breakpoints";
-
+import bg from "../../../images/background_home_pega_dsc.svg";
 export const AdditionsWrapper = styled.section`
   display: flex;
   justify-content: space-evenly;
   height: 500px;
-  background: ${props => props.theme.color.purple};
+  background-image: url(${bg});
+  background-size: cover;
   @media ${device.laptopL} {
     height: 440px;
   }

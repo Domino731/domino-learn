@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import {device} from "../../general/breakpoints";
+import bg from "../../../images/background_home_pega_dsc.svg";
 
 interface DscReverseProps {
     reverse: boolean
 }
 
 export const DscContainer = styled.section`
-  background: rgb(87, 7, 159);
-  background: linear-gradient(90deg, rgba(87, 7, 159, 1) 29%, rgba(114, 1, 216, 1) 71%);
+  /* background: rgb(87, 7, 159);
+  background: linear-gradient(90deg, rgba(87, 7, 159, 1) 29%, rgba(114, 1, 216, 1) 71%); */
+  background-image: url(${bg});
+  background-size: cover;
   padding-top: 93px;
   position: relative;
   overflow: hidden;
@@ -21,58 +24,30 @@ export const DscContainer = styled.section`
   }
 `
 
-export const DscItemContainer = styled.section<DscReverseProps>`
+export const DscCardContainer = styled.section<DscReverseProps>`
   display: flex;
   justify-content: ${props => props.reverse ? "flex-end" : "flex-start"};
 `
-export const DscItem = styled.div<DscReverseProps>`
+export const DscCard = styled.div<DscReverseProps>`
   z-index: 3;
   display: flex;
-  flex-direction: ${props => props.reverse ? "row-reverse" : "row"};
+  margin-left: ${props => !props.reverse ? "150px" : "0"};
+  margin-right: ${props => props.reverse ? "150px" : "0"};;
   width: 1270px;
-  height: 514px;
   padding: 33px;
   margin-bottom: 105px;
-  border-radius: ${props => props.reverse ? "100px 0 0 100px" : "0 100px 100px 0"};
+  border-radius: 35px;
   background: white;
   box-shadow: 20px 20px ${props => props.theme.color.gray};
   transition: 0.3s;
+  position: relative;
 
-  &:hover {
-    transition: 0.4s;
-    box-shadow: ${props => props.reverse ? "40px 30px" : "-20px 30px"} ${props => props.theme.color.yellow};
-  }
-
-  @media ${device.desktopS} {
-    height: 475px;
-  }
-
-  @media ${device.laptopL} {
-    height: 440px;
-    width: 1184px;
-    border-radius: ${props => props.reverse ? "70x 0 0 70px" : "0 70px 70px 0"};
-  }
-  @media ${device.laptopSM} {
-    width: 900px;
-    height: 507px;
-  }
-  @media (max-width: 961px) {
-    width: 100%;
-    height: 400px;
-    border-radius: 0;
-    box-shadow: 0 13px ${props => props.theme.color.gray};
-    padding: 20px;
-    margin-bottom: 85px;
-    &:hover{
-      box-shadow: 0 20px ${props => props.theme.color.yellow};
-    }
-  }
-  @media ${device.tablet} {
-    align-items: center;
-    flex-direction: column;
-    height: auto;
-    padding: 10px;
-  }
+`
+export const DscWave = styled.div`
+position: absolute;
+top: 30px;
+width: 100%;
+height: 30px;
 `
 export const DscContent = styled.div`
   width: 360px;
@@ -117,11 +92,6 @@ export const DscDescription = styled.p`
 `
 
 export const DscExemplaryCodeBtn = styled.button`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  position: absolute;
-  bottom: 0;
   width: 262px;
   height: 52px;
   border: 3px solid ${props => props.theme.color.blue};
@@ -135,22 +105,6 @@ export const DscExemplaryCodeBtn = styled.button`
     color: #fff;
     border: none;
   }
-
-  @media ${device.laptopSM} {
-    width: 200px;
-    height: 50px;
-  }
-  @media (max-width: 961px) {
-    width: 178px;
-    height: 39px;
-
-    @media ${device.tablet} {
-      right: -1px;
-      padding: 2px 0;
-      top: 30px;
-      width: 149px;
-      height: 31px;
-    }
 `
 
 export const DscFigure = styled.div`
@@ -220,6 +174,7 @@ export const DscEditorWrapper = styled.div<props__DscEditorWrapper>`
       }
     }
     }
+  }
 `
 export const DscArrow = styled.div<DscReverseProps>`
   position: relative;

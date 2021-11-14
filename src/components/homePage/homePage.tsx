@@ -7,7 +7,7 @@ import {ChoseTask} from "./ChoseTask";
 import {Footer} from "./Footer";
 import {Additions} from "./Additions";
 
-// Home page component
+/** Home page component */ 
 export const HomePage : FunctionComponent = () =>{
     return <Container>
         <Navigation/>

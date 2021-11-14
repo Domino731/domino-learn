@@ -1,8 +1,7 @@
 import {ProgramingLanguage} from "./front_end_languages";
 import cssIcon from "../images/css_icon.png";
-import painter from "../images/css_painter.png";
 import {IFProgramingCode} from "../types/types";
-
+import character from "../images/painter_character.svg";
 const cssDsc = `Cascading Style Sheets is a language that is used to describe
  the appearance of our website. 
 Thanks to it, we can change, for example, the background color, set the capitalization or decorations. To create a style for a 
@@ -111,4 +110,4 @@ const code: IFProgramingCode = {
 
 // css language data
 export const cssClass = new ProgramingLanguage("CSS", cssIcon,
-    "Css icon", cssDsc, painter, "The painter symbolizes styling in css", code);
+    "Css icon", cssDsc, character, "The painter symbolizes styling in css", code);

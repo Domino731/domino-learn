@@ -3,28 +3,28 @@ import 'ace-builds/src-noconflict/mode-html'
 import 'ace-builds/src-noconflict/mode-css'
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/theme-monokai'
-import {FunctionComponent, useState} from "react";
+import { FunctionComponent, useState } from "react";
 import {
-    DscItem, DscContent,
+    DscCard, DscContent,
     DscTitleContainer, DscTitle
     , DscTitleImg,
     DscDescription, DscExemplaryCodeBtn, DscFigure,
-    DscFigureImg, DscItemContainer, DscCode, DscEditorWrapper, DscArrow, DscCodeResultWrapper
+    DscFigureImg, DscCardContainer, DscCode, DscEditorWrapper, DscArrow, DscCodeResultWrapper, DscWave
 } from "../../style/elements/homePage/description";
-import {IFProgramingCode, IFPropsDescriptionItem} from "../../types/types";
+import { IFProgramingCode, IFPropsDescriptionItem } from "../../types/types";
 import {
     WebBrowserGreenBox,
     WebBrowserRedBox,
     WebBrowserTopBar, WebBrowserWindow,
     WebBrowserYellowBox
 } from "../../style/elements/tasks/task";
-
+import waveTop from "../../images/dsc_wave_top.png";
 /**
  * Subcomponent for Description, which render description for a single language and sample code
  * @param language - object with language data - icon, figure, text, code...
  * @param reverse - boolean, with which the description will be rotated horizontally (only above 768px width)
  */
-export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({language, reverse = false}) => {
+export const DescriptionCard: FunctionComponent<IFPropsDescriptionItem> = ({ language, reverse = false }) => {
     const code: IFProgramingCode = language.getCode()
 
     // state which is responsible for displaying code example
@@ -32,16 +32,15 @@ export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({lang
 
     // change flag state -> show or hide code example
     const handleChangeFlag = (): void => setFlag(!flag)
-
-
-    return <DscItemContainer reverse={reverse}>
-        <DscItem reverse={reverse}>
+    
+    return <DscCard reverse={reverse}>
             {/* description*/}
+
             {flag === false && <>
 
                 <DscContent>
                     <DscTitleContainer>
-                        <DscTitleImg src={language.getIconSrc()} alt={language.getIconAlt()}/>
+                        <DscTitleImg src={language.getIconSrc()} alt={language.getIconAlt()} />
                         <DscTitle>{language.getLanguageName()}</DscTitle>
                     </DscTitleContainer>
                     <DscDescription>
@@ -50,7 +49,7 @@ export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({lang
                     <DscExemplaryCodeBtn onClick={handleChangeFlag}>See exemplary code</DscExemplaryCodeBtn>
                 </DscContent>
                 <DscFigure>
-                    <DscFigureImg src={language.getFigureSrc()} alt={language.getFigureAlt()}/>
+                    <DscFigureImg src={language.getFigureSrc()} alt={language.getFigureAlt()} />
                 </DscFigure>
 
             </>
@@ -85,9 +84,9 @@ export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({lang
 
                 {/*arrow toward the window iframe*/}
                 <DscArrow reverse={reverse}>
-                    <i className="fas fa-long-arrow-alt-right"/>
+                    <i className="fas fa-long-arrow-alt-right" />
                     <div onClick={handleChangeFlag}>
-                        <i className="fas fa-times"/>
+                        <i className="fas fa-times" />
                     </div>
                 </DscArrow>
 
@@ -95,19 +94,24 @@ export const DescriptionItem: FunctionComponent<IFPropsDescriptionItem> = ({lang
                 <DscCodeResultWrapper mode={language.getLanguageName()}>
                     <WebBrowserWindow>
                         <WebBrowserTopBar>
-                            <WebBrowserGreenBox/>
-                            <WebBrowserYellowBox/>
-                            <WebBrowserRedBox/>
+                            <WebBrowserGreenBox />
+                            <WebBrowserYellowBox />
+                            <WebBrowserRedBox />
                         </WebBrowserTopBar>
                         <iframe srcDoc={code.srcDoc}
-                                width="100%" height="100%" frameBorder="0" sandbox="allow-scripts" title="output"
+                            width="100%" height="100%" frameBorder="0" sandbox="allow-scripts" title="output"
                         />
                     </WebBrowserWindow>
                 </DscCodeResultWrapper>
             </DscCode>}
-        </DscItem>
 
-    </DscItemContainer>
+            {/* waves effect*/}
+       
+        </DscCard>
+        
+
+
+    
 
 }
 
