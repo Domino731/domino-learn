@@ -14,6 +14,9 @@ background-size: cover;
  @media ${device.laptopM}{
      height: 760px;
  }
+ @media ${device.laptopSM}{
+   height: 700px;
+ }
 `
 export const HeroTitle = styled.h2`
     margin-top: 41px;
@@ -32,6 +35,9 @@ export const HeroTitle = styled.h2`
     }
     @media ${device.laptopM} {
     font-size: 39px;
+  }
+  @media ${device.laptopSM} {
+    font-size: 37px;
   }
 `
 export const HeroAustronautWrapper = styled.div`

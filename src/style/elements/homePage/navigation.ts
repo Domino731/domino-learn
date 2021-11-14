@@ -16,7 +16,7 @@ export const NavContainer = styled.nav`
     height: 43px;
   }
   @media ${device.laptopSM} {
-    height: 50px;
+    height: 41px;
   }
   @media ${device.tablet} {
     height: 40px;
@@ -24,6 +24,7 @@ export const NavContainer = styled.nav`
   @media ${device.mobileL} {
     height: 35px;
   }
+  
 `
 export const NavTitle = styled.h1`
   display: flex;
@@ -46,6 +47,9 @@ export const NavTitle = styled.h1`
   }
   @media ${device.laptopM} {
     font-size: 35px;
+  }
+  @media ${device.laptopSM} {
+    font-size: 32px;
   }
 `
 export const NavList = styled.ul`
@@ -117,6 +121,10 @@ export const NavListItem = styled.li`
     font-size: 19px;
     margin-right: 19px;
   }
+  @media ${device.laptopSM} {
+    font-size: 18px;
+    margin-right: 13px;
+  }
 `
 export const NavWave = styled.div`
 
@@ -145,6 +153,9 @@ z-index: 1;
    }
    @media ${device.laptopM} {
     top: 43px;
+  }
+  @media ${device.laptopSM} {
+    top: 41px;
   }
 `
 export {}

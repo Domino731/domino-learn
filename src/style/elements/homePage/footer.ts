@@ -4,6 +4,12 @@ import {device} from "../../general/breakpoints";
 export const FooterContainer = styled.footer`
   padding: 10px 0;
   background: ${props => props.theme.color.yellow};
+  @media ${device.laptopM}{
+    padding: 8px 0;
+  }
+  @media ${device.laptopS}{
+    padding: 6px 0;
+  }
 `
 export const FooterMediaList = styled.ul`
   margin: 0 auto;
@@ -34,7 +40,7 @@ font-size: 51px;
     font-size: 34px;
   }
   @media ${device.laptopSM} {
-      font-size: 41px;
+      font-size: 31px;
 
   }
   @media (max-width: 961px) {
@@ -54,6 +60,9 @@ font-weight: 500;
   margin-top: 6px;
     font-size: 13px;
 }
+@media ${device.laptopSM}{
+    font-size: 12px;
+}
 `
 export const FooterFreepik = styled.div`
 font-size: 15px;
@@ -61,5 +70,8 @@ text-align: center;
 @media ${device.laptopM}{
   margin-top: 6px;
     font-size: 12px;
+}
+@media ${device.laptopSM}{
+    font-size: 11px;
 }
 `

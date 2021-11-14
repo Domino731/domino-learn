@@ -63,6 +63,14 @@ export const DscCard = styled.div<DscReverseProps>`
   border-radius: 23px;
   box-shadow: 13px 13px ${props => props.theme.color.gray};
   }
+  @media ${device.laptopSM}{
+    padding: 19px;
+  margin-left: ${props => !props.reverse ? "52px" : "0"};
+  margin-right: ${props => props.reverse ? "52px" : "0"};
+  margin-bottom: 58px;
+  border-radius: 19px;
+  box-shadow: 10px 10px ${props => props.theme.color.gray};
+  }
 `
 
 export const DscContent = styled.div`
@@ -84,6 +92,9 @@ export const DscTitleContainer = styled.div`
   }
   @media ${device.laptopM}{
     font-size: 16px;
+  }
+  @media ${device.laptopSM}{
+    font-size: 14px;
   }
 `
 export const DscTitle = styled.h2`
@@ -112,6 +123,10 @@ export const DscDescription = styled.p`
     margin-top: 8px;
     font-size: 17px;
   }
+  @media ${device.laptopSM}{
+    margin-top: 6px;
+    font-size: 15px;
+  }
 `
 
 export const DscExemplaryCodeLink = styled.a`
@@ -136,9 +151,15 @@ margin-top: 19px;
   }
   @media ${device.laptopL}{
     font-size: 20px;
+    margin-top: 17px;
   }
   @media ${device.laptopM}{
     font-size: 19px;
+    margin-top: 16px;
+  }
+  @media ${device.laptopSM}{
+    margin-top: 15px;
+    font-size: 17px;
   }
 `
 
@@ -165,7 +186,8 @@ export const DscFigureImg = styled.img`
     margin-left: 79px;
   }
   @media ${device.laptopSM} {
-    width: 281px;
+    height: 242px;
+    margin-left: 68px;
   }
   @media (max-width: 961px) {
     height: 100%;
