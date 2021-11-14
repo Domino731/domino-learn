@@ -7,6 +7,9 @@ export const AdditionsWrapper = styled.section`
   height: 421px;
   background-image: url(${bg});
   background-size: cover;
+  @media ${device.desktopS}{
+    height: 378px;
+  }
   @media ${device.laptopL} {
     height: 440px;
   }
@@ -41,7 +44,9 @@ export const AdditionItem = styled.div`
     cursor: pointer;
     background: white;
   }
-
+  @media ${device.desktopS}{
+    width: 295px;
+  }
   @media ${device.laptopSM} {
     width: 267px;
   }
@@ -67,6 +72,9 @@ export const AdditionTitle = styled.h2`
   margin-top: 1.25rem;
   text-align: center;
   color: ${props => props.theme.color.white};
+  @media ${device.desktopS}{
+    font-size: 38px;
+  }
   @media ${device.laptopSM} {
     font-size: 2.214rem;
   }

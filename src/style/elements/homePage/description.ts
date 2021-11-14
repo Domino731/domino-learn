@@ -40,7 +40,13 @@ export const DscCard = styled.div<DscReverseProps>`
   box-shadow: 17px 17px ${props => props.theme.color.gray};
   transition: 0.3s;
   position: relative;
-
+  @media ${device.desktopS}{
+  margin-left: ${props => !props.reverse ? "144px" : "0"};
+  margin-right: ${props => props.reverse ? "144px" : "0"};
+  margin-bottom: 88px;
+  border-radius: 32px;
+  box-shadow: 15px 15px ${props => props.theme.color.gray};
+  }
 `
 
 export const DscContent = styled.div`
@@ -51,10 +57,12 @@ export const DscContent = styled.div`
   }
 `
 export const DscTitleContainer = styled.div`
-  height: 91px;
   display: flex;
   align-items: center;
   font-size: 20px;
+  @media ${device.desktopS}{
+    font-size: 18px;
+  }
 `
 export const DscTitle = styled.h2`
   text-transform: uppercase;
@@ -74,8 +82,11 @@ export const DscDescription = styled.p`
   line-height: 25px;
   font-weight: 550;
   text-align: justify;
-  @media (max-width: 961px) {
-    margin-top: 0;
+  @media ${device.desktopS} {
+    margin-top: 10px;
+    font-size: 19px;
+    line-height: 24px;
+    font-weight: 550;
   }
 `
 
@@ -96,6 +107,9 @@ margin-top: 19px;
     letter-spacing: 0.125rem;
     background: #9c54e6;
   }
+  @media ${device.desktopS}{
+    font-size: 21px;
+  }
 `
 
 export const DscFigure = styled.div`
@@ -109,7 +123,8 @@ export const DscFigureImg = styled.img`
     height: 410px;
   object-fit: cover;
   @media ${device.desktopS} {
-    width: 270px;
+   height: 360px;
+   margin-left: 101px;
   }
   @media ${device.laptopL} {
     width: 240px;

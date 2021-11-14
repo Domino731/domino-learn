@@ -13,8 +13,8 @@ export const FooterMediaList = styled.ul`
 
 export const FooterMediaItem = styled.li`
 padding: 0 10px;
-  a {
-    font-size: 51px;
+font-size: 51px;
+  a {   
     color: ${props => props.theme.color.gray};
     transition: 0.2s;
     
@@ -24,21 +24,19 @@ padding: 0 10px;
     }
 
   }
-
+  @media ${device.desktopS}{
+    font-size: 46px;
+  }
   @media ${device.laptopSM} {
-    a {
       font-size: 41px;
-    }
+
   }
   @media (max-width: 961px) {
-    a {
       font-size: 30px;
-    }
   }
   @media ${device.tablet} {
-    a {
       font-size: 40px;
-    }
+
   }
 `
 export const CopyrightWrapper = styled.div`

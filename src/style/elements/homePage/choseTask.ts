@@ -245,6 +245,10 @@ export const TasksSelectWrapper = styled.div`
   input:checked ~ span {
     font-size: 44px;
     box-shadow: 0 262px ${props => props.theme.color.blue} inset;
+
+    @media ${device.desktopS}{
+      box-shadow: 0 208px #00b9f1 inset;
+    }
   }
 
   @media ${device.laptopSM} {
@@ -396,6 +400,11 @@ export const TasksListItem = styled.li<props__TasksListItem>`
     color: ${props => props.theme.color.gray}
   }
 
+  @media ${device.desktopS}{
+    width: 87px;
+    height: 87px;
+    font-size: 57px;
+  }
   @media ${device.laptopL} {
     width: 87px;
     height: 87px;
