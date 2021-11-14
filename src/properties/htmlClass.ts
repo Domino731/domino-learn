@@ -1,8 +1,6 @@
 import {ProgramingLanguage} from "./front_end_languages";
 import htmlIcon from "../images/html_icon.png";
 import character from "../images/builder_character.svg";
-import {IFProgramingCode} from "../types/types";
-import {formatCode} from "../functions/formatCode";
 
 const htmlDsc = `HyperText Markup Language is a markup language. 
 Thanks to it, we can create the structure of the website by tags. 
@@ -12,45 +10,12 @@ page content. The current html version is html5 which brought many improvements
 over version 4. When you program in HTML you become a builder whose main task is to create a 
 structure for a web page`;
 
-const htmlCode = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>HTML</title>
-</head>
-<body>
-
-<h1>My first Heading</h1>
-<p>My first paragraph.</p>
-<img src="https://www.innovationnewsnetwork.com/wp-content/uploads/2020/10/Moon-missions.jpg" alt="Moon" width="100%">
-<h2>An Unordered HTML List</h2>
-
-<ul>
-  <li>Coffee</li>
-  <li>Tea</li>
-  <li>Milk</li>
-</ul>  
-
-<h2>An Ordered HTML List</h2>
-
-<ol>
-  <li>Coffee</li>
-  <li>Tea</li>
-  <li>Milk</li>
-</ol> 
-</body>
-</html>
-`;
-
-
-const code : IFProgramingCode = {
-    type: "html",
-    code: formatCode("html", htmlCode),
-    srcDoc: htmlCode
-};
-
-// html language data
+/** HTML data - title, character, description, examplary code link... */
 export const htmlClass: ProgramingLanguage =
-    new ProgramingLanguage("Html", htmlIcon, "Html icon",
-        htmlDsc, character,
-        "the figure of the builder with a key symbolizes programming in html", code);
+    new ProgramingLanguage("Html",
+     htmlIcon,
+      "Html icon",
+        htmlDsc,
+         character,
+        "the figure of the builder with a key symbolizes programming in html",
+         "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default");

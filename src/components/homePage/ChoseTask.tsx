@@ -1,8 +1,8 @@
 import {FunctionComponent, useState} from "react";
 import {ChoseTaskContainer} from "../../style/elements/homePage/choseTask";
-import {TasksBoard} from "./TasksBoard-subcomponent-for-choseTask";
+import {TasksBoard} from "./TasksBoard";
 import {TasksSelect} from "../../style/elements/homePage/choseTask";
-import {TaskSelectSingle} from "./TaskSelectSingle-subcomponenent-for-choseTask";
+import {TaskSelectSingle} from "./TaskSelectSingle";
 import {htmlClass} from "../../properties/htmlClass";
 import {cssClass} from "../../properties/cssClass";
 import {jsClass} from "../../properties/jsClass";

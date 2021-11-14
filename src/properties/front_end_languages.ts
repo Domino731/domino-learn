@@ -2,6 +2,7 @@ import {IFProgramingCode} from "../types/types";
 
 // class for programing languages including language name, icon src, alt, figure src, alt, code, description
 export class ProgramingLanguage {
+    
     private languageName: string
     private icon: {
         src: string
@@ -11,13 +12,13 @@ export class ProgramingLanguage {
         src: string,
         alt: string
     }
-    private code: IFProgramingCode
+    private exemplaryCodeLink: string
     private description: string
 
 
     constructor(languageName: string, iconSrc: string, iconAlt: string,
                 description: string, figureSrc: string, figureAlt: string,
-                code: IFProgramingCode) {
+                exemplaryCodeLink: string) {
         this.languageName = languageName
         this.icon = {
             src: iconSrc,
@@ -27,7 +28,7 @@ export class ProgramingLanguage {
             src: figureSrc,
             alt: figureAlt
         }
-        this.code = code
+        this.exemplaryCodeLink = exemplaryCodeLink;
         this.description = description
     }
 
@@ -56,8 +57,8 @@ export class ProgramingLanguage {
         return this.figure.alt
     }
 
-    getCode(): IFProgramingCode {
-        return this.code
+    getExemplaryCodeLink(): string{
+        return this.exemplaryCodeLink;
     }
 }
 

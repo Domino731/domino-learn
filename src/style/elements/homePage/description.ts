@@ -42,12 +42,7 @@ export const DscCard = styled.div<DscReverseProps>`
   position: relative;
 
 `
-export const DscWave = styled.div`
-position: absolute;
-top: 30px;
-width: 100%;
-height: 30px;
-`
+
 export const DscContent = styled.div`
   width: 360px;
   position: relative;
@@ -84,7 +79,9 @@ export const DscDescription = styled.p`
   }
 `
 
-export const DscExemplaryCodeBtn = styled.button`
+export const DscExemplaryCodeLink = styled.a`
+display: block;
+text-align: center;
 margin-top: 19px;
   border-radius: 0.3em;
   width: 100%;
@@ -129,112 +126,17 @@ export const DscFigureImg = styled.img`
     height: 340px;
   }
 `
-export const DscCode = styled.div<DscReverseProps>`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: ${props => props.reverse ? "row-reverse" : "row"};
-
-  @media ${device.tablet} {
-    flex-direction: column;
-  }
-`
 
 interface props__DscEditorWrapper {
   mode: string
 }
 
-export const DscEditorWrapper = styled.div<props__DscEditorWrapper>`
-  width: 40%;
-  height: 100%;
 
-  @media ${device.tablet} {
-    width: 100%;
-    height: ${(props) => {
-    switch (props.mode) {
-      case "Html":
-        return "460px";
-      case "JS":
-        return "290px";
-      case "CSS":
-        return "1040px";
-      default:
-        return "300px"
-    }
-  }
-  }
-  }
-`
-export const DscArrow = styled.div<DscReverseProps>`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20%;
-  height: 100%;
-  font-size: 120px;
-
-  i {
-    transform: rotate(${props => props.reverse ? "180deg" : "0deg"})
-  }
-
-  div {
-    color: ${props => props.theme.color.red};
-    position: absolute;
-    bottom: 0;
-    font-size: 61px;
-    transition: 0.2s;
-
-    &:hover {
-      transition: 0.2s;
-      font-size: 72px;
-      cursor: pointer;
-    }
-  }
-
-  @media (max-width: 961px) {
-    font-size: 100px;
-    div {
-      font-size: 50px;
-    }
-  }
-
-  @media ${device.tablet} {
-    font-size: 0;
-    height: 100px;
-    width: 100%;
-    div {
-      margin: 0 auto;
-      font-size: 50px;
-    }
-  }
-`
 
 interface props__DscCodeResultWrapper {
   mode: string
 }
 
-export const DscCodeResultWrapper = styled.div<props__DscCodeResultWrapper>`
-  width: 40%;
-  height: 100%;
-  @media ${device.tablet} {
-    width: 100%;
-    height: ${(props) => {
-    switch (props.mode) {
-      case "Html":
-        return "650px";
-      case "JS":
-        return "290px";
-      case "CSS":
-        return "650px";
-      default:
-        return "150px"
-    }
-  }
-  }
-  }
-`
 export const DscPlanetColorful = styled.img`
   position: absolute;
   width: 250px;

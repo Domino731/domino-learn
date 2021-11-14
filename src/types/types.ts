@@ -5,7 +5,7 @@ import React from "react";
 //// For components //////////////////
 /////////////////////////////////////
 
-export interface IFPropsDescriptionItem {
+export interface IFPropsDescriptionCard {
     language: {
         getDsc: () => string,
         getIconAlt: () => string,
@@ -13,7 +13,7 @@ export interface IFPropsDescriptionItem {
         getLanguageName: () => string,
         getFigureSrc: () => string,
         getFigureAlt: () => string,
-        getCode: () => IFProgramingCode,
+        getExemplaryCodeLink: () => string,
 
     },
     reverse?: boolean
