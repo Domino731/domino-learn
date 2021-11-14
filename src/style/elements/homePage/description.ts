@@ -47,6 +47,13 @@ export const DscCard = styled.div<DscReverseProps>`
   border-radius: 32px;
   box-shadow: 15px 15px ${props => props.theme.color.gray};
   }
+  @media ${device.laptopL}{
+  margin-left: ${props => !props.reverse ? "111px" : "0"};
+  margin-right: ${props => props.reverse ? "111px" : "0"};
+  margin-bottom: 88px;
+  border-radius: 29px;
+  box-shadow: 13px 13px ${props => props.theme.color.gray};
+  }
 `
 
 export const DscContent = styled.div`
@@ -62,6 +69,9 @@ export const DscTitleContainer = styled.div`
   font-size: 20px;
   @media ${device.desktopS}{
     font-size: 18px;
+  }
+  @media ${device.laptopL}{
+    font-size: 17px;
   }
 `
 export const DscTitle = styled.h2`
@@ -86,7 +96,11 @@ export const DscDescription = styled.p`
     margin-top: 10px;
     font-size: 19px;
     line-height: 24px;
-    font-weight: 550;
+  }
+  @media ${device.laptopL} {
+    margin-top: 8px;
+    font-size: 18px;
+    line-height: 23px;
   }
 `
 
@@ -110,6 +124,9 @@ margin-top: 19px;
   @media ${device.desktopS}{
     font-size: 21px;
   }
+  @media ${device.laptopL}{
+    font-size: 20px;
+  }
 `
 
 export const DscFigure = styled.div`
@@ -127,7 +144,8 @@ export const DscFigureImg = styled.img`
    margin-left: 101px;
   }
   @media ${device.laptopL} {
-    width: 240px;
+    height: 347px;
+   margin-left: 89px;
   }
   @media ${device.laptopSM} {
     width: 281px;
@@ -142,61 +160,4 @@ export const DscFigureImg = styled.img`
   }
 `
 
-interface props__DscEditorWrapper {
-  mode: string
-}
-
-
-
-interface props__DscCodeResultWrapper {
-  mode: string
-}
-
-export const DscPlanetColorful = styled.img`
-  position: absolute;
-  width: 250px;
-  height: auto;
-  object-fit: cover;
-  top: 313px;
-  right: 91px;
-
-  @media ${device.laptopL} {
-    width: 293px;
-    top: 316px;
-    right: 15px;
-  }
-  @media ${device.laptopSM} {
-    display: none;
-  }
-`
-export const DscPlanetJupiter = styled.img`
-  position: absolute;
-  width: 482px;
-  height: auto;
-  object-fit: cover;
-  top: 817px;
-  left: -201px;
-  @media ${device.laptopL} {
-    width: 324px;
-    top: 828px;
-    left: -194px;
-  }
-  @media ${device.laptopSM} {
-    display: none;
-  }
-`
-export const DscPlanetMercury = styled.img`
-  position: absolute;
-  width: 618px;
-  height: auto;
-  object-fit: cover;
-  bottom: -93px;
-  right: -107px;
-  @media ${device.laptopL} {
-    width: 392px;
-  }
-  @media ${device.laptopSM} {
-    display: none;
-  }
-`
 export { }

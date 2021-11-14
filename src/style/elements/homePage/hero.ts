@@ -23,6 +23,10 @@ export const HeroTitle = styled.h2`
     margin-top: 34px;
     font-size: 46px;
     }
+    @media ${device.laptopL}{
+    margin-top: 32px;
+    font-size: 44px;
+    }
 `
 export const HeroAustronautWrapper = styled.div`
 position: relative;
