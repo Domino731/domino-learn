@@ -5,11 +5,12 @@ import {IFProgramingCode} from "../types/types";
 import {formatCode} from "../functions/formatCode";
 
 const htmlDsc = `HyperText Markup Language is a markup language. 
-Thanks to it, we can create the structure of the website. 
-Each tag has its own purpose, for example a tag is responsible 
+Thanks to it, we can create the structure of the website by tags. 
+Each tag has its own purpose, for example <a> tag is responsible 
 for hyperlinks or anchors, and the img tag is responsible for graphics as 
 page content. The current html version is html5 which brought many improvements 
-over version 4`;
+over version 4. When you program in HTML you become a builder whose main task is to create a 
+structure for a web page`;
 
 const htmlCode = `
 <!DOCTYPE html>

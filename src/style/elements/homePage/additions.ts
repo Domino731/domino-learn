@@ -4,7 +4,7 @@ import bg from "../../../images/background_home_pega_dsc.svg";
 export const AdditionsWrapper = styled.section`
   display: flex;
   justify-content: space-evenly;
-  height: 500px;
+  height: 421px;
   background-image: url(${bg});
   background-size: cover;
   @media ${device.laptopL} {

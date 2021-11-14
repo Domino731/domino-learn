@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import {device} from "../../general/breakpoints";
+import { device } from "../../general/breakpoints";
 import bg from "../../../images/background_home_pega_dsc.svg";
 
 interface DscReverseProps {
-    reverse: boolean
+  reverse: boolean
 }
 
 export const DscContainer = styled.section`
@@ -31,14 +31,13 @@ export const DscCardContainer = styled.section<DscReverseProps>`
 export const DscCard = styled.div<DscReverseProps>`
   z-index: 3;
   display: flex;
-  margin-left: ${props => !props.reverse ? "150px" : "0"};
-  margin-right: ${props => props.reverse ? "150px" : "0"};;
-  width: 1270px;
   padding: 33px;
   margin-bottom: 105px;
+   margin-left: ${props => !props.reverse ? "187px" : "0"};
+  margin-right: ${props => props.reverse ? "187px" : "0"};;
   border-radius: 35px;
   background: white;
-  box-shadow: 20px 20px ${props => props.theme.color.gray};
+  box-shadow: 17px 17px ${props => props.theme.color.gray};
   transition: 0.3s;
   position: relative;
 
@@ -60,30 +59,24 @@ export const DscTitleContainer = styled.div`
   height: 91px;
   display: flex;
   align-items: center;
+  font-size: 20px;
 `
 export const DscTitle = styled.h2`
   text-transform: uppercase;
-  margin-left: 10px;
-  font-size: 4.25rem;
+  margin-left: 0.3em;
+  font-size: 2.3em;
   font-weight: bold;
-  @media (max-width: 961px) {
-    font-size: 3.333rem;
-  }
-  @media ${device.mobileM}{
-    font-size: 2rem;
-  }
+  
 `
 export const DscTitleImg = styled.img`
-  width: 70px;
+  width: 3.3em;
   height: auto;
   object-fit: cover;
-  @media (max-width: 961px) {
-    width: 44px;
-  }
 `
 export const DscDescription = styled.p`
   margin-top: 12px;
-  font-size: 1.313rem;
+  font-size: 21px;
+  line-height: 25px;
   font-weight: 550;
   text-align: justify;
   @media (max-width: 961px) {
@@ -92,35 +85,32 @@ export const DscDescription = styled.p`
 `
 
 export const DscExemplaryCodeBtn = styled.button`
-  width: 262px;
-  height: 52px;
-  border: 3px solid ${props => props.theme.color.blue};
-  color: ${props => props.theme.color.blue};
+margin-top: 19px;
+  border-radius: 0.3em;
+  width: 100%;
+  font-size: 23px;
+  padding: 0.4em 0;
+  background:  #7b1edb;
+  color: ${props => props.theme.color.white};
   overflow: hidden;
-  transition: 0.1s;
-
+  transition: 0.2s;
+  font-weight: bold;
   &:hover {
-    transition: 0.1s;
-    background: ${props => props.theme.color.blue};
-    color: #fff;
-    border: none;
+    letter-spacing: 0.125rem;
+    background: #9c54e6;
   }
 `
 
 export const DscFigure = styled.div`
   display: flex;
-  justify-content: center;
-  width: calc(100% - 360px);
-  @media ${device.tablet} {
-    // margin-top: 52px;
-  }
+  align-items: center;
+  height: 100%;
 `
 
 export const DscFigureImg = styled.img`
-  width: 296px;
-  height: auto;
+       margin-left: 120px;
+    height: 410px;
   object-fit: cover;
-
   @media ${device.desktopS} {
     width: 270px;
   }
@@ -152,7 +142,7 @@ export const DscCode = styled.div<DscReverseProps>`
 `
 
 interface props__DscEditorWrapper {
-    mode: string
+  mode: string
 }
 
 export const DscEditorWrapper = styled.div<props__DscEditorWrapper>`
@@ -162,18 +152,18 @@ export const DscEditorWrapper = styled.div<props__DscEditorWrapper>`
   @media ${device.tablet} {
     width: 100%;
     height: ${(props) => {
-      switch (props.mode) {
-        case "Html":
-          return "460px";
-        case "JS":
-          return "290px";
-        case "CSS":
-          return "1040px";
-        default:
-          return "300px"
-      }
+    switch (props.mode) {
+      case "Html":
+        return "460px";
+      case "JS":
+        return "290px";
+      case "CSS":
+        return "1040px";
+      default:
+        return "300px"
     }
-    }
+  }
+  }
   }
 `
 export const DscArrow = styled.div<DscReverseProps>`
@@ -222,7 +212,7 @@ export const DscArrow = styled.div<DscReverseProps>`
 `
 
 interface props__DscCodeResultWrapper {
-    mode: string
+  mode: string
 }
 
 export const DscCodeResultWrapper = styled.div<props__DscCodeResultWrapper>`
@@ -231,18 +221,18 @@ export const DscCodeResultWrapper = styled.div<props__DscCodeResultWrapper>`
   @media ${device.tablet} {
     width: 100%;
     height: ${(props) => {
-      switch (props.mode) {
-        case "Html":
-          return "650px";
-        case "JS":
-          return "290px";
-        case "CSS":
-          return "650px";
-        default:
-          return "150px"
-      }
+    switch (props.mode) {
+      case "Html":
+        return "650px";
+      case "JS":
+        return "290px";
+      case "CSS":
+        return "650px";
+      default:
+        return "150px"
     }
-    }
+  }
+  }
   }
 `
 export const DscPlanetColorful = styled.img`
@@ -292,4 +282,4 @@ export const DscPlanetMercury = styled.img`
     display: none;
   }
 `
-export {}
+export { }
