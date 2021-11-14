@@ -48,10 +48,19 @@ export const DscCard = styled.div<DscReverseProps>`
   box-shadow: 15px 15px ${props => props.theme.color.gray};
   }
   @media ${device.laptopL}{
+    padding: 27px;
   margin-left: ${props => !props.reverse ? "111px" : "0"};
   margin-right: ${props => props.reverse ? "111px" : "0"};
-  margin-bottom: 88px;
+  margin-bottom: 86px;
   border-radius: 29px;
+  box-shadow: 13px 13px ${props => props.theme.color.gray};
+  }
+  @media ${device.laptopM}{
+    padding: 23px;
+  margin-left: ${props => !props.reverse ? "72px" : "0"};
+  margin-right: ${props => props.reverse ? "72px" : "0"};
+  margin-bottom: 68px;
+  border-radius: 23px;
   box-shadow: 13px 13px ${props => props.theme.color.gray};
   }
 `
@@ -73,6 +82,9 @@ export const DscTitleContainer = styled.div`
   @media ${device.laptopL}{
     font-size: 17px;
   }
+  @media ${device.laptopM}{
+    font-size: 16px;
+  }
 `
 export const DscTitle = styled.h2`
   text-transform: uppercase;
@@ -89,18 +101,16 @@ export const DscTitleImg = styled.img`
 export const DscDescription = styled.p`
   margin-top: 12px;
   font-size: 21px;
-  line-height: 25px;
+  line-height: 1.3em;
   font-weight: 550;
   text-align: justify;
   @media ${device.desktopS} {
     margin-top: 10px;
     font-size: 19px;
-    line-height: 24px;
   }
   @media ${device.laptopL} {
     margin-top: 8px;
-    font-size: 18px;
-    line-height: 23px;
+    font-size: 17px;
   }
 `
 
@@ -127,6 +137,9 @@ margin-top: 19px;
   @media ${device.laptopL}{
     font-size: 20px;
   }
+  @media ${device.laptopM}{
+    font-size: 19px;
+  }
 `
 
 export const DscFigure = styled.div`
@@ -146,6 +159,10 @@ export const DscFigureImg = styled.img`
   @media ${device.laptopL} {
     height: 347px;
    margin-left: 89px;
+  }
+  @media ${device.laptopM}{
+    height: 299px;
+    margin-left: 79px;
   }
   @media ${device.laptopSM} {
     width: 281px;

@@ -30,6 +30,9 @@ font-size: 51px;
   @media ${device.laptopL}{
     font-size: 39px;
   }
+  @media ${device.laptopM}{
+    font-size: 34px;
+  }
   @media ${device.laptopSM} {
       font-size: 41px;
 
@@ -47,4 +50,16 @@ text-align: center;
 margin-top: 10px;
 font-size: 16px;
 font-weight: 500;
+@media ${device.laptopM}{
+  margin-top: 6px;
+    font-size: 13px;
+}
+`
+export const FooterFreepik = styled.div`
+font-size: 15px;
+text-align: center;
+@media ${device.laptopM}{
+  margin-top: 6px;
+    font-size: 12px;
+}
 `

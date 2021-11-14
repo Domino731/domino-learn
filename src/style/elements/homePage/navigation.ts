@@ -12,6 +12,9 @@ export const NavContainer = styled.nav`
   @media ${device.laptopL} {
     height: 48px;
   }
+  @media ${device.laptopM} {
+    height: 43px;
+  }
   @media ${device.laptopSM} {
     height: 50px;
   }
@@ -41,7 +44,9 @@ export const NavTitle = styled.h1`
   @media ${device.laptopL}{
     font-size: 39px;
   }
-
+  @media ${device.laptopM} {
+    font-size: 35px;
+  }
 `
 export const NavList = styled.ul`
   display: flex;
@@ -108,6 +113,10 @@ export const NavListItem = styled.li`
     font-size: 22px;
     margin-right: 19px;
   }
+  @media ${device.laptopM} {
+    font-size: 19px;
+    margin-right: 19px;
+  }
 `
 export const NavWave = styled.div`
 
@@ -134,5 +143,8 @@ z-index: 1;
    @media ${device.laptopL}{
      top: 48px;
    }
+   @media ${device.laptopM} {
+    top: 43px;
+  }
 `
 export {}

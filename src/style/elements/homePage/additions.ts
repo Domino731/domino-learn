@@ -14,7 +14,7 @@ export const AdditionsWrapper = styled.section`
     height: 360px;
   }
   @media ${device.laptopM} {
-    height: 390px;
+    height: 323px;
   }
   @media (max-width: 961px) {
     height: 300px;
@@ -50,6 +50,9 @@ export const AdditionItem = styled.div`
   @media ${device.laptopL} {
     width: 271px;
   }
+  @media ${device.laptopM}{
+    width: 236px;
+  }
   @media (max-width: 961px) {
     width: 240px;
   }
@@ -69,7 +72,7 @@ export const AdditionImg = styled.img`
 export const AdditionTitle = styled.h2`
   font-size: 2.563rem;
   font-weight: 650;
-  margin-top: 1.25rem;
+  margin-top: 0.4em;
   text-align: center;
   color: ${props => props.theme.color.white};
   @media ${device.desktopS}{
@@ -77,6 +80,9 @@ export const AdditionTitle = styled.h2`
   }
   @media ${device.laptopL} {
     font-size: 34px;
+  }
+  @media ${device.laptopM} {
+    font-size: 28px;
   }
   @media ${device.laptopSM} {
     font-size: 2.214rem;

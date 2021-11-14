@@ -11,6 +11,9 @@ background-size: cover;
 @media ${device.desktopS}{
     height: 849px;
  }
+ @media ${device.laptopM}{
+     height: 760px;
+ }
 `
 export const HeroTitle = styled.h2`
     margin-top: 41px;
@@ -27,6 +30,9 @@ export const HeroTitle = styled.h2`
     margin-top: 32px;
     font-size: 44px;
     }
+    @media ${device.laptopM} {
+    font-size: 39px;
+  }
 `
 export const HeroAustronautWrapper = styled.div`
 position: relative;
@@ -38,6 +44,9 @@ margin: 61px auto;
 transform: rotate(35deg);
 @media ${device.desktopS}{
     width: 350px;
+}
+@media ${device.laptopM}{
+    width: 286px;
 }
 `
 export const HeroMainPlanetGraphic = styled.img`

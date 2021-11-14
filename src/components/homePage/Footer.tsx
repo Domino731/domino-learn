@@ -1,5 +1,5 @@
 import {FunctionComponent} from "react";
-import {FooterContainer, FooterMediaList, FooterMediaItem, CopyrightWrapper} from "../../style/elements/homePage/footer";
+import {FooterContainer, FooterMediaList, FooterMediaItem, CopyrightWrapper, FooterFreepik} from "../../style/elements/homePage/footer";
 import {FreepikThanks} from "../../style/general/generalStyles";
 import saturnPlanet from "../../images/planet_saturn.png";
 import colorfulPlanet from "../../images/planet_colorful.png";
@@ -31,6 +31,9 @@ export const Footer: FunctionComponent = (): JSX.Element => {
         </FooterMediaList>
 
         <CopyrightWrapper>2021 &copy; Copyright Dominik Orzechowski</CopyrightWrapper>
-        <a href='https://www.freepik.com/vectors/star'>Star vector created by vectorpouch - www.freepik.com</a>
+        <FooterFreepik>
+             <a href='https://www.freepik.com/vectors/star'>Star vector created by vectorpouch - www.freepik.com</a> 
+        </FooterFreepik>
+      
     </FooterContainer>
 }
