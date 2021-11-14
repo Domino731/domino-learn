@@ -6,8 +6,8 @@ export const NavContainer = styled.nav`
   display: flex;
   height: 57px;
   border-bottom: 3px solid ${props => props.theme.color.gray};
-  @media ${device.desktopM} {
-    height: 73px;
+  @media ${device.desktopS} {
+    height: 51px;
   }
   @media ${device.laptopL} {
     height: 68px;
@@ -35,22 +35,10 @@ export const NavTitle = styled.h1`
   &:hover {
     cursor: default;
   }
+  @media ${device.desktopS}{
+     font-size: 41px;
+  }
 
-  @media ${device.laptopSM} {
-    font-size: 2.786rem;
-  }
-  @media ${device.laptopS} {
-    font-size: 2.583rem;
-  }
-  @media ${device.tablet} {
-    font-size: 1.7rem;
-  }
-  @media ${device.mobileL} {
-    font-size: 1.5rem;
-  }
-  @media ${device.mobileM} {
-    font-size: 13px;
-  }
 `
 export const NavList = styled.ul`
   display: flex;
@@ -109,19 +97,9 @@ export const NavListItem = styled.li`
     width: 100%;
   }
 
-  @media ${device.laptopSM} {
-    padding: 13px 17px;
-  }
-  @media ${device.tablet} {
-    font-size: 1.3rem;
-    padding: 12px 7px;
-  }
-  @media ${device.mobileM} {
-    font-size: 1.2rem;
-
-  }
-  @media ${device.mobileM} {
-    font-size: 10px;
+  @media ${device.desktopS}{
+     font-size: 24px;
+     margin-right: 21px;
   }
 `
 export const NavWave = styled.div`
@@ -142,5 +120,9 @@ z-index: 1;
     path{
       fill: #00B9F1;
     }
-    `
+
+    @media ${device.desktopS}{
+     top: 51px;
+   }
+`
 export {}

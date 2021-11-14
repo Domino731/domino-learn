@@ -13,14 +13,14 @@ export const size = {
     desktopM: `1680px`
 }
 export const device = {
-    mobileS: `(max-width: ${size.mobileS})`,
-    mobileM: `(max-width: ${size.mobileM})`,
-    mobileL: `(max-width: ${size.mobileL})`,
-    tablet: `(max-width: ${size.tablet})`,
-    laptopS: `(max-width: ${size.laptopS})`,
-    laptopSM: `(max-width: ${size.laptopSM})`,
-    laptopM: `(max-width: ${size.laptopM})`,
-    laptopL: `(max-width: ${size.laptopL})`,
-    desktopS: `(max-width: ${size.desktopS})`,
-    desktopM: `(max-width: ${size.desktopM})`,
+    mobileS: `screen and  (max-width: ${size.mobileS})`,
+    mobileM: `screen and (max-width: ${size.mobileM})`,
+    mobileL: `screen and (max-width: ${size.mobileL})`,
+    tablet: `screen and (max-width: ${size.tablet})`,
+    laptopS: `screen and (max-width: ${size.laptopS})`,
+    laptopSM: `screen and (max-width: ${size.laptopSM})`,
+    laptopM: `screen and (max-width: ${size.laptopM})`,
+    laptopL: `screen and (max-width: ${size.laptopL})`,
+    desktopS: `screen and (max-width: ${size.desktopS})`,
+    desktopM: `screen and (max-width: ${size.desktopM})`,
 };

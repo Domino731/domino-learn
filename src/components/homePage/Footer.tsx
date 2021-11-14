@@ -31,5 +31,6 @@ export const Footer: FunctionComponent = (): JSX.Element => {
         </FooterMediaList>
 
         <CopyrightWrapper>2021 &copy; Copyright Dominik Orzechowski</CopyrightWrapper>
+        <a href='https://www.freepik.com/vectors/star'>Star vector created by vectorpouch - www.freepik.com</a>
     </FooterContainer>
 }

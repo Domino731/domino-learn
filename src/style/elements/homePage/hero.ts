@@ -1,14 +1,16 @@
 
 import styled from "styled-components";
 import { device } from "../../general/breakpoints";
-
+import spaceBg from "../../../images/hero_background.jpg";
 export const HeroContainer = styled.div`
 height: 910px;
 overflow: hidden;
 position: relative;
-background: #5C258D;  /* fallback for old browsers */
-background: linear-gradient(180deg, #4389A2, #5C258D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+background-image: url(${spaceBg});
+background-size: cover;
+@media ${device.desktopS}{
+    height: 849px;
+ }
 `
 export const HeroTitle = styled.h2`
     margin-top: 41px;
@@ -16,23 +18,30 @@ export const HeroTitle = styled.h2`
     text-align: center;
     letter-spacing: 0.188rem;
     font-weight: bold;
-    color: ${props => props.theme.color.white}
-    //text-shadow: 2px 2px #ff006e;
+    color: ${props => props.theme.color.white};
+    @media ${device.desktopS}{
+    margin-top: 34px;
+    font-size: 46px;
+    }
 `
 export const HeroAustronautWrapper = styled.div`
 position: relative;
 `
 export const HeroAustronaut = styled.img`
-width: 393px;
+width: 444px;
 display: block;
 margin: 61px auto;
 transform: rotate(35deg);
+@media ${device.desktopS}{
+    width: 350px;
+}
 `
 export const HeroMainPlanetGraphic = styled.img`
-position: relative;
+position: absolute;
+bottom: 0;
 z-index: 1;
-width: 200vw;
-transform: translateX(-100vh);
+width: 100%;
+height: 100%;
 object-fit: cover;
 `
 export const HeroHTMLCometWrapper = styled.div`
@@ -62,35 +71,4 @@ margin-bottom: -10px;
 img{
   width: 74px;
 }
-`
-
-export const HeroPlanet1 = styled.img`
-position: absolute;
-width: 290px;
-    top: 174px;
-    left: 263px;
-`
-export const HeroPlanet2 = styled.img`
-position: absolute;
-width: 345px;
-    top: 496px;
-    right: 373px;
-`
-export const HeroPlanet3 = styled.img`
-position: absolute;
-    width: 254px;
-    top: 136px;
-    right: 160px;
-`
-export const HeroPlanet4 = styled.img`
-position: absolute;
-width: 199px;
-    top: 533px;
-    left: 128px;
-`
-export const HeroPlanet5 = styled.img`
-position: absolute;
-width: 132px;
-    top: 529px;
-    left: 507px;
 `

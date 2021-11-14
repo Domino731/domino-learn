@@ -1,5 +1,5 @@
 
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent} from "react";
 import {
     DscCard, DscContent,
     DscTitleContainer, DscTitle
@@ -7,7 +7,7 @@ import {
     DscDescription, DscExemplaryCodeLink , DscFigure,
     DscFigureImg
 } from "../../style/elements/homePage/description";
-import { IFProgramingCode, IFPropsDescriptionCard } from "../../types/types";
+import {  IFPropsDescriptionCard } from "../../types/types";
 
 /**
  * Subcomponent for Description, which render description for a single language and sample code
@@ -15,7 +15,7 @@ import { IFProgramingCode, IFPropsDescriptionCard } from "../../types/types";
  * @param reverse - boolean, with which the description will be rotated horizontally (only above 768px width)
  */
 export const DescriptionCard: FunctionComponent<IFPropsDescriptionCard> = ({ language, reverse = false }) => {
-    const code: string = language.getExemplaryCodeLink()
+
     
     return <DscCard reverse={reverse}>
             {/* description*/}
