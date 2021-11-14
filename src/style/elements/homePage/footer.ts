@@ -27,6 +27,9 @@ font-size: 51px;
   @media ${device.desktopS}{
     font-size: 46px;
   }
+  @media ${device.laptopL}{
+    font-size: 39px;
+  }
   @media ${device.laptopSM} {
       font-size: 41px;
 

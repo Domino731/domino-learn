@@ -213,6 +213,9 @@ export const TasksSelectWrapper = styled.div`
   &:hover {
     box-shadow: 0 262px ${props => props.theme.color.blue} inset,
     23px 23px ${props => props.theme.color.gray};
+    @media ${device.desktopS}{
+      box-shadow: 0 208px #00b9f1 inset;
+    }
   }
 
   input {
@@ -251,6 +254,9 @@ export const TasksSelectWrapper = styled.div`
     }
   }
 
+  @media ${device.desktopS}{
+    height: 86%;
+  }
   @media ${device.laptopSM} {
     width: 30%;
     box-shadow: 5px 5px ${props => props.theme.color.gray};
@@ -326,7 +332,13 @@ export const TasksSelectTitle = styled.div`
     text-transform: uppercase;
     font-weight: bold;
   }
-
+  @media ${device.desktopS}{
+    margin-top: 17px;
+    font-size: 33px;
+    strong {
+      margin-left: 6px;
+    }
+  }
 `
 export const TasksSelectFigure = styled.img`
   width: 100%;
@@ -353,6 +365,9 @@ export const TasksSelectFigure = styled.img`
 export const TasksSelectIcon = styled.img`
   height: 51px;
   object-fit: cover;
+  @media ${device.desktopS}{
+    height: 47px;
+  }
   @media (max-width: 961px) {
     width: 25px;
     font-size: 20px;
@@ -362,13 +377,11 @@ export const TasksSelectIcon = styled.img`
   }
 `
 export const TasksList = styled.ul`
-  height: 100%;
   position: relative;
   display: flex;
   flex-wrap: wrap;
   z-index: 1;
   padding: 14px;
-  justify-content: space-around;
 `
 
 interface props__TasksListItem {
@@ -376,14 +389,10 @@ interface props__TasksListItem {
 }
 
 export const TasksListItem = styled.li<props__TasksListItem>`
-  width: 100px;
+  width: 25%;
   height: 100px;
   font-size: 67px;
-  background: ${props => props.solved ? props.theme.background.transparentGreen : props.theme.background.transparent};
-  margin: 10px 10px;
-  border: 5px solid ${props => props.theme.color.gray};
-  border-radius: 14px;
-  
+  padding: 10px;
   transition: 0.1s;
 
   &:hover {
@@ -392,6 +401,9 @@ export const TasksListItem = styled.li<props__TasksListItem>`
   }
 
   a {
+    background: ${props => props.solved ? props.theme.background.transparentGreen : props.theme.background.transparent};
+  border: 5px solid ${props => props.theme.color.gray};
+  border-radius: 14px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -401,40 +413,11 @@ export const TasksListItem = styled.li<props__TasksListItem>`
   }
 
   @media ${device.desktopS}{
-    width: 87px;
-    height: 87px;
-    font-size: 57px;
+    height: 88px;
+    font-size: 56px;
+    a{
+      border-radius: 10px;
+    }
   }
-  @media ${device.laptopL} {
-    width: 87px;
-    height: 87px;
-    border: 4px solid ${props => props.theme.color.gray};
-  }
-  @media ${device.laptopSM} {
-    font-size: 48px;
-    height: 70px;
-    width: 70px;
-  }
-  @media (max-width: 961px) {
-    border-radius: 10px;
-    height: 50px;
-    margin: 5px;
-    width: 50px;
-    font-size: 30px ;
-  }
-
-  @media ${device.tablet} {
-    border: 3px solid ${props => props.theme.color.gray};
-    border-radius: 7px;
-    height: 43px;
-    width: 43px;
-    margin: 3px;
-    font-size: 30px ;
-  }
-  @media (max-width: 590px) {
-    height: 61px;
-    width: 61px;
-    margin: 3px;
-    font-size: 30px ;
-  }
+  
 `
