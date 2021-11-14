@@ -19,6 +19,9 @@ export const AdditionsWrapper = styled.section`
   @media ${device.laptopSM} {
     height: 301px;
   }
+  @media ${device.laptopS} {
+    height: 272px;
+  }
   @media (max-width: 961px) {
     height: 300px;
   }
@@ -56,6 +59,9 @@ export const AdditionItem = styled.div`
   @media ${device.laptopM}{
     width: 236px;
   }
+  @media ${device.laptopS}{
+    width: 210px;
+  }
   @media (max-width: 961px) {
     width: 240px;
   }
@@ -89,6 +95,9 @@ export const AdditionTitle = styled.h2`
   }
   @media ${device.laptopSM} {
     font-size: 26px;
+  }
+  @media ${device.laptopS} {
+    font-size: 24px;
   }
   @media ${device.mobileM} {
    

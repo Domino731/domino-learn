@@ -18,6 +18,10 @@ export const NavContainer = styled.nav`
   @media ${device.laptopSM} {
     height: 41px;
   }
+  @media ${device.laptopS} {
+    border-bottom: 2px solid ${props => props.theme.color.gray};
+    height: 34px;
+  }
   @media ${device.tablet} {
     height: 40px;
   }
@@ -51,6 +55,9 @@ export const NavTitle = styled.h1`
   @media ${device.laptopSM} {
     font-size: 32px;
   }
+  @media ${device.laptopS} {
+    font-size: 29px;
+  }
 `
 export const NavList = styled.ul`
   display: flex;
@@ -60,6 +67,9 @@ export const NavList = styled.ul`
   padding-right: 33px;
   @media ${device.laptopSM} {
     padding-right: 20px;
+  }
+  @media ${device.laptopS} {
+    padding-right: 12px;
   }
   @media ${device.tablet} {
     padding-right: 5px;
@@ -125,6 +135,10 @@ export const NavListItem = styled.li`
     font-size: 18px;
     margin-right: 13px;
   }
+  @media ${device.laptopSM} {
+    font-size: 17px;
+    margin-right: 10px;
+  }
 `
 export const NavWave = styled.div`
 
@@ -156,6 +170,9 @@ z-index: 1;
   }
   @media ${device.laptopSM} {
     top: 41px;
+  }
+  @media ${device.laptopS} {
+    top: 34px;
   }
 `
 export {}
