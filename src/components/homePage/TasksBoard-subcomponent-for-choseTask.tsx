@@ -56,12 +56,13 @@ export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}
                 <TasksBoardTitle7>Chose Your World</TasksBoardTitle7>
             </TasksBoardTitleWrapper>}
 
-            {/*tasks list of particular type*/}
+            {/*tasks list of particular a type*/}
             {selectedTasks === "cssTasks" && <TasksList>
                 {tasks.map((el, num) => <TasksListItem solved={el.solved} key={`tasks_board_css_${num}`}>
                     <Link to={`/css-task/${el.number}`}>{el.number}</Link>
                 </TasksListItem>)}
             </TasksList>}
+
             {selectedTasks === "jsTasks" && <TasksList>
                 {tasks.map((el, num) => <TasksListItem solved={el.solved} key={`tasks_board_js_${num}`}>
                     <Link to={`/js-task/${el.number}`}>{el.number}</Link>
@@ -81,6 +82,5 @@ export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}
             </TasksPlanetWrapper>
 
         </TasksBoardPosterContainer>
-
     </TasksBoardContainer>
 }

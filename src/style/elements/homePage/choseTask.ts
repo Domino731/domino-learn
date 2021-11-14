@@ -199,20 +199,18 @@ export const TasksSelect = styled.div`
 
 
 export const TasksSelectWrapper = styled.div`
-  width: 25%;
-  height: 94%;
+  width: 27%;
+  height: 89%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   position: relative;
-  border: 4px solid ${props => props.theme.color.black};
-  border-radius: 34px;
-  box-shadow: 8px 8px ${props => props.theme.color.gray};
+  border: 4px solid ${props => props.theme.color.gray};
+  border-radius: 24px;
+  box-shadow: 14px 14px ${props => props.theme.color.gray};
   transition: 0.3s;
-
   &:hover {
-    transition: 0.3s;
     box-shadow: 0 262px ${props => props.theme.color.blue} inset,
     23px 23px ${props => props.theme.color.gray};
   }
@@ -227,7 +225,7 @@ export const TasksSelectWrapper = styled.div`
     width: 100%;
     height: 100%;
     z-index: 2;
-
+    transition: 0.2s;
     &:hover {
       cursor: pointer;
     }
@@ -240,7 +238,8 @@ export const TasksSelectWrapper = styled.div`
     top: -2px;
     width: 100%;
     height: 100%;
-    border-radius: 32px;
+    border-radius: 24px;
+    transition: 0.2s;
   }
 
   input:checked ~ span {
@@ -298,7 +297,6 @@ export const TasksSelectWrapper = styled.div`
       box-shadow: 0 50px ${props => props.theme.color.blue} inset;
     }
   }
-
   @media (max-width: 590px) {
     flex-grow: 0;
     width: 100%;
@@ -314,24 +312,17 @@ export const TasksSelectWrapper = styled.div`
   }
 `
 export const TasksSelectTitle = styled.div`
-  margin-top: 5px;
+  margin-top: 21px;
   display: flex;
   align-items: center;
-  font-size: 2.75rem;
-
+  font-size: 39px;
+  
   strong {
     margin-left: 9px;
     text-transform: uppercase;
+    font-weight: bold;
   }
 
-  @media (max-width: 961px) {
-    font-size: 2.083rem;
-  }
-  @media ${device.tablet} {
-    strong {
-      font-size: 0;
-    }
-  }
 `
 export const TasksSelectFigure = styled.img`
   width: 100%;
@@ -356,8 +347,7 @@ export const TasksSelectFigure = styled.img`
   }
 `
 export const TasksSelectIcon = styled.img`
-  width: 30px;
-  height: auto;
+  height: 51px;
   object-fit: cover;
   @media (max-width: 961px) {
     width: 25px;
@@ -367,21 +357,21 @@ export const TasksSelectIcon = styled.img`
     width: 60px;
   }
 `
-export const TasksList = styled.div`
+export const TasksList = styled.ul`
   height: 100%;
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   z-index: 1;
   padding: 14px;
+  justify-content: space-around;
 `
 
 interface props__TasksListItem {
     solved: boolean
 }
 
-export const TasksListItem = styled.div<props__TasksListItem>`
+export const TasksListItem = styled.li<props__TasksListItem>`
   width: 100px;
   height: 100px;
   font-size: 67px;
@@ -389,7 +379,7 @@ export const TasksListItem = styled.div<props__TasksListItem>`
   margin: 10px 10px;
   border: 5px solid ${props => props.theme.color.gray};
   border-radius: 14px;
-
+  
   transition: 0.1s;
 
   &:hover {
