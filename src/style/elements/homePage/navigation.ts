@@ -29,7 +29,9 @@ export const NavContainer = styled.nav`
     border-bottom: 3px solid ${props => props.theme.color.gray};
     height: 38px;
   }
-  
+  @media screen and (max-width: 648px){
+    height: 32px;
+  }
 `
 export const NavTitle = styled.h1`
   display: flex;
@@ -67,6 +69,12 @@ export const NavTitle = styled.h1`
   }
   @media screen and (max-width: 960px){
     font-size: 27px;
+  }
+  @media screen and (max-width: 696px){
+    font-size: 25px;
+  }
+  @media screen and (max-width: 648px){
+    font-size: 23px;
   }
 `
 export const NavList = styled.ul`
@@ -155,6 +163,9 @@ export const NavListItem = styled.li`
   @media ${device.tablet}{
     font-size: 18px;
   }
+  @media screen and (max-width: 648px){
+    font-size: 16px;
+  }
 `
 export const NavWave = styled.div`
 
@@ -195,6 +206,9 @@ z-index: 1;
   }
   @media ${device.tablet}{
     top: 38px;
+  }
+  @media screen and (max-width: 648px){
+    top: 32px;
   }
 `
 export {}

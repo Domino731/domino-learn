@@ -23,6 +23,9 @@ background-size: cover;
  @media screen and (max-width: 960px){
    height: 541px;
  }
+ @media screen and (max-width: 648px){
+  height: 521px;
+  }
 `
 export const HeroTitle = styled.h2`
     margin-top: 41px;
@@ -56,6 +59,9 @@ export const HeroTitle = styled.h2`
     margin-top: 41px;
     font-size: 31px;
   }
+  @media screen and (max-width: 648px){
+    font-size: 25px;
+  }
 `
 export const HeroAustronautWrapper = styled.div`
 position: relative;
@@ -83,6 +89,9 @@ transform: rotate(35deg);
 @media ${device.tablet}{
   width: 220px;
   margin: 43px auto;
+}
+@media screen and (max-width: 648px){
+  width: 183px;
 }
 `
 export const HeroMainPlanetGraphic = styled.img`
