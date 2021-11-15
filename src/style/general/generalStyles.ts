@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export {}
 export const Container = styled.div`
-  max-width: 1980px;
+  max-width: 1920px;
   margin: 0 auto;
 `
 export const FreepikThanks = styled.div`

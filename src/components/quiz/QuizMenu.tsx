@@ -1,12 +1,12 @@
 import {FunctionComponent} from "react";
-import {Container} from "../../style/general/generalStyles";
 import {
+    QuizCSSColumn,
     QuizHeader,
     QuizHeaderLink,
-    QuizMenuItem,
+    QuizHTMLColumn,
+    QuizJSColumn,
+    QuizMenuTitle,
     QuizMenuWrapper,
-    QuizMenuCoins,
-    QuizMenuFreepik
 } from "../../style/elements/quiz/quizMenu";
 import {Link} from "react-router-dom";
 import {htmlClass} from "../../properties/htmlClass";
@@ -17,37 +17,25 @@ import {getQuizCoins} from "../../functions/localStorage";
 
 // Component renders menu by which the user can select the quiz
 export const QuizMenu: FunctionComponent = (): JSX.Element => {
-    return <Container>
+    return <main>
         <QuizHeader>
             <QuizHeaderLink><Link to="/">DOMINO LEARN</Link></QuizHeaderLink>
         </QuizHeader>
+
         <QuizMenuWrapper>
-
-            <Link to="/quiz/html">
-                <QuizMenuCoins><img src={coins} alt="coins"/><strong>{getQuizCoins("html")}</strong></QuizMenuCoins>
-                <QuizMenuItem>
-                    <img src={htmlClass.getIconSrc()} alt={htmlClass.getIconAlt()}/>
-                </QuizMenuItem>
-
-            </Link>
-            <Link to="/quiz/css">
-                <QuizMenuCoins><img src={coins} alt="coins"/><strong>{getQuizCoins("css")}</strong></QuizMenuCoins>
-                <QuizMenuItem>
-                    <img src={cssClass.getIconSrc()} alt={cssClass.getIconAlt()}/>
-                </QuizMenuItem>
-            </Link>
-
-            <Link to="/quiz/js">
-                <QuizMenuCoins><img src={coins} alt="coins"/><strong>{getQuizCoins("js")}</strong></QuizMenuCoins>
-                <QuizMenuItem>
-                    <img src={jsClass.getIconSrc()} alt={jsClass.getIconAlt()}/>
-                </QuizMenuItem>
-            </Link>
+              <QuizMenuTitle/>
+             <QuizHTMLColumn>
+                  <Link to="/quiz/html"></Link>
+             </QuizHTMLColumn>
+        
+            <QuizCSSColumn>
+            <Link to="/quiz/css"></Link>
+            </QuizCSSColumn>
+            
+            <QuizJSColumn>
+                 <Link to="/quiz/js"></Link>
+            </QuizJSColumn>
+           
         </QuizMenuWrapper>
-        <QuizMenuFreepik>
-            <img src={coins} alt="coins"/>
-            <div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel
-                perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-        </QuizMenuFreepik>
-    </Container>
+    </main>
 }
