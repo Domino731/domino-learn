@@ -4,6 +4,7 @@ import {device} from "../../general/breakpoints";
 export const NavContainer = styled.nav`
   background: ${props => props.theme.color.blue};
   display: flex;
+  justify-content: space-between;
   height: 57px;
   border-bottom: 3px solid ${props => props.theme.color.gray};
   @media ${device.desktopS} {
@@ -32,17 +33,20 @@ export const NavContainer = styled.nav`
   @media screen and (max-width: 648px){
     height: 32px;
   }
+  @media screen and (max-width: 489px){
+    justify-content: center;
+  }
 `
 export const NavTitle = styled.h1`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
   height: 100%;
   font-size: 50px;
   letter-spacing: 0.125rem;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
+  margin-left: 10px;
   &:hover {
     cursor: default;
   }
@@ -76,11 +80,16 @@ export const NavTitle = styled.h1`
   @media screen and (max-width: 648px){
     font-size: 23px;
   }
+  @media ${device.mobileXL}{
+    font-size: 21px;
+  }
+  @media screen and (max-width: 489px){
+    display: none;
+  }
 `
 export const NavList = styled.ul`
   display: flex;
   justify-content: flex-end;
-  width: 70%;
   height: 100%;
   padding-right: 33px;
   @media ${device.laptopSM} {
@@ -165,6 +174,9 @@ export const NavListItem = styled.li`
   }
   @media screen and (max-width: 648px){
     font-size: 16px;
+  }
+  @media screen and (max-width: 489px){
+    margin:0 8px;
   }
 `
 export const NavWave = styled.div`

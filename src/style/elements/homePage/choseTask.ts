@@ -49,6 +49,9 @@ export const TasksBoardContainer = styled.div`
   @media ${device.tablet} {
     width: 40%;
   }
+  @media ${device.mobileL} {
+    width: 50%;
+  }
 `
 const an__TasksBoardTitle = keyframes`
   100% {
@@ -100,6 +103,21 @@ export const TasksBoardTitleWrapper = styled.div`
   }
   @media screen and (max-width: 696px) {
     font-size: 28px;
+  }
+  @media screen and (max-width: 624px){
+    font-size: 26px;
+  }
+  @media screen and (max-width: 588px){
+    font-size: 24px;
+  }
+  @media screen and (max-width: 538px){
+    font-size: 22px;
+  }
+  @media screen and (max-width: 491px){
+    font-size: 19px;
+  }
+  @media ${device.mobileL}{
+    font-size: 13px;
   }
 `
 export const TasksBoardTitle1 = styled.h2`
@@ -215,7 +233,10 @@ export const TasksSelect = styled.div`
     width: 60%;
     flex-wrap: wrap;
   }
-
+  @media ${device.mobileL} {
+    width: 50%;
+    align-items: center;
+  }
 `
 
 
@@ -296,6 +317,10 @@ export const TasksSelectWrapper = styled.div`
       border-radius: 15px;
       box-shadow: 0 57px ${props => props.theme.color.blue} inset;
     }
+    @media  ${device.mobileL}{
+      border-radius: 11px;
+      box-shadow: 0 29px ${props => props.theme.color.blue} inset;
+    }
   }
 
   @media ${device.desktopS}{
@@ -338,6 +363,15 @@ export const TasksSelectWrapper = styled.div`
   }
   @media screen and (max-width: 649px){
     border-radius: 15px;
+  }
+  @media ${device.mobileL}{
+    flex-grow: 0;
+    width: 92%;
+    height : 30%;
+    flex-direction: row;
+    justify-content: flex-start;
+    border: 3px solid ${props => props.theme.color.gray};
+    border-radius: 11px;
   }
 `
 export const TasksSelectTitle = styled.div`
@@ -387,6 +421,12 @@ export const TasksSelectTitle = styled.div`
   @media screen and (max-width: 649px){
     font-size: 15px;
   }
+  @media screen and (max-width: 624px){
+    font-size: 15px;
+  }
+  @media ${device.mobileL}{
+    font-size: 14px;
+  }
 `
 export const TasksSelectFigure = styled.img`
   width: 100%;
@@ -400,6 +440,9 @@ export const TasksSelectFigure = styled.img`
   }
   @media screen and (max-width: 649px){
     height: 86px;
+  }
+  @media ${device.mobileL}{
+    height: 64px;
   }
 `
 export const TasksSelectIcon = styled.img`
@@ -432,6 +475,9 @@ export const TasksList = styled.ul`
   padding: 14px;
   @media ${device.laptopS}{
     padding: 8px;
+  }
+  @media ${device.mobileL}{
+    padding: 2px;
   }
 `
 
@@ -513,5 +559,17 @@ export const TasksListItem = styled.li<props__TasksListItem>`
   @media screen and (max-width: 649px){
     height: 46px;
     font-size: 26px;
+  }
+  @media screen and (max-width: 476px){
+    height: 43px;
+    font-size: 22px;
+  }
+  @media ${device.mobileL}{
+    height: 40px;
+    font-size: 20px;
+    a{
+      border-radius: 5px;
+      border: 3px solid ${props => props.theme.color.gray};
+    }
   }
 `

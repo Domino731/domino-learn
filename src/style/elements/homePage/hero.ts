@@ -26,6 +26,20 @@ background-size: cover;
  @media screen and (max-width: 648px){
   height: 521px;
   }
+  @media ${device.mobileXL}{
+    height: 511px;
+  }
+  @media screen and (max-width: 550px){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    min-height: 697px;
+  }
+  @media ${device.mobileL}{
+    min-height: 632px;
+  }
 `
 export const HeroTitle = styled.h2`
     margin-top: 41px;
@@ -62,6 +76,15 @@ export const HeroTitle = styled.h2`
   @media screen and (max-width: 648px){
     font-size: 25px;
   }
+  @media ${device.mobileXL}{
+    font-size: 24px;
+  }
+  @media screen and (max-width: 550px){
+    font-size: 33px;
+  }
+  @media ${device.mobileL}{
+    font-size: 26px;
+  }
 `
 export const HeroAustronautWrapper = styled.div`
 position: relative;
@@ -93,6 +116,12 @@ transform: rotate(35deg);
 @media screen and (max-width: 648px){
   width: 183px;
 }
+@media screen and (max-width: 550px){
+  width: 285px;
+}
+@media ${device.mobileL}{
+  width: 225px;
+  }
 `
 export const HeroMainPlanetGraphic = styled.img`
 position: absolute;
