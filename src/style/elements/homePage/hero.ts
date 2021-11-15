@@ -52,6 +52,10 @@ export const HeroTitle = styled.h2`
     margin-top: 31px;
     font-size: 27px;
   }
+  @media ${device.tablet}{
+    margin-top: 41px;
+    font-size: 31px;
+  }
 `
 export const HeroAustronautWrapper = styled.div`
 position: relative;
@@ -75,6 +79,10 @@ transform: rotate(35deg);
 @media screen and (max-width: 960px){
   width: 167px;
   margin: 31px auto;
+}
+@media ${device.tablet}{
+  width: 220px;
+  margin: 43px auto;
 }
 `
 export const HeroMainPlanetGraphic = styled.img`

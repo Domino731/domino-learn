@@ -25,6 +25,10 @@ export const NavContainer = styled.nav`
   @media screen and (max-width: 960px){
     height: 30px;
   }
+  @media ${device.tablet}{
+    border-bottom: 3px solid ${props => props.theme.color.gray};
+    height: 38px;
+  }
   
 `
 export const NavTitle = styled.h1`
@@ -57,6 +61,9 @@ export const NavTitle = styled.h1`
   }
   @media screen and (max-width: 960px){
     font-size: 25px;
+  }
+  @media ${device.tablet} {
+    font-size: 28px;
   }
 `
 export const NavList = styled.ul`
@@ -142,6 +149,9 @@ export const NavListItem = styled.li`
   @media screen and (max-width: 960px){
     font-size: 15px;
   }
+  @media ${device.tablet}{
+    font-size: 18px;
+  }
 `
 export const NavWave = styled.div`
 
@@ -179,6 +189,9 @@ z-index: 1;
   }
   @media screen and (max-width: 960px){
     top: 30px;
+  }
+  @media ${device.tablet}{
+    top: 38px;
   }
 `
 export {}

@@ -82,6 +82,12 @@ export const DscCard = styled.div<DscReverseProps>`
     margin-left: ${props => !props.reverse ? "38px" : "0"};
   margin-right: ${props => props.reverse ? "38px" : "0"};
   }
+  @media ${device.tablet}{
+  margin-left: ${props => !props.reverse ? "22px" : "0"};
+  margin-right: ${props => props.reverse ? "22px" : "0"};
+  border-radius: 25px;
+  box-shadow: 13px 13px ${props => props.theme.color.gray};
+  }
 `
 
 export const DscContent = styled.div`
@@ -112,6 +118,9 @@ export const DscTitleContainer = styled.div`
   }
   @media screen and (max-width: 960px){
     font-size: 10px
+  }
+  @media ${device.tablet}{
+    font-size: 12px;
   }
 `
 export const DscTitle = styled.h2`
@@ -149,6 +158,9 @@ export const DscDescription = styled.p`
   }
   @media screen and (max-width: 960px){
     font-size: 13px;
+  }
+  @media ${device.tablet}{
+    font-size: 16px;
   }
 `
 
@@ -192,6 +204,10 @@ margin-top: 19px;
     margin-top: 10px;
     font-size: 14px;
   }
+  @media ${device.tablet}{
+    margin-top: 14px;
+    font-size: 19px;
+  }
 `
 
 export const DscFigure = styled.div`
@@ -224,9 +240,9 @@ export const DscFigureImg = styled.img`
     height: 193px;
     margin-left: 46px;
   }
-  @media ${device.tablet} {
-    width: auto;
-    height: 340px;
+  @media ${device.tablet}{
+    height: 221px;
+    margin-left: 26px;
   }
 `
 
