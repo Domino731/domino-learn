@@ -88,6 +88,12 @@ export const DscCard = styled.div<DscReverseProps>`
   border-radius: 25px;
   box-shadow: 13px 13px ${props => props.theme.color.gray};
   }
+  @media screen and (max-width:737px){
+  margin-left: ${props => !props.reverse ? "15px" : "0"};
+  margin-right: ${props => props.reverse ? "15px" : "0"};
+  border-radius: 24px;
+  box-shadow: 11px 11px ${props => props.theme.color.gray};
+  }
 `
 
 export const DscContent = styled.div`
@@ -121,6 +127,9 @@ export const DscTitleContainer = styled.div`
   }
   @media ${device.tablet}{
     font-size: 12px;
+  }
+  @media screen and (max-width:737px){
+    font-size: 11px;
   }
 `
 export const DscTitle = styled.h2`
@@ -161,6 +170,9 @@ export const DscDescription = styled.p`
   }
   @media ${device.tablet}{
     font-size: 16px;
+  }
+  @media screen and (max-width:737px){
+    font-size: 15px;
   }
 `
 
@@ -243,6 +255,10 @@ export const DscFigureImg = styled.img`
   @media ${device.tablet}{
     height: 221px;
     margin-left: 26px;
+  }
+  @media screen and (max-width:737px){
+    height: 187px;
+    margin-left: 15px;
   }
 `
 

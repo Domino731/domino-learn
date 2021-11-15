@@ -65,6 +65,9 @@ export const NavTitle = styled.h1`
   @media ${device.tablet} {
     font-size: 28px;
   }
+  @media screen and (max-width: 960px){
+    font-size: 27px;
+  }
 `
 export const NavList = styled.ul`
   display: flex;
