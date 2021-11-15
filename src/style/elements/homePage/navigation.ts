@@ -178,6 +178,9 @@ export const NavListItem = styled.li`
   @media screen and (max-width: 489px){
     margin:0 8px;
   }
+  @media screen and (max-width: 330px){
+    font-size: 15px;
+  }
 `
 export const NavWave = styled.div`
 

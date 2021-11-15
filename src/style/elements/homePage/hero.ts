@@ -83,6 +83,12 @@ export const HeroTitle = styled.h2`
     font-size: 33px;
   }
   @media ${device.mobileL}{
+    font-size: 31px;
+  }
+  @media ${device.mobileM}{
+    font-size: 28px;
+  }
+  @media screen and (max-width: 330px){
     font-size: 26px;
   }
 `
@@ -121,6 +127,9 @@ transform: rotate(35deg);
 }
 @media ${device.mobileL}{
   width: 225px;
+  }
+  @media screen and (max-width: 330px){
+    width: 199px;
   }
 `
 export const HeroMainPlanetGraphic = styled.img`

@@ -16,6 +16,9 @@ export const FooterContainer = styled.footer`
   @media ${device.tablet}{
     padding: 7px 0;
   }
+  @media ${device.mobileL}{
+    padding: 4px 0;
+  }
 `
 export const FooterMediaList = styled.ul`
   margin: 0 auto;
@@ -57,6 +60,14 @@ font-size: 51px;
     font-size: 31px;
     padding: 0 10px;
   }
+  @media ${device.mobileXL}{
+    font-size: 25px;
+    padding: 0 7px;
+  }
+  @media screen and (max-width: 330px){
+    font-size: 23px;
+    padding: 0 6px;
+  }
 `
 export const CopyrightWrapper = styled.div`
 text-align: center;
@@ -76,6 +87,9 @@ font-weight: 500;
 @media ${device.tablet}{
     font-size: 12px;
 }
+@media ${device.mobileL}{
+  font-size: 11px;
+}
 `
 export const FooterFreepik = styled.div`
 font-size: 15px;
@@ -92,5 +106,8 @@ text-align: center;
 }
 @media ${device.tablet}{
     font-size: 11px;
+}
+@media ${device.mobileL}{
+    font-size: 10px;
 }
 `

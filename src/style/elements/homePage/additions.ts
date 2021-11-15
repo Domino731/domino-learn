@@ -35,6 +35,12 @@ export const AdditionsWrapper = styled.section`
   @media screen and (max-width: 648px){
     height: 221px;
   }
+  @media ${device.mobileL}{
+    height: 202px;
+  }
+  @media screen and (max-width: 330px){
+    height: 187px;
+  }
 `
 export const AdditionItem = styled.div`
   position: relative;
@@ -77,6 +83,12 @@ export const AdditionItem = styled.div`
   @media screen and (max-width: 648px){
     width: 177px;
   }
+  @media ${device.laptopL}{
+    width: 165px;
+  }
+  @media screen and (max-width: 330px){
+    width: 153px;
+  }
 `
 export const AdditionImg = styled.img`
   width: 100%;
@@ -112,5 +124,11 @@ export const AdditionTitle = styled.h2`
   }
   @media screen and (max-width: 648px){
     font-size: 19px;
+  }
+  @media ${device.mobileL}{
+    font-size: 18px;
+  }
+  @media screen and (max-width: 330px){
+    font-size: 16px;
   }
 `

@@ -110,6 +110,18 @@ export const DscCard = styled.div<DscReverseProps>`
   @media  ${device.mobileL}{
   box-shadow: 9px 9px ${props => props.theme.color.gray};
   border-radius: 17px;
+  flex-direction: column-reverse;
+  width: 90%;
+  padding: 20px 12px;
+  }
+  @media ${device.mobileM}{
+    border-radius: 15px;
+  }
+  @media screen and (max-width: 330px){
+    padding: 17px 9px;
+    border-radius: 13px;
+    box-shadow: 8px 8px ${props => props.theme.color.gray};
+    margin-bottom: 51px;
   }
 `
 
@@ -124,6 +136,9 @@ export const DscContent = styled.div`
   }
   @media screen and (max-width: 500px){
     width: 213px
+  }
+  @media ${device.mobileL}{
+    width: 100%;
   }
 `
 export const DscTitleContainer = styled.div`
@@ -158,6 +173,14 @@ export const DscTitleContainer = styled.div`
     font-size: 10px;
   }
   @media ${device.mobileXL}{
+    font-size: 9px;
+  }
+  @media ${device.mobileL}{
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  @media screen and (max-width: 330px){
     font-size: 9px;
   }
 `
@@ -207,6 +230,15 @@ export const DscDescription = styled.p`
     font-size: 14px;
   }
   @media ${device.mobileXL}{
+    font-size: 13px;
+  }
+  @media ${device.mobileL}{
+    font-size: 15px;
+  }
+  @media ${device.mobileM}{
+    font-size: 14px;
+  }
+  @media screen and (max-width: 330px){
     font-size: 13px;
   }
 `
@@ -263,6 +295,18 @@ margin-top: 19px;
     margin-top: 10px;
     font-size: 16px;
   }
+  @media ${device.mobileL}{
+    margin-top: 12px;
+    font-size: 18px;
+  }
+  @media ${device.mobileM}{
+    margin-top: 10px;
+    font-size: 17px;
+  }
+  @media screen and (max-width: 330px){
+    margin-top: 7px;
+    font-size: 16px;
+  }
 `
 
 export const DscFigure = styled.div`
@@ -309,6 +353,16 @@ export const DscFigureImg = styled.img`
   @media screen and (max-width: 445px){
     height: 151px;
     margin-left: 12px;
+  }
+  @media ${device.mobileL}{
+    height: 171px;
+    display: block;
+    margin: 0 auto 14px;
+  }
+  @media screen and (max-width: 330px){
+    height: 154px;
+    display: block;
+    margin: 0 auto 12px;
   }
 `
 
