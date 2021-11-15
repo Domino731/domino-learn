@@ -27,10 +27,7 @@ export const AdditionsWrapper = styled.section`
   }
 
   @media ${device.tablet} {
-    height: 240px;
-  }
-  @media ${device.mobileM} {
-    height: 180px;
+    height: 279px;
   }
 `
 export const AdditionItem = styled.div`
@@ -65,7 +62,9 @@ export const AdditionItem = styled.div`
   @media (max-width: 960px) {
     width: 201px;
   }
-
+  @media ${device.tablet}{
+    width: 231px;
+  }
 `
 export const AdditionImg = styled.img`
   width: 100%;
@@ -93,7 +92,7 @@ export const AdditionTitle = styled.h2`
   @media ${device.laptopS} {
     font-size: 24px;
   }
-  @media ${device.mobileM} {
-   
+  @media ${device.tablet}{
+    font-size: 26px;
   }
 `
