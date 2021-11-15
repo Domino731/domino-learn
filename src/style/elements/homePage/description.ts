@@ -11,7 +11,7 @@ export const DscContainer = styled.section`
   background: linear-gradient(90deg, rgba(87, 7, 159, 1) 29%, rgba(114, 1, 216, 1) 71%); */
   background-image: url(${bg});
   background-size: cover;
-  padding-top: 93px;
+  padding-top: 11px;
   position: relative;
   overflow: hidden;
 
@@ -20,7 +20,7 @@ export const DscContainer = styled.section`
   }
 
   @media (max-width: 961px) {
-    padding-top: 60px;
+    padding-top: 6px;
   }
 `
 
@@ -78,6 +78,10 @@ export const DscCard = styled.div<DscReverseProps>`
   border-radius: 16px;
   box-shadow: 9px 9px ${props => props.theme.color.gray};
   }
+  @media screen and (max-width: 960px){
+    margin-left: ${props => !props.reverse ? "38px" : "0"};
+  margin-right: ${props => props.reverse ? "38px" : "0"};
+  }
 `
 
 export const DscContent = styled.div`
@@ -105,6 +109,9 @@ export const DscTitleContainer = styled.div`
   }
   @media ${device.laptopS}{
     font-size: 12px;
+  }
+  @media screen and (max-width: 960px){
+    font-size: 10px
   }
 `
 export const DscTitle = styled.h2`
@@ -139,6 +146,9 @@ export const DscDescription = styled.p`
   }
   @media ${device.laptopS}{
     font-size: 14px;
+  }
+  @media screen and (max-width: 960px){
+    font-size: 13px;
   }
 `
 
@@ -178,6 +188,10 @@ margin-top: 19px;
     margin-top: 12px;
     font-size: 15px;
   }
+  @media screen and (max-width: 960px){
+    margin-top: 10px;
+    font-size: 14px;
+  }
 `
 
 export const DscFigure = styled.div`
@@ -206,9 +220,9 @@ export const DscFigureImg = styled.img`
     height: 242px;
     margin-left: 68px;
   }
-  @media (max-width: 961px) {
-    height: 100%;
-    width: auto;
+  @media (max-width: 960px) {
+    height: 193px;
+    margin-left: 46px;
   }
   @media ${device.tablet} {
     width: auto;

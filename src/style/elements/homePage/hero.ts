@@ -20,6 +20,9 @@ background-size: cover;
  @media ${device.laptopS}{
    height: 600px;
  }
+ @media screen and (max-width: 960px){
+   height: 541px;
+ }
 `
 export const HeroTitle = styled.h2`
     margin-top: 41px;
@@ -45,6 +48,10 @@ export const HeroTitle = styled.h2`
   @media ${device.laptopSM} {
     font-size: 33px;
   }
+  @media screen and (max-width: 960px){
+    margin-top: 31px;
+    font-size: 27px;
+  }
 `
 export const HeroAustronautWrapper = styled.div`
 position: relative;
@@ -64,6 +71,10 @@ transform: rotate(35deg);
 @media ${device.laptopS}{
   width: 215px;
   margin: 39px auto;
+}
+@media screen and (max-width: 960px){
+  width: 167px;
+  margin: 31px auto;
 }
 `
 export const HeroMainPlanetGraphic = styled.img`

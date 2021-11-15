@@ -22,8 +22,8 @@ export const AdditionsWrapper = styled.section`
   @media ${device.laptopS} {
     height: 272px;
   }
-  @media (max-width: 961px) {
-    height: 300px;
+  @media (max-width: 960px) {
+    height: 258px;
   }
 
   @media ${device.tablet} {
@@ -62,16 +62,10 @@ export const AdditionItem = styled.div`
   @media ${device.laptopS}{
     width: 210px;
   }
-  @media (max-width: 961px) {
-    width: 240px;
+  @media (max-width: 960px) {
+    width: 201px;
   }
-  @media ${device.tablet} {
-    width: 190px;
-  }
-  @media ${device.mobileM} {
-    width: 110px;
-    padding: 0 10px;
-  }
+
 `
 export const AdditionImg = styled.img`
   width: 100%;
