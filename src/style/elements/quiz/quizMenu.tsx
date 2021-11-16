@@ -1,7 +1,9 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import {EditorHeaderLink} from "../codeEditor/codeEditor";
 import {device} from "../../general/breakpoints";
 import bg from "../../../images/quiz_menu_background.svg";
+
+
 export const QuizHeader = styled.header`
   background: ${props => props.theme.color.yellow};
   padding: 5px 0;
@@ -11,6 +13,7 @@ export const QuizHeaderLink = styled(EditorHeaderLink)``
 export const QuizMenuWrapper = styled.main`
   max-width: 1920px;
   height: calc(100vh - 53px);
+  min-height: 704px;
   background-image: url(${bg});
   background-size: cover;
   display: grid;
@@ -35,23 +38,25 @@ export const QuizHTMLColumn = styled(QuizColumn)`
 `
 export const QuizCSSColumn = styled(QuizColumn)`
   grid-column: 2/2;
-  grid-row: 2/-1;
-  background: #c06969;
+  grid-row: 1/-1;
+  align-items: center;
 `
 export const QuizJSColumn = styled(QuizColumn)`
   grid-column: 3/3;
   grid-row: 2/-1;
-  background: #268ae7;
+  align-items: flex-end;
+  padding-bottom: 42px;
 `
 export const QuizMenuTitle = styled.h2`
-   grid-column: 2/4;
+   grid-column: 3/3;
   grid-row: 1/1;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
   font-size: 63px;
-  color: ${props => props.theme.color.white};
+  color: white;
+  text-shadow: 4px 4px ${props => props.theme.color.purple}
 `
 export const QuizMenuCard = styled.div`
 width: 80%;
@@ -59,9 +64,12 @@ margin: 0 auto;
   background: white;
   padding: 13px 0;
  border-radius: 30px;
- box-shadow: 22px 22px ${props => props.theme.color.gray};
+ box-shadow: 17px 17px ${props => props.theme.color.gray};
  color: ${props => props.theme.color.gray};
- 
+ transition: .3s;
+ &:hover{
+  box-shadow: 21px 21px ${props => props.theme.color.gray};
+ }
 `
 export const QuizMenuCoins = styled.strong`
 width: 90%;
@@ -90,7 +98,7 @@ export const QuizMenuCoinsBar = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-font-size: 30px;
+font-size: 29px;
 `
 export const QuizMenuCoinsImg = styled.img`
   height: 1.3em;
