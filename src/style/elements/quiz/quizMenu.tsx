@@ -44,33 +44,58 @@ export const QuizMenuWrapper = styled.main`
     min-height: 500px;
     height: calc(100vh - 36px);
   }
+  @media screen and (max-width: 1023px){
+    height: calc(100vh - 44px);
+  }
+  @media ${device.mobileXL}{
+    min-height: 803px;
+    height: calc(100vh - 42px);
+    display: flex;
+    flex-wrap: wrap;
+  }
+  @media screen and (max-width: 500px){
+    height: calc(100vh - 41px);
+  }
 `
 const QuizColumn = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
+  @media ${device.mobileXL}{
+   flex-grow: 1;
+   width: 50%;
+   height: auto;
+ }
 `
 export const QuizHTMLColumn = styled(QuizColumn)`
   grid-column: 1/1;
   grid-row: 1/-1;
   padding-top: 30px;
-  
+  @media ${device.mobileXL}{
+    padding: 0;
+  }
 `
 export const QuizCSSColumn = styled(QuizColumn)`
   grid-column: 2/2;
   grid-row: 1/-1;
   align-items: center;
+  @media ${device.mobileXL}{
+    align-items: flex-start;
+  }
 `
 export const QuizJSColumn = styled(QuizColumn)`
   grid-column: 3/3;
   grid-row: 2/-1;
   align-items: flex-end;
-  padding-bottom: 42px;
+  padding-bottom: 30px;
+  @media ${device.mobileXL}{
+    align-items: flex-start;
+    padding: 0;
+  }
 `
 export const QuizMenuTitle = styled.h2`
-   grid-column: 3/3;
+   grid-column: 2/4;
   grid-row: 1/1;
-  background: red;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,6 +123,19 @@ export const QuizMenuTitle = styled.h2`
 @media ${device.laptopS}{
   font-size: 34px;
 }
+@media screen and (max-width: 1023px){
+  font-size: 35px;
+}
+@media ${device.mobileXL}{
+  padding-top: 20px;
+  font-size: 42px;
+  width: 100%;
+}
+@media screen and (max-width: 500px){
+  padding-top: 0px;
+    font-size: 37px;
+}
+
 `
 export const QuizMenuCard = styled.div`
 width: 80%;
@@ -130,6 +168,29 @@ margin: 0 auto;
     box-shadow: 16px 16px ${props => props.theme.color.gray};
    }
  }
+ @media screen and (max-width: 960px){
+   width: 91%;
+  padding: 21px 0;
+   border-radius: 24px;
+   box-shadow: 15px 15px ${props => props.theme.color.gray};
+   &:hover{
+    box-shadow: 18px 18px ${props => props.theme.color.gray};
+   }
+ }
+ @media screen and (max-width: 831px){
+  box-shadow: 12px 12px ${props => props.theme.color.gray};
+ }
+ @media ${device.tablet}{
+  border-radius: 22px;
+ }
+ @media screen and (max-width: 711px){
+  border-radius: 20px;
+  padding: 19px 0;
+ }
+ @media ${device.mobileXL}{
+  border-radius: 18px;
+  padding: 16px 0;
+ }
 `
 export const QuizMenuCoins = styled.strong`
 width: 90%;
@@ -153,6 +214,21 @@ font-weight: 500;
 @media ${device.laptopS}{
   font-size: 17px;
 }
+@media screen and (max-width: 960px){
+  font-size: 20px;
+}
+@media screen and (max-width: 830px){
+  font-size: 19px;
+}
+@media screen and (max-width: 711px){
+  font-size: 18px;
+}
+@media ${device.mobileXL}{
+  font-size: 20px;
+}
+@media screen and (max-width: 500px){
+  font-size: 18px;
+}
 `
 export const QuizMenuGraphic = styled.img`
 display: block;
@@ -166,6 +242,21 @@ height: 193px;
 }
 @media ${device.laptopS}{
   height: 136px;
+}
+@media screen and (max-width: 960px){
+  height: 178px;
+}
+@media screen and (max-width: 830px){
+  height: 158px;
+}
+@media screen and (max-width: 711px){
+  height: 137px;
+}
+@media ${device.mobileXL}{
+  height: 173px;
+}
+@media screen and (max-width: 500px){
+  height: 139px;
 }
 `
 export const QuizMenuName = styled.h3`
@@ -186,7 +277,21 @@ export const QuizMenuName = styled.h3`
 @media ${device.laptopS}{
   font-size: 27px;
 }
-
+@media screen and (max-width: 960px){
+  font-size: 31px;
+}
+@media screen and (max-width: 830px){
+  font-size: 29px;
+}
+@media screen and (max-width: 711px){
+  font-size: 25px;
+}
+@media ${device.mobileXL}{
+  font-size: 28px;
+}
+@media screen and (max-width: 500px){
+  font-size: 25px;
+}
 `
 
 export const QuizMenuCoinsBar = styled.div`
@@ -208,6 +313,21 @@ font-size: 29px;
 }
 @media ${device.laptopS}{
   font-size: 17px;
+}
+@media screen and (max-width: 960px){
+  font-size: 24px;
+}
+@media screen and (max-width: 830px){
+  font-size: 22px;
+}
+@media screen and (max-width: 711px){
+  font-size: 19px;
+}
+@media ${device.mobileXL}{
+  font-size: 22px;
+}
+@media screen and (max-width: 500px){
+  font-size: 20px;
 }
 `
 export const QuizMenuCoinsImg = styled.img`

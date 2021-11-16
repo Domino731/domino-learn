@@ -50,7 +50,15 @@ export const EditorHeaderLink = styled.div`
   @media ${device.laptopS}{
     font-size: 28px
   }
-  
+  @media screen and (max-width: 1023px){
+    font-size: 36px
+  }
+  @media ${device.mobileXL}{
+    font-size: 34px
+  }
+  @media screen and (max-width: 500px){
+    font-size: 33px
+  }
 `
 export const EditorHeaderSettingsIcon = styled.div`
 
