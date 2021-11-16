@@ -96,7 +96,7 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({
         </QuizQuestionRow>
 
         {/*question title*/}
-        <QuizQuestionTitle>{data.question}</QuizQuestionTitle>
+        <QuizQuestionTitle dangerouslySetInnerHTML={{__html:data.question}}/>
 
 
         {/*show only if user hasn't chosen answer*/}

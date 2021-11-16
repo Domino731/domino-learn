@@ -7,36 +7,30 @@ interface PropsQuizContainer{
 export const QuizContainer = styled.main<PropsQuizContainer>`
   max-width: 1980px;
   height: 100vh;
+  min-height: 730px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-image: url(${props => props.background});
   background-size: cover;
-  @media (max-height: 570px){
-    height: auto;
-    min-height: 100vh;
-    padding: 32px 0 ;
-    justify-content: flex-start;
-  }
 `
 export const QuizQuestionWrapper = styled.form`
   width: 35%;
+  max-width: 736px;
   background: #fff;
   padding: 22px;
-  box-shadow: 1.25rem 1.25rem ${props => props.theme.color.gray};
+  box-shadow: 24px 24px ${props => props.theme.color.gray};
   border-radius: 41px;
-  @media ${device.laptopSM} {
-    width: 450px;
+  @media ${device.laptopL}{
+    border-radius: 37px;
+    box-shadow: 21px 21px ${props => props.theme.color.gray};
   }
-  @media ${device.tablet} {
-    width: 390px;
-  }
-  @media ${device.mobileL} {
-    width: 344px;
-  }
-  @media ${device.mobileM} {
-    width: 300px;
+  @media ${device.laptopM}{
+    width: 42%;
+    padding: 18px;
+    border-radius: 35px;
+    box-shadow: 19px 19px ${props => props.theme.color.gray};
   }
 `
 
@@ -50,18 +44,38 @@ export const QuizSpecs = styled.div`
   height: 50px;
   display: flex;
   align-items: center;
-  padding-bottom: 1.563rem;
-  margin-top: 2rem;
-
+  font-size: 25px;
+  margin: 1.1em 0 0.2em;
   img {
-    width: 39px;
-    margin-right: 5px;
+    width: 2em;
+    margin-right: 0.2em;
+  }
+  strong{
+    font-weight: 600;
+  }
+  @media ${device.desktopS}{
+    font-size: 22px;
+  }
+  @media ${device.laptopL}{
+    font-size: 20px;
+  }
+  @media ${device.laptopM}{
+    font-size: 19px;
   }
 `
 export const QuizQuestionRow = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 30px;
+  @media ${device.desktopS}{
+    font-size: 27px;
+  }
+  @media ${device.laptopL}{
+    font-size: 25px;
+  }
+  @media ${device.laptopM}{
+    font-size: 24px;
+  }
 `
 export const QuizCoins = styled.div`
   display: flex;
@@ -89,8 +103,17 @@ export const QuizQuestionTitle = styled.h2`
   font-size: 22px;
   code {
     background: ${props => props.theme.color.white};
-    padding: .2em .3em ;
+    padding: 0 .3em ;
     border-radius: .4em;
+  }
+  @media ${device.desktopS}{
+    font-size: 20px;
+  }
+  @media ${device.laptopL}{
+    font-size: 19px;
+  }
+  @media ${device.laptopM}{
+    font-size: 18px;
   }
 `
 export const QuizCheckboxWrapper = styled.div`
@@ -101,12 +124,17 @@ export const QuizAnswerLetter = styled.span`
   font-size: 1.2em;
   width: 1.3em;
   height: 1.3em;
+  min-height: 1.3em;
+  max-height: 1.3em;
+  max-width: 1.3em;
+  min-width: 1.3em;
   border-radius: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
   background: ${props => props.theme.color.purple};
+  box-shadow: 0 0 3px black;
 `
 
 interface PropsQuizAnswer {
@@ -114,14 +142,14 @@ interface PropsQuizAnswer {
 }
 
 export const QuizAnswer = styled.div<PropsQuizAnswer>`
-border: 1px solid red;
   position: relative;
   display: flex;
   font-size: 22px;
-  margin: 0.625rem 0;
-  padding: 0.375rem 0.313rem;
-  border-radius: 0.813rem;
+  margin: 0.6em 0;
+  padding: 0.2em 0.3em;
+  border-radius: 0.7em;
   transition: 0.1s;
+  word-break: break-word;
   background: ${(props) => {
     switch (props.correct) {
       case true:
@@ -132,25 +160,24 @@ border: 1px solid red;
   }};
   code {
     background: ${props => props.theme.color.white};
-    padding: .2em .3em ;
+    padding: 0 .3em ;
     border-radius: .4em;
   }
   &:hover {
     background: ${(props) => {
       switch (props.correct) {
         case true:
-          return props.theme.color.green
+          return props.theme.color.green;
         case false:
-          return props.theme.color.red
+          return props.theme.color.red;
         default:
-          return props.theme.color.white
+          return `#f7f2f2`;
       }
     }};
   }
-
   label {
-    margin-left: 0.563rem;
-    padding-top: 0.438rem;
+    margin-left: 0.4em;
+    padding-top: 0.2em;
   }
 
   input {
@@ -162,17 +189,40 @@ border: 1px solid red;
     width: 100%;
     height: 100%;
   }
+  @media ${device.desktopS}{
+    font-size: 20px;
+  }
+  @media ${device.laptopL}{
+    font-size: 19px;
+  } 
+  @media ${device.laptopM}{
+    font-size: 18px;
+  }
 `
 export const QuizQuestionBtn = styled.button`
   display: block;
-  margin: 0.125rem auto 1.625rem;
-  padding: 0.563rem 1.438rem;
+  width: 100%;
+  font-size: 23px;
+  padding: .3em 0;
+  border-radius: .4em;
   background: ${props => props.theme.color.purple};
   color: #fff;
   transition: 0.2s;
-
-  &:hover {
-    padding: 0.563rem 2.25rem;
+  font-weight: bold;
+  letter-spacing: 0.063rem;
+  @media screen and (min-width: 1024px){
+     &:hover {
+      letter-spacing: 0.188rem;
+  }
+  }
+  @media ${device.desktopS}{
+    font-size: 21px;
+  }
+  @media ${device.laptopL}{
+    font-size: 20px;
+  }
+  @media ${device.laptopM}{
+    font-size: 20px;
   }
 `
 
