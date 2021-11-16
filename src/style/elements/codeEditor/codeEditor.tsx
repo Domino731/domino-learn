@@ -22,20 +22,35 @@ export const EditorHeaderWrapper = styled.header`
   }
 `
 export const EditorHeaderLink = styled.div`
-  font-size: 2.75rem;
+  font-size: 44px;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
   text-align: center;
   transition: 0.2s;
-
+  
   a {
     color: ${props => props.theme.color.gray};
-  }
-
-  &:hover {
+    &:hover {
     transition: 0.2s;
     letter-spacing: 0.188rem;
   }
+  }
+ @media ${device.desktopS}{
+    font-size: 38px;
+  }
+  @media ${device.laptopL}{
+    font-size: 35px;
+  }
+  @media ${device.laptopM}{
+    font-size: 32px
+  }
+  @media ${device.laptopSM}{
+    font-size: 30px
+  }
+  @media ${device.laptopS}{
+    font-size: 28px
+  }
+  
 `
 export const EditorHeaderSettingsIcon = styled.div`
 
