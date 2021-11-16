@@ -48,13 +48,28 @@ export const QuizMenuWrapper = styled.main`
     height: calc(100vh - 44px);
   }
   @media ${device.mobileXL}{
-    min-height: 803px;
+    min-height: 763px;
     height: calc(100vh - 42px);
     display: flex;
     flex-wrap: wrap;
   }
   @media screen and (max-width: 500px){
+    min-height: 718px;
     height: calc(100vh - 41px);
+  }
+  @media ${device.mobileL}{
+    flex-wrap: nowrap;
+    flex-direction: column;
+    min-height: 939px;
+    a {
+      width: 96%;
+    }
+  }
+  @media ${device.mobileM}{
+    height: calc(100vh - 38px);
+  }
+  @media screen and (max-width: 340px){
+    height: calc(100vh - 37px);
   }
 `
 const QuizColumn = styled.div`
@@ -65,6 +80,11 @@ const QuizColumn = styled.div`
    flex-grow: 1;
    width: 50%;
    height: auto;
+ }
+ @media ${device.mobileL}{
+   flex-grow: 0;
+   width: 100%;
+   margin-bottom: 31px;
  }
 `
 export const QuizHTMLColumn = styled(QuizColumn)`
@@ -135,7 +155,18 @@ export const QuizMenuTitle = styled.h2`
   padding-top: 0px;
     font-size: 37px;
 }
-
+@media ${device.mobileL}{
+  padding: 31px 0;
+  font-size: 34px;
+}
+@media ${device.mobileM}{
+  padding: 22px 0;
+  font-size: 31px;
+}
+@media screen and (max-width: 340px){
+  padding: 20px 0;
+    font-size: 32px;
+}
 `
 export const QuizMenuCard = styled.div`
 width: 80%;
@@ -190,6 +221,11 @@ margin: 0 auto;
  @media ${device.mobileXL}{
   border-radius: 18px;
   padding: 16px 0;
+ }
+ @media ${device.mobileL}{
+  box-shadow: 10px 10px ${props => props.theme.color.gray};
+  border-radius: 15px;
+  padding: 13px 0;
  }
 `
 export const QuizMenuCoins = styled.strong`

@@ -59,6 +59,12 @@ export const EditorHeaderLink = styled.div`
   @media screen and (max-width: 500px){
     font-size: 33px
   }
+  @media ${device.mobileM}{
+    font-size: 30px
+  }
+  @media screen and (max-width: 340px){
+    font-size: 29px
+  }
 `
 export const EditorHeaderSettingsIcon = styled.div`
 
