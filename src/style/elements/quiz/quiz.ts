@@ -1,15 +1,18 @@
 import styled from "styled-components";
 import {device} from "../../general/breakpoints";
 
-export const QuizContainer = styled.main`
+interface PropsQuizContainer{
+  background: string;
+}
+export const QuizContainer = styled.main<PropsQuizContainer>`
   max-width: 1980px;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: ${props => props.theme.color.yellow};
-
+  background-image: url(${props => props.background});
+  background-size: cover;
   @media (max-height: 570px){
     height: auto;
     min-height: 100vh;
@@ -100,11 +103,11 @@ export const QuizAnswerLetter = styled.span`
   background: ${props => props.theme.color.purple};
 `
 
-interface props__QuizAnswer {
+interface PropsQuizAnswer {
     correct?: boolean | undefined
 }
 
-export const QuizAnswer = styled.div<props__QuizAnswer>`
+export const QuizAnswer = styled.div<PropsQuizAnswer>`
   position: relative;
   display: flex;
   font-size: 1.25rem;
@@ -225,12 +228,12 @@ export const QuizSummaryGeneral = styled(QuizSummaryItem)`
   }
 `
 
-interface props__QuizSummaryBar {
+interface PropsQuizSummaryBar {
     questions: number
     correct: number
 }
 
-export const QuizSummaryBar = styled(QuizSummaryItem)<props__QuizSummaryBar>`
+export const QuizSummaryBar = styled(QuizSummaryItem)<PropsQuizSummaryBar>`
   display: flex;
   justify-content: center;
   align-items: center;

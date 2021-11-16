@@ -19,7 +19,7 @@ function App() {
             <Route path="/js-task/:taskNumber" component={JsTask}/>
             <Route path="/code-editor" component={CodeEditor}/>
             <Route path="/quiz-menu" component={QuizMenu}/>
-            <Route path="/quiz/:item" component={Quiz}/>
+            <Route path="/quiz/:language" component={Quiz}/>
         </Router>
     );
 }
