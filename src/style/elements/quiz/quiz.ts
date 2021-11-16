@@ -23,10 +23,9 @@ export const QuizContainer = styled.main<PropsQuizContainer>`
 export const QuizQuestionWrapper = styled.form`
   width: 35%;
   background: #fff;
-  padding: 1.563rem 0.938rem;
+  padding: 22px;
   box-shadow: 1.25rem 1.25rem ${props => props.theme.color.gray};
-  border-radius: 20px;
-
+  border-radius: 41px;
   @media ${device.laptopSM} {
     width: 450px;
   }
@@ -43,9 +42,10 @@ export const QuizQuestionWrapper = styled.form`
 
 export const QuizQuestionsLeft = styled.span`
   display: block;
-  margin-bottom: 0.688rem;
+  font-size: 0.7em;
+  margin-bottom: 0.4em;
 `
-export const QuizFreepik = styled.div`
+export const QuizSpecs = styled.div`
   width: 100%;
   height: 50px;
   display: flex;
@@ -61,19 +61,20 @@ export const QuizFreepik = styled.div`
 export const QuizQuestionRow = styled.div`
   display: flex;
   justify-content: space-between;
+  font-size: 30px;
 `
 export const QuizCoins = styled.div`
   display: flex;
   align-items: center;
 
   img {
-    width: 2.438rem;
+    width: 1.4em;
   }
 
   span {
     display: block;
-    margin-left: 5px;
-    font-size: 2.063rem;
+    margin-left: 0.2em;
+    font-size: 1.4em;
     text-decoration: underline;
     text-decoration-color: ${props => props.theme.color.gray};
   }
@@ -81,21 +82,26 @@ export const QuizCoins = styled.div`
 export const QuizQuestionNumber = styled.span`
   display: block;
   font-weight: 900;
-  font-size: 2.75rem;
+  font-size: 1.6em;
 `
 export const QuizQuestionTitle = styled.h2`
-  padding: 0.75rem 0;
-  font-size: 1.563rem;
+  padding: 0.5em 0;
+  font-size: 22px;
+  code {
+    background: ${props => props.theme.color.white};
+    padding: .2em .3em ;
+    border-radius: .4em;
+  }
 `
 export const QuizCheckboxWrapper = styled.div`
   display: flex;
+  font-size: 30px;
 `
 export const QuizAnswerLetter = styled.span`
-  max-width: 2.313rem;
-  max-height: 2.313rem;
-  min-width: 2.313rem;
-  min-height: 2.313rem;
-  border-radius: 50%;
+  font-size: 1.2em;
+  width: 1.3em;
+  height: 1.3em;
+  border-radius: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,9 +114,10 @@ interface PropsQuizAnswer {
 }
 
 export const QuizAnswer = styled.div<PropsQuizAnswer>`
+border: 1px solid red;
   position: relative;
   display: flex;
-  font-size: 1.25rem;
+  font-size: 22px;
   margin: 0.625rem 0;
   padding: 0.375rem 0.313rem;
   border-radius: 0.813rem;
@@ -123,7 +130,11 @@ export const QuizAnswer = styled.div<PropsQuizAnswer>`
         return props.theme.color.red
     }
   }};
-
+  code {
+    background: ${props => props.theme.color.white};
+    padding: .2em .3em ;
+    border-radius: .4em;
+  }
   &:hover {
     background: ${(props) => {
       switch (props.correct) {

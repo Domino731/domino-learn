@@ -101,16 +101,18 @@ export interface IFPropsQuiz extends RouteComponentProps<IFMatchParams> {
 }
 
 export interface IFPropsError404 {
-    redirectPath: string
+    redirectPath: string;
 }
 
 export interface IFPropsQuizQuestion {
     data: IFQuizQuestion
-    currQuestionIndex: number
-    switchToNextQuestion: () => void
-    questionsLeft: number | string
-    addPoint: () => void
-    addCoins: (coins: number) => void
+    currQuestionIndex: number;
+    switchToNextQuestion: () => void;
+    questionsLeft: number | string;
+    addPoint: () => void;
+    addCoins: (coins: number) => void;
+    characterGraphic: string;
+    languageName: string
 }
 
 export interface IFPropsQuizSummary {

@@ -116,6 +116,8 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
             questionsLeft={quizData.length - currQuestionIndex}
             addPoint={addPoints}
             addCoins={addCoins}
+            languageName={language}
+            characterGraphic={programmingLanguageData.figureSrc}
         />}
 
         {/*summary panel*/}

@@ -8,8 +8,9 @@ import {
     QuizAnswerLetter,
     QuizQuestionBtn,
     QuizQuestionRow,
-    QuizCoins, QuizFreepik,
-    QuizQuestionsLeft
+    QuizCoins,
+    QuizQuestionsLeft,
+    QuizSpecs
 } from "../../style/elements/quiz/quiz";
 import {alphabet} from "../../properties/other";
 import coins from "../../images/coins.png";
@@ -23,13 +24,17 @@ import coins from "../../images/coins.png";
  * @param questionsLeft - number of questions that have been left
  * @param addPoint - function that add point
  * @param addCoins - function that add coins
+ * @param characterGraphic - graphic of selected type of quiz - html,js or css
+ * @param languageName- name of selected type of quiz - html,js or css
  */
 export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({
                                                                          data,
                                                                          currQuestionIndex,
                                                                          switchToNextQuestion, questionsLeft,
                                                                          addPoint,
-                                                                         addCoins
+                                                                         addCoins,
+                                                                         characterGraphic,
+                                                                         languageName
                                                                      }): JSX.Element => {
 
     // state with selected answer by user
@@ -99,7 +104,9 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({
             data.answers.map((el: any, num: any) => <QuizAnswer correct={changeCheckboxBg(el)}
                                                                 key={`answer_${alphabet[num]}_${num}`}>
                 <QuizAnswerLetter>{alphabet[num]}</QuizAnswerLetter>
-                <label>{el.text}
+                <label>
+                    <p dangerouslySetInnerHTML={{__html:el.text}}/>
+
                     <input type="checkbox"
                            value={el.text}
                            checked={selectedAnswer === el.text}
@@ -115,11 +122,10 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({
 
 
         {/*freepik icons authors*/}
-        <QuizFreepik>
-            <img src={coins} alt="coins"/>
-            <div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel
-                perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-        </QuizFreepik>
+        <QuizSpecs>
+            <img src={characterGraphic} alt="coins"/>
+            <strong>{languageName} quiz</strong>
+        </QuizSpecs>
 
     </QuizQuestionWrapper>
 }

@@ -1,5 +1,5 @@
 import {FunctionComponent, useEffect} from "react";
-import {QuizFreepik, QuizSummaryWrapper} from "../../style/elements/quiz/quiz";
+import {QuizSpecs, QuizSummaryWrapper} from "../../style/elements/quiz/quiz";
 import {
     QuizSummaryBar,
     QuizSummaryTitle,
@@ -85,14 +85,7 @@ export const QuizSummary: FunctionComponent<IFPropsQuizSummary> = ({
             </div>
         </QuizSummaryPanel>
 
-        {/*freepik icons authors*/}
-        <QuizSummaryIcons>
-            <QuizFreepik>
-                <img src={coins} alt="coins"/>
-                <div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel
-                    perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-            </QuizFreepik>
-        </QuizSummaryIcons>
+
 
     </QuizSummaryWrapper>
 
