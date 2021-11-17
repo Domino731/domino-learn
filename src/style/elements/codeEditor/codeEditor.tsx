@@ -12,6 +12,13 @@ export const EditorHeaderWrapper = styled.header`
   background: ${props => props.theme.color.yellow};
   padding: 5px 41px;
 
+  @media ${device.desktopS}{
+    padding: 4px 26px
+  }
+
+  @media ${device.laptopL}{
+    padding: 3px 14px
+  }
   @media ${device.tablet} {
     padding: 4px 20px;
   }
@@ -67,28 +74,33 @@ export const EditorHeaderLink = styled.div`
     font-size: 29px
   }
 `
-export const EditorHeaderSettingsIcon = styled.div`
+export const EditorHeaderSettingsBtn = styled.button`
 
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: 0.2s;
-
+  font-size: 30px;
   i {
-    font-size: 2.75rem;
+    font-size: 2rem;
   }
 
   span {
-    font-size: 1.813rem;
-    margin-left: 1rem;
+    font-size: 1.1em;
+    margin-left: 0.3em;
   }
 
   &:hover {
     cursor: pointer;
   }
-
-  @media ${device.mobileL} {
-    margin-top: 5px;
+  @media ${device.desktopS}{
+    font-size: 28px;
+  }
+  @media ${device.laptopL}{
+    font-size: 26px;
+  }
+  @media ${device.laptopM}{
+    font-size: 22px;
   }
 `
 export const EditorSettingsForm = styled.form`
@@ -136,9 +148,13 @@ export const EditorFormLabel = styled.label`
   font-size: 21px;
   color: ${props => props.theme.color.white};
   input {
+    font-size: 1em;
     width: 4em;
     border-radius: .5em;
     padding: .2em .3em;
+  }
+  @media ${device.desktopS}{
+    font-size: 19px;
   }
 `
 export const EditorFormTitle = styled.div`
@@ -146,6 +162,9 @@ export const EditorFormTitle = styled.div`
   margin-top: 1em;
   font-size: 21px;
   color: ${props => props.theme.color.white};
+  @media ${device.desktopS}{
+    font-size: 19px;
+  }
 `
 export const EditorFormThemes = styled.div`
   margin-top: 11px;
@@ -166,13 +185,11 @@ export const EditorFormThemes = styled.div`
     border-radius: 0.5em;
     overflow: hidden;
     transition: 0.1s;
-
     &:hover {
       cursor: pointer;
       letter-spacing: 2px;
     }
   }
-
   span {
     position: absolute;
     z-index: -1;
@@ -194,14 +211,11 @@ export const EditorFormThemes = styled.div`
   input:checked ~ span {
     display: none;
   }
-
-  @media ${device.tablet} {
-    flex-wrap: nowrap;
-    flex-direction: column;
-    align-items: center;
-    label {
-      padding: 5px 0;
-      width: 94%;
+  @media ${device.desktopS}{
+    font-size: 19px;
+    label{
+    font-size: 19px;
+    padding: 0.3em 16px;
     }
   }
 `
@@ -240,14 +254,11 @@ export const EditorFormTheme = styled.label<props__EditorFormTheme>`
       display: block;
     }
   }
-
-  @media ${device.laptopL} {
-    height: 150px;
-  }
-  @media ${device.laptopSM} {
-    height: 125px;
-    margin: 3px;
-  }
+ 
+ @media ${device.desktopS}{
+  height: 157px;
+  padding: 7px;
+ }
 `
 
 const EditorFormThemeItem = styled.span`
@@ -287,6 +298,11 @@ export const EditorFormThemeResult = styled(EditorFormThemeItem)`
     color: ${props => props.theme.color.green}
   }
 
+  @media ${device.desktopS}{
+    i{
+     font-size: 49px; 
+    }
+  }
   @media ${device.laptopSM} {
     i {
       font-size: 50px;
@@ -312,6 +328,9 @@ const EditorElement = styled.div`
   position: relative;
   padding: 10px;
   background: ${props => props.theme.color.gray};
+  @media ${device.laptopM}{
+    padding: 7px;
+  }
 `
 
 export const EditorHtml = styled(EditorElement)`
@@ -343,19 +362,23 @@ export const EditorName = styled.div`
   align-items: center;
   position: absolute;
   z-index: 5;
+  background: ${props => props.theme.color.white};
   top: 5px;
-  left: 3px;
-  width: 47px;
-  height: 47px;
-  border-radius: 25px;
-  border: 2px solid ${props => props.theme.color.yellow};
-  background: ${props => props.theme.color.gray};
-
-  img {
-    width: 24px;
-    height: auto;
-    object-fit: cover;
-  }
+    left: 6px;
+    width: 42px;
+    padding: 7px 0;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 6px;
+    @media ${device.laptopL}{
+    top: 8px;
+    left: 8px;
+    width: 39px;
+    padding: 5px 0;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 5px;
+    }
 `
 export const EditorDevPanel = styled.section`
   font-size: 21px;
@@ -365,8 +388,21 @@ export const EditorDevPanel = styled.section`
     width: 100%;
     z-index: 1;
     display: flex;
+    @media ${device.desktopS}{
+      top: 9px;
+    }
+    @media ${device.laptopL}{
+    height: 27px;
+    font-size: 18px;
+    }
+    @media ${device.laptopM}{
+      height: 22px;
+      top: 7px;
+      font-size: 16px;
+    }
 `
 export const EditorConsoleSwitchBtn = styled.button`
+font-size: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -374,7 +410,8 @@ export const EditorConsoleSwitchBtn = styled.button`
   z-index: 10;
   border-radius: 0 0.4em 0.4em 0;
   border: 2px solid ${props => props.theme.color.gray};
-  padding: 0 1.438rem 0 0.25rem;
+  border-left: none;
+  padding: 0 1.4em 0 0.25em;
   transition: 0.2s;
 
   &:hover {
@@ -389,6 +426,7 @@ export const EditorConsoleSwitchBtn = styled.button`
 export const EditorFullScreenBtn = styled(EditorConsoleSwitchBtn)`
  border-radius: 0.4em;
  margin-left: 0.5em;
+ border: 2px solid ${props => props.theme.color.gray};
 `
 
 // for small devices

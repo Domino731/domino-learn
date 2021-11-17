@@ -2,7 +2,7 @@ import {FunctionComponent, useEffect, useState} from "react";
 import {
     EditorHeaderWrapper,
     EditorHeaderLink,
-    EditorHeaderSettingsIcon,
+    EditorHeaderSettingsBtn,
     EditorSettingsForm,
     EditorFormItem,
     EditorFormLabel,
@@ -50,14 +50,14 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
             </Link>
         </EditorHeaderLink>
         {/*toggle form*/}
-        <EditorHeaderSettingsIcon onClick={handleChangeFormFlag}>
+        <EditorHeaderSettingsBtn onClick={handleChangeFormFlag}>
             {formFlag ?
                 <i className="fas fa-times"/>
                 :
                 <i className="fas fa-cog"/>
             }
             <span>Settings</span>
-        </EditorHeaderSettingsIcon>
+        </EditorHeaderSettingsBtn>
 
 
 

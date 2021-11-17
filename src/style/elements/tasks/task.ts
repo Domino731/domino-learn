@@ -591,14 +591,22 @@ export const WebBrowserTopBar = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-  height: 2rem;
+  height: 32px;
   background: ${props => props.theme.color.white};
-
+  font-size: 20px;
   span {
-    width: 3.313rem;
-    height: 1.188rem;
-    border-radius: 0.375rem;
-    margin-right: 0.5rem;
+    width: 1.9em;
+    height: 1em;
+    border-radius: 0.3em;
+    margin-right: 0.3em;
+  }
+  @media ${device.laptopL}{
+    height: 27px;
+    font-size: 17px;
+  }
+  @media ${device.laptopM}{
+    height: 22px;
+    font-size: 15px;
   }
 `
 export const WebBrowserGreenBox = styled.span`

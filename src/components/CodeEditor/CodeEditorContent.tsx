@@ -27,9 +27,6 @@ import {
 } from "../../style/elements/codeEditor/codeEditor";
 import {IFEditorCode, IFPropsCodeEditorContent} from "../../types/types";
 import {saveEditorCodeToLS, getEditorCodeFromLS} from "../../functions/localStorage";
-import {htmlClass} from "../../properties/htmlClass";
-import {cssClass} from "../../properties/cssClass";
-import {jsClass} from "../../properties/jsClass";
 import {
     WebBrowserGreenBox,
     WebBrowserRedBox,
@@ -144,7 +141,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
         {windowWidth > 900 && <EditorContentWrapper areas={editorSettings.areas}>
             <EditorHtml>
                 <EditorName>
-                    <img src={htmlClass.getIconSrc()} alt="html icon"/>
+                    .html
                 </EditorName>
                 <AceEditor
                     enableBasicAutocompletion={true}
@@ -171,7 +168,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
             </EditorHtml>
             <EditorCss>
                 <EditorName>
-                    <img src={cssClass.getIconSrc()} alt="css icon"/>
+                    .css
                 </EditorName>
                 <AceEditor
                     enableBasicAutocompletion={true}
@@ -198,7 +195,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
             </EditorCss>
             <EditorJs>
                 <EditorName>
-                    <img src={jsClass.getIconSrc()} alt="javascript icon"/>
+                    .js
                 </EditorName>
                 <AceEditor
                     enableBasicAutocompletion={true}
