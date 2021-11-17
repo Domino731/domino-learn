@@ -2,8 +2,8 @@ import styled, {keyframes} from "styled-components";
 import {device} from "../../general/breakpoints";
 
 export const EditorContainer = styled.main`
-  width: 100%;
   overflow-x: hidden;
+  position: relative;
 `
 export const EditorHeaderWrapper = styled.header`
   position: relative;
@@ -313,6 +313,7 @@ const EditorElement = styled.div`
   padding: 10px;
   background: ${props => props.theme.color.gray};
 `
+
 export const EditorHtml = styled(EditorElement)`
   grid-area: html;
 `
@@ -322,10 +323,16 @@ export const EditorCss = styled(EditorElement)`
 export const EditorJs = styled(EditorElement)`
   grid-area: js;
 `
-export const EditorResult = styled(EditorElement)`
+interface PropsEditorResult {
+  fullscreen: boolean;
+}
+export const EditorResult = styled(EditorElement)<PropsEditorResult>`
   grid-area: result;
   position: relative;
-
+  position: ${props => props.fullscreen && 'absolute'};
+  width: ${props => props.fullscreen && '100%'};
+  height: 100%;
+  z-index: 5;
   & > div {
     background: #fff;
   }

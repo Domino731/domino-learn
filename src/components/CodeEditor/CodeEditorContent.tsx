@@ -56,7 +56,9 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
     // state which is responsible to display console or iframe window
     const [consoleFlag, setConsoleFlag] = useState<boolean>(false);
 
-    // state which is needed to display editor for mobile devices (less than 900px window width)
+    // state to toggle fullscreen mode
+    const [fullscreenFlag, setFullscreenFlag] = useState<boolean>(false);
+    // window width which is needed to display editor for mobile devices (less than 900px window width)
     const [windowWidth, setWindowWidth] = useState(0);
 
     // specifies which editor is active on mobile devices (less than 900px window width)
@@ -122,17 +124,20 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
         return () => Unhook(window.console);
     }, []);
 
-    // toggle editor on mobile devices (only less than 900px window width);
+    /** toggle editor on mobile devices (only less than 900px window width) */
     const handleChangeActiveEditor = (e: React.ChangeEvent<HTMLInputElement>): void => setActiveEditor(e.target.value)
 
-    // change userCode state
+    /** change userCode state  */
     const changeUserCode = (newValue: any, key: "html" | "css" | "js"): void => setUserCode(prev => ({
         ...prev,
         [key]: newValue
     }));
 
-    // show or hide console
+    /** show or hide console */
     const handleChangeConsoleFlag = (): void => setConsoleFlag(!consoleFlag);
+
+    /** change fullscreenFlag state -> display page in fullscreen mode */
+    const handleChangeFullScreenFlag = () => setFullscreenFlag(!fullscreenFlag);
 
     return <>
         {/* editor for bigger devices -> above 900px*/}
@@ -218,7 +223,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
                     }}
                 />
             </EditorJs>
-            <EditorResult>
+            <EditorResult  fullscreen={fullscreenFlag}>
                <EditorDevPanel>
 
  {/*toggle console*/}
@@ -230,8 +235,8 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
                     }
                 </EditorConsoleSwitchBtn>
 
-               <EditorFullScreenBtn style={{background: "#e5e3f1"}} onClick={handleChangeConsoleFlag}>
-                    {consoleFlag ?
+               <EditorFullScreenBtn style={{background: "#e5e3f1"}} onClick={handleChangeFullScreenFlag}>
+                    {fullscreenFlag ?
                         <><i className="fas fa-compress-arrows-alt"/> Minimize </>
                         :
                         <><i className="fas fa-expand-arrows-alt"/> Fullscreen </>
