@@ -35,6 +35,7 @@ import {
 } from "../../style/elements/tasks/task";
 import {Console, Hook, Unhook} from "console-feed";
 import {Logs} from "../../functions/jsConsole";
+import { cssReset } from "../../properties/cssReset"
 
 // Component which is responsible for the editor, there are two versions - for mobile devices (below 900px window width)
 // and for larger devices (above 900px)
@@ -71,7 +72,6 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
 
     // delay (300s) for displaying user code in iframe -> better for the browser,
     // because it doesn't have to rerender on every code change,
-    // a new iframe with every code change
     useEffect(() => {
         const timeout = setTimeout(() => {
                 setSrcDoc(`
@@ -80,6 +80,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
           <head>
           <title>DOMINO EDITOR</title>
           <style>
+          ${editorSettings.includeResetCSS && cssReset}
           ${userCode.css}
           </style></head>
           <body>${userCode.html}</body>
@@ -92,7 +93,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
         // prevent console duplicates
         setLogs([]);
         return () => clearTimeout(timeout);
-    }, [userCode]);
+    }, [userCode, editorSettings]);
 
     // saving code into local storage with 600ms delay
     useEffect(() => {
