@@ -47,10 +47,10 @@ export const CssTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, t
             </TaskFooterListBtn>
 
             {taskNumber !== 1 &&
-            <TaskFooterSwitchButton color="#00f5d4"> <Link
+            <TaskFooterSwitchButton color="#7295fa"> <Link
                 to={`/css-task/${taskNumber - 1}`}>Back</Link></TaskFooterSwitchButton>}
             {taskNumber < allTasks.length &&
-            <TaskFooterSwitchButton color="#00f5d4"><Link
+            <TaskFooterSwitchButton color="#7295fa"><Link
                 to={`/css-task/${taskNumber + 1}`}>Next</Link></TaskFooterSwitchButton>}
 
             {/*tasks list*/}

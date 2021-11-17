@@ -4,6 +4,7 @@ import {
     TaskAidsTitle,
     TaskAidsWrapper,
     TaskSectionHeader,
+    TaskSectionScale,
     TaskTarget,
     TaskTargetCheckbox,
     TaskTargetNumber,
@@ -20,7 +21,7 @@ import {IFPropsTaskTargets} from "../../types/types";
  * @constructor
  */
 export const TaskTargets: FunctionComponent<IFPropsTaskTargets> = ({targets, title, aidArr}): JSX.Element => {
-    return <>
+    return <TaskSectionScale>
         <TaskSectionHeader><i className="fas fa-bullseye"/> <span>Your task</span></TaskSectionHeader>
 
         {/*task targets list, with checkbox with color*/}
@@ -44,6 +45,5 @@ export const TaskTargets: FunctionComponent<IFPropsTaskTargets> = ({targets, tit
                 {aidArr.map((el, num) => <TaskAid aid={el} key={`${title}_taskAid_${num}`}/>)}
             </TaskAidsList>
         </TaskAidsWrapper>
-        <img src="" alt=""/>
-    </>
+    </TaskSectionScale>
 }

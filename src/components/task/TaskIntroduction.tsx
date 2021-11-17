@@ -1,5 +1,5 @@
 import {FunctionComponent} from "react";
-import {TaskIntroductionBar, TaskIntroductionText, TaskSectionHeader} from "../../style/elements/tasks/task";
+import {TaskIntroductionBar, TaskIntroductionText, TaskSectionHeader, TaskSectionScale} from "../../style/elements/tasks/task";
 import {IFPropsTaskIntroduction} from "../../types/types";
 
 /**
@@ -16,7 +16,7 @@ export const TaskIntroduction: FunctionComponent<IFPropsTaskIntroduction> = ({
                                                                                  imgAlt,
                                                                                  imgSrc
                                                                              }): JSX.Element => {
-    return <>
+    return <TaskSectionScale>
         <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
         <TaskIntroductionBar>
             <img src={imgSrc} alt={imgAlt}/>
@@ -24,6 +24,6 @@ export const TaskIntroduction: FunctionComponent<IFPropsTaskIntroduction> = ({
         </TaskIntroductionBar>
         {/*@ts-ignore*/}
         <TaskIntroductionText dangerouslySetInnerHTML={{__html: introductionInnerHtml}}/>
-    </>
+    </TaskSectionScale>
 }
 

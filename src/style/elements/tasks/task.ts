@@ -99,7 +99,7 @@ export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
 `
 
 interface PropsTaskFooter {
-  background: string
+  background: string;
 }
 export const TaskFooter = styled.footer< PropsTaskFooter >`
   position: relative;
@@ -108,7 +108,7 @@ export const TaskFooter = styled.footer< PropsTaskFooter >`
   padding: 7px;
   width: 100%;
   background-size: cover;
-  background-image: url(${props => props.background})
+  background-image: url(${props => props.background});
 `
 export const TaskFooterTitle = styled.div`
   display: block;
@@ -328,21 +328,20 @@ export const TaskSectionHeader = styled.h2`
   position: sticky;
   top: 0;
   z-index: 1;
-  font-size: 1.25rem;
-  padding: 7px 10px;
+  font-size: 1.1em;
+  padding: 0.2em 0.5em;
   background: ${props => props.theme.color.white};
-  box-shadow: 0 2px 5px ${props => props.theme.color.gray};
+  box-shadow: 0 0.05em 0.3em ${props => props.theme.color.gray};
 `
 export const TaskIntroductionBar = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 70px;
-  padding-left: 5px;
+  margin-top: 0.7em;
+  padding-left: 0.2em;
 
   img {
-    width: 41px;
-    height: auto;
+    width: 2.3em;
     object-fit: cover;
   }
 
@@ -350,22 +349,24 @@ export const TaskIntroductionBar = styled.div`
     font-size: 2.125rem;
     padding-right: 0.125rem;
     background: #fff;
+    padding: 0.1em 0.3em;
+    border-radius: 0.4em;
+    font-weight: 550;
   }
 `
 
 export const TaskIntroductionText = styled.div`
-  font-size: 1.25rem;
-  margin-top: 20px;
-  padding: 8px 11px;
+  margin-top: 1em;
+  padding: 0.3em 0.4em 0;
   line-height: 1.438rem;
 
   p {
-    margin-top: 20px;
+    margin-top: 0.9em;
     text-align: justify;
     code {
       display: inline-block;
-      padding: 0 3px;
-      border-radius: 4px;
+      padding: 0 0.2em;
+      border-radius: 0.4em;
       background: ${props => props.theme.color.white};
     }
 
@@ -373,58 +374,47 @@ export const TaskIntroductionText = styled.div`
 
   h3 {
     font-weight: 700;
-    font-size: 1.313rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
     text-decoration: underline;
     text-decoration-color: ${props => props.theme.color.blue};
   }
 
   ul, ol {
-    margin: 0.5rem 0.625rem;
+    margin: 0.7em 0.5em;
 
     li {
-      margin: 0.563rem 0;
+      margin: 0.5em 0;
     }
   }
 
   ol {
-    margin: 0.5rem 2rem;
+    margin: 0 1.6em;
     list-style-type: decimal;
   }
 
   ul {
-
     li {
       &:before {
         content: "";
         display: inline-block;
-        width: 1.05rem;
-        height: 1.05rem;
-        border-radius: 0.8rem;
-        margin-right: 0.313rem;
+        width: 0.8em;
+        height: 0.8em;
+        border-radius: 1em;
+        margin-right: 0.313em;
         background: ${props => props.theme.color.blue};
       }
     }
   }
 
-  @media ${device.tablet} {
-    margin-top: -20px;
-  }
 `
 
 export const TaskTargetsWrapper = styled.div`
-  padding-top: 12px;
-  @media ${device.mobileL} {
-    padding-top: 5px;
-  }
+  padding-top: 0.8em;
 `
 export const TaskTarget = styled.div`
   display: flex;
-  padding: 12px 9px;
- 
-  @media ${device.mobileL} {
-    padding: 8px 2px;
-  }
+  padding: 0.6em 0.6em;
+
 `
 type TaskTargetCheckboxProps = {
     backgroundColor: string
@@ -433,21 +423,12 @@ export const TaskTargetCheckbox = styled.div<TaskTargetCheckboxProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30px;
-  min-width: 30px;
-  margin-right: 11px;
-  border-radius: 5px;
+  height: 1.5em;
+  min-width: 1.5em;
+  margin-right: 0.5em;
+  border-radius: 0.3em;
   background: ${props => props.backgroundColor};
   color: ${props => props.theme.color.white};
-
-  @media ${device.tablet} {
-    height: 22px;
-    min-width: 22px;
-    font-size: 12px;
-  }
-  @media ${device.mobileL} {
-    margin-right: 5px;
-  }
 `
 export const TaskTargetNumber = styled.div`
   font-size: 1.25rem;
@@ -820,8 +801,8 @@ export const TaskAidsTitle = styled.h3`
   border-bottom: 2px solid ${props => props.theme.color.red};
 `
 export const TaskAidsWrapper = styled.div`
-  margin-top: 20px;
-  padding: 0 9px;
+  margin-top: 0.7em;
+  padding: 0 0.7em;
 `
 export const TaskAidsList = styled.div`
 
@@ -1019,4 +1000,7 @@ export const MobileTaskResult = styled.div`
   @media ${device.mobileM} {
     padding: 10px;
   }
+`
+export const TaskSectionScale = styled.div`
+font-size: 20px;
 `
