@@ -9,7 +9,7 @@ import {
     EditorFormThemes,
     EditorFormThemesWrapper,
     EditorFormTheme,
-    EditorFormThemeHtml, EditorFormThemeCss, EditorFormThemeJs, EditorFormThemeResult, EditorFormTitle, EditorFullScreenBtn
+    EditorFormThemeHtml, EditorFormThemeCss, EditorFormThemeJs, EditorFormThemeResult, EditorFormTitle, EditorFullScreenBtn, EditorResetCSSChekbox
 } from "../../style/elements/codeEditor/codeEditor";
 import {Link} from "react-router-dom";
 import {IFPropsCodeEditorHeader} from "../../types/types";
@@ -21,7 +21,9 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
                                                                                  editorSettings,
                                                                                  changeFs,
                                                                                  changeTheme,
-                                                                                 changeAreas
+                                                                                 changeAreas,
+                                                                                 changeResetCSS,
+                                                                                 includeResetCSS
                                                                              }) => {
 
     // flag which is responsible for displaying editor settings form
@@ -63,6 +65,13 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
 
         {formFlag && <EditorSettingsForm>
 
+             <EditorResetCSSChekbox>
+                 <input type='checkbox' checked={includeResetCSS} onClick={changeResetCSS}/>
+                 <i className="fas fa-check"></i>
+                 <span>
+                     Add CSS reset from meyerweb.com
+                 </span>
+             </EditorResetCSSChekbox>
             {/*change font size*/}
             <EditorFormItem>
                 <EditorFormLabel>Font size
@@ -71,7 +80,7 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
                 </EditorFormLabel>
             </EditorFormItem>
 
-            {/*change theme*/}
+            {/*change editor theme*/}
             <EditorFormTitle>Theme</EditorFormTitle>
             <EditorFormThemes>
                 <label>
@@ -128,7 +137,7 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
                 </label>
             </EditorFormThemes>
 
-            {/*change editor layout, only above 900px window width!*/}
+            {/*change editor layout, only for devices above 900px*/}
             {windowWidth > 900 && <>
                 <EditorFormTitle>Layout</EditorFormTitle>
                 <EditorFormThemesWrapper>

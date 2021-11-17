@@ -13,7 +13,8 @@ export const CodeEditor: FunctionComponent = (): JSX.Element => {
     const [editorSettings, setEditorSettings] = useState<IFEditorSettings>({
         fontSize: getEditorFSize(),
         theme: getEditorTheme(),
-        areas: getEditorAreas()
+        areas: getEditorAreas(),
+        includeResetCSS: localStorage.getItem('editorResetCSS') ? true : false
     });
 
     // if user change one of settings save them into local storage
@@ -21,30 +22,50 @@ export const CodeEditor: FunctionComponent = (): JSX.Element => {
         localStorage.setItem("editorFontSize", editorSettings.fontSize.toString());
         localStorage.setItem("editorTheme", editorSettings.theme);
         localStorage.setItem("editorAreas", editorSettings.areas);
+        localStorage.setItem("editorResetCSS", JSON.stringify(editorSettings.includeResetCSS))
     }, [editorSettings]);
 
 
-    // changing editor font size
+    /** changing editor font size */
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
         ...prev,
         fontSize: parseFloat(e.target.value)
     }));
 
-    // changing editor theme
+    /** changing editor theme */
     const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
         ...prev,
         theme: e.target.value
     }));
 
-    // changing editor layout, CodeEditorContent displaying the layout of the editor is based on this areas (grid - areas)
+   /** changing editor layout, CodeEditorContent displaying the layout of the editor is based on this areas (grid - areas) */
     const handleChangeAreas = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
         ...prev,
         areas: e.target.value
     }));
+    
+    /** change editorSettings.includeResetCSS state -> apply css reset or remove */
+    const handleChangeResetCSS = () => {
+        const data = localStorage.getItem('editorResetCSS') ? true : false
+        if(data) {
+            return setEditorSettings(prev => ({
+                ...prev,
+                includeResetCSS: false
+            }));
+        }
+        else {
+            return setEditorSettings(prev => ({
+                ...prev,
+                includeResetCSS: true
+            }));
+        }
+    }
+    
+
 
     return <EditorContainer>
         <CodeEditorHeader editorSettings={editorSettings} changeFs={handleChangeFs} changeTheme={handleChangeTheme}
-                          changeAreas={handleChangeAreas}/>
+                          changeAreas={handleChangeAreas} changeResetCSS={handleChangeResetCSS} includeResetCSS={editorSettings.includeResetCSS}/>
         <CodeEditorContent editorSettings={editorSettings}/>
     </EditorContainer>
 };

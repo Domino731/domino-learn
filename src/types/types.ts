@@ -88,9 +88,11 @@ export interface IFPropsTask extends RouteComponentProps<IFMatchParams> {
 
 export interface IFPropsCodeEditorHeader {
     editorSettings: IFEditorSettings
+    includeResetCSS: boolean;
     changeFs: (e: React.ChangeEvent<HTMLInputElement>) => void
     changeTheme: (e: React.ChangeEvent<HTMLInputElement>) => void
     changeAreas: (e: React.ChangeEvent<HTMLInputElement>) => void
+    changeResetCSS: () => void
 }
 
 export interface IFPropsCodeEditorContent {
@@ -275,6 +277,7 @@ export interface IFEditorSettings {
     theme: string
     fontSize: string | number
     areas: string
+    includeResetCSS: boolean;
 }
 
 export interface IFQuizQuestion {

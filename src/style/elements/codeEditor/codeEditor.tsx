@@ -649,3 +649,30 @@ export const MobileItemWrapper = styled.div`
     height: calc(100vh - 34px);
   }
 `
+export const EditorResetCSSChekbox = styled.label`
+  position: relative;
+  display: block;
+  font-size: 20px;
+  margin-top: 10px;
+  input{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    appearance: none;
+    border: none;
+    &:checked ~ i {
+      background: #70e000;
+    }
+  }
+  span:last-child{
+    color: ${props => props.theme.color.white};
+  }
+  i {
+    display: inline-block;
+    padding: 0.2em;
+    border-radius: 0.2em;
+    margin-right: 0.4em;
+    background: ${props => props.theme.color.white};
+     transition: 0.2s;
+  }
+`
