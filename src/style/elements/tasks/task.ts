@@ -109,11 +109,16 @@ export const TaskFooter = styled.footer< PropsTaskFooter >`
   width: 100%;
   background-size: cover;
   background-image: url(${props => props.background});
+  font-size: 20px;
+  @media ${device.desktopS}{
+    padding: 5px;
+    font-size: 18px;
+  }
 `
 export const TaskFooterTitle = styled.div`
   display: block;
   width: 33%;
-  font-size: 2.75rem;
+  font-size: 2em;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
   text-align: center;
@@ -137,7 +142,7 @@ export const TaskFooterIcons = styled.div`
   width: 33%;
 `
 export const TaskFooterTaskNumber = styled.div`
-  font-size: 2.75rem;
+  font-size: 2em;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
   width: 32%;
@@ -155,7 +160,6 @@ export const TaskFooterSwitchBar = styled.div`
   margin-right: 20px;
   flex-shrink: 1;
   width: 33%;
-  height: 50px;
   padding: 4px 0;
 
   @media ${device.laptopS} {
@@ -171,10 +175,10 @@ export const TaskFooterSwitchButton = styled.div<TaskFooterSwitchButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
   box-sizing: border-box;
-  border-radius: 5px;
-  padding: 0 0.813rem;
+  font-size: 1.2em;
+  border-radius: 0.2em;
+  padding: 0.2em 0.4em;
   background: ${props => props.theme.color.gray};
   transition: 0.1s;
   margin: 0 0.313rem;
@@ -194,15 +198,15 @@ export const TaskFooterSwitchButton = styled.div<TaskFooterSwitchButtonProps>`
     color: ${props => props.color};
   }
 `
-export const TaskFooterListBtn = styled.div`
+export const TaskFooterListBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 0.3em;
   height: 100%;
   padding: 0 13px;
-  margin-right: 10px;
-  font-size: 31px;
+  margin-right: 0.1em;
+  font-size: 1.6em;
   color: ${props => props.theme.color.gray};
   transition: 0.1s;
 
@@ -346,12 +350,17 @@ export const TaskIntroductionBar = styled.div`
   }
 
   h3 {
-    font-size: 2.125rem;
-    padding-right: 0.125rem;
+    font-size: 32px;
+    padding-right: 2px;
     background: #fff;
     padding: 0.1em 0.3em;
     border-radius: 0.4em;
     font-weight: 550;
+  }
+  @media ${device.desktopS}{
+    h3 {
+      font-size: 29px;
+    }
   }
 `
 
@@ -361,7 +370,7 @@ export const TaskIntroductionText = styled.div`
   line-height: 1.438rem;
 
   p {
-    margin-top: 0.9em;
+    margin-top: 0.4em;
     text-align: justify;
     code {
       display: inline-block;
@@ -436,7 +445,7 @@ export const TaskTargetNumber = styled.div`
   margin-right: 0.313em;
 `
 export const TaskTargetText = styled.div`
-  font-size: 1.25rem;
+  font-size: 1.1em;
   line-height: 1.438rem;
   span {
     display: inline-block;
@@ -479,6 +488,9 @@ export const TaskCodeEditorMultiple = styled.div`
   width: 100%;
   height: 100%;
   background: ${props => props.theme.color.gray};
+  @media ${device.desktopS}{
+    padding: 49px 0;
+  }
   @media ${device.tablet} {
     padding: 40px 0;
   }
@@ -492,6 +504,9 @@ export const CodeEditorPanel = styled.div`
   width: 100%;
   height: 53px;
   background: ${props => props.theme.color.gray};
+  @media ${device.desktopS}{
+    height: 49px;
+  }
   @media ${device.tablet} {
     z-index: 4;
     height: 40px;
@@ -515,7 +530,9 @@ export const CodeEditorPanelBtn = styled.button`
     transition: 0.1s;
     border: 2px solid ${props => props.theme.color.blue};
   }
-
+  @media ${device.desktopS}{
+    font-size: 24px;
+  }
   @media ${device.laptopS} {
     margin-right: 0;
     padding: 12px 6px;
@@ -626,7 +643,9 @@ export const ChangeEditor = styled.form`
   width: 100%;
   height: 53px;
   background: ${props => props.theme.color.gray};
-
+  @media ${device.desktopS}{
+    height: 49px;
+  }
   @media ${device.tablet} {
     height: 40px;
   }
@@ -831,7 +850,9 @@ const TaskAidItem = styled.a`
   div:last-child {
     width: 100%;
   }
-
+  @media ${device.desktopS}{
+    height: 80px;
+  }
   @media ${device.laptopL} {
     height: 75px;
   }
@@ -877,22 +898,9 @@ const TaskAidIcon = styled.div`
   height: 100%;
   font-size: 55px;
 
-  @media ${device.laptopL} {
-    width: 88px;
+  @media ${device.desktopS}{
+    width: 94px;
     font-size: 50px;
-  }
-
-  @media ${device.laptopS} {
-    font-size: 40px;
-  }
-
-  @media ${device.tablet} {
-    width: 78px;
-  }
-
-  @media ${device.tablet} {
-    font-size: 30px;
-    width: 62px;
   }
 `
 export const TaskAidIconVideo = styled(TaskAidIcon)`
@@ -906,10 +914,14 @@ export const TaskAidIconArticle = styled(TaskAidIcon)`
 
 const TaskAidTitle = styled.div`
   width: 100%;
-  font-size: 1.313rem;
+  font-size: 21px;
   padding: 3px 7px;
   max-height: 47px;
   overflow: hidden;
+  @media ${device.desktopS}{
+    max-height: 41px;
+    font-size: 19px;
+  }
   @media ${device.laptopS} {
     padding: 1px 3px;
     max-height: 33px;
@@ -935,8 +947,12 @@ export const TaskAidTitleArticle = styled(TaskAidTitle)`
 `
 const TaskAidAuthor = styled.span`
   display: inline-block;
-  padding: 0.438rem 0.75rem;
+  padding: 2px 7px;
+  font-size: 21px;
   width: auto;
+  @media ${device.desktopS}{
+    font-size: 19px;
+  }
   @media ${device.mobileM} {
     padding: 2px 2px;
   }
@@ -970,6 +986,10 @@ export const TaskIntroductionDecoration = styled.div`
   width: 43%;
   height: 74px;
 
+  @media ${device.desktopS}{
+    width: 29%;
+    height: 68px;
+  }
   @media ${device.laptopSM} {
     height: 60px;
   }
@@ -1007,4 +1027,7 @@ export const MobileTaskResult = styled.div`
 `
 export const TaskSectionScale = styled.div`
 font-size: 20px;
+@media ${device.desktopS}{
+  font-size: 18px;
+}
 `
