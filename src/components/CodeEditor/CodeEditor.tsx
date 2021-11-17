@@ -46,12 +46,20 @@ export const CodeEditor: FunctionComponent = (): JSX.Element => {
     
     /** change editorSettings.includeResetCSS state -> apply css reset or remove */
     const handleChangeResetCSS = () => {
-        const data = localStorage.getItem('editorResetCSS') ? true : false
+        const data = localStorage.getItem('editorResetCSS');
         if(data) {
-            return setEditorSettings(prev => ({
+            if(JSON.parse(data)){
+              return setEditorSettings(prev => ({
                 ...prev,
                 includeResetCSS: false
-            }));
+            }));  
+            }
+            else{
+                return setEditorSettings(prev => ({
+                    ...prev,
+                    includeResetCSS: true
+                }));  
+            }
         }
         else {
             return setEditorSettings(prev => ({
