@@ -675,4 +675,25 @@ export const EditorResetCSSChekbox = styled.label`
     background: ${props => props.theme.color.white};
      transition: 0.2s;
   }
+  @media ${device.desktopS}{
+    font-size: 19px;
+  }
+  @media ${device.laptopL}{
+    font-size: 17px;
+  }
+  @media ${device.laptopSM}{
+    font-size: 15px;
+  }
+  @media ${device.laptopS}{
+    font-size: 13px;
+  }
+  @media screen and (max-width: 900px){
+    font-size: 16px;
+  }
+  @media screen and (max-width: 500px){
+    font-size: 14px;
+  }
+  @media ${device.mobileM}{
+    font-size: 16px;
+  }
 `
