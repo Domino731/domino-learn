@@ -32,12 +32,14 @@ export const QuizSummary: FunctionComponent<IFPropsQuizSummary> = ({
                                                                        questionsAmount
                                                                    }): JSX.Element => {
 
+    const history = useHistory();
+
     // save quiz coins into local storage.
     useEffect(() => {
-        saveQuizCoinsToLS(coinsAmount, itemPath);
+        return saveQuizCoinsToLS(coinsAmount, itemPath);
     }, []);
 
-    const history = useHistory()
+    
 
     return <QuizSummaryWrapper>
         <QuizSummaryTitle>Summary</QuizSummaryTitle>
@@ -76,10 +78,10 @@ export const QuizSummary: FunctionComponent<IFPropsQuizSummary> = ({
 
             {/*do a quiz again*/}
             <div>
-                <strong onClick={() => history.go(0)}>Once more!</strong>
+                <button onClick={() => history.go(0)}>Once more!</button>
             </div>
 
-            {/*return to quiz menu*/}
+            {/*return to the quiz menu*/}
             <div>
                 <Link to="/quiz-menu">Return</Link>
             </div>

@@ -124,7 +124,7 @@ export const QuizQuestion: FunctionComponent<IFPropsQuizQuestion> = ({
         {/*freepik icons authors*/}
         <QuizSpecs>
             <img src={characterGraphic} alt="coins"/>
-            <strong>{languageName} quiz</strong>
+            <strong>{languageName.toUpperCase()} quiz </strong>
         </QuizSpecs>
 
     </QuizQuestionWrapper>

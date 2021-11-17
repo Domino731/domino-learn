@@ -14,6 +14,21 @@ export const QuizContainer = styled.main<PropsQuizContainer>`
   align-items: center;
   background-image: url(${props => props.background});
   background-size: cover;
+  @media ${device.desktopS}{
+    min-height: 700px;
+  }
+  @media ${device.laptopM}{
+    min-height: 630px;
+  }
+  @media ${device.laptopSM}{
+    min-height: 610px;
+  }
+  @media ${device.laptopS}{
+    min-height: 570px;
+  }
+  @media ${device.mobileL}{
+    min-height: 490px;
+  }
 `
 export const QuizQuestionWrapper = styled.form`
   width: 35%;
@@ -355,31 +370,69 @@ export const QuizQuestionBtn = styled.button`
 
 export const QuizSummaryWrapper = styled.div`
   width: 35%;
-  height: 600px;
+  height: 527px;
   background: #fff;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(11, 1fr);
-  padding: 1.563rem 0.938rem;
-  box-shadow: 1.25rem 1.25rem ${props => props.theme.color.gray};
-  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 24px 24px ${props => props.theme.color.gray};
+  border-radius: 41px;
 
-  @media ${device.laptopSM} {
-    width: 450px;
-    height: 581px;
+  @media ${device.desktopS}{
+    height: 484px;
   }
-  @media ${device.laptopM} {
-    height: 500px;
+  @media ${device.laptopL}{
+    height: 457px;
+    border-radius: 37px;
+    box-shadow: 21px 21px ${props => props.theme.color.gray};
   }
-  @media ${device.tablet} {
-    width: 390px;
+  @media ${device.laptopM}{
+    width: 42%;
     height: 427px;
+    padding: 18px;
+    border-radius: 35px;
+    box-shadow: 19px 19px ${props => props.theme.color.gray};
   }
-  @media ${device.mobileL} {
-    width: 344px;
+
+  @media ${device.laptopSM}{
+    height: 402px;
+    border-radius: 31px;
+    box-shadow: 18px 18px ${props => props.theme.color.gray};
   }
-  @media ${device.mobileM} {
-    width: 300px;
+  @media ${device.laptopS}{
+    height: 362px;
+    border-radius: 23px;
+    box-shadow: 13px 13px ${props => props.theme.color.gray};
+    padding: 15px;
+    width: 47%;
+  }
+  @media screen and (max-width: 799px){
+    height: 417px;
+    width: 61%;
+    border-radius: 30px;
+    box-shadow: 16px 16px ${props => props.theme.color.gray};
+    padding: 17px;
+  }
+  @media screen and (max-width: 702px){
+    height: 392px;
+  }
+  @media screen and (max-width: 625px){
+    width: 68%;
+    border-radius: 24px;
+  }
+  @media screen and (max-width: 540px){
+    width: 90%;
+    box-shadow: 12px 12px ${props => props.theme.color.gray};
+  }
+  @media ${device.mobileL}{
+    border-radius: 22px;
+    display: block;
+    height: auto;
+  }
+  @media screen and (max-width: 346px){
+    border-radius: 18px;
+    box-shadow: 10px 10px ${props => props.theme.color.gray};
   }
 `
 export const QuizSummaryTitle = styled.h2`
@@ -388,8 +441,27 @@ export const QuizSummaryTitle = styled.h2`
   align-items: center;
   grid-column: 1 / 3;
   grid-row: 1 / 1;
-  font-size: 33px;
+  font-size: 36px;
   font-weight: 900;
+  letter-spacing: 0.125rem;
+  @media ${device.desktopS}{
+    font-size: 32px;
+  }
+  @media ${device.laptopL}{
+    font-size: 30px;
+  }
+  @media ${device.laptopM}{
+    font-size: 28px;
+  }
+  @media ${device.laptopS}{
+    font-size: 26px;
+  }
+  @media screen and (max-width: 799px){
+    font-size: 28px;
+  }
+  @media ${device.mobileL}{
+    font-size: 26px;
+  }
 `
 const QuizSummaryItem = styled.div`
   padding: 0.5rem;
@@ -399,20 +471,59 @@ export const QuizSummaryImages = styled(QuizSummaryItem)`
   grid-row: 2 / 7;
   position: relative;
   overflow: hidden;
+  border-right: 5px solid ${props => props.theme.color.gray};
+  @media ${device.laptopM}{
+    border-right: 4px solid ${props => props.theme.color.gray};
+  }
+  @media ${device.laptopS}{
+    border-right: 3px solid ${props => props.theme.color.gray};
+  }
+  @media screen and (max-width: 799px){
+    border-right: 4px solid ${props => props.theme.color.gray};
+  }
+  @media ${device.mobileL}{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border: none;
+  }
 `
 export const QuizSummaryGeneral = styled(QuizSummaryItem)`
   grid-column: 2 / 3;
   grid-row: 2 / 5;
-  font-size: 1.125rem;
-  border-bottom: 5px solid ${props => props.theme.color.gray};
-
+  font-size: 20px;
+  
   div {
-    margin-bottom: 0.625rem;
+    margin-bottom: 0.3em;
 
     span {
+      font-weight: bold;
       text-decoration: underline;
       text-decoration-color: ${props => props.theme.color.purple};
     }
+  }
+
+  @media ${device.desktopS}{
+    font-size: 19px;
+  }
+  @media ${device.laptopL}{
+    font-size: 18px;
+  }
+  @media ${device.laptopM}{
+    font-size: 17px;
+  }
+   @media ${device.laptopS}{
+    font-size: 15px;
+  }
+  @media screen and (max-width: 799px){
+    font-size: 17px;
+  }
+  @media ${device.mobileL}{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
   }
 `
 
@@ -431,11 +542,10 @@ export const QuizSummaryBar = styled(QuizSummaryItem)<PropsQuizSummaryBar>`
   div {
     width: 98%;
     position: relative;
-    height: 50px;
+    height: 53px;
     border: 4px solid ${props => props.theme.color.gray};
-    border-radius: 15px;
+    border-radius: 12px;
     overflow: hidden;
-
     &::after {
       content: "";
       position: absolute;
@@ -446,17 +556,53 @@ export const QuizSummaryBar = styled(QuizSummaryItem)<PropsQuizSummaryBar>`
     }
   }
 
-  @media ${device.tablet} {
+  @media ${device.desktopS}{
     div {
-      height: 40px;
+      height: 46px;
     }
   }
+  @media ${device.laptopL}{
+    div {
+      height: 44px;
+    }
+  }
+  @media ${device.laptopM}{
+    div {
+      border-radius: 10px;
+      height: 42px;
+      border: 3px solid ${props => props.theme.color.gray};
+    }
+  }
+
+  @media ${device.laptopS}{
+    div{
+      border-radius: 8px;
+    height: 35px;
+    border: 2px solid ${props => props.theme.color.gray};
+    }
+    
+  }
+  @media screen and (max-width: 799px){
+    div {
+      border-radius: 12px;
+    height: 40px;
+    border: 3px  solid ${props => props.theme.color.gray};
+    }
+  }
+
+  @media ${device.mobileL}{
+    div{
+      border-radius: 9px;
+      height: 36px;
+    }
+  }
+ 
 `
 export const QuizSummaryPanel = styled(QuizSummaryItem)`
   grid-column: 1 / 3;
   grid-row: 9 / 11;
   display: flex;
-  font-size: 1.375rem;
+  font-size: 20px;
 
   div {
     display: flex;
@@ -464,20 +610,52 @@ export const QuizSummaryPanel = styled(QuizSummaryItem)`
     align-items: center;
     width: 50%;
     height: 100%;
-
-    a, strong {
-      margin: 0.125rem auto 1.625rem;
-      padding: 0.563rem 1.438rem;
+    padding: 0 0.2em;
+    a, button {
+      letter-spacing: 0.125rem;
+      font-weight: bold;
+      text-align: center;
+      height: 2em;
+      font-size: 1em;
+      display: block;
+      width: 100%;
       background: ${props => props.theme.color.purple};
       color: #fff;
       transition: 0.2s;
-      border-radius: 0.813rem;
-
-      &:hover {
-        cursor: pointer;
-        padding: 0.563rem 2.25rem;
-      }
+      border-radius: 0.4em;
+      line-height: 2em;
     }
+  }
+  @media ${device.desktopS}{
+      font-size: 18px;
+  }
+  @media ${device.laptopL}{
+    font-size: 17px;
+  }
+  @media ${device.laptopM}{  
+    font-size: 16px;
+  }
+  @media ${device.laptopS}{
+    font-size: 15px;
+  }
+  @media screen and (max-width: 799px){
+    font-size: 17px;
+  }
+  @media ${device.tablet}{
+    grid-row: 10 / 12;
+  }
+  @media ${device.mobileL}{
+    padding: 0;
+     flex-direction: column;
+     font-size: 16px;
+     div{
+      padding: 0;
+       width: 100%;
+       margin-top: 8px
+     }
+  }
+  @media ${device.mobileM}{
+    font-size: 15px;
   }
 `
 
@@ -494,19 +672,69 @@ export const QuizSummaryCoins = styled(QuizSummaryItem)`
     align-items: center;
     width: 50%;
     height: 100%;
-
+    font-size: 20px;
     span {
       display: block;
-      margin-left: 0.188rem;
-      padding: 0.188rem 0.438rem;
-      border-radius: 0.25rem;
+      margin-left: 0.2em;
+      padding: 0.1em 0.338em;
+      border-radius: 0.25em;
       background: ${props => props.theme.color.red};
       color: ${props => props.theme.color.white};
     }
 
     img {
-      width: 3.125rem;
-      margin-right: 0.625rem;
+      width: 2em;
+      margin-right: 0.4em;
+    }
+  }
+  @media ${device.desktopS}{
+    div{
+      font-size: 18px;
+    }
+  }
+  @media ${device.laptopL}{
+    div {
+      font-size: 16px;
+    }
+  }
+  @media ${device.laptopM}{
+    border-top: 4px solid ${props => props.theme.color.gray};
+    border-bottom: 4px solid ${props => props.theme.color.gray};
+  }
+  @media ${device.laptopS}{
+    border-top: 3px solid ${props => props.theme.color.gray};
+    border-bottom: 3px solid ${props => props.theme.color.gray};
+    div {
+      font-size: 15px;
+    }
+  }
+  @media screen and (max-width: 799px){
+    border-top: 4px solid ${props => props.theme.color.gray};
+    border-bottom: 4px solid ${props => props.theme.color.gray};
+    div {
+      font-size: 17px;
+    }
+  }
+  @media ${device.tablet}{
+    align-items: center;
+    flex-direction: column;
+    grid-row: 7 / 10;
+    div{
+      width: 100%;
+    }
+  }
+  @media ${device.mobileL}{
+    div{
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+  }
+  @media ${device.mobileM}{
+    border-top: 3px solid ${props => props.theme.color.gray};
+    border-bottom: 3px solid ${props => props.theme.color.gray};
+    div{
+      font-size: 15px;
+      margin-bottom: 4px;
     }
   }
 `
@@ -518,17 +746,39 @@ export const QuizSummaryFigure = styled.img`
   position: absolute;
   z-index: 3;
   right: 0;
+  bottom: 0;
   width: auto;
-  height: 100%;
+  height: 91%;
   object-fit: cover;
+  @media ${device.mobileL}{
+    position: static;
+  }
 `
 export const QuizSummaryIcon = styled.img`
   position: absolute;
-  width: 50%;
+  height: 48%;
   z-index: 2;
-  top: -44px;
+  left: 22px;
+    top: -18px;
+    @media ${device.laptopL}{
+    left: 19px;
+    top: -15px;
+    height: 43%;
+    }
 
-  @media ${device.tablet} {
-    top: -21px;
+  @media ${device.laptopSM}{
+    left: 24px;
+    top: -12px;
+    height: 45%;
+  }
+  @media screen and (max-width:750px){
+    left: 13px;
+    top: -12px;
+    height: 40%;
+  }
+  @media ${device.mobileL}{
+    position: static;
+    height: 72%;
+    margin-left: 6px;
   }
 `

@@ -39,7 +39,11 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
 
     // when component mounted get quiz questions data
     useEffect(() => {
-        getQuizQuestions(language, setQuizData)
+        // reset quiz
+        setCurrQuestionIndex(0);
+
+        // fetch data
+        return getQuizQuestions(language, setQuizData);
     }, [language])
 
     // set the item state based on the path
@@ -110,7 +114,7 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
     return <QuizContainer background={getDynamicBg()}>
 
         {/*quiz*/}
-        {currQuestionIndex < quizData.length && <QuizQuestion data={quizData[currQuestionIndex]}
+        {currQuestionIndex <= quizData.length && <QuizQuestion data={quizData[currQuestionIndex]}
             currQuestionIndex={currQuestionIndex}
             switchToNextQuestion={handleChangeCurrIndex}
             questionsLeft={quizData.length - currQuestionIndex}
@@ -121,7 +125,7 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
         />}
 
         {/*summary panel*/}
-        {currQuestionIndex >= quizData.length && <QuizSummary item={programmingLanguageData}
+        {currQuestionIndex > quizData.length && <QuizSummary item={programmingLanguageData}
             itemPath={language}
             questionsAmount={quizData.length}
             correctQuestions={points}
