@@ -374,7 +374,7 @@ export const TaskIntroductionText = styled.div`
 
   h3 {
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.2em;
     text-decoration: underline;
     text-decoration-color: ${props => props.theme.color.blue};
   }
@@ -431,9 +431,9 @@ export const TaskTargetCheckbox = styled.div<TaskTargetCheckboxProps>`
   color: ${props => props.theme.color.white};
 `
 export const TaskTargetNumber = styled.div`
-  font-size: 1.25rem;
+  font-size: 1.25em;
   font-weight: 900;
-  margin-right: 0.313rem;
+  margin-right: 0.313em;
 `
 export const TaskTargetText = styled.div`
   font-size: 1.25rem;
@@ -497,15 +497,19 @@ export const CodeEditorPanel = styled.div`
     height: 40px;
   }
 `
-export const CodeEditorPanelBtn = styled.div`
-  display: block;
+export const CodeEditorPanelBtn = styled.button`
+  display: flex;
+  align-items: center;
   border-radius: 5px;
-  padding: 0.375rem 0.875rem;
   margin-right: 10px;
   transition: 0.1s;
   color: ${props => props.theme.color.blue};
-  font-size: 1.313rem;
-
+  font-size: 25px;
+  padding: 5px 4px;
+  img {
+    margin-right: 0.2em;
+    height: 1.2em;
+  }
   &:hover {
     cursor: pointer;
     transition: 0.1s;

@@ -53,8 +53,9 @@ import {
     HtmlTaskTarget
 } from "../../style/elements/tasks/htmlTask";
 import {htmlClass} from "../../properties/htmlClass";
-
-
+import settingsIcon from "../../images/settings_icon.svg";
+import resetIcon from "../../images/reset_icon.svg";
+import runIcon from "../../images/play_icon.svg";
 /**
  * Component with the main content for css task -> targets, introduction, editor.
  * @param task - task data (targets, introduction, code, solution...)
@@ -345,11 +346,16 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                                            toggleForm={handleToggleEditorSettings}/>}
 
                     {/*buttons*/}
-                    <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                        className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset
+                    <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}>
+                        <img src={settingsIcon}/>
+                         Settings</CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={handleResetCode}>
+                    <img src={resetIcon}/>
+                     Reset
                     </CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={checkTask}>
+                    <img src={runIcon}/>
+                     Run </CodeEditorPanelBtn>
 
                 </CodeEditorPanel>
 
@@ -515,11 +521,16 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                                            toggleForm={handleToggleEditorSettings}/>}
 
                     {/*buttons*/}
-                    <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                        className="fas fa-cogs"/> Settings</CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser"/> Reset
+                    <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}>
+                        <img src={settingsIcon}/>
+                         Settings</CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={handleResetCode}>
+                    <img src={resetIcon}/>
+                     Reset
                     </CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play"/> Run </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={checkTask}>
+                    <img src={runIcon}/>
+                     Run </CodeEditorPanelBtn>
 
                 </CodeEditorPanel>
 
