@@ -117,15 +117,16 @@ export interface IFPropsQuizQuestion {
 
 export interface IFPropsQuizSummary {
     item: {
-        figureSrc: string
-        figureAlt: string
-        iconSrc: string
-        iconAlt: string
+        figureSrc: string;
+        figureAlt: string;
+        iconSrc: string;
+        iconAlt: string;
     }
-    itemPath: string
-    coinsAmount: number
-    questionsAmount: number
-    correctQuestions: number
+    itemPath: string;
+    coinsAmount: number;
+    questionsAmount: number;
+    correctQuestions: number;
+    resetQuiz: () => void;
 }
 
 export interface IFPropsError404 {

@@ -76,15 +76,26 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
 
     }, [language])
 
+    useEffect(()=> {
+       setCurrQuestionIndex(0);
+    },[quizData])
     /** change currIndexState -> switch to next questions */
     const handleChangeCurrIndex = (): void => setCurrQuestionIndex(prev => prev + 1);
 
     /** change points state -> add new point */
     const addPoints = (): void => setPoints(prev => prev + 1);
 
-    /** add coins */
-    const addCoins = (coins: number): void => setCoins(prev => prev + coins);
+    /** change coins state - add coins */
+    const addCoins = (coins: number): void => setCoins(prev => {
+        console.log(typeof coins)
+      return prev + coins  
+    });
 
+    /** change quizData state -> reset quiz */
+    const resetQuiz = (): void => {
+        
+        return getQuizQuestions(language, setQuizData);
+    }
     /** get dynamic background image */
     const getDynamicBg = () => {
         if(language === 'html'){
@@ -114,7 +125,7 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
     return <QuizContainer background={getDynamicBg()}>
 
         {/*quiz*/}
-        {currQuestionIndex <= quizData.length && <QuizQuestion data={quizData[currQuestionIndex]}
+        {currQuestionIndex < 1 && <QuizQuestion data={quizData[currQuestionIndex]}
             currQuestionIndex={currQuestionIndex}
             switchToNextQuestion={handleChangeCurrIndex}
             questionsLeft={quizData.length - currQuestionIndex}
@@ -125,11 +136,12 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
         />}
 
         {/*summary panel*/}
-        {currQuestionIndex > quizData.length && <QuizSummary item={programmingLanguageData}
+        {currQuestionIndex >= 1 && <QuizSummary item={programmingLanguageData}
             itemPath={language}
             questionsAmount={quizData.length}
             correctQuestions={points}
             coinsAmount={coins}
+            resetQuiz={resetQuiz}
         />}
 
     </QuizContainer>

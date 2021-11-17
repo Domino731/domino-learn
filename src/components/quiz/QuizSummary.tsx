@@ -29,7 +29,8 @@ export const QuizSummary: FunctionComponent<IFPropsQuizSummary> = ({
                                                                        itemPath,
                                                                        coinsAmount,
                                                                        correctQuestions,
-                                                                       questionsAmount
+                                                                       questionsAmount,
+                                                                       resetQuiz
                                                                    }): JSX.Element => {
 
     const history = useHistory();
@@ -78,7 +79,7 @@ export const QuizSummary: FunctionComponent<IFPropsQuizSummary> = ({
 
             {/*do a quiz again*/}
             <div>
-                <button onClick={() => history.go(0)}>Once more!</button>
+                <button onClick={resetQuiz}>Once more!</button>
             </div>
 
             {/*return to the quiz menu*/}
