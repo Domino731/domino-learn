@@ -4,7 +4,7 @@ import {
     TaskFooterTasksWrapper, TaskFooterDecoration, TaskIntroductionDecoration
 } from "./task";
 import {device} from "../../general/breakpoints";
-
+import successfulBg from "../../../images/task_successful_html.svg"
 export const HtmlTaskIntroduction = styled.div`
   grid-column: 1 / 1;
   grid-row: 1 / 1;
@@ -36,11 +36,8 @@ export const HtmlTaskSuccessful = styled.div`
   justify-content: center;
   grid-column: 2 / 1;
   grid-row: 1 / -1;
-  background-color: #ff595e;
-  background-image: linear-gradient(135deg, #ffca3a 25%, transparent 25%), linear-gradient(225deg, #1982c4 25%, transparent 25%), linear-gradient(315deg, #ffca3a 25%, transparent 25%), linear-gradient(45deg, #1982c4 25%, transparent 25%);
-  background-position: -30px 0, -30px 0, 0 0, 0 0;
-  background-size: 60px 60px;
-  background-repeat: repeat;
+  background-size: cover;
+  background-image: url(${successfulBg});
 
   @media ${device.tablet} {
     height: 100%;
@@ -67,9 +64,6 @@ export const HtmlTaskResult = styled.div`
   }
 `
 
-export const HtmlFooter = styled(TaskFooter)`
-  background: #ff595e;
-`
 
 export const HtmlFooterTasksWrapper = styled(TaskFooterTasksWrapper)`
   background-color: #ff595e;
@@ -86,7 +80,4 @@ export const HtmlDecorationIntroduction = styled(TaskIntroductionDecoration)`
     display: none;
   }
 `
-export const HtmlDecorationFooter = styled(TaskFooterDecoration)`
-  background: repeating-linear-gradient(0deg, #ff595e 0px,
-  #ff595e 5px, #1982c4 5px, #1982c4 10px);
-`
+

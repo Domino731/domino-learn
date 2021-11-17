@@ -49,7 +49,6 @@ import {TaskIntroduction} from "../task/TaskIntroduction";
 import {TaskTargets} from "../task/TaskTargets";
 import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
 import {TaskResultWindow} from "../task/TaskResultWindow";
-
 /**
  * Component with the main content for html task -> targets, introduction, editor.
  * @param task - task data (targets, introduction, code, solution...)

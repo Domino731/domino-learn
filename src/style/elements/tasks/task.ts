@@ -31,7 +31,7 @@ export const TaskSuccessfulTitle = styled.h2`
   margin-top: 10px;
   padding: 10px 0;
   color: ${props => props.theme.color.white};
-  font-size: 44px;
+  font-size: 39px;
   text-align: center;
   background: ${props => props.theme.color.gray};
 
@@ -61,7 +61,7 @@ export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.938rem;
+    font-size: 24px;
     width: 50%;
     flex-grow: 1;
     border-radius: 0;
@@ -98,12 +98,17 @@ export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
   }
 `
 
-export const TaskFooter = styled.footer`
+interface PropsTaskFooter {
+  background: string
+}
+export const TaskFooter = styled.footer< PropsTaskFooter >`
   position: relative;
   display: flex;
   flex-wrap: wrap;
   padding: 7px;
   width: 100%;
+  background-size: cover;
+  background-image: url(${props => props.background})
 `
 export const TaskFooterTitle = styled.div`
   display: block;

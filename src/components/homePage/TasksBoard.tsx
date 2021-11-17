@@ -57,7 +57,7 @@ export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}
             </TasksBoardTitleWrapper>}
 
             {/*tasks list of particular a type*/}
-            {/* {selectedTasks === "cssTasks" && <TasksList>
+            {selectedTasks === "cssTasks" && <TasksList>
                 {tasks.map((el, num) => <TasksListItem solved={el.solved} key={`tasks_board_css_${num}`}>
                     <Link to={`/css-task/${el.number}`}>{el.number}</Link>
                 </TasksListItem>)}
@@ -73,33 +73,9 @@ export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}
                 {tasks.map((el, num) => <TasksListItem solved={el.solved} key={`tasks_board_html_${num}`}>
                     <Link to={`/html-task/${el.number}`}>{el.number}</Link>
                 </TasksListItem>)}
-            </TasksList>} */}
+            </TasksList>}
 
-            <TasksList>
-                <TasksListItem solved={false}>
-                    <Link to={`/html-task/$11`}>{1}</Link>
-                </TasksListItem>
-                <TasksListItem solved={false}>
-                    <Link to={`/html-task/$11`}>{1}</Link>
-                </TasksListItem>
-                <TasksListItem solved={false}>
-                    <Link to={`/html-task/$11`}>{1}</Link>
-                </TasksListItem>
-                <TasksListItem solved={false}>
-                    <Link to={`/html-task/$11`}>{1}</Link>
-                </TasksListItem>
-                <TasksListItem solved={false}>
-                    <Link to={`/html-task/$11`}>{1}</Link>
-                </TasksListItem>
-                <TasksListItem solved={false}>
-                    <Link to={`/html-task/$11`}>{1}</Link>
-                </TasksListItem>
-                <TasksListItem solved={false}>
-                    <Link to={`/html-task/$11`}>{1}</Link>
-                </TasksListItem>
-            </TasksList>
-            
-
+    
             {/*background with planets*/}
             <TasksPlanetWrapper>
                 <TasksPlanet1 src={saturnPlanet} alt="saturn"/>

@@ -7,7 +7,8 @@ import {
     TaskFooterTasksWrapper, TaskIntroductionDecoration,
 } from "./task";
 import {device} from "../../general/breakpoints";
-
+import footerBg from "../../../images/quiz_css_background.svg";
+import successfulBg from "../../../images/task_successful_html.svg"
 
 export const CssIntroduction = styled.div`
   grid-column: 3 / 3;
@@ -72,9 +73,7 @@ export const CssTaskSuccessful = styled.div`
   }
 `
 
-export const CssFooter = styled(TaskFooter)`
-  background: #00f5d4;
-`
+
 export const CssFooterSwitchBar = styled(TaskFooterSwitchBar)`
   justify-content: flex-start;
 `

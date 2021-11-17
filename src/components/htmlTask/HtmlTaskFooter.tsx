@@ -1,8 +1,6 @@
 import {FunctionComponent, useState} from "react";
 import {
-    HtmlFooter,
-    HtmlFooterTasksWrapper,
-    HtmlDecorationFooter
+    HtmlFooterTasksWrapper
 } from "../../style/elements/tasks/htmlTask";
 import {
     TaskFooterTaskNumber,
@@ -16,7 +14,8 @@ import {
     TaskFooterIcons,
     TaskFooterTitle,
     TaskFooterSwitchButton,
-    TaskFooterListBtn
+    TaskFooterListBtn,
+    TaskFooter
 } from "../../style/elements/tasks/task";
 import {FreepikThanks} from "../../style/general/generalStyles";
 import {Link} from "react-router-dom";
@@ -24,7 +23,7 @@ import plutoPlanet from "../../images/planet_pluto.png";
 import marsPlanet from "../../images/planet_mars.png";
 import planets from "../../images/planets.png";
 import {IFPropsTaskFooter} from "../../types/types";
-
+import footerBg from "../../images/quiz_html_background.svg";
 /**
  * Footer for htmlTask, which contains the number of the current task, lists with tasks
  * @param allTasks - array with tasks, which will be used to render the list with tasks
@@ -38,7 +37,7 @@ export const HtmlTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, 
     // toggle flag state -> show or hide tasks list
     const handleChangeFlag = (): void => setFlag(!flag);
 
-    return <HtmlFooter>
+    return <TaskFooter background={footerBg}>
 
         {/*title, link to home page*/}
         <TaskFooterTitle>
@@ -60,10 +59,10 @@ export const HtmlTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, 
 
 
             {taskNumber !== 1 &&
-            <TaskFooterSwitchButton color="#ff595e"> <Link
+            <TaskFooterSwitchButton color="#fff"> <Link
                 to={`/html-task/${taskNumber - 1}`}>Back</Link></TaskFooterSwitchButton>}
             {taskNumber < allTasks.length &&
-            <TaskFooterSwitchButton color="#ff595e"><Link
+            <TaskFooterSwitchButton color="#fff"><Link
                 to={`/html-task/${taskNumber + 1}`}>Next</Link></TaskFooterSwitchButton>}
 
             {/*tasks list*/}
@@ -89,34 +88,5 @@ export const HtmlTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, 
             </HtmlFooterTasksWrapper>}
         </TaskFooterSwitchBar>
 
-
-        {/*freepik authors */}
-        <TaskFooterIcons>
-            <FreepikThanks style={{fontSize: "1.063rem"}}>
-                <div>
-                    <span><img src={marsPlanet} alt="mars"/></span>
-                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
-                        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                </div>
-
-                <div>
-                    <span><img src={planets} alt="planets"/></span>
-                    <div>Icons made by <a href="https://www.flaticon.com/authors/smalllikeart"
-                                          title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/"
-                                                                                        title="Flaticon">www.flaticon.com</a>
-                    </div>
-                </div>
-
-                <div>
-                    <span><img src={plutoPlanet} alt="pluto"/></span>
-                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
-                        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                </div>
-            </FreepikThanks>
-        </TaskFooterIcons>
-
-        {/*decorations*/}
-        <HtmlDecorationFooter/>
-
-    </HtmlFooter>
+    </TaskFooter >
 }

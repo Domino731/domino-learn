@@ -3,6 +3,7 @@ import {JsFooter} from "../../style/elements/tasks/jsTask";
 import {IFPropsTaskFooter} from "../../types/types";
 import {Link} from "react-router-dom";
 import {
+    TaskFooter,
     TaskFooterIcons,
     TaskFooterListBtn,
     TaskFooterSwitchBar,
@@ -20,7 +21,7 @@ import plutoPlanet from "../../images/planet_pluto.png";
 import neptunePlanet from "../../images/planet_neptune.png";
 import marsPlanet from "../../images/planet_mars.png";
 import {FreepikThanks} from "../../style/general/generalStyles";
-
+import footerBg from "../../images/quiz_js_background.svg";
 
 export const JsTaskFooter : FunctionComponent<IFPropsTaskFooter> = ({allTasks, taskNumber}) : JSX.Element => {
 
@@ -32,7 +33,7 @@ export const JsTaskFooter : FunctionComponent<IFPropsTaskFooter> = ({allTasks, t
 
     const scrollToTop = () : void => window.scrollTo(0,0);
 
-    return <JsFooter>
+    return <TaskFooter background={footerBg}>
 
         <TaskFooterTitle>
             <Link to="/">
@@ -71,30 +72,5 @@ export const JsTaskFooter : FunctionComponent<IFPropsTaskFooter> = ({allTasks, t
                 </TaskFooterTasksList>
             </JsFooterTasksWrapper>}
         </TaskFooterSwitchBar>
-
-        <TaskFooterIcons>
-            <FreepikThanks style={{fontSize: "1.063rem"}}>
-                <div>
-                    <span><img src={marsPlanet} alt="mars"/></span>
-                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
-                        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                </div>
-
-                <div>
-                    <span><img src={plutoPlanet} alt="pluto"/></span>
-                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
-                        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                </div>
-
-                <div>
-                    <span><img src={neptunePlanet} alt="neptune"/></span>
-                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
-                        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                </div>
-
-            </FreepikThanks>
-        </TaskFooterIcons>
-
-        <JsFooterDecorations/>
-    </JsFooter>
+    </TaskFooter >
 }

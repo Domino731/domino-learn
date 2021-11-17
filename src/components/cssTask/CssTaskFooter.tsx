@@ -1,7 +1,6 @@
 import {IFPropsTaskFooter} from "../../types/types";
 import {FunctionComponent, useState} from "react";
 import {
-    CssFooter,
     CssFooterSwitchBar,
     CssFooterTasksWrapper,
     CssFooterDecoration
@@ -14,7 +13,7 @@ import {
     TaskFooterTasksPlanets,
     TaskFooterTasksPlanet1,
     TaskFooterTasksPlanet2,
-    TaskFooterTasksPlanet3, TaskFooterTasksList, TaskFooterTasksItem, TaskFooterIcons
+    TaskFooterTasksPlanet3, TaskFooterTasksList, TaskFooterTasksItem, TaskFooterIcons, TaskFooter
 } from "../../style/elements/tasks/task";
 import {Link} from "react-router-dom";
 import neptunPlanet from "../../images/planet_neptune.png"
@@ -22,7 +21,7 @@ import saturnPlanet from "../../images/planet_saturn.png"
 import marsPlanet from "../../images/planet_mars.png";
 import {FreepikThanks} from "../../style/general/generalStyles";
 import neptunePlanet from "../../images/planet_neptune.png";
-
+import footerBg from "../../images/quiz_css_background.svg";
 
 /**
  * Footer for cssTask, which contains the number of the current task, lists with tasks
@@ -37,7 +36,7 @@ export const CssTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, t
     // toggle flag state -> show or hide tasks list
     const handleChangeFlag = (): void => setFlag(!flag);
 
-    return <CssFooter>
+    return <TaskFooter background={footerBg}>
 
         {/*panel by which user can select next task*/}
         <CssFooterSwitchBar>
@@ -86,29 +85,5 @@ export const CssTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, t
             </Link>
         </TaskFooterTitle>
 
-        {/*freepik authors */}
-        <TaskFooterIcons>
-            <FreepikThanks style={{fontSize: "1.063rem"}}>
-                <div>
-                    <span><img src={marsPlanet} alt="mars"/></span>
-                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
-                        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                </div>
-
-                <div>
-                    <span><img src={neptunePlanet} alt="neptune"/></span>
-                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
-                        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                </div>
-
-                <div>
-                    <span><img src={saturnPlanet} alt="saturn"/></span>
-                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
-                        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                </div>
-            </FreepikThanks>
-        </TaskFooterIcons>
-
-        <CssFooterDecoration/>
-    </CssFooter>
+    </TaskFooter>
 }
