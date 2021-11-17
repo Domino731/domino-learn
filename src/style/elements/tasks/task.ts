@@ -608,6 +608,14 @@ export const WebBrowserTopBar = styled.div`
     height: 22px;
     font-size: 15px;
   }
+  @media ${device.laptopSM}{
+    height: 20px;
+    font-size: 13px;
+  }
+  @media ${device.laptopS}{
+    height: 17px;
+    font-size: 11px;
+  }
 `
 export const WebBrowserGreenBox = styled.span`
   background: #06d6a0;
