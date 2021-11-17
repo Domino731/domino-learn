@@ -9,7 +9,7 @@ import {
     EditorFormThemes,
     EditorFormThemesWrapper,
     EditorFormTheme,
-    EditorFormThemeHtml, EditorFormThemeCss, EditorFormThemeJs, EditorFormThemeResult
+    EditorFormThemeHtml, EditorFormThemeCss, EditorFormThemeJs, EditorFormThemeResult, EditorFormTitle, EditorFullScreenBtn
 } from "../../style/elements/codeEditor/codeEditor";
 import {Link} from "react-router-dom";
 import {IFPropsCodeEditorHeader} from "../../types/types";
@@ -60,6 +60,7 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
         </EditorHeaderSettingsIcon>
 
 
+
         {formFlag && <EditorSettingsForm>
 
             {/*change font size*/}
@@ -71,7 +72,7 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
             </EditorFormItem>
 
             {/*change theme*/}
-            <EditorFormLabel>Theme</EditorFormLabel>
+            <EditorFormTitle>Theme</EditorFormTitle>
             <EditorFormThemes>
                 <label>
                     Monokai
@@ -129,7 +130,7 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
 
             {/*change editor layout, only above 900px window width!*/}
             {windowWidth > 900 && <>
-                <EditorFormLabel>Layout</EditorFormLabel>
+                <EditorFormTitle>Layout</EditorFormTitle>
                 <EditorFormThemesWrapper>
                     {codeEditorAreas.map((el, num) => <EditorFormTheme key={`editor_layout_${num}`} areas={el}>
                         <input type="checkbox" value={el} checked={editorSettings.areas === el}

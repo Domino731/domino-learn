@@ -30,8 +30,9 @@ export const EditorHeaderLink = styled.div`
   
   a {
     color: ${props => props.theme.color.gray};
-    &:hover {
     transition: 0.2s;
+    &:hover {
+    
     letter-spacing: 0.188rem;
   }
   }
@@ -71,8 +72,6 @@ export const EditorHeaderSettingsIcon = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 48px;
-  margin-right: 89px;
   transition: 0.2s;
 
   i {
@@ -101,7 +100,7 @@ export const EditorSettingsForm = styled.form`
   background: ${props => props.theme.color.gray};
   bottom: -100vh;
   z-index: 11;
-  padding-top: 40px;
+  padding: 0 15px;
 
   ::-webkit-scrollbar {
     width: 1px;
@@ -132,10 +131,20 @@ export const EditorFormItem = styled.div`
   }
 `
 export const EditorFormLabel = styled.label`
-
   display: block;
-  margin-top: 1.563rem;
-  font-size: 1.25rem;
+  margin-top: 1em;
+  font-size: 21px;
+  color: ${props => props.theme.color.white};
+  input {
+    width: 4em;
+    border-radius: .5em;
+    padding: .2em .3em;
+  }
+`
+export const EditorFormTitle = styled.div`
+  display: block;
+  margin-top: 1em;
+  font-size: 21px;
   color: ${props => props.theme.color.white};
 `
 export const EditorFormThemes = styled.div`
@@ -144,16 +153,17 @@ export const EditorFormThemes = styled.div`
   flex-wrap: wrap;
   color: ${props => props.theme.color.white};
   font-weight: 600;
-
+  font-size: 20px;
   label {
+    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    margin: 5px;
-    padding: 5px 20px;
+    margin: 0.3em;
+    padding: 0.3em 20px;
     border: 3px solid ${props => props.theme.color.purple};
-    border-radius: 5px;
+    border-radius: 0.5em;
     overflow: hidden;
     transition: 0.1s;
 
@@ -208,10 +218,10 @@ export const EditorFormTheme = styled.label<props__EditorFormTheme>`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  width: 45%;
+  width: 50%;
   height: 180px;
   grid-template-areas: ${props => props.areas};
-  margin: 5px;
+  padding: 9px;
   position: relative;
 
   &:hover {
@@ -267,13 +277,13 @@ export const EditorFormThemeResult = styled(EditorFormThemeItem)`
   justify-content: center;
   align-items: center;
   grid-area: result;
-  background: ${props => props.theme.color.white};
+  background: #fff;
 
   i {
     transform: scale(0%);
     animation: 0.3s ${an__EditorFormThemeResult} forwards;
     display: none;
-    font-size: 78px;
+    font-size: 70px;
     color: ${props => props.theme.color.green}
   }
 
@@ -340,18 +350,22 @@ export const EditorName = styled.div`
     object-fit: cover;
   }
 `
-export const EditorConsoleSwitchBtn = styled.div`
+export const EditorDevPanel = styled.section`
+  font-size: 21px;
+  height: 32px;
+   position: absolute;
+    top: 10px;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+`
+export const EditorConsoleSwitchBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.313rem;
-  height: 32px;
-  position: absolute;
   background: transparent;
   z-index: 10;
-  top: 10px;
-  left: 8px;
-  border-radius: 0 9px 9px 0;
+  border-radius: 0 0.4em 0.4em 0;
   border: 2px solid ${props => props.theme.color.gray};
   padding: 0 1.438rem 0 0.25rem;
   transition: 0.2s;
@@ -365,7 +379,10 @@ export const EditorConsoleSwitchBtn = styled.div`
     margin: 0 9px;
   }
 `
-
+export const EditorFullScreenBtn = styled(EditorConsoleSwitchBtn)`
+ border-radius: 0.4em;
+ margin-left: 0.5em;
+`
 
 // for small devices
 export const MobileEditorContentWrapper = styled.main`

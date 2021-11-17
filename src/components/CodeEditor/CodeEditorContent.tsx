@@ -19,6 +19,8 @@ import {
     EditorConsoleSwitchBtn,
     EditorContentWrapper,
     EditorCss,
+    EditorDevPanel,
+    EditorFullScreenBtn,
     EditorHtml,
     EditorJs, EditorName,
     EditorResult, MobileEditorContentWrapper, MobileEditorSwitchBar, MobileEditorSwitchOption, MobileItemWrapper
@@ -88,7 +90,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
                 Logs(userCode.js);
             }
             , 300);
-        // prevent of console duplicates
+        // prevent console duplicates
         setLogs([]);
         return () => clearTimeout(timeout);
     }, [userCode]);
@@ -133,7 +135,7 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
     const handleChangeConsoleFlag = (): void => setConsoleFlag(!consoleFlag);
 
     return <>
-        {/*editor for bigger devices!!!!*/}
+        {/* editor for bigger devices -> above 900px*/}
         {windowWidth > 900 && <EditorContentWrapper areas={editorSettings.areas}>
             <EditorHtml>
                 <EditorName>
@@ -217,7 +219,9 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
                 />
             </EditorJs>
             <EditorResult>
-                {/*toggle to console*/}
+               <EditorDevPanel>
+
+ {/*toggle console*/}
                 <EditorConsoleSwitchBtn style={{background: "#e5e3f1"}} onClick={handleChangeConsoleFlag}>
                     {consoleFlag ?
                         <><i className="fas fa-arrow-left"/> Back </>
@@ -225,6 +229,20 @@ export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({
                         <><i className="fas fa-terminal"/> Console </>
                     }
                 </EditorConsoleSwitchBtn>
+
+               <EditorFullScreenBtn style={{background: "#e5e3f1"}} onClick={handleChangeConsoleFlag}>
+                    {consoleFlag ?
+                        <><i className="fas fa-compress-arrows-alt"/> Minimize </>
+                        :
+                        <><i className="fas fa-expand-arrows-alt"/> Fullscreen </>
+                    }
+                </EditorFullScreenBtn >
+
+               
+
+
+            </EditorDevPanel>
+
                 {/*iframe window or console with user code*/}
                 <WebBrowserWindow>
                     <WebBrowserTopBar>

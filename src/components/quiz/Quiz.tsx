@@ -76,7 +76,9 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
 
     }, [language])
 
+    // listening for quizData state changes, needed to restart quiz
     useEffect(()=> {
+        // set first question
        setCurrQuestionIndex(0);
     },[quizData])
     /** change currIndexState -> switch to next questions */
@@ -92,10 +94,8 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
     });
 
     /** change quizData state -> reset quiz */
-    const resetQuiz = (): void => {
-        
-        return getQuizQuestions(language, setQuizData);
-    }
+    const resetQuiz = (): void => getQuizQuestions(language, setQuizData);
+    
     /** get dynamic background image */
     const getDynamicBg = () => {
         if(language === 'html'){
