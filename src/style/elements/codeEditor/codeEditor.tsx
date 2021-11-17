@@ -27,7 +27,7 @@ export const EditorHeaderWrapper = styled.header`
   }
   @media ${device.mobileL} {
     flex-direction: column;
-    padding: 5px 0;
+    padding: 3px 0;
     align-items: center;
   }
  
@@ -120,13 +120,23 @@ export const EditorSettingsForm = styled.form`
   bottom: -100vh;
   z-index: 11;
   padding: 0 15px;
-
+  border-left: 2px solid ${props => props.theme.color.yellow};
   ::-webkit-scrollbar {
     width: 1px;
   }
 
+  @media ${device.laptopM}{
+    padding: 0 12px;
+  }
   @media (max-width: 900px) {
+    padding: 0 7px;
     border-left: 2px solid ${props => props.theme.color.yellow};
+  }
+  @media screen and (max-width: 500px){
+    width: 50%;
+  }
+  @media ${device.mobileM}{
+    width: 100%;
   }
 `
 export const EditorFormItem = styled.div`
@@ -169,6 +179,18 @@ export const EditorFormLabel = styled.label`
   @media ${device.laptopSM}{
     font-size: 15px;
   }
+  @media ${device.laptopS}{
+    font-size: 13px;
+  }
+  @media screen and (max-width: 900px){
+    font-size: 16px;
+  }
+  @media screen and (max-width: 500px){
+    font-size: 14px;
+  }
+  @media ${device.mobileM}{
+    font-size: 16px;
+  }
 `
 export const EditorFormTitle = styled.div`
   display: block;
@@ -183,6 +205,18 @@ export const EditorFormTitle = styled.div`
   }
   @media ${device.laptopSM}{
     font-size: 15px;
+  }
+  @media ${device.laptopS}{
+    font-size: 13px;
+  }
+  @media screen and (max-width: 900px){
+    font-size: 16px;
+  }
+  @media screen and (max-width: 500px){
+    font-size: 14px;
+  }
+  @media ${device.mobileM}{
+    font-size: 16px;
   }
 `
 export const EditorFormThemes = styled.div`
@@ -253,6 +287,28 @@ export const EditorFormThemes = styled.div`
     padding: 0.3em 9px;
     }
   }
+  @media ${device.laptopS}{
+    margin-top: 6px;
+    label{
+    font-size: 11px;
+    padding: 0.3em 9px;
+    }
+  }
+  @media screen and (max-width: 900px){
+    label{
+      font-size: 14px;
+    }
+  }
+  @media screen and (max-width: 500px){
+    label{
+      font-size: 12px;
+    }
+  }
+  @media ${device.mobileM}{
+    label {
+     font-size: 15px; 
+    }
+  }
 `
 export const EditorFormThemesWrapper = styled.div`
   display: flex;
@@ -306,12 +362,20 @@ export const EditorFormTheme = styled.label<props__EditorFormTheme>`
   height: 104px;
   padding: 3px;
  }
+ @media ${device.desktopS}{
+  height: 91px;
+  padding: 2px;
+ }
 `
 
 const EditorFormThemeItem = styled.span`
   display: block;
   margin: 3px;
   border-radius: 6px;
+  @media ${device.laptopS}{
+    margin: 2px;
+    border-radius: 4px;
+  }
 `
 export const EditorFormThemeHtml = styled(EditorFormThemeItem)`
   grid-area: html;
@@ -355,6 +419,11 @@ export const EditorFormThemeResult = styled(EditorFormThemeItem)`
       font-size: 37px;
     }
   }
+  @media ${device.laptopS} {
+    i {
+      font-size: 33px;
+    }
+  }
 `
 
 
@@ -362,7 +431,7 @@ interface props__EditorContentWrapper {
     areas: string
 }
 
-export const EditorContentWrapper = styled.main<props__EditorContentWrapper>`
+export const EditorContentWrapper = styled.section<props__EditorContentWrapper>`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(6, 1fr);
@@ -512,19 +581,25 @@ export const EditorFullScreenBtn = styled(EditorConsoleSwitchBtn)`
 `
 
 // for small devices
-export const MobileEditorContentWrapper = styled.main`
+export const MobileEditorContentWrapper = styled.section`
   width: 100%;
   height: 100vh;
 `
 export const MobileEditorSwitchBar = styled.div`
   width: 100%;
-  height: 42px;
+  height: 39px;
   background: ${props => props.theme.color.gray};
   display: flex;
+  @media ${device.tablet}{
+    height: 36px;
+  }
+  @media ${device.mobileL}{
+    height: 34px;
+  }
 `
 export const MobileEditorSwitchOption = styled.div`
   position: relative;
-  font-size: 1.313rem;
+  font-size: 16px;
   color: ${props => props.theme.color.white};
 
 
@@ -536,6 +611,9 @@ export const MobileEditorSwitchOption = styled.div`
 
     &:checked ~ span {
       border-bottom: 4px solid ${props => props.theme.color.yellow};
+      @media ${device.mobileL}{
+        border-bottom: 3px solid ${props => props.theme.color.yellow};
+      }
     }
 
     &:hover {
@@ -547,11 +625,27 @@ export const MobileEditorSwitchOption = styled.div`
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 0 1.063rem;
+    padding: 0 1em;
     border-bottom: 4px solid ${props => props.theme.color.white};
+    transition: 0.1s;
+    @media ${device.mobileL}{
+        border-bottom: 3px solid ${props => props.theme.color.white};
+      }
+  }
+  @media ${device.tablet}{
+    font-size: 15px;
+  }
+  @media ${device.mobileL}{
+    font-size: 14px;
   }
 `
 export const MobileItemWrapper = styled.div`
   width: 100%;
-  height: calc(100vh - 42px);
+  height: calc(100vh - 39px);
+  @media ${device.tablet}{
+    height: calc(100vh - 36px);
+  }
+  @media ${device.mobileL}{
+    height: calc(100vh - 34px);
+  }
 `
