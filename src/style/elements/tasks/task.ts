@@ -480,18 +480,8 @@ export const TaskTargetText = styled.div`
   span {
     display: inline-block;
     position: relative;
-
-    &::after {
-      content: "";
-      height: 5px;
-      width: 100%;
-      position: absolute;
-      background: url("https://cldup.com/MiGVGBh-0U.png");
-      background-size: 8px;
-      top: 1.188rem;
-      bottom: 0;
-      left: 0;
-    }
+    text-decoration: underline;
+    text-decoration-color: ${props => props.theme.color.red};
   }
 
   a {
@@ -512,6 +502,9 @@ export const TaskTargetText = styled.div`
   }
   @media ${device.laptopSM}{
     line-height: 20px;
+  }
+  @media ${device.laptopS}{
+    line-height: 17px;
   }
   @media ${device.tablet} {
     a {
@@ -802,49 +795,33 @@ export const ChangeEditorCheckbox = styled.div<ChangeEditorCheckboxProps>`
 export const EditorSettingsWrapper = styled.form`
   position: absolute;
   z-index: 10;
-  top: -200px;
+  top: -331px;
   left: 0;
   width: 100%;
   padding: 9px 11px;
   background: ${props => props.theme.color.gray};
-
+  border: 1px solid red;
+  font-size: 20px;
   input {
-    border-radius: 5px;
-  }
-
-  @media (max-width: 1760px) {
-    top: -261px;
-    height: 263px;
-  }
-
-  @media ${device.tablet} {
-    top: -189px;
-    height: 190px;
-  }
-  @media (max-width: 460px) {
-    height: 205px;
-    top: -205px;
-  }
-  @media (max-width: 340px) {
-    height: 239px;
-    top: -237px;
+    border-radius: 0.3em;
   }
 `
 export const EditorSettingsLabel = styled.label`
   display: flex;
   flex-direction: column;
   color: ${props => props.theme.color.blue};
-  font-size: 1.25rem;
+  font-size: 1.1em;
 `
 export const EditorSettingsFSize = styled.input`
-  margin-top: 11px;
-  width: 2.75rem;
-  height: 1.938rem;
-  font-size: 1.125rem;
+  margin-top: 0.4em;
+    margin-bottom: 0.6em;
+  width: 3.2em;
+  padding: 0.2em 0;
+  font-size: 1em;
   border: none;
   background: ${props => props.theme.color.blue};
   color: #fff;
-  margin-bottom: 7px;
+
 `
 const an__EditorSettingsCheckbox = keyframes`
   0% {
@@ -858,13 +835,13 @@ export const EditorSettingsThemesWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 11px;
-
   label {
-    margin: 5px;
+    flex-grow: 1;
+    margin: 0.2em 0.4em;
     position: relative;
-    border-radius: 5px;
     color: #fff;
     border: 3px solid ${props => props.theme.color.blue};
+    border-radius: 0.3em;
     padding: 5px 20px;
   }
 
@@ -873,7 +850,7 @@ export const EditorSettingsThemesWrapper = styled.div`
     width: 100%;
     height: 100%;
     appearance: none;
-    font-size: 19px;
+    font-size: 1em;
     color: #fff;
     top: 0;
     left: 0;
@@ -885,7 +862,7 @@ export const EditorSettingsThemesWrapper = styled.div`
 
   span {
     display: none;
-    margin-left: 0.25rem;
+    margin-left: 0.25em;
   }
 
   input:checked ~ span {
