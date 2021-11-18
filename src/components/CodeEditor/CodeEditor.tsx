@@ -5,7 +5,7 @@ import {IFEditorSettings} from "../../types/types";
 import {getEditorAreas, getEditorFSize, getEditorTheme} from "../../functions/localStorage";
 import {EditorContainer} from "../../style/elements/codeEditor/codeEditor";
 
-// Component responsible for sandbox editor :)
+/** Component which is gathering whole content for sandbox editor, and its responsible for editor settings  */
 export const CodeEditor: FunctionComponent = (): JSX.Element => {
 
     // editor settings which are passed to the CodeEditorContent component,
@@ -17,7 +17,7 @@ export const CodeEditor: FunctionComponent = (): JSX.Element => {
         includeResetCSS: localStorage.getItem('editorResetCSS') ? true : false
     });
 
-    // if user change one of settings save them into local storage
+    // if user change one of settings then save them into local storage
     useEffect(() => {
         localStorage.setItem("editorFontSize", editorSettings.fontSize.toString());
         localStorage.setItem("editorTheme", editorSettings.theme);
@@ -26,28 +26,31 @@ export const CodeEditor: FunctionComponent = (): JSX.Element => {
     }, [editorSettings]);
 
 
-    /** changing editor font size */
+    /** changing editorSettings.fontSize state -> change font size for editor */
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
         ...prev,
         fontSize: parseFloat(e.target.value)
     }));
 
-    /** changing editor theme */
-    const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
+    /** changing editorSettings.theme state -> change theme for editor*/
+    const handleChangeTheme = (theme: string): void => setEditorSettings(prev => ({
         ...prev,
-        theme: e.target.value
+        theme: theme
     }));
 
-   /** changing editor layout, CodeEditorContent displaying the layout of the editor is based on this areas (grid - areas) */
-    const handleChangeAreas = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
+   /** changing editorSettings.areas, CodeEditorContent layout is using grid-area property and its uses areas*/
+    const handleChangeAreas = (areas: string): void => setEditorSettings(prev => ({
         ...prev,
-        areas: e.target.value
+        areas: areas
     }));
     
     /** change editorSettings.includeResetCSS state -> apply css reset or remove */
     const handleChangeResetCSS = () => {
         const data = localStorage.getItem('editorResetCSS');
+
+        // check if data exists
         if(data) {
+            // check if user has already add reset for his css
             if(JSON.parse(data)){
               return setEditorSettings(prev => ({
                 ...prev,
@@ -69,11 +72,12 @@ export const CodeEditor: FunctionComponent = (): JSX.Element => {
         }
     }
     
-
-
     return <EditorContainer>
+        {/* editor header -> interface where user can managing his editor settings */}
         <CodeEditorHeader editorSettings={editorSettings} changeFs={handleChangeFs} changeTheme={handleChangeTheme}
                           changeAreas={handleChangeAreas} changeResetCSS={handleChangeResetCSS} includeResetCSS={editorSettings.includeResetCSS}/>
+
+         {/* css, html and js code editors */}
         <CodeEditorContent editorSettings={editorSettings}/>
     </EditorContainer>
 };

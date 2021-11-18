@@ -1,4 +1,4 @@
-import {FunctionComponent, useEffect, useState} from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import {
     EditorHeaderWrapper,
     EditorHeaderLink,
@@ -9,74 +9,84 @@ import {
     EditorFormThemes,
     EditorFormThemesWrapper,
     EditorFormTheme,
-    EditorFormThemeHtml, EditorFormThemeCss, EditorFormThemeJs, EditorFormThemeResult, EditorFormTitle, EditorFullScreenBtn, EditorResetCSSChekbox
+    EditorFormThemeHtml, EditorFormThemeCss, EditorFormThemeJs, EditorFormThemeResult, EditorFormTitle, EditorResetCSSChekbox
 } from "../../style/elements/codeEditor/codeEditor";
-import {Link} from "react-router-dom";
-import {IFPropsCodeEditorHeader} from "../../types/types";
-import {codeEditorAreas} from "../../properties/codeEditorAreas";
+import { Link } from "react-router-dom";
+import { IFPropsCodeEditorHeader } from "../../types/types";
+import { codeEditorAreas } from "../../properties/codeEditorAreas";
 
-// Component which is includes header for sandbox editor,
-// also there is form by which the user can use to change the editor settings
+/**
+ * component with header for sandbox editor, with ability to managing editor settings -> theme, reset css, font size, layout 
+ * @param editorSettings - current settings for editor
+ * @param changeFs - function that will change editor font-size 
+ * @param changeTheme - function that will change editor theme
+ * @param chageAreas - function that will change value with grid areas for editor
+ * @param includeResetCSS - boolean value which is define if user has already added reset for css
+ */
 export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
-                                                                                 editorSettings,
-                                                                                 changeFs,
-                                                                                 changeTheme,
-                                                                                 changeAreas,
-                                                                                 changeResetCSS,
-                                                                                 includeResetCSS
-                                                                             }) => {
+    editorSettings,
+    changeFs,
+    changeTheme,
+    changeAreas,
+    changeResetCSS,
+    includeResetCSS
+}) => {
 
-    // flag which is responsible for displaying editor settings form
+    // flag to toggle editor settings
     const [formFlag, setFormFlag] = useState<boolean>(false);
 
-    // width of the window, which is needed to render the ability to change editor layout,
+    // width of the window, which is needed to render the container with ability to change editor layout,
     // the user can only change the editor layout above 900px
     const [windowWidth, setWindowWidth] = useState(0);
 
     // set the windowWidth state based on window width
     const resizeWindow = (): void => setWindowWidth(window.innerWidth);
+
     useEffect(() => {
         resizeWindow();
         window.addEventListener("resize", resizeWindow);
         return () => window.removeEventListener("resize", resizeWindow);
     }, []);
 
-    // toggle settings form
+    /** toggle settings for editor */
     const handleChangeFormFlag = (): void => setFormFlag(!formFlag);
 
     return <EditorHeaderWrapper>
+
         {/*title*/}
         <EditorHeaderLink>
             <Link to="/">
                 DOMINO LEARN
             </Link>
         </EditorHeaderLink>
-        {/*toggle form*/}
+
+        {/*toggle form button*/}
         <EditorHeaderSettingsBtn onClick={handleChangeFormFlag}>
             {formFlag ?
-                <i className="fas fa-times"/>
+                <i className="fas fa-times" />
                 :
-                <i className="fas fa-cog"/>
+                <i className="fas fa-cog" />
             }
             <span>Settings</span>
         </EditorHeaderSettingsBtn>
 
-
-
+        {/* editor settings */}
         {formFlag && <EditorSettingsForm>
 
-             <EditorResetCSSChekbox>
-                 <input type='checkbox' checked={includeResetCSS} onChange={changeResetCSS}/>
-                 <i className="fas fa-check"></i>
-                 <span>
-                     Add CSS reset from meyerweb.com
-                 </span>
-             </EditorResetCSSChekbox>
+            {/* add css reset */}
+            <EditorResetCSSChekbox>
+                <input type='checkbox' checked={includeResetCSS} onChange={changeResetCSS} />
+                <i className="fas fa-check"></i>
+                <span>
+                    Add CSS reset from meyerweb.com
+                </span>
+            </EditorResetCSSChekbox>
+
             {/*change font size*/}
             <EditorFormItem>
                 <EditorFormLabel>Font size
                     <input type="number" min="1" max="60" step="1" name="editorFontSize" value={editorSettings.fontSize}
-                           onChange={changeFs}/>
+                        onChange={changeFs} />
                 </EditorFormLabel>
             </EditorFormItem>
 
@@ -86,54 +96,54 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
                 <label>
                     Monokai
                     <input type="checkbox" value="monokai" name="monokai" checked={editorSettings.theme === "monokai"}
-                           onChange={changeTheme}/>
-                    <span/>
+                        onChange={() => changeTheme("monokai")} />
+                    <span />
                 </label>
                 <label>
                     Ambiance
                     <input type="checkbox" value="ambiance" name="ambiance"
-                           checked={editorSettings.theme === "ambiance"}
-                           onChange={changeTheme}/>
-                    <span/>
+                        checked={editorSettings.theme === "ambiance"}
+                        onChange={() => changeTheme("ambiance")} />
+                    <span />
                 </label>
                 <label>
                     Clouds
                     <input type="checkbox" value="clouds" name="clouds" checked={editorSettings.theme === "clouds"}
-                           onChange={changeTheme}/>
-                    <span/>
+                        onChange={() => changeTheme("clouds")} />
+                    <span />
                 </label>
                 <label>
                     Dracula
                     <input type="checkbox" value="dracula" name="dracula" checked={editorSettings.theme === "dracula"}
-                           onChange={changeTheme}/>
-                    <span/>
+                        onChange={() => changeTheme("dracula")} />
+                    <span />
                 </label>
                 <label>
                     Solarized light
                     <input type="checkbox" value="solarized_light" name="solarized_light"
-                           checked={editorSettings.theme === "solarized_light"}
-                           onChange={changeTheme}/>
-                    <span/>
+                        checked={editorSettings.theme === "solarized_light"}
+                        onChange={() => changeTheme("solarized_light")} />
+                    <span />
                 </label>
                 <label>
                     Crimson editor
                     <input type="checkbox" value="crimson_editor" name="crimson_editor"
-                           checked={editorSettings.theme === "crimson_editor"}
-                           onChange={changeTheme}/>
-                    <span/>
+                        checked={editorSettings.theme === "crimson_editor"}
+                        onChange={() => changeTheme("crimson_editor")} />
+                    <span />
                 </label>
                 <label>
                     Github
                     <input type="checkbox" value="github" name="github" checked={editorSettings.theme === "github"}
-                           onChange={changeTheme}/>
-                    <span/>
+                        onChange={() => changeTheme("github" )} />
+                    <span />
                 </label>
                 <label>
                     Terminal
                     <input type="checkbox" value="terminal" name="terminal"
-                           checked={editorSettings.theme === "terminal"}
-                           onChange={changeTheme}/>
-                    <span/>
+                        checked={editorSettings.theme === "terminal"}
+                        onChange={() => changeTheme("terminal" )} />
+                    <span />
                 </label>
             </EditorFormThemes>
 
@@ -142,13 +152,13 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
                 <EditorFormTitle>Layout</EditorFormTitle>
                 <EditorFormThemesWrapper>
                     {codeEditorAreas.map((el, num) => <EditorFormTheme key={`editor_layout_${num}`} areas={el}>
-                        <input type="checkbox" value={el} checked={editorSettings.areas === el}
-                               onChange={changeAreas}/>
-                        <EditorFormThemeHtml/>
-                        <EditorFormThemeCss/>
-                        <EditorFormThemeJs/>
+                        <input type="checkbox" checked={editorSettings.areas === el}
+                            onChange={() => changeAreas(el)} />
+                        <EditorFormThemeHtml />
+                        <EditorFormThemeCss />
+                        <EditorFormThemeJs />
                         <EditorFormThemeResult>
-                            <i className="fas fa-check"/>
+                            <i className="fas fa-check" />
                         </EditorFormThemeResult>
                     </EditorFormTheme>)}
                 </EditorFormThemesWrapper>

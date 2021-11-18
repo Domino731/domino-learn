@@ -90,8 +90,8 @@ export interface IFPropsCodeEditorHeader {
     editorSettings: IFEditorSettings
     includeResetCSS: boolean;
     changeFs: (e: React.ChangeEvent<HTMLInputElement>) => void
-    changeTheme: (e: React.ChangeEvent<HTMLInputElement>) => void
-    changeAreas: (e: React.ChangeEvent<HTMLInputElement>) => void
+    changeTheme: (theme: string) => void
+    changeAreas: (areas: string) => void
     changeResetCSS: () => void
 }
 
