@@ -27,10 +27,10 @@ import footerBg from "../../images/quiz_css_background.svg";
  */
 export const CssTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, taskNumber}): JSX.Element => {
 
-    // state with flag, when user change this state(icon with list <HtmlFooterListBtn>), list with tasks will be showed
+    // flag to toggle list all javascript tasks
     const [flag, setFlag] = useState<boolean>(false);
 
-    /** change flag state -> show or hide tasks list */
+    /** change flag state -> toggle tasks list */
     const handleChangeFlag = (): void => setFlag(!flag);
 
     return <TaskFooter background={footerBg}>

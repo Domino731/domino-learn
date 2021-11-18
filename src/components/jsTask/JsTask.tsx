@@ -36,7 +36,7 @@ export const JsTask: FunctionComponent<IFPropsTask> = (): JSX.Element => {
         return <Error404 redirectPath={"/"} />
     }
     return <TaskContainer>
-        <JsTaskContent task={task} allTaskLength={allTasks.length} />
+        <JsTaskContent taskData={task} allTaskLength={allTasks.length} />
         <JsTaskFooter taskNumber={task.number} allTasks={allTasks} />
     </TaskContainer>
 }

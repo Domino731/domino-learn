@@ -36,7 +36,7 @@ export const HtmlTask: FunctionComponent<IFPropsTask> = (): JSX.Element => {
     }
 
     return <TaskContainer>
-        <HtmlTaskContent task={task} allTaskLength={allTasks.length} />
+        <HtmlTaskContent taskData={task} allTaskLength={allTasks.length} />
         <HtmlTaskFooter taskNumber={task.number} allTasks={allTasks} />
     </TaskContainer>
 };

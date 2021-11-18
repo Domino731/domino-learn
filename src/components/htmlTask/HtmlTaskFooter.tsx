@@ -31,10 +31,10 @@ import footerBg from "../../images/quiz_html_background.svg";
  */
 export const HtmlTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, taskNumber}): JSX.Element => {
 
-    // state with flag, when user change this state(icon with list <HtmlFooterListBtn>), list with tasks will be showed
+    //  flag to toggle list all javascript tasks
     const [flag, setFlag] = useState<boolean>(false);
 
-    // toggle flag state -> show or hide tasks list
+    // toggle flag state -> toggle tasks list
     const handleChangeFlag = (): void => setFlag(!flag);
 
     return <TaskFooter background={footerBg}>
@@ -49,7 +49,7 @@ export const HtmlTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, 
         {/*current task number*/}
         <TaskFooterTaskNumber> {taskNumber} / {allTasks.length}</TaskFooterTaskNumber>
 
-        {/*panel by which user can select next task*/}
+ {/*panel by which user can moving between available tasks*/}
         <TaskFooterSwitchBar>
 
             {/*when user click on this button, tasks list will be showed*/}

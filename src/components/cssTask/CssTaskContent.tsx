@@ -33,7 +33,7 @@ import {
     MobileTaskResult,
 } from "../../style/elements/tasks/task";
 import { CSSData } from "../../properties/cssData";
-import { IFPropsCssTaskContent } from "../../types/types";
+import { IFCssTask, IFPropsCssTaskContent } from "../../types/types";
 import {
     getEditorFSize,
     getEditorTheme, removeSolvedTaskFormLS,
@@ -58,11 +58,12 @@ import resetIcon from "../../images/reset_icon.svg";
 import runIcon from "../../images/play_icon.svg";
 /**
  * Component with the main content for css task -> targets, introduction, editor.
- * @param task - task data (targets, introduction, code, solution...)
+ * @param taskData - data about css task -> targets, introduction, code, solution...
  * @param allTaskLength - number of all task of particular type
  */
-export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({ task, allTaskLength }): JSX.Element => {
+export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({ taskData, allTaskLength }): JSX.Element => {
 
+    const [task, setTask] = useState<IFCssTask>(taskData)
     // state with css code
     const [userCode, setUserCode] = useState<{ html: string, css: string }>(task.code);
 
@@ -217,7 +218,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({ task,
                 css: formatCode("css", userCode.css)
             });
 
-            // points needed to pass
+            // points needed to complete the task
             const pointsNeeded: number = task.targets.length;
 
             // user points

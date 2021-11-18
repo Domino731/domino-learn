@@ -63,18 +63,18 @@ export interface IFPropsTaskTargets {
 
 
 export interface IFPropsHtmlTaskContent {
-    task: IFHtmlTask;
+    taskData: IFHtmlTask;
     allTaskLength: number;
 }
 
 export interface IFPropsCssTaskContent {
-    task: IFCssTask;
+    taskData: IFCssTask;
     allTaskLength: number;
 }
 
 
 export interface IFPropsJsTask {
-    task: IFJsTask;
+    taskData: IFJsTask;
     allTaskLength: number;
 }
 

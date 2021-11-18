@@ -18,7 +18,7 @@ import {
     MobileTaskEditorWrapper,
     MobileTaskResult
 } from "../../style/elements/tasks/task";
-import { IFPropsJsTask } from "../../types/types";
+import { IFJsTask, IFPropsJsTask } from "../../types/types";
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/theme-monokai'
 import 'ace-builds/src-noconflict/theme-ambiance'
@@ -62,8 +62,9 @@ import { formatCode } from "../../functions/formatCode";
  * @param task - task data (targets, introduction, code, solution...)
  * @param allTaskLength - number of all task of particular type
  */
-export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ task, allTaskLength }): JSX.Element => {
+export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allTaskLength }): JSX.Element => {
 
+    const [task, setTask] = useState<IFJsTask>(taskData)
     // state with userCode from editor output
     const [userCode, setUserCode] = useState<string>(task.code);
 
