@@ -15,7 +15,6 @@ import { formatCode } from "../functions/formatCode";
  * @param saveAllTasksDataCallback - function that will save data with all tasks to component state
  */
 export const getSpecificHtmlTask = (taskNumber: number,
-    checkItem: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks",
     saveTaskDataCallback: (data: (IFHtmlTask) | null | undefined) => void,
     saveAllTasksDataCallback: (data: IFAllTasks[]) => void
 ) => {
@@ -33,7 +32,7 @@ export const getSpecificHtmlTask = (taskNumber: number,
                 const data: IFAllTasks = {
                     title: doc.data().title,
                     number: doc.data().number,
-                    solved: checkSolvedTask(doc.data().title, checkItem)
+                    solved: checkSolvedTask(doc.data().title, 'solvedHtmlTasks')
                 }
                 tasks.push(data);
 
@@ -67,7 +66,8 @@ export const getSpecificHtmlTask = (taskNumber: number,
 /**
  * fetch specific css task
  * @param taskNumber  - number of task
- * @param saveDataCallback - function that saved incoming data to component state
+ * @param saveTaskDataCallback - function that will save data about task to component state
+ * @param saveAllTasksDataCallback - function that will save data with all tasks to component state
  */
 export const getSpecificCssTask = (taskNumber: number,
     saveTaskDataCallback: (data: (IFCssTask | null | undefined)) => void,
@@ -124,28 +124,42 @@ export const getSpecificCssTask = (taskNumber: number,
 };
 
 /**
- * fetch specific css task
+ * fetch specific javascript task
  * @param taskNumber  - number of task
- * @param saveDataCallback - function that saved incoming data to component state
+ * @param saveTaskDataCallback - function that will save data about task to component state
+ * @param saveAllTasksDataCallback - function that will save data with all tasks to component state
  */
-export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: (IFJsTask | null)) => void) => {
+export const getSpecificJsTask = (taskNumber: number, 
+    saveTaskDataCallback: (data: (IFJsTask | null | undefined)) => void,
+    saveAllTasksDataCallback: (data: IFAllTasks[]) => void 
+    ) => {
     // set loading screen
-    saveDataCallback(null)
+    saveTaskDataCallback(null)
+     
 
-    // fetch task
-    return db.collection("jsTasks")
-        .where("number", "==", taskNumber)
-        .get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
+       // fetch data about all html tasks 
+       return db.collection('jsTasks')
+       .onSnapshot(querySnapshot => {
+           let tasks: IFAllTasks[] = [];
+           let specificTask: IFJsTask | null = null;
+           querySnapshot.docs.map(doc => {
+               // create general data for single tasks, and push this data into tasks array
+               const data: IFAllTasks = {
+                   title: doc.data().title,
+                   number: doc.data().number,
+                   solved: checkSolvedTask(doc.data().title, "solvedJsTasks")
+               }
+               tasks.push(data);
 
-                // The beautify module does not support formatting javascript comments,
+               // find the particular one
+               if (doc.data().number == taskNumber) {
+                  // The beautify module does not support formatting javascript comments,
                 // and they are important for checking the task, so you have to do it manually.
                 // Any code in firestore will contain "@",
                 // which gives you the ability to create comment formatting.
                 const formattedCode = doc.data().code.replaceAll("@", "\n");
 
-                const data: IFJsTask = {
+                specificTask = {
                     title: doc.data().title,
                     introduction: doc.data().introduction,
                     number: doc.data().number,
@@ -156,13 +170,18 @@ export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: (
                     code: getJsTaskCodeFromLS(doc.data().title, formattedCode),
                     targets: getJsTaskTargetsFromLS(doc.data().title, doc.data().targets),
                 }
-                return saveDataCallback(data);
-            });
+               }
+           });
 
-        })
-        .catch((error) => {
-            console.log("Error getting document:", error);
-        });
+           // check if task exists
+           if (specificTask) {
+               saveTaskDataCallback(specificTask);
+           }
+           else {
+               saveTaskDataCallback(undefined);
+           }
+           return saveAllTasksDataCallback(tasks.sort((a, b) => a.number - b.number));
+       });
 };
 
 /**

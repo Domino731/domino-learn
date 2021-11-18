@@ -23,8 +23,7 @@ export const JsTask: FunctionComponent<IFPropsTask> = (): JSX.Element => {
 
     // when component mounted fetch information about task and save upcoming data into states
     useEffect(() => {
-        getSpecificJsTask(parseFloat(taskNumber), setTask);
-        getAllTasks("jsTasks", "solvedJsTasks", setAllTasks);
+        getSpecificJsTask(parseFloat(taskNumber), setTask, setAllTasks);
     }, [taskNumber]);
 
     // wait for data
