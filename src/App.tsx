@@ -21,7 +21,7 @@ function App() {
             <Route path="/js-task/:taskNumber" component={JsTask}/>
             <Route path="/code-editor" component={CodeEditor}/>
             <Route path="/quiz-menu" component={QuizMenu}/>
-            <Route path="/quiz/:language" component={Quiz}/>
+            <Route path="/quiz/:quizType" component={Quiz}/>
             <Route path="/test" component={Error404}/>
         </Router>
     );

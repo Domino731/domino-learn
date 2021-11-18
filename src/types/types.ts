@@ -114,17 +114,15 @@ export interface IFPropsQuizQuestion {
     addPoint: () => void;
     addCoins: (coins: number) => void;
     characterGraphic: string;
-    languageName: string;
 }
 
 export interface IFPropsQuizSummary {
-    item: {
+    languageLanguageData: {
         figureSrc: string;
         figureAlt: string;
         iconSrc: string;
         iconAlt: string;
     }
-    itemPath: string;
     coinsAmount: number;
     questionsAmount: number;
     correctQuestions: number;

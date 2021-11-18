@@ -1,6 +1,6 @@
 import {IFJsConsoleInitial} from "../types/types";
 
-// convert string to js code, which will be displayed in console
+/** convert string to js code */
 export const Logs = async (code : string) => {
     try{
         // eslint-disable-next-line no-eval
@@ -11,7 +11,7 @@ export const Logs = async (code : string) => {
     }
 }
 
-// initial log for console
+/** initial log for console */ 
 export const initial : IFJsConsoleInitial[] = [
     {
         method: "log",

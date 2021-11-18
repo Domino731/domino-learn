@@ -14,11 +14,12 @@ import HTMLBg from "../../images/quiz_html_background.svg";
 import CSSBg from "../../images/quiz_css_background.svg";
 import JSBg from "../../images/quiz_js_background.svg";
 
-export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
+/** Component which is rendering 10 random quiz question */
+export const Quiz: FunctionComponent<IFPropsQuiz> = (): JSX.Element => {
 
     // references
     // @ts-ignore
-    const { language } = useParams();
+    const { quizType } = useParams();
 
     // state with quiz data -> questions, answers..
     const [quizData, setQuizData] = useState<IFQuizQuestion[] | null>(null);
@@ -43,12 +44,12 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
         setCurrQuestionIndex(0);
 
         // fetch data
-        return getQuizQuestions(language, setQuizData);
-    }, [language])
+        return getQuizQuestions(quizType, setQuizData);
+    }, [quizType])
 
-    // set the item state based on the path
+    // set the ProgrammingLanguageData state based on the path
     useEffect(() => {
-        switch (language) {
+        switch (quizType) {
             case "html":
                 return setProgrammingLanguageData({
                     figureSrc: htmlClass.getFigureSrc(),
@@ -74,13 +75,14 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
                 return setProgrammingLanguageData(undefined);
         }
 
-    }, [language])
+    }, [quizType])
 
     // listening for quizData state changes, needed to restart quiz
     useEffect(()=> {
         // set first question
-       setCurrQuestionIndex(0);
-    },[quizData])
+       return setCurrQuestionIndex(0);
+    },[quizData]);
+    
     /** change currIndexState -> switch to next questions */
     const handleChangeCurrIndex = (): void => setCurrQuestionIndex(prev => prev + 1);
 
@@ -94,17 +96,17 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
     });
 
     /** change quizData state -> reset quiz */
-    const resetQuiz = () => getQuizQuestions(language, setQuizData);
+    const resetQuiz = () => getQuizQuestions(quizType, setQuizData);
     
     /** get dynamic background image */
     const getDynamicBg = () => {
-        if(language === 'html'){
+        if(quizType === 'html'){
             return HTMLBg;
         }
-        else if (language === 'css'){
+        else if (quizType === 'css'){
             return CSSBg;
         }
-        else if (language === 'js'){
+        else if (quizType === 'js'){
             return JSBg;
         }
         else {
@@ -125,19 +127,18 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
     return <QuizContainer background={getDynamicBg()}>
 
         {/*quiz*/}
-        {currQuestionIndex < 1 && <QuizQuestion data={quizData[currQuestionIndex]}
+        {currQuestionIndex < 10 && <QuizQuestion data={quizData[currQuestionIndex]}
             currQuestionIndex={currQuestionIndex}
             switchToNextQuestion={handleChangeCurrIndex}
             questionsLeft={quizData.length - currQuestionIndex}
             addPoint={addPoints}
             addCoins={addCoins}
-            languageName={language}
             characterGraphic={programmingLanguageData.figureSrc}
         />}
 
         {/*summary panel*/}
-        {currQuestionIndex >= 1 && <QuizSummary item={programmingLanguageData}
-            itemPath={language}
+        {currQuestionIndex >= 10 && <QuizSummary 
+            languageLanguageData={programmingLanguageData}
             questionsAmount={quizData.length}
             correctQuestions={points}
             coinsAmount={coins}

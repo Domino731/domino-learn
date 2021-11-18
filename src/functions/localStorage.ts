@@ -11,7 +11,7 @@ import {formatCode} from "./formatCode";
 
 const width = window.innerWidth;
 
-// get font size which depends on the window width
+/**  get font size which is depends on the window width */
 const defaultFontSize = (): number => {
     if (width > 1440) {
         return 19;

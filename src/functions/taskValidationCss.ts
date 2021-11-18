@@ -25,7 +25,7 @@ export const taskValidationCss = (code: string, taskTarget: IFCssTaskTargetCss, 
     // number of user declarations
     let userDeclarations: number = 0;
 
-    // checking if the user's solution (userSolution) contains required style declarations ()
+    // checking if the user's solution (userSolution) contains required style declarations
     taskTarget.declarations.forEach(el => {
 
         // declaration without spaces
