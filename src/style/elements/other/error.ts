@@ -7,9 +7,16 @@ export const ErrorContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media (max-width: 650px){
-    justify-content: flex-start;
-   flex-direction: column;
+  min-height: 300px;
+  @media ${device.laptopL}{
+    min-height: 249px;
+  }
+  @media ${device.laptopS}{
+    min-height: 210px;
+  }
+  @media screen and (max-width: 568px){
+    flex-direction: column;
+    min-height: 690px;
   }
 `
 export const ErrorImg = styled.img`
@@ -17,11 +24,17 @@ export const ErrorImg = styled.img`
   height: auto;
   object-fit: cover;
   
-  @media ${device.laptopS} {
-    width: 200px;
+  @media ${device.laptopL}{
+    width: 229px;
   }
-  @media (max-width: 650px){
-    margin-top: 40px;
+  @media ${device.laptopS}{
+    width: 190px;
+  }
+  @media screen and (max-width: 568px){
+    width: 180px;
+  }
+  @media ${device.mobileM}{
+    width: 152px;
   }
 `
 export const ErrorText = styled.div`
@@ -46,18 +59,58 @@ export const ErrorText = styled.div`
     position: absolute;
     bottom: 0;
   }
-
-  @media ${device.laptopS} {
-    height: 200px;
+  a{
+    font-size: 20px;
+    text-decoration: underline;
+  }
+  @media ${device.laptopL}{
+    height: 229px;
     h1{
-      font-size: 50px
+      font-size: 56px;
+      margin-bottom: 12px;
     }
-    strong{
-      font-size: 14px;
+    a{
+      font-size: 16px;
     }
   }
-  
-  @media (max-width: 650px){
-    height: 120px;
+  @media ${device.laptopS}{
+    height: 190px;
+    h1{
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+    a{
+      font-size: 16px;
+    }
+  }
+  @media screen and (max-width: 568px){
+    height: auto;
+    h1{
+      font-size: 51px;
+      margin-top: 9px;
+      margin-bottom: 3px;
+    }
+    div {
+      margin-top: 21px;
+      position: static;
+      text-align: end;
+    }
+    a{
+      font-size: 16px;
+    }
+  }
+  @media ${device.mobileM}{
+    h1{
+      font-size: 41px;
+      margin-top: 7px;
+    }
+    div {
+      margin-top: 17px;
+      position: static;
+      text-align: end;
+    }
+    a{
+      font-size: 14px;
+    }
   }
 `
