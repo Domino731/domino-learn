@@ -4,9 +4,9 @@ import { getQuizQuestions } from "../../firebase/operations";
 import { QuizContainer } from "../../style/elements/quiz/quiz";
 import { QuizQuestion } from "./QuizQuestio";
 import { QuizSummary } from "./QuizSummary";
-import { htmlClass } from "../../properties/htmlClass";
-import { cssClass } from "../../properties/cssClass";
-import { jsClass } from "../../properties/jsClass";
+import { HTMLData} from "../../properties/htmlData";
+import { CSSData } from "../../properties/cssData";
+import { JSData } from "../../properties/jsData";
 import { Loading } from "../other/Loading";
 import { Error404 } from "../other/Error404";
 import { useParams } from "react-router";
@@ -52,24 +52,24 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (): JSX.Element => {
         switch (quizType) {
             case "html":
                 return setProgrammingLanguageData({
-                    figureSrc: htmlClass.getFigureSrc(),
-                    figureAlt: htmlClass.getFigureAlt(),
-                    iconSrc: htmlClass.getIconSrc(),
-                    iconAlt: htmlClass.getIconAlt()
+                    figureSrc: HTMLData.getFigureSrc(),
+                    figureAlt: HTMLData.getFigureAlt(),
+                    iconSrc: HTMLData.getIconSrc(),
+                    iconAlt: HTMLData.getIconAlt()
                 });
             case "css":
                 return setProgrammingLanguageData({
-                    figureSrc: cssClass.getFigureSrc(),
-                    figureAlt: cssClass.getFigureAlt(),
-                    iconSrc: cssClass.getIconSrc(),
-                    iconAlt: cssClass.getIconAlt()
+                    figureSrc: CSSData.getFigureSrc(),
+                    figureAlt: CSSData.getFigureAlt(),
+                    iconSrc: CSSData.getIconSrc(),
+                    iconAlt: CSSData.getIconAlt()
                 })
             case "js":
                 return setProgrammingLanguageData({
-                    figureSrc: jsClass.getFigureSrc(),
-                    figureAlt: jsClass.getFigureAlt(),
-                    iconSrc: jsClass.getIconSrc(),
-                    iconAlt: jsClass.getIconAlt()
+                    figureSrc: JSData.getFigureSrc(),
+                    figureAlt: JSData.getFigureAlt(),
+                    iconSrc: JSData.getIconSrc(),
+                    iconAlt: JSData.getIconAlt()
                 })
             default:
                 return setProgrammingLanguageData(undefined);

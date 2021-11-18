@@ -1,23 +1,23 @@
 import { FunctionComponent } from "react";
 import { DscCardContainer, DscContainer } from "../../style/elements/homePage/description";
 import { DescriptionCard } from "./DescriptionCard";
-import { htmlClass } from "../../properties/htmlClass";
-import { cssClass } from "../../properties/cssClass";
-import { jsClass } from "../../properties/jsClass";
+import { HTMLData } from "../../properties/htmlData";
+import { CSSData } from "../../properties/cssData";
+import { JSData } from "../../properties/jsData";
 
 // Subcomponent for HomePage, renders description for every language
 export const Description: FunctionComponent = (): JSX.Element => {
     return <DscContainer>
         <DscCardContainer reverse={false}>
-            <DescriptionCard language={htmlClass} />
+            <DescriptionCard language={HTMLData} />
         </DscCardContainer>
 
         <DscCardContainer reverse>
-            <DescriptionCard language={cssClass} reverse />
+            <DescriptionCard language={CSSData} reverse />
         </DscCardContainer>
 
         <DscCardContainer reverse={false}>
-            <DescriptionCard language={jsClass} />
+            <DescriptionCard language={JSData} />
         </DscCardContainer>
 
     </DscContainer>

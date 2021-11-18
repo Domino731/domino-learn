@@ -32,7 +32,7 @@ import {
     MobileTaskDetail,
     MobileTaskResult,
 } from "../../style/elements/tasks/task";
-import {cssClass} from "../../properties/cssClass";
+import {CSSData} from "../../properties/cssData";
 import {IFPropsCssTaskContent} from "../../types/types";
 import {
     getEditorFSize,
@@ -52,7 +52,7 @@ import {
     HtmlTaskIntroduction,
     HtmlTaskTarget
 } from "../../style/elements/tasks/htmlTask";
-import {htmlClass} from "../../properties/htmlClass";
+import {HTMLData} from "../../properties/htmlData";
 import settingsIcon from "../../images/settings_icon.svg";
 import resetIcon from "../../images/reset_icon.svg";
 import runIcon from "../../images/play_icon.svg";
@@ -372,7 +372,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
                 <CssIntroduction>
                     <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
-                                      imgAlt={cssClass.getFigureAlt()} imgSrc={cssClass.getFigureSrc()}/>
+                                      imgAlt={CSSData.getFigureAlt()} imgSrc={CSSData.getFigureSrc()}/>
                     {/*decorations*/}
                     <CssDecorationIntroduction/>
                 </CssIntroduction>
@@ -383,7 +383,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
             {/*animation which notifies the user that the task has been successfully completed*/}
             {successfulFlag && <CssTaskSuccessful>
-                <TaskSuccessfulImg src={cssClass.getFigureSrc()} alt={cssClass.getFigureAlt()}/>
+                <TaskSuccessfulImg src={CSSData.getFigureSrc()} alt={CSSData.getFigureAlt()}/>
                 <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
 
                 {/*user has a choice to stay with the task or move to another task if there is one*/}
@@ -407,7 +407,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                         {/*introduction*/}
                         <HtmlTaskIntroduction>
                             <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
-                                              imgAlt={htmlClass.getFigureAlt()} imgSrc={htmlClass.getFigureSrc()}/>
+                                              imgAlt={HTMLData.getFigureAlt()} imgSrc={HTMLData.getFigureSrc()}/>
                             {/*decorations*/}
                             <HtmlDecorationIntroduction/>
                         </HtmlTaskIntroduction>
@@ -415,7 +415,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
                     {/*animation which notifies the user that the task has been successfully completed*/}
                     {successfulFlag && <CssTaskSuccessful>
-                        <TaskSuccessfulImg src={cssClass.getFigureSrc()} alt={cssClass.getFigureAlt()}/>
+                        <TaskSuccessfulImg src={CSSData.getFigureSrc()} alt={CSSData.getFigureAlt()}/>
                         <TaskSuccessfulTitle>Congratulations, you have completed the task
                             correctly</TaskSuccessfulTitle>
 

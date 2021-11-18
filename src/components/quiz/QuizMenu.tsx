@@ -16,9 +16,9 @@ import {
     QuizMenuWrapper,
 } from "../../style/elements/quiz/quizMenu";
 import { Link } from "react-router-dom";
-import { htmlClass } from "../../properties/htmlClass";
-import { cssClass } from "../../properties/cssClass";
-import { jsClass } from "../../properties/jsClass";
+import { HTMLData } from "../../properties/htmlData";
+import { CSSData } from "../../properties/cssData";
+import { JSData } from "../../properties/jsData";
 import coins from "../../images/coins.svg";
 import { getQuizCoins } from "../../functions/localStorage";
 
@@ -43,7 +43,7 @@ export const QuizMenu: FunctionComponent = (): JSX.Element => {
                 <Link to="/quiz/html">
                     <QuizMenuCard>
                         {/* graphic */}
-                        <QuizMenuGraphic src={htmlClass.getFigureSrc()} />
+                        <QuizMenuGraphic src={HTMLData.getFigureSrc()} />
 
                         {/* name */}
                         <QuizMenuName>HTML</QuizMenuName>
@@ -65,7 +65,7 @@ export const QuizMenu: FunctionComponent = (): JSX.Element => {
                 <Link to="/quiz/css">
                 <QuizMenuCard>
                         {/* graphic */}
-                        <QuizMenuGraphic src={cssClass.getFigureSrc()} />
+                        <QuizMenuGraphic src={CSSData.getFigureSrc()} />
 
                         {/* name */}
                         <QuizMenuName>CSS</QuizMenuName>
@@ -85,7 +85,7 @@ export const QuizMenu: FunctionComponent = (): JSX.Element => {
                 <Link to="/quiz/js">
                 <QuizMenuCard>
                         {/* graphic */}
-                        <QuizMenuGraphic src={jsClass.getFigureSrc()} />
+                        <QuizMenuGraphic src={JSData.getFigureSrc()} />
 
                         {/* name */}
                         <QuizMenuName>JavaScript</QuizMenuName>

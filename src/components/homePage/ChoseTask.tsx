@@ -3,9 +3,9 @@ import {ChoseTaskContainer} from "../../style/elements/homePage/choseTask";
 import {TasksBoard} from "./TasksBoard";
 import {TasksSelect} from "../../style/elements/homePage/choseTask";
 import {TaskSelectSingle} from "./TaskSelectSingle";
-import {htmlClass} from "../../properties/htmlClass";
-import {cssClass} from "../../properties/cssClass";
-import {jsClass} from "../../properties/jsClass";
+import {HTMLData} from "../../properties/htmlData";
+import {CSSData} from "../../properties/cssData";
+import {JSData} from "../../properties/jsData";
 
 // Subcomponent for HomePage by which user can select tasks
 export const ChoseTask: FunctionComponent = () => {
@@ -23,11 +23,11 @@ export const ChoseTask: FunctionComponent = () => {
         <TasksBoard selectedTasks={chosenTask}/>
         <TasksSelect>
             <TaskSelectSingle task={"htmlTasks"} chosenTask={chosenTask} setTasks={handleChangeChosenTask}
-                              language={htmlClass}/>
+                              language={HTMLData}/>
             <TaskSelectSingle task={"cssTasks"} chosenTask={chosenTask} setTasks={handleChangeChosenTask}
-                              language={cssClass}/>
+                              language={CSSData}/>
             <TaskSelectSingle task={"jsTasks"} chosenTask={chosenTask} setTasks={handleChangeChosenTask}
-                              language={jsClass}/>
+                              language={JSData}/>
         </TasksSelect>
     </ChoseTaskContainer>
 }

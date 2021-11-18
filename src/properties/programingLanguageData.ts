@@ -1,7 +1,7 @@
 import {IFProgramingCode} from "../types/types";
 
 // class for programing languages including language name, icon src, alt, figure src, alt, code, description
-export class ProgramingLanguage {
+export class ProgramingLanguageData {
     
     private languageName: string
     private icon: {

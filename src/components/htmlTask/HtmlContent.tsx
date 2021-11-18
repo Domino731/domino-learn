@@ -36,7 +36,7 @@ import {
     MobileTaskEditorWrapper,
     MobileTaskResult
 } from "../../style/elements/tasks/task";
-import {htmlClass} from "../../properties/htmlClass";
+import {HTMLData} from "../../properties/htmlData";
 import {
     getEditorFSize,
     getEditorTheme, removeSolvedTaskFormLS,
@@ -203,7 +203,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                 {/*introduction*/}
                 <HtmlTaskIntroduction>
                     <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
-                                      imgAlt={htmlClass.getFigureAlt()} imgSrc={htmlClass.getFigureSrc()}/>
+                                      imgAlt={HTMLData.getFigureAlt()} imgSrc={HTMLData.getFigureSrc()}/>
                     {/*decorations*/}
                     <HtmlDecorationIntroduction/>
                 </HtmlTaskIntroduction>
@@ -215,7 +215,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
             {/*animation when user solves the task correctly*/}
             {successfulFlag && <HtmlTaskSuccessful>
-                <TaskSuccessfulImg src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
+                <TaskSuccessfulImg src={HTMLData.getFigureSrc()} alt={HTMLData.getFigureAlt()}/>
                 <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
                 <TaskSuccessfulBar color="#ffca3a">
                     <button onClick={() => setSuccessfulFlag(false)}>Close</button>
@@ -301,7 +301,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
                             {/*introduction*/}
                             <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
-                                              imgAlt={htmlClass.getFigureAlt()} imgSrc={htmlClass.getFigureSrc()}/>
+                                              imgAlt={HTMLData.getFigureAlt()} imgSrc={HTMLData.getFigureSrc()}/>
 
                             {/*decorations*/}
                             <HtmlDecorationIntroduction/>
@@ -312,7 +312,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                     {/*animation which notifies the user that the task has been successfully completed*/}
                     {successfulFlag && <HtmlTaskSuccessful>
 
-                        <TaskSuccessfulImg src={htmlClass.getFigureSrc()} alt={htmlClass.getFigureAlt()}/>
+                        <TaskSuccessfulImg src={HTMLData.getFigureSrc()} alt={HTMLData.getFigureAlt()}/>
                         <TaskSuccessfulTitle>Congratulations, you have completed the task
                             correctly</TaskSuccessfulTitle>
 

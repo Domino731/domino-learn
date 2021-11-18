@@ -51,7 +51,7 @@ import { Console, Hook, Unhook } from 'console-feed'
 import { Logs } from "../../functions/jsConsole";
 import { taskValidationJS } from "../../functions/taskValidationJS";
 import { Link } from "react-router-dom";
-import { jsClass } from "../../properties/jsClass";
+import { JSData } from "../../properties/jsData";
 import { TaskIntroduction } from "../task/TaskIntroduction";
 import { TaskTargets } from "../task/TaskTargets";
 import { TaskAceEditorSettings } from "../task/TaskAceEditorSettings";
@@ -232,7 +232,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ task, allTaskL
                 {/*introduction*/}
                 <JsIntroduction>
                     <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
-                        imgAlt={jsClass.getFigureAlt()} imgSrc={jsClass.getFigureSrc()} />
+                        imgAlt={JSData.getFigureAlt()} imgSrc={JSData.getFigureSrc()} />
 
                     {/*decorations*/}
                     <JsDecorationIntroduction />
@@ -246,7 +246,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ task, allTaskL
 
             {/*animation which notifies the user that the task has been successfully completed*/}
             {successfulFlag && <JsTaskSuccessful>
-                <TaskSuccessfulImg src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()} />
+                <TaskSuccessfulImg src={JSData.getFigureSrc()} alt={JSData.getFigureAlt()} />
                 <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
                 <TaskSuccessfulBar color="#b5179e">
 
@@ -339,7 +339,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ task, allTaskL
 
                             {/*introduction*/}
                             <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
-                                imgAlt={jsClass.getFigureAlt()} imgSrc={jsClass.getFigureSrc()} />
+                                imgAlt={JSData.getFigureAlt()} imgSrc={JSData.getFigureSrc()} />
 
 
                             {/*decorations*/}
@@ -351,7 +351,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ task, allTaskL
                     {/*animation which notifies the user that the task has been successfully completed*/}
                     {successfulFlag && <JsTaskSuccessful>
 
-                        <TaskSuccessfulImg src={jsClass.getFigureSrc()} alt={jsClass.getFigureAlt()} />
+                        <TaskSuccessfulImg src={JSData.getFigureSrc()} alt={JSData.getFigureAlt()} />
                         <TaskSuccessfulTitle>Congratulations, you have completed the task
                             correctly</TaskSuccessfulTitle>
 

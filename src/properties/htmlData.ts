@@ -1,4 +1,4 @@
-import {ProgramingLanguage} from "./front_end_languages";
+import {ProgramingLanguageData} from "./programingLanguageData";
 import htmlIcon from "../images/html_icon.png";
 import character from "../images/builder_character.svg";
 
@@ -11,8 +11,8 @@ over version 4. When you program in HTML you become a builder whose main task is
 structure for a web page`;
 
 /** HTML data - title, character, description, examplary code link... */
-export const htmlClass: ProgramingLanguage =
-    new ProgramingLanguage("Html",
+export const HTMLData: ProgramingLanguageData =
+    new ProgramingLanguageData("Html",
      htmlIcon,
       "Html icon",
         htmlDsc,

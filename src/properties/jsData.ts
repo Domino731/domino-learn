@@ -1,4 +1,4 @@
-import {ProgramingLanguage} from "./front_end_languages";
+import {ProgramingLanguageData} from "./programingLanguageData";
 import jsIcon from "../images/js_icon.png";
 import character from "../images/robot_character.svg";
 const jsDsc = `JavaScript is a scripting language by means of which we create interaction with the user, 
@@ -9,7 +9,7 @@ This language is one of the most popular programming languages in the world.
  `
 
 /** JavaScript data - title, character, description, examplary code link... */
-export const jsClass = new ProgramingLanguage(
+export const JSData: ProgramingLanguageData = new ProgramingLanguageData(
     "JavaScript",
     jsIcon,
     "JavaScript Icon",

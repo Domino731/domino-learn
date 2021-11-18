@@ -1,4 +1,4 @@
-import { ProgramingLanguage } from "./front_end_languages";
+import { ProgramingLanguageData } from "./programingLanguageData";
 import cssIcon from "../images/css_icon.png";
 import character from "../images/painter_character.svg";
 const cssDsc = `Cascading Style Sheets is a language that is used to describe
@@ -12,7 +12,7 @@ When you create styles in css you become an artist with almost unlimited possibi
 
 
 // css language data
-export const cssClass = new ProgramingLanguage(
+export const CSSData : ProgramingLanguageData= new ProgramingLanguageData(
   "CSS",
   cssIcon,
   "Css icon",
