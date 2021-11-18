@@ -19,8 +19,8 @@ import {getAllTasks} from "../../firebase/operations";
 import {Link} from "react-router-dom";
 
 /**
- * subcomponent for ChoseTask, renders animated text, or a list with tasks selected by the user
- * @param selectedTasks - type of tasks on the basis of which they will be collected
+ * Component will tasks list
+ * @param selectedTasks - type of tasks, needed to fetch data
  */
 export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}): JSX.Element => {
 
@@ -31,15 +31,15 @@ export const TasksBoard: FunctionComponent<IFPropsTasksBoard> = ({selectedTasks}
     useEffect(() => {
         switch (selectedTasks) {
             case "htmlTasks":
-                return getAllTasks("htmlTasks", "solvedHtmlTasks", setTasks)
+                return getAllTasks("htmlTasks", "solvedHtmlTasks", setTasks);
             case "cssTasks":
-                return getAllTasks("cssTasks", "solvedCssTasks", setTasks)
+                return getAllTasks("cssTasks", "solvedCssTasks", setTasks);
             case "jsTasks":
-                return getAllTasks("jsTasks", "solvedJsTasks", setTasks)
+                return getAllTasks("jsTasks", "solvedJsTasks", setTasks);
             default:
-                return setTasks([])
+                return setTasks([]);
         }
-    }, [selectedTasks])
+    }, [selectedTasks]);
 
 
     return <TasksBoardContainer>

@@ -4,7 +4,7 @@ import quiz from "../../images/quiz.png"
 import coding from "../../images/coding.png"
 import {Link} from "react-router-dom";
 
-// Subcomponent for HomePage, renders menu by which user can choose quiz or code editor
+/** Subcomponent for HomePage, renders menu by which user can choose quiz or code editor */
 export const Additions: FunctionComponent = (): JSX.Element => {
     return <AdditionsWrapper>
         <Link to="/quiz-menu">

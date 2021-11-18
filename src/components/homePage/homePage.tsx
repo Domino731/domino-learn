@@ -7,7 +7,7 @@ import {ChoseTask} from "./ChoseTask";
 import {Footer} from "./Footer";
 import {Additions} from "./Additions";
 
-/** Home page component */ 
+/** Home page component which is gathering all subcomponents for home page  */ 
 export const HomePage : FunctionComponent = () =>{
     return <Container>
         <Navigation/>

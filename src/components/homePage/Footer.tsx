@@ -1,15 +1,7 @@
 import {FunctionComponent} from "react";
 import {FooterContainer, FooterMediaList, FooterMediaItem, CopyrightWrapper, FooterFreepik} from "../../style/elements/homePage/footer";
-import {FreepikThanks} from "../../style/general/generalStyles";
-import saturnPlanet from "../../images/planet_saturn.png";
-import colorfulPlanet from "../../images/planet_colorful.png";
-import neptunePlanet from "../../images/planet_neptune.png"
-import jupiterPlanet from "../../images/planet_jupiter.png"
-import coding from "../../images/coding.png"
-import quiz from "../../images/quiz.png"
-import astronautHappy from "../../images/astronautHappy.png"
 
-// subcomponent for HomePage, renders freepik icons authors, and socials links
+/** subcomponent for HomePage, renders freepik icons authors, and socials links  */
 export const Footer: FunctionComponent = (): JSX.Element => {
     return <FooterContainer>
     

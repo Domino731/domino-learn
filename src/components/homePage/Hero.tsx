@@ -3,7 +3,7 @@ import { HeroAustronaut, HeroAustronautWrapper, HeroContainer, HeroMainPlanetGra
 import austronautGraphic from "../../images/hero_astronaut.svg";
 import earth from "../../images/hero_waves.svg";
 
-// subcomponent for HomePage, responsible for page introduction
+/** subcomponent for HomePage, responsible for page introduction */
 export const Hero: FunctionComponent = (): JSX.Element => {
     return <HeroContainer>
         <HeroTitle>

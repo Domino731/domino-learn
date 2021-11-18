@@ -10,13 +10,13 @@ import {JSData} from "../../properties/jsData";
 // Subcomponent for HomePage by which user can select tasks
 export const ChoseTask: FunctionComponent = () => {
 
-    // State with actual selected tasks type, the task in the TasksBoard component will be downloaded on this,
-    // and he's used to mark checkbox in TaskSelectSingle component
+    // State with actual selected tasks type, tasks in TasksBoard will fetching base on this task type,
+    // and this state is also used to mark checkbox in TaskSelectSingle component
     const [chosenTask, setChosenTask] = useState<string>("")
 
     // changing selected tasks type
     const handleChangeChosenTask = (e: React.ChangeEvent<HTMLInputElement>): void => {
-       return  setChosenTask(e.target.value)
+       return  setChosenTask(e.target.value);
     }
 
     return <ChoseTaskContainer id="worlds">
