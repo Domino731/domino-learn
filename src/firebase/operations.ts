@@ -69,36 +69,57 @@ export const getSpecificHtmlTask = (taskNumber: number,
  * @param taskNumber  - number of task
  * @param saveDataCallback - function that saved incoming data to component state
  */
-export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: (IFCssTask | null)) => void) => {
+export const getSpecificCssTask = (taskNumber: number,
+    saveTaskDataCallback: (data: (IFCssTask | null | undefined)) => void,
+    saveAllTasksDataCallback: (data: IFAllTasks[]) => void
+) => {
     // set loading screen
-    saveDataCallback(null)
+    saveTaskDataCallback(null)
 
-    // fetch task
-    return db.collection("cssTasks").where("number", "==", taskNumber)
-        .get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                const data: IFCssTask = {
+
+    // fetch data about all html tasks 
+    return db.collection('cssTasks')
+        .onSnapshot(querySnapshot => {
+            let tasks: IFAllTasks[] = [];
+            let specificTask: IFCssTask | null = null;
+            querySnapshot.docs.map(doc => {
+                // create general data for single tasks, and push this data into tasks array
+                const data: IFAllTasks = {
                     title: doc.data().title,
                     number: doc.data().number,
-                    introduction: doc.data().introduction,
-                    aid: doc.data().aid,
-                    includeHtml: doc.data().includeHtml,
-                    originalCode: {
-                        html: formatCode("html", doc.data().code.html),
-                        css: formatCode("css", doc.data().code.css)
-                    },
-                    // check if the user hasn't already solved the task, if he  has solved it,
-                    // get it from local storage and if not, return the default value (task.targets)
-                    // @ts-ignore
-                    code: getCssTaskCodeFromLS(doc.data().title, doc.data().code),
-                    targets: getCssTaskTargetsFromLS(doc.data().title, doc.data().targets),
+                    solved: checkSolvedTask(doc.data().title, "solvedCssTasks")
                 }
-                return saveDataCallback(data);
+                tasks.push(data);
+
+                // find the particular one
+                if (doc.data().number == taskNumber) {
+                    specificTask = {
+                        title: doc.data().title,
+                        number: doc.data().number,
+                        introduction: doc.data().introduction,
+                        aid: doc.data().aid,
+                        includeHtml: doc.data().includeHtml,
+                        originalCode: {
+                            html: formatCode("html", doc.data().code.html),
+                            css: formatCode("css", doc.data().code.css)
+                        },
+                        // check if the user hasn't already solved the task, if he  has solved it,
+                        // get it from local storage and if not, return the default value (task.targets)
+                        // @ts-ignore
+                        code: getCssTaskCodeFromLS(doc.data().title, doc.data().code),
+                        targets: getCssTaskTargetsFromLS(doc.data().title, doc.data().targets),
+                    }
+                }
             });
-        })
-        .catch((error) => {
-            console.log("Error getting document:", error);
+
+            // check if task exists
+            if (specificTask) {
+                saveTaskDataCallback(specificTask);
+            }
+            else {
+                saveTaskDataCallback(undefined);
+            }
+            return saveAllTasksDataCallback(tasks.sort((a, b) => a.number - b.number));
         });
 };
 

@@ -16,15 +16,14 @@ export const CssTask: FunctionComponent<IFPropsTask> = (): JSX.Element => {
     const {taskNumber} = useParams();
 
     // state with task data -> introduction, target, solution..
-    const [task, setTask] = useState<IFCssTask | null>(null);
+    const [task, setTask] = useState<IFCssTask | null | undefined>(null);
 
     // state with all tasks, used in footer
     const [allTasks, setAllTasks] = useState<IFAllTasks[] | null>(null);
 
     // when component mounted fetch information about task and save upcoming data into state
     useEffect( () => {
-        getAllTasks("cssTasks", "solvedCssTasks", setAllTasks);
-        getSpecificCssTask(parseFloat(taskNumber), setTask);
+        getSpecificCssTask(parseFloat(taskNumber), setTask, setAllTasks);
     }, [taskNumber]);
 
     // wait for data
