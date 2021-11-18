@@ -12,7 +12,7 @@ import 'ace-builds/src-noconflict/theme-terminal'
 import 'ace-builds/webpack-resolver'
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
-import React, {FunctionComponent, useEffect, useState} from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import {
     CssResult,
     CssCodeEditorWrapper,
@@ -32,27 +32,27 @@ import {
     MobileTaskDetail,
     MobileTaskResult,
 } from "../../style/elements/tasks/task";
-import {CSSData} from "../../properties/cssData";
-import {IFPropsCssTaskContent} from "../../types/types";
+import { CSSData } from "../../properties/cssData";
+import { IFPropsCssTaskContent } from "../../types/types";
 import {
     getEditorFSize,
     getEditorTheme, removeSolvedTaskFormLS,
     saveCssTaskSolutionToLS, saveSolvedTaskToLS,
 } from "../../functions/localStorage";
-import {taskValidationHtml} from "../../functions/taskValidationHtml";
-import {taskValidationCss} from "../../functions/taskValidationCss";
-import {Link} from "react-router-dom";
-import {TaskResultWindow} from "../task/TaskResultWindow";
-import {TaskAceEditorSettings} from "../task/TaskAceEditorSettings";
-import {TaskIntroduction} from "../task/TaskIntroduction";
-import {TaskTargets} from "../task/TaskTargets";
-import {formatCode} from "../../functions/formatCode";
+import { taskValidationHtml } from "../../functions/taskValidationHtml";
+import { taskValidationCss } from "../../functions/taskValidationCss";
+import { Link } from "react-router-dom";
+import { TaskResultWindow } from "../task/TaskResultWindow";
+import { TaskAceEditorSettings } from "../task/TaskAceEditorSettings";
+import { TaskIntroduction } from "../task/TaskIntroduction";
+import { TaskTargets } from "../task/TaskTargets";
+import { formatCode } from "../../functions/formatCode";
 import {
     HtmlDecorationIntroduction,
     HtmlTaskIntroduction,
     HtmlTaskTarget
 } from "../../style/elements/tasks/htmlTask";
-import {HTMLData} from "../../properties/htmlData";
+import { HTMLData } from "../../properties/htmlData";
 import settingsIcon from "../../images/settings_icon.svg";
 import resetIcon from "../../images/reset_icon.svg";
 import runIcon from "../../images/play_icon.svg";
@@ -61,15 +61,15 @@ import runIcon from "../../images/play_icon.svg";
  * @param task - task data (targets, introduction, code, solution...)
  * @param allTaskLength - number of all task of particular type
  */
-export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, allTaskLength}): JSX.Element => {
+export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({ task, allTaskLength }): JSX.Element => {
 
     // state with css code
     const [userCode, setUserCode] = useState<{ html: string, css: string }>(task.code);
 
-    // state with annotations from editor, which are used to check the user code for errors
-    const [annotations, setAnnotations] = useState<{ css: any[], html: any[] }>({css: [], html: []});
+    // state with annotations from editor, which are used to check user's code for errors
+    const [annotations, setAnnotations] = useState<{ css: any[], html: any[] }>({ css: [], html: [] });
 
-    // state with flag, when user change it, editor settings form will be showed
+    // state with flag to toggle container with editor settings
     const [editorFormFlag, setEditorFormFlag] = useState<boolean>(false);
 
     // state which indicates which editor is active -> css editor or html
@@ -86,7 +86,6 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // state with flag, which is responsible for displaying error about user code
     const [errorFlag, setErrorFlag] = useState<boolean>(false);
-
 
     // width of the window on which the corresponding content will be rendered to the device,
     // for devices below 768px width there is a different arrangement of elements
@@ -111,7 +110,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
     }, []);
 
     // when the user solves the task correctly, scroll up to know that he did it correctly.
-    // This works for mobile devices
+    // This is mainly for mobile devices
     useEffect(() => {
         windowWidth <= 768 && successfulFlag && window.scrollTo(0, 0);
     }, [successfulFlag]);
@@ -124,10 +123,14 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
     // remove error when user type correct code
     useEffect(() => {
-        setErrorFlag(false);
+        return setErrorFlag(false);
     }, [annotations]);
 
-    // change userCode state (for html)
+    /**
+     * change userCode.html state
+     * @param newValue - new html code
+     * @returns 
+     */
     const changeUserCodeHtml = (newValue: string): void => {
         return setUserCode(prev => ({
             ...prev,
@@ -135,7 +138,11 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         }));
     };
 
-    // change userCode state (for css)
+    /**
+    * change userCode.css state
+    * @param newValue - new css code
+    * @returns 
+    */
     const changeUserCodeCss = (newValue: string): void => {
         return setUserCode(prev => ({
             ...prev,
@@ -143,33 +150,34 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         }));
     };
 
-    // add editor annotations into Annotations state
+    /** add editor annotations into Annotations state - only with error status */
     const changeAnnotations = (newValue: any, key: "css" | "html") => {
         return setAnnotations((prev) => ({
             ...prev,
+            // add only errors
             [key]: newValue.filter((el: any) => el.type === "error")
         }));
     };
 
-    // change editor font-size
+    /** change editor font-size  */
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
         ...prev,
         fontSize: parseFloat(e.target.value)
     }));
 
-    // change theme
+    /** change theme state  */
     const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
         ...prev,
         theme: e.target.value
     }));
 
-    // switch between code editors - css and html
+    /** change currentEditor state toggle editor between css and html */
     const handleSwitchEditor = (): void => setCurrentEditor(() => currentEditor === "css" ? "html" : "css");
 
-    // change editorFormFlag -> show or hide editor settings form
+    /** change editorFormFlag state -> toggle container with settings for editor */
     const handleToggleEditorSettings = (): void => setEditorFormFlag(!editorFormFlag);
 
-    // reset code to original
+    /** reset code to original */
     const handleResetCode = (): void => {
         if (currentEditor === "css") {
             return setUserCode(prev => ({
@@ -184,9 +192,9 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
         }
     };
 
-    // function responsible for task validation checks if all targets of the task have been met,
-    // if so, it shows a screen about the correct execution of the task. It works only when user code
-    // dont have errors
+    // function responsible for task validation, It checks if all targets of the task have been extecuted by user,
+    // if yes, then shows a screen about the correct execution of the task. It works only when user code
+    // doesnt have errors
     const checkTask = () => {
 
         // start the task checking only if the user code does not contain errors
@@ -218,10 +226,11 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             // function that add point when user complete task target correctly
             const changeUserPoints = (): number => userPoints++;
 
-            // checking if each task solution is equal to the user's solution, at the end we set the updated state of taskTargets
-            // depending on whether the task was solved correctly or not, add point and change checkboxes.
-            // some task targets may require changes in html code
+            // checking if each task target solution is equal to the user's solution,
+            // if yes, changes state and sets checkbox color to green, otherwise set red checkbox
             task.targets.forEach(el => {
+                // check task type, because targets may have 2 diffrent types - css or html
+                // html type need to change styles in .html file
                 if (el.type === "css") {
                     return taskValidationCss(userCode.css, el, changeUserPoints);
                 } else if (el.type === "html") {
@@ -230,21 +239,21 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                 }
             });
 
-            // check if user has executed all targets, if he did display animation
+            // check if user has executed all targets, if he did then display animation
             if (userPoints === pointsNeeded) {
                 // set the animation
                 setSuccessfulFlag(true);
 
-                // save solved task title to ls, so that the user knows which tasks he has completed (green background in tasks select list)
+                // save solved task title to ls, so that the user knows which tasks he has completed (green background in tasks list)
                 saveSolvedTaskToLS(task.title, "solvedCssTasks");
             } else {
                 setSuccessfulFlag(false);
 
                 // remove this task from solved in local storage
-                 removeSolvedTaskFormLS(task.title, "solvedCssTasks")
+                removeSolvedTaskFormLS(task.title, "solvedCssTasks")
             }
 
-            // save solution into local storage, so when user comes back he will have their solution
+            // save solution into local storage, so when user comes back he will have their code from last session
             return saveCssTaskSolutionToLS(task.targets, task.title, userCode);
         } else {
             return setErrorFlag(true);
@@ -253,87 +262,87 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
 
     return <>
+        {/* for devies above 768px */}
         {windowWidth > 768 && <TaskContentWrapper>
 
             {/*iframe with user code*/}
             <CssResult>
-                <TaskResultWindow srcDoc={srcDoc}/>
+                <TaskResultWindow srcDoc={srcDoc} />
             </CssResult>
 
             {/*editor*/}
             <CssCodeEditorWrapper>
-                {/*switch editor*/}
+
+                {/*toggle editor*/}
                 <ChangeEditor>
+                    {/* css editor */}
                     <ChangeEditorCheckbox lineColor="#0070ba">
                         <label>style.css</label>
-                        <input type="checkbox" checked={currentEditor === "css"} onChange={handleSwitchEditor}/>
-                        <i className="fab fa-css3-alt"/>
-                        <span/>
+                        <input type="checkbox" checked={currentEditor === "css"} onChange={handleSwitchEditor} />
+                        <i className="fab fa-css3-alt" />
+                        <span />
                     </ChangeEditorCheckbox>
 
-                    {/*some tasks do not require interference with html code*/}
+                    {/*certain tasks do not require changes in .html file, so check if task has this turn*/}
                     {task.includeHtml && <ChangeEditorCheckbox lineColor="#e44d26">
                         <label>index.html </label>
-                        <input type="checkbox" checked={currentEditor === "html"} onChange={handleSwitchEditor}/>
-                        <i className="fab fa-html5"/>
-                        <span/>
+                        <input type="checkbox" checked={currentEditor === "html"} onChange={handleSwitchEditor} />
+                        <i className="fab fa-html5" />
+                        <span />
                     </ChangeEditorCheckbox>}
-
-
-
                 </ChangeEditor>
 
-                {/*editors rendered depending on the selected*/}
+                {/*selected editor - css or html */}
                 <TaskCodeEditorMultiple>
                     {currentEditor === "css" &&
-                    <AceEditor
-                        enableBasicAutocompletion={true}
-                        enableLiveAutocompletion={true}
-                        enableSnippets={true}
-                        onChange={changeUserCodeCss}
-                        onValidate={vl => changeAnnotations(vl, "css")}
-                        mode="css"
-                        theme={editorSettings.theme}
-                        width="100%"
-                        height="100%"
-                        value={userCode.css}
-                        fontSize={editorSettings.fontSize}
-                        showPrintMargin={true}
-                        showGutter={true}
-                        highlightActiveLine={true}
-                        setOptions={{
-                            enableBasicAutocompletion: false,
-                            enableLiveAutocompletion: false,
-                            enableSnippets: false,
-                            showLineNumbers: true,
-                            tabSize: 2,
-                        }}
-                    />}
+                        <AceEditor
+                            enableBasicAutocompletion={true}
+                            enableLiveAutocompletion={true}
+                            enableSnippets={true}
+                            onChange={changeUserCodeCss}
+                            onValidate={vl => changeAnnotations(vl, "css")}
+                            mode="css"
+                            theme={editorSettings.theme}
+                            width="100%"
+                            height="100%"
+                            value={userCode.css}
+                            fontSize={editorSettings.fontSize}
+                            showPrintMargin={true}
+                            showGutter={true}
+                            highlightActiveLine={true}
+                            setOptions={{
+                                enableBasicAutocompletion: false,
+                                enableLiveAutocompletion: false,
+                                enableSnippets: false,
+                                showLineNumbers: true,
+                                tabSize: 2,
+                            }}
+                        />}
 
                     {currentEditor === "html" &&
-                    <AceEditor
-                        enableBasicAutocompletion={true}
-                        enableLiveAutocompletion={true}
-                        enableSnippets={true}
-                        onChange={changeUserCodeHtml}
-                        onValidate={vl => changeAnnotations(vl, "html")}
-                        mode="html"
-                        theme={editorSettings.theme}
-                        width="100%"
-                        height="100%"
-                        value={userCode.html}
-                        fontSize={editorSettings.fontSize}
-                        showPrintMargin={true}
-                        showGutter={true}
-                        highlightActiveLine={true}
-                        setOptions={{
-                            enableBasicAutocompletion: false,
-                            enableLiveAutocompletion: false,
-                            enableSnippets: false,
-                            showLineNumbers: true,
-                            tabSize: 2,
-                        }}
-                    />}
+                        <AceEditor
+                            enableBasicAutocompletion={true}
+                            enableLiveAutocompletion={true}
+                            enableSnippets={true}
+                            onChange={changeUserCodeHtml}
+                            onValidate={vl => changeAnnotations(vl, "html")}
+                            mode="html"
+                            theme={editorSettings.theme}
+                            width="100%"
+                            height="100%"
+                            value={userCode.html}
+                            fontSize={editorSettings.fontSize}
+                            showPrintMargin={true}
+                            showGutter={true}
+                            highlightActiveLine={true}
+                            setOptions={{
+                                enableBasicAutocompletion: false,
+                                enableLiveAutocompletion: false,
+                                enableSnippets: false,
+                                showLineNumbers: true,
+                                tabSize: 2,
+                            }}
+                        />}
                 </TaskCodeEditorMultiple>
 
                 {/*editor panel where the user can change settings, check his solution or reset the code*/}
@@ -341,27 +350,32 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
                     {/*change the settings form*/}
                     {editorFormFlag &&
-                    <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
-                                           handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
-                                           toggleForm={handleToggleEditorSettings}/>}
+                        <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
+                            handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
+                            toggleForm={handleToggleEditorSettings} />}
 
-                    {/*buttons*/}
+                    {/*action buttons*/}
+                    {/* toggle container with settings */}
                     <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}>
-                        <img src={settingsIcon}/>
-                         Settings</CodeEditorPanelBtn>
+                        <img src={settingsIcon} />
+                        Settings</CodeEditorPanelBtn>
+
+                    {/* reset code     */}
                     <CodeEditorPanelBtn onClick={handleResetCode}>
-                    <img src={resetIcon}/>
-                     Reset
+                        <img src={resetIcon} />
+                        Reset
                     </CodeEditorPanelBtn>
+
+                    {/* execute user's code */}
                     <CodeEditorPanelBtn onClick={checkTask}>
-                    <img src={runIcon}/>
-                     Run </CodeEditorPanelBtn>
+                        <img src={runIcon} />
+                        Run </CodeEditorPanelBtn>
 
                 </CodeEditorPanel>
 
                 {/*Notification that user code contains errors*/}
                 {errorFlag &&
-                <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+                    <CodeEditorError><i className="fas fa-exclamation-circle" />Check your code</CodeEditorError>}
 
             </CssCodeEditorWrapper>
 
@@ -369,21 +383,23 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
             {/*task introduction and targets*/}
             {/*when the user successfully completes the task, these elements are hidden and an animation is displayed*/}
             {successfulFlag === false && <>
-
+                {/* introduction */}
                 <CssIntroduction>
                     <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
-                                      imgAlt={CSSData.getFigureAlt()} imgSrc={CSSData.getFigureSrc()}/>
+                        imgAlt={CSSData.getFigureAlt()} imgSrc={CSSData.getFigureSrc()} />
                     {/*decorations*/}
-                    <CssDecorationIntroduction/>
+                    <CssDecorationIntroduction />
                 </CssIntroduction>
+
+                {/* targets */}
                 <CssTarget>
-                    <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
+                    <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid} />
                 </CssTarget>
             </>}
 
             {/*animation which notifies the user that the task has been successfully completed*/}
             {successfulFlag && <CssTaskSuccessful>
-                <TaskSuccessfulImg src={CSSData.getFigureSrc()} alt={CSSData.getFigureAlt()}/>
+                <TaskSuccessfulImg src={CSSData.getFigureSrc()} alt={CSSData.getFigureAlt()} />
                 <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
 
                 {/*user has a choice to stay with the task or move to another task if there is one*/}
@@ -391,6 +407,7 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                     <button onClick={() => setSuccessfulFlag(false)}>Close</button>
                     {task.number < allTaskLength && <Link to={`/css-task/${task.number + 1}`}>Next task</Link>}
                 </TaskSuccessfulBar>
+
             </CssTaskSuccessful>}
 
         </TaskContentWrapper>}
@@ -400,22 +417,22 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
             {/*task introduction and targets*/}
             <MobileTaskDetailsWrapper>
+
+                {/* task  introduction  */}
                 <MobileTaskDetail>
-
-
                     {successfulFlag === false && <>
                         {/*introduction*/}
                         <HtmlTaskIntroduction>
                             <TaskIntroduction title={task.title} introductionInnerHtml={task.introduction}
-                                              imgAlt={HTMLData.getFigureAlt()} imgSrc={HTMLData.getFigureSrc()}/>
+                                imgAlt={HTMLData.getFigureAlt()} imgSrc={HTMLData.getFigureSrc()} />
                             {/*decorations*/}
-                            <HtmlDecorationIntroduction/>
+                            <HtmlDecorationIntroduction />
                         </HtmlTaskIntroduction>
                     </>}
 
                     {/*animation which notifies the user that the task has been successfully completed*/}
                     {successfulFlag && <CssTaskSuccessful>
-                        <TaskSuccessfulImg src={CSSData.getFigureSrc()} alt={CSSData.getFigureAlt()}/>
+                        <TaskSuccessfulImg src={CSSData.getFigureSrc()} alt={CSSData.getFigureAlt()} />
                         <TaskSuccessfulTitle>Congratulations, you have completed the task
                             correctly</TaskSuccessfulTitle>
 
@@ -425,12 +442,14 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
                             {task.number < allTaskLength && <Link to={`/css-task/${task.number + 1}`}>Next task</Link>}
                         </TaskSuccessfulBar>
                     </CssTaskSuccessful>}
+
+
                 </MobileTaskDetail>
 
-                {/*task target and instructions*/}
+                {/*task targets */}
                 <MobileTaskDetail>
                     <HtmlTaskTarget>
-                        <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid}/>
+                        <TaskTargets targets={task.targets} title={task.title} aidArr={task.aid} />
                     </HtmlTaskTarget>
                 </MobileTaskDetail>
 
@@ -438,76 +457,78 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
             <MobileCssEditorWrapper>
 
-                {/*switch editor*/}
+                {/*toggle editor*/}
                 <ChangeEditor>
                     <ChangeEditorCheckbox lineColor="#0070ba">
                         <label>style.css</label>
-                        <input type="checkbox" checked={currentEditor === "css"} onChange={handleSwitchEditor}/>
-                        <i className="fab fa-css3-alt"/>
-                        <span/>
+                        <input type="checkbox" checked={currentEditor === "css"} onChange={handleSwitchEditor} />
+                        <i className="fab fa-css3-alt" />
+                        <span />
                     </ChangeEditorCheckbox>
 
                     {/*some tasks do not require interference with html code*/}
                     {task.includeHtml && <ChangeEditorCheckbox lineColor="#e44d26">
                         <label>index.html </label>
-                        <input type="checkbox" checked={currentEditor === "html"} onChange={handleSwitchEditor}/>
-                        <i className="fab fa-html5"/>
-                        <span/>
+                        <input type="checkbox" checked={currentEditor === "html"} onChange={handleSwitchEditor} />
+                        <i className="fab fa-html5" />
+                        <span />
                     </ChangeEditorCheckbox>}
 
                 </ChangeEditor>
 
-                {/*editor*/}
+                {/*selected editor*/}
                 <TaskCodeEditorMultiple>
+                    {/* css editor */}
                     {currentEditor === "css" &&
-                    <AceEditor
-                        enableBasicAutocompletion={true}
-                        enableLiveAutocompletion={true}
-                        enableSnippets={true}
-                        onChange={changeUserCodeCss}
-                        onValidate={vl => changeAnnotations(vl, "css")}
-                        mode="css"
-                        theme={editorSettings.theme}
-                        width="100%"
-                        height="100%"
-                        value={userCode.css}
-                        fontSize={editorSettings.fontSize}
-                        showPrintMargin={true}
-                        showGutter={true}
-                        highlightActiveLine={true}
-                        setOptions={{
-                            enableBasicAutocompletion: false,
-                            enableLiveAutocompletion: false,
-                            enableSnippets: false,
-                            showLineNumbers: true,
-                            tabSize: 2,
-                        }}
-                    />}
+                        <AceEditor
+                            enableBasicAutocompletion={true}
+                            enableLiveAutocompletion={true}
+                            enableSnippets={true}
+                            onChange={changeUserCodeCss}
+                            onValidate={vl => changeAnnotations(vl, "css")}
+                            mode="css"
+                            theme={editorSettings.theme}
+                            width="100%"
+                            height="100%"
+                            value={userCode.css}
+                            fontSize={editorSettings.fontSize}
+                            showPrintMargin={true}
+                            showGutter={true}
+                            highlightActiveLine={true}
+                            setOptions={{
+                                enableBasicAutocompletion: false,
+                                enableLiveAutocompletion: false,
+                                enableSnippets: false,
+                                showLineNumbers: true,
+                                tabSize: 2,
+                            }}
+                        />}
 
+                    {/* html editor */}
                     {currentEditor === "html" &&
-                    <AceEditor
-                        enableBasicAutocompletion={true}
-                        enableLiveAutocompletion={true}
-                        enableSnippets={true}
-                        onChange={changeUserCodeHtml}
-                        onValidate={vl => changeAnnotations(vl, "html")}
-                        mode="html"
-                        theme={editorSettings.theme}
-                        width="100%"
-                        height="100%"
-                        value={userCode.html}
-                        fontSize={editorSettings.fontSize}
-                        showPrintMargin={true}
-                        showGutter={true}
-                        highlightActiveLine={true}
-                        setOptions={{
-                            enableBasicAutocompletion: false,
-                            enableLiveAutocompletion: false,
-                            enableSnippets: false,
-                            showLineNumbers: true,
-                            tabSize: 2,
-                        }}
-                    />}
+                        <AceEditor
+                            enableBasicAutocompletion={true}
+                            enableLiveAutocompletion={true}
+                            enableSnippets={true}
+                            onChange={changeUserCodeHtml}
+                            onValidate={vl => changeAnnotations(vl, "html")}
+                            mode="html"
+                            theme={editorSettings.theme}
+                            width="100%"
+                            height="100%"
+                            value={userCode.html}
+                            fontSize={editorSettings.fontSize}
+                            showPrintMargin={true}
+                            showGutter={true}
+                            highlightActiveLine={true}
+                            setOptions={{
+                                enableBasicAutocompletion: false,
+                                enableLiveAutocompletion: false,
+                                enableSnippets: false,
+                                showLineNumbers: true,
+                                tabSize: 2,
+                            }}
+                        />}
                 </TaskCodeEditorMultiple>
 
                 {/*editor panel where the user can change settings, check his solution or reset the code*/}
@@ -515,33 +536,33 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
                     {/*change the settings form*/}
                     {editorFormFlag &&
-                    <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
-                                           handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
-                                           toggleForm={handleToggleEditorSettings}/>}
+                        <TaskAceEditorSettings handleChangeTheme={handleChangeTheme} editorTheme={editorSettings.theme}
+                            handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
+                            toggleForm={handleToggleEditorSettings} />}
 
                     {/*buttons*/}
                     <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}>
-                        <img src={settingsIcon}/>
-                         Settings</CodeEditorPanelBtn>
+                        <img src={settingsIcon} />
+                        Settings</CodeEditorPanelBtn>
                     <CodeEditorPanelBtn onClick={handleResetCode}>
-                    <img src={resetIcon}/>
-                     Reset
+                        <img src={resetIcon} />
+                        Reset
                     </CodeEditorPanelBtn>
                     <CodeEditorPanelBtn onClick={checkTask}>
-                    <img src={runIcon}/>
-                     Run </CodeEditorPanelBtn>
+                        <img src={runIcon} />
+                        Run </CodeEditorPanelBtn>
 
                 </CodeEditorPanel>
 
                 {/*Notification that user code contains errors*/}
                 {errorFlag &&
-                <CodeEditorError><i className="fas fa-exclamation-circle"/>Check your code</CodeEditorError>}
+                    <CodeEditorError><i className="fas fa-exclamation-circle" />Check your code</CodeEditorError>}
             </MobileCssEditorWrapper>
 
 
             {/*iframe with user code*/}
             <MobileTaskResult>
-                <TaskResultWindow srcDoc={srcDoc}/>
+                <TaskResultWindow srcDoc={srcDoc} />
             </MobileTaskResult>
 
         </MobileTaskContentWrapper>}

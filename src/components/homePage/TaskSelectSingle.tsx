@@ -22,11 +22,13 @@ export const TaskSelectSingle: FunctionComponent<IFPropsTaskSelect> = ({
                                                                        }): JSX.Element => {
 
     return <TasksSelectWrapper>
-
+        {/* image */}
         <TasksSelectFigure src={language.getFigureSrc()} alt={language.getFigureAlt()}/>
         <input type="radio" name={`${language.getLanguageName()}_checkbox`} value={task} onChange={setTasks}
                checked={chosenTask === task}/>
         <span/>
+        
+        {/* title */}
         <TasksSelectTitle>
             <TasksSelectIcon src={language.getIconSrc()} alt={language.getIconAlt()}/>
             <strong>{language.getLanguageName()}</strong>
