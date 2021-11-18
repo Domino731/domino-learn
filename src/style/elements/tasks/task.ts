@@ -371,6 +371,16 @@ export const TaskIntroductionBar = styled.div`
       font-size: 29px;
     }
   }
+  @media ${device.laptopM}{
+    h3 {
+      font-size: 24px;
+    }
+  }
+  @media ${device.laptopSM}{
+    h3 {
+      font-size: 22px;
+    }
+  }
 `
 
 export const TaskIntroductionText = styled.div`
@@ -452,10 +462,13 @@ export const TaskTargetNumber = styled.div`
   font-size: 1.25em;
   font-weight: 900;
   margin-right: 0.313em;
+  @media ${device.laptopSM}{
+    font-size: 1em;
+  }
 `
 export const TaskTargetText = styled.div`
   font-size: 1.1em;
-  line-height: 1.438rem;
+  line-height: 25px;
   span {
     display: inline-block;
     position: relative;
@@ -480,7 +493,18 @@ export const TaskTargetText = styled.div`
       text-decoration-color: ${props => props.theme.color.blue};
     }
   }
-
+  @media ${device.laptopSM}{
+    font-size: 1em;
+  }
+  @media ${device.laptopL}{
+    line-height: 23px;
+  }
+  @media ${device.laptopM}{
+    line-height: 22px;
+  }
+  @media ${device.laptopSM}{
+    line-height: 20px;
+  }
   @media ${device.tablet} {
     a {
       &::after {
@@ -490,6 +514,7 @@ export const TaskTargetText = styled.div`
       }
     }
   }
+
 `
 export const TaskCodeEditorMultiple = styled.div`
   position: absolute;
@@ -559,6 +584,9 @@ export const CodeEditorPanelBtn = styled.button`
   }
   @media ${device.laptopM}{
     font-size: 20px;
+  }
+  @media ${device.laptopSM}{
+    font-size: 18px;
   }
 `
 const an__CodeEditorError = keyframes`
@@ -741,6 +769,12 @@ export const ChangeEditorCheckbox = styled.div<ChangeEditorCheckboxProps>`
   @media ${device.laptopM}{
     font-size: 18px;
   }
+  @media ${device.laptopSM}{
+    font-size: 16px;
+    span {
+      height: 3px;
+    }
+  }
 `
 export const EditorSettingsWrapper = styled.form`
   position: absolute;
@@ -891,9 +925,11 @@ const TaskAidItem = styled.a`
   }
   @media ${device.laptopL} {
     height: 75px;
+    margin-top: 10px;
   }
-  @media ${device.laptopM}{
-    height: 69px;
+  @media ${device.laptopSM}{
+    height: 67px;
+    margin-top: 8px;
   }
   @media ${device.laptopS} {
     height: 65px;
@@ -945,6 +981,10 @@ const TaskAidIcon = styled.div`
     width: 81px;
     font-size: 43px;
   }
+  @media ${device.laptopSM}{
+    width: 72px;
+    font-size: 34px;
+  }
 `
 export const TaskAidIconVideo = styled(TaskAidIcon)`
   background: #3a86ff;
@@ -968,6 +1008,10 @@ const TaskAidTitle = styled.div`
   @media ${device.laptopM} {
     font-size: 17px;
     max-height: 38px;
+  }
+  @media ${device.laptopSM}{
+    font-size: 15px;
+    max-height: 33px;
   }
   @media ${device.laptopS} {
     padding: 1px 3px;
@@ -1002,6 +1046,9 @@ const TaskAidAuthor = styled.span`
   }
   @media ${device.laptopM} {
     font-size: 16px;
+  }
+  @media ${device.laptopSM}{
+    font-size: 15px;
   }
   @media ${device.mobileM} {
     padding: 2px 2px;
@@ -1089,5 +1136,8 @@ font-size: 20px;
 }
 @media ${device.laptopM}{
   font-size: 15px;
+}
+@media ${device.laptopSM}{
+  font-size: 14px;
 }
 `
