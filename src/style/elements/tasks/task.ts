@@ -694,7 +694,7 @@ export const WebBrowserRedBox = styled.span`
 export const WebBrowserYellowBox = styled.span`
   background: #ff9f1c;
 `
-export const ChangeEditor = styled.form`
+export const ChangeEditor = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
@@ -792,10 +792,10 @@ export const ChangeEditorCheckbox = styled.div<ChangeEditorCheckboxProps>`
     font-size: 15px;
   }
 `
-export const EditorSettingsWrapper = styled.form`
+export const EditorSettingsWrapper = styled.div`
   position: absolute;
   z-index: 10;
-  top: -331px;
+  top: -262px;
   left: 0;
   width: 100%;
   padding: 9px 11px;
@@ -804,6 +804,31 @@ export const EditorSettingsWrapper = styled.form`
   font-size: 20px;
   input {
     border-radius: 0.3em;
+  }
+  @media ${device.desktopS}{
+    font-size: 17px;
+    padding: 7px 14px;
+    top: -224px;
+  }
+  @media ${device.laptopL}{
+    font-size: 14px;
+    padding: 6px 12px;
+    top: -189px;
+  }
+  @media ${device.laptopM}{
+    font-size: 14px;
+    top: -189px;
+  }
+  @media ${device.laptopSM}{
+    font-size: 11px;
+    padding: 6px 12px;
+    top: -134px;
+  }
+  @media screen and (max-width: 1240px){
+    top: -163px;
+  }
+  @media screen and (max-width: 870px){
+    top: -193px;
   }
 `
 export const EditorSettingsLabel = styled.label`
@@ -869,13 +894,27 @@ export const EditorSettingsThemesWrapper = styled.div`
     display: inline-block;
     animation: 0.2s ${an__EditorSettingsCheckbox} forwards;
   }
+
+  @media ${device.desktopS}{
+    label {
+      padding: 4px 16px;
+    }
+  }
+  @media ${device.laptopL}{
+    label {
+      padding: 4px 12px;
+    }
+  }
+  @media ${device.laptopL}{
+    margin-top: 8px;
+  }
 `
 export const EditorSettingsCloseIcon = styled.div`
   position: absolute;
   top: 5px;
   right: 5px;
   color: ${props => props.theme.color.red};
-  font-size: 2.25rem;
+  font-size: 2.1em;
   transition: 0.2s;
 
   &:hover {
