@@ -8,7 +8,6 @@ import {
 } from "../functions/localStorage";
 import { formatCode } from "../functions/formatCode";
 
-const beautifyJs = require('js-beautify').js;
 /**
  * fetch  specific html task
  * @param taskNumber  - number of task
@@ -19,8 +18,9 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
     // set loading screen
     saveDataCallback(null);
 
-    // fetch task
-    db.collection("htmlTasks").where("number", "==", taskNumber)
+    // fetch task data
+    return db.collection("htmlTasks")
+        .where("number", "==", taskNumber)
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -49,12 +49,11 @@ export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data:
  * @param saveDataCallback - function that saved incoming data to component state
  */
 export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: (IFCssTask | null)) => void) => {
-
     // set loading screen
     saveDataCallback(null)
 
     // fetch task
-    db.collection("cssTasks").where("number", "==", taskNumber)
+    return db.collection("cssTasks").where("number", "==", taskNumber)
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -88,12 +87,12 @@ export const getSpecificCssTask = (taskNumber: number, saveDataCallback: (data: 
  * @param saveDataCallback - function that saved incoming data to component state
  */
 export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: (IFJsTask | null)) => void) => {
-
     // set loading screen
     saveDataCallback(null)
 
     // fetch task
-    db.collection("jsTasks").where("number", "==", taskNumber)
+    return db.collection("jsTasks")
+        .where("number", "==", taskNumber)
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -125,16 +124,16 @@ export const getSpecificJsTask = (taskNumber: number, saveDataCallback: (data: (
 };
 
 /**
- * fetch all tasks
- * @param tasks  - tasks that you want to get - css, html, js
- * @param saveDataCallback - function that saved incoming data to component state
+ * fetch all tasks with specific type
+ * @param tasksType - tasks type that you want to get - "htmlTasks" | "jsTasks" | "cssTasks"
+ * @param saveDataCallback - function that will save incoming data to component state
  * @param checkItem - the name used to retrieve data from localStorage by the function that
  * checks whether the user has already solved the task
  */
-export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
+export const getAllTasks = (tasksType: "htmlTasks" | "jsTasks" | "cssTasks",
     checkItem: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks",
     saveDataCallback: (data: IFAllTasks[]) => void) => {
-    db.collection(tasks)
+    return db.collection(tasksType)
         .onSnapshot(querySnapshot => {
             let tasks: IFAllTasks[] = []
             querySnapshot.docs.map(doc => {
@@ -151,15 +150,16 @@ export const getAllTasks = (tasks: "htmlTasks" | "jsTasks" | "cssTasks",
 
 
 /**
- * fetch random quiz questions (max 10 questions)
- * @param type - type of quiz elements that you want to get - html, css or js
+ * fetch random quiz questions ( 10 questions)
+ * @param type - type of quiz that you want to get - html, css or js
  * @param saveDataCallback - function that saved incoming data to component state
  */
 export const getQuizQuestions = (type: string, saveDataCallback: (data: (IFQuizQuestion[] | null)) => void) => {
-
     // set loading screen
     saveDataCallback(null);
-    db.collection("quiz").where("type", "==", type)
+
+    return db.collection("quiz")
+        .where("type", "==", type)
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {

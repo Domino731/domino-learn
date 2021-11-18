@@ -24,20 +24,22 @@ export const TaskAceEditorSettings: FunctionComponent<IFPropsTaskAceEditorSettin
                                                                                        }): JSX.Element => {
 
     return <EditorSettingsWrapper>
+
+        {/* close icon */}
         <EditorSettingsCloseIcon onClick={toggleForm}><i
             className="far fa-window-close"/></EditorSettingsCloseIcon>
 
+        {/* change font size */}
         <EditorSettingsLabel>
             Change font size
             <EditorSettingsFSize type="number" min="1" max="60" step="1" value={editorFs}
                                  onChange={handleChangeFs} name="editorFontSize"/>
         </EditorSettingsLabel>
-
-
+         
+         {/* change theme */}
         <EditorSettingsLabel>
             Change theme
         </EditorSettingsLabel>
-
         <EditorSettingsThemesWrapper>
             <label>
                 Monokai

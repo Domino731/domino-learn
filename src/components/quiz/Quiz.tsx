@@ -38,7 +38,7 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
     const [programmingLanguageData, setProgrammingLanguageData] = useState<IFQuizItem | null | undefined>(null);
 
     // when component mounted get quiz questions data
-    useEffect(() => {
+    useEffect(() : any => {
         // reset quiz
         setCurrQuestionIndex(0);
 
@@ -94,7 +94,7 @@ export const Quiz: FunctionComponent<IFPropsQuiz> = (props): JSX.Element => {
     });
 
     /** change quizData state -> reset quiz */
-    const resetQuiz = (): void => getQuizQuestions(language, setQuizData);
+    const resetQuiz = () => getQuizQuestions(language, setQuizData);
     
     /** get dynamic background image */
     const getDynamicBg = () => {

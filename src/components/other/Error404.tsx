@@ -25,14 +25,14 @@ export const Error404: FunctionComponent<IFPropsError404> = ({redirectPath}): JS
         }, 1000);
 
         // redirect after 10s
-        // const timeout = setTimeout(() => {
-        //     clearInterval(interval);
-        //     history.push(redirectPath);
-        // }, 10000);
+        const timeout = setTimeout(() => {
+            clearInterval(interval);
+            history.push(redirectPath);
+        }, 10000);
 
         return () => {
-           // clearTimeout(timeout);
-           // clearInterval(interval);
+           clearTimeout(timeout);
+           clearInterval(interval);
             console.log('Unmounted')
         }
     }, []);

@@ -72,6 +72,9 @@ export const ErrorText = styled.div`
     a{
       font-size: 16px;
     }
+    strong {
+    font-size: 18px;
+  }
   }
   @media ${device.laptopS}{
     height: 190px;
@@ -82,6 +85,9 @@ export const ErrorText = styled.div`
     a{
       font-size: 16px;
     }
+    strong {
+    font-size: 16px;
+  }
   }
   @media screen and (max-width: 568px){
     height: auto;
@@ -98,6 +104,9 @@ export const ErrorText = styled.div`
     a{
       font-size: 16px;
     }
+    strong {
+    font-size: 14px;
+  }
   }
   @media ${device.mobileM}{
     h1{

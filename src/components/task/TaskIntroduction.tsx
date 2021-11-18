@@ -8,7 +8,6 @@ import {IFPropsTaskIntroduction} from "../../types/types";
  * @param introductionInnerHtml - html code for introduction
  * @param imgAlt - figure alt
  * @param imgSrc - figure src
- * @constructor
  */
 export const TaskIntroduction: FunctionComponent<IFPropsTaskIntroduction> = ({
                                                                                  title,
@@ -17,11 +16,16 @@ export const TaskIntroduction: FunctionComponent<IFPropsTaskIntroduction> = ({
                                                                                  imgSrc
                                                                              }): JSX.Element => {
     return <TaskSectionScale>
+        {/* header */}
         <TaskSectionHeader><i className="fas fa-book-open"/> <span>Introduction</span></TaskSectionHeader>
+
+        {/* title */}
         <TaskIntroductionBar>
             <img src={imgSrc} alt={imgAlt}/>
             <h3>{title}</h3>
         </TaskIntroductionBar>
+
+        {/* task introduction, description */}
         {/*@ts-ignore*/}
         <TaskIntroductionText dangerouslySetInnerHTML={{__html: introductionInnerHtml}}/>
     </TaskSectionScale>

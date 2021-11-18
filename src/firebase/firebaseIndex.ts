@@ -24,4 +24,5 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+/** firestore reference -> firebase.firestore() */
 export const db = firebase.firestore();
