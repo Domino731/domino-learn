@@ -2,30 +2,36 @@ import {FunctionComponent, useEffect, useState} from "react";
 import {TaskContainer} from "../../style/elements/tasks/task";
 import {HtmlTaskFooter} from "./HtmlTaskFooter";
 import {HtmlTaskContent} from "./HtmlContent";
-import {getAllTasks, getSpecificHtmlTask} from "../../firebase/operations";
+import {getSpecificHtmlTask} from "../../firebase/operations";
 import {IFAllTasks, IFPropsTask, IFHtmlTask} from "../../types/types";
 import {Loading} from "../other/Loading";
 import {Error404} from "../other/Error404";
+import { useParams } from "react-router";
 
-export const HtmlTask: FunctionComponent<IFPropsTask> = (props): JSX.Element => {
+/** Component with HTML Task */
+export const HtmlTask: FunctionComponent<IFPropsTask> = (): JSX.Element => {
 
-    // state with task information -> introduction, target, solution..
-    const [task, setTask] = useState<IFHtmlTask | null>(null);
+       // references
+    // @ts-ignore
+    const {taskNumber} = useParams();
 
-    //state with all tasks
+    // state with task data -> introduction, target, solution..
+    const [task, setTask] = useState<IFHtmlTask | null | undefined>(null);
+
+     // state with all tasks, used in footer
     const [allTasks, setAllTasks] = useState<IFAllTasks[] | null>(null);
 
     // when component mounted fetch information about task and save upcoming data into states
     useEffect(() => {
-        getSpecificHtmlTask(parseFloat(props.match.params.taskNumber), setTask);
-        getAllTasks("htmlTasks", "solvedHtmlTasks", setAllTasks);
-    }, [props.match.params.taskNumber]);
+        getSpecificHtmlTask(parseFloat(taskNumber), 'solvedHtmlTasks', setTask, setAllTasks);
+    }, [taskNumber]);
 
-
+    // wait for data
     if (task === null || allTasks === null) {
         return <Loading/>
     }
-    if (task === undefined || allTasks === undefined) {
+    // 404 error handling
+    else if (task === undefined) {
         return <Error404 redirectPath={"/"}/>
     }
 

@@ -11,35 +11,56 @@ import { formatCode } from "../functions/formatCode";
 /**
  * fetch  specific html task
  * @param taskNumber  - number of task
- * @param saveDataCallback - function that saved incoming data to component state
+ * @param saveTaskDataCallback - function that will save data about task to component state
+ * @param saveAllTasksDataCallback - function that will save data with all tasks to component state
  */
-export const getSpecificHtmlTask = (taskNumber: number, saveDataCallback: (data: (IFHtmlTask) | null) => void) => {
+export const getSpecificHtmlTask = (taskNumber: number,
+    checkItem: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks",
+    saveTaskDataCallback: (data: (IFHtmlTask) | null | undefined) => void,
+    saveAllTasksDataCallback: (data: IFAllTasks[]) => void
+) => {
 
     // set loading screen
-    saveDataCallback(null);
+    saveTaskDataCallback(null);
 
-    // fetch task data
-    return db.collection("htmlTasks")
-        .where("number", "==", taskNumber)
-        .get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                const data: IFHtmlTask = {
+    // fetch data about all html tasks 
+    return db.collection('htmlTasks')
+        .onSnapshot(querySnapshot => {
+            let tasks: IFAllTasks[] = [];
+            let specificTask: IFHtmlTask | null = null;
+            querySnapshot.docs.map(doc => {
+                // create general data for single tasks, and push this data into tasks array
+                const data: IFAllTasks = {
                     title: doc.data().title,
-                    introduction: doc.data().introduction,
                     number: doc.data().number,
-                    aid: doc.data().aid,
-                    originalCode: formatCode("html", doc.data().code),
-                    // check if the user hasn't already solved the task, if he  has solved it,
-                    // get it from local storage and if not, return the default value (task.targets)
-                    code: getHtmlTaskCodeFromLS(doc.data().title, doc.data().code),
-                    targets: getHtmlTaskTargetsFromLS(doc.data().title, doc.data().targets),
+                    solved: checkSolvedTask(doc.data().title, checkItem)
                 }
-                return saveDataCallback(data)
+                tasks.push(data);
+
+                // find the particular one
+                if (doc.data().number == taskNumber) {
+                    specificTask = {
+                        title: doc.data().title,
+                        introduction: doc.data().introduction,
+                        number: doc.data().number,
+                        aid: doc.data().aid,
+                        originalCode: formatCode("html", doc.data().code),
+                        // check if the user hasn't already solved the task, if he  has solved it,
+                        // get it from local storage and if not, return the default value (task.targets)
+                        code: getHtmlTaskCodeFromLS(doc.data().title, doc.data().code),
+                        targets: getHtmlTaskTargetsFromLS(doc.data().title, doc.data().targets),
+                    }
+                }
             });
-        })
-        .catch((error) => {
-            console.log("Error getting document:", error);
+
+            // check if task exists
+            if (specificTask) {
+                saveTaskDataCallback(specificTask);
+            }
+            else {
+                saveTaskDataCallback(undefined);
+            }
+            return saveAllTasksDataCallback(tasks.sort((a, b) => a.number - b.number));
         });
 };
 
@@ -145,7 +166,7 @@ export const getAllTasks = (tasksType: "htmlTasks" | "jsTasks" | "cssTasks",
                 return tasks.push(data);
             });
             return saveDataCallback(tasks.sort((a, b) => a.number - b.number));
-        })
+        });
 };
 
 

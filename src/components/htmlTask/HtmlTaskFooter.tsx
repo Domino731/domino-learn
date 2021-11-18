@@ -17,13 +17,13 @@ import {
     TaskFooterListBtn,
     TaskFooter
 } from "../../style/elements/tasks/task";
-import {FreepikThanks} from "../../style/general/generalStyles";
 import {Link} from "react-router-dom";
 import plutoPlanet from "../../images/planet_pluto.png";
 import marsPlanet from "../../images/planet_mars.png";
 import planets from "../../images/planets.png";
 import {IFPropsTaskFooter} from "../../types/types";
 import footerBg from "../../images/quiz_html_background.svg";
+
 /**
  * Footer for htmlTask, which contains the number of the current task, lists with tasks
  * @param allTasks - array with tasks, which will be used to render the list with tasks

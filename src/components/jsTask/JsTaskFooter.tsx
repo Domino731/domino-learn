@@ -1,10 +1,8 @@
 import {FunctionComponent, useState} from "react";
-import {JsFooter} from "../../style/elements/tasks/jsTask";
 import {IFPropsTaskFooter} from "../../types/types";
 import {Link} from "react-router-dom";
 import {
     TaskFooter,
-    TaskFooterIcons,
     TaskFooterListBtn,
     TaskFooterSwitchBar,
     TaskFooterSwitchButton,
@@ -15,12 +13,10 @@ import {
     TaskFooterTasksPlanets,
     TaskFooterTitle
 } from "../../style/elements/tasks/task";
-import {JsFooterTasksWrapper, JsFooterDecorations} from "../../style/elements/tasks/jsTask";
-
+import {JsFooterTasksWrapper} from "../../style/elements/tasks/jsTask";
 import plutoPlanet from "../../images/planet_pluto.png";
 import neptunePlanet from "../../images/planet_neptune.png";
 import marsPlanet from "../../images/planet_mars.png";
-import {FreepikThanks} from "../../style/general/generalStyles";
 import footerBg from "../../images/quiz_js_background.svg";
 
 export const JsTaskFooter : FunctionComponent<IFPropsTaskFooter> = ({allTasks, taskNumber}) : JSX.Element => {
