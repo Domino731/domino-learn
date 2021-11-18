@@ -114,6 +114,12 @@ export const TaskFooter = styled.footer< PropsTaskFooter >`
     padding: 5px;
     font-size: 18px;
   }
+  @media ${device.laptopL}{
+    font-size: 17px;
+  }
+  @media ${device.laptopM}{
+    font-size: 16px;
+  }
 `
 export const TaskFooterTitle = styled.div`
   display: block;
@@ -214,6 +220,9 @@ export const TaskFooterListBtn = styled.button`
     transition: 0.1s;
     cursor: pointer;
     border: 2px solid ${props => props.theme.color.gray};
+  }
+  @media ${device.laptopL}{
+    font-size: 1.4em;
   }
 `
 export const TaskFooterTasksWrapper = styled.div`
@@ -491,6 +500,12 @@ export const TaskCodeEditorMultiple = styled.div`
   @media ${device.desktopS}{
     padding: 49px 0;
   }
+  @media ${device.laptopL}{
+    padding: 47px 0;
+  }
+  @media ${device.laptopM}{
+    padding: 41px 0;
+  }
   @media ${device.tablet} {
     padding: 40px 0;
   }
@@ -506,6 +521,12 @@ export const CodeEditorPanel = styled.div`
   background: ${props => props.theme.color.gray};
   @media ${device.desktopS}{
     height: 49px;
+  }
+  @media ${device.laptopL}{
+    height: 47px;
+  }
+  @media ${device.laptopM}{
+    height: 41px;
   }
   @media ${device.tablet} {
     z-index: 4;
@@ -533,9 +554,11 @@ export const CodeEditorPanelBtn = styled.button`
   @media ${device.desktopS}{
     font-size: 24px;
   }
-  @media ${device.laptopS} {
-    margin-right: 0;
-    padding: 12px 6px;
+  @media ${device.laptopL}{
+    font-size: 22px;
+  }
+  @media ${device.laptopM}{
+    font-size: 20px;
   }
 `
 const an__CodeEditorError = keyframes`
@@ -646,6 +669,12 @@ export const ChangeEditor = styled.form`
   @media ${device.desktopS}{
     height: 49px;
   }
+  @media ${device.laptopL}{
+    height: 47px;
+  }
+  @media ${device.laptopM}{
+    height: 41px;
+  }
   @media ${device.tablet} {
     height: 40px;
   }
@@ -658,14 +687,15 @@ interface ChangeEditorCheckboxProps {
 export const ChangeEditorCheckbox = styled.div<ChangeEditorCheckboxProps>`
   display: flex;
   align-items: center;
-  margin-right: 1.25rem;
+  font-size: 20px;
+  margin-right: 0.9em;
   position: relative;
   padding: 0.75rem 0.313rem;
   color: #fff;
 
   i {
-    margin-left: 0.563rem;
-    font-size: 20px;
+    margin-left: 0.4em;
+    font-size: 0.8em;
   }
 
   span {
@@ -677,7 +707,7 @@ export const ChangeEditorCheckbox = styled.div<ChangeEditorCheckboxProps>`
   }
 
   label {
-    font-size: 1.313rem;
+    font-size: 1em;
   }
 
   input {
@@ -704,6 +734,12 @@ export const ChangeEditorCheckbox = styled.div<ChangeEditorCheckboxProps>`
     & ~ i {
       color: ${props => props.lineColor};
     }
+  }
+  @media ${device.laptopL}{
+    font-size: 19px;
+  }
+  @media ${device.laptopM}{
+    font-size: 18px;
   }
 `
 export const EditorSettingsWrapper = styled.form`
@@ -856,6 +892,9 @@ const TaskAidItem = styled.a`
   @media ${device.laptopL} {
     height: 75px;
   }
+  @media ${device.laptopM}{
+    height: 69px;
+  }
   @media ${device.laptopS} {
     height: 65px;
   }
@@ -902,6 +941,10 @@ const TaskAidIcon = styled.div`
     width: 94px;
     font-size: 50px;
   }
+  @media ${device.laptopM}{
+    width: 81px;
+    font-size: 43px;
+  }
 `
 export const TaskAidIconVideo = styled(TaskAidIcon)`
   background: #3a86ff;
@@ -921,6 +964,10 @@ const TaskAidTitle = styled.div`
   @media ${device.desktopS}{
     max-height: 41px;
     font-size: 19px;
+  }
+  @media ${device.laptopM} {
+    font-size: 17px;
+    max-height: 38px;
   }
   @media ${device.laptopS} {
     padding: 1px 3px;
@@ -952,6 +999,9 @@ const TaskAidAuthor = styled.span`
   width: auto;
   @media ${device.desktopS}{
     font-size: 19px;
+  }
+  @media ${device.laptopM} {
+    font-size: 16px;
   }
   @media ${device.mobileM} {
     padding: 2px 2px;
@@ -990,8 +1040,12 @@ export const TaskIntroductionDecoration = styled.div`
     width: 29%;
     height: 68px;
   }
+  @media ${device.laptopL}{
+    width: 29%;
+    height: 41px;
+  }
   @media ${device.laptopSM} {
-    height: 60px;
+    height: 41px;
   }
 `
 
@@ -1029,5 +1083,11 @@ export const TaskSectionScale = styled.div`
 font-size: 20px;
 @media ${device.desktopS}{
   font-size: 18px;
+}
+@media ${device.laptopL}{
+  font-size: 16px;
+}
+@media ${device.laptopM}{
+  font-size: 15px;
 }
 `
