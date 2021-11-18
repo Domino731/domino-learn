@@ -436,7 +436,6 @@ export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({task, 
 
             </MobileTaskDetailsWrapper>
 
-
             <MobileCssEditorWrapper>
 
                 {/*switch editor*/}

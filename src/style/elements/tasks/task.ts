@@ -123,6 +123,18 @@ export const TaskFooter = styled.footer< PropsTaskFooter >`
   @media ${device.laptopS}{
     font-size: 14px;
   }
+  @media ${device.tablet}{
+    font-size: 16px;
+  }
+  @media screen and (max-width: 709px){
+    font-size: 15px;
+  }
+  @media ${device.mobileL}{
+    font-size: 14px;
+  }
+  @media ${device.mobileM}{
+    font-size: 13px;
+  }
 `
 export const TaskFooterTitle = styled.div`
   display: block;
@@ -135,15 +147,24 @@ export const TaskFooterTitle = styled.div`
 
   a {
     color: ${props => props.theme.color.gray};
-  }
-
-  &:hover {
+     &:hover {
     transition: 0.2s;
     letter-spacing: 0.188rem;
   }
+  }
 
-  @media (max-width: 360px) {
-    font-size: 21px;
+ 
+
+  @media screen and (max-width: 667px){
+    width: 100%;
+    margin-top: 10px;
+    text-align: left;
+  }
+  @media ${device.mobileM}{
+    margin-top: 7px;
+  }
+  @media screen and (max-width: 340px){
+    margin-top: 4px;
   }
 `
 export const TaskFooterIcons = styled.div`
@@ -159,6 +180,10 @@ export const TaskFooterTaskNumber = styled.div`
   @media (max-width: 360px) {
     font-size: 21px;
   }
+  @media screen and (max-width: 667px){
+    width: 50%;
+    text-align: right;
+  }
 `
 
 export const TaskFooterSwitchBar = styled.div`
@@ -170,9 +195,11 @@ export const TaskFooterSwitchBar = styled.div`
   flex-shrink: 1;
   width: 33%;
   padding: 4px 0;
-
   @media ${device.laptopS} {
     margin-right: 0;
+  }
+  @media screen and (max-width: 667px){
+    width: 50%;
   }
 `
 
@@ -247,7 +274,7 @@ export const TaskFooterTasksWrapper = styled.div`
   @media ${device.laptopS} {
     width: 170px;
     height: 290px;
-    top: -297px;
+    top: -295px;
   }
 `
 export const TaskFooterTasksList = styled.ul`
@@ -389,6 +416,11 @@ export const TaskIntroductionBar = styled.div`
       font-size: 18px;
     }
   }
+  @media ${device.mobileL}{
+    h3 {
+      font-size: 16px;
+    }
+  }
 `
 
 export const TaskIntroductionText = styled.div`
@@ -411,6 +443,7 @@ export const TaskIntroductionText = styled.div`
   h3 {
     font-weight: 700;
     font-size: 1.2em;
+    margin-top: 0.3em;
     text-decoration: underline;
     text-decoration-color: ${props => props.theme.color.blue};
   }
@@ -536,6 +569,12 @@ export const TaskCodeEditorMultiple = styled.div`
     padding: 34px 0;
   }
   @media ${device.tablet} {
+    padding: 48px 0;
+  }
+  @media ${device.mobileL}{
+    padding: 43px 0;
+  }
+  @media screen and (max-width: 340px){
     padding: 40px 0;
   }
 `
@@ -562,6 +601,12 @@ export const CodeEditorPanel = styled.div`
   }
   @media ${device.tablet} {
     z-index: 4;
+    height: 48px;
+  }
+  @media ${device.mobileL}{
+    height: 43px;
+  }
+  @media screen and (max-width: 340px){
     height: 40px;
   }
 `
@@ -597,6 +642,12 @@ export const CodeEditorPanelBtn = styled.button`
   }
   @media ${device.laptopS}{
     font-size: 16px;
+  }
+  @media ${device.tablet}{
+    font-size: 19px;
+  }
+  @media ${device.mobileL}{
+    font-size: 17px;
   }
 `
 const an__CodeEditorError = keyframes`
@@ -717,6 +768,12 @@ export const ChangeEditor = styled.div`
     height: 34px;
   }
   @media ${device.tablet} {
+    height: 48px;
+  }
+  @media ${device.mobileL}{
+    height: 43px;
+  }
+  @media screen and (max-width: 340px){
     height: 40px;
   }
 `
@@ -791,6 +848,12 @@ export const ChangeEditorCheckbox = styled.div<ChangeEditorCheckboxProps>`
   @media ${device.laptopM}{
     font-size: 15px;
   }
+  @media ${device.tablet}{
+    font-size: 20px;
+  }
+  @media ${device.mobileL}{
+    font-size: 18px;
+  }
 `
 export const EditorSettingsWrapper = styled.div`
   position: absolute;
@@ -800,7 +863,6 @@ export const EditorSettingsWrapper = styled.div`
   width: 100%;
   padding: 9px 11px;
   background: ${props => props.theme.color.gray};
-  border: 1px solid red;
   font-size: 20px;
   input {
     border-radius: 0.3em;
@@ -829,6 +891,26 @@ export const EditorSettingsWrapper = styled.div`
   }
   @media screen and (max-width: 870px){
     top: -193px;
+  }
+  @media ${device.tablet}{
+    font-size: 17px;
+    top: -180px;
+  }
+  @media screen and (max-width: 554px){
+    font-size: 16px;
+    top: -171px;
+  }
+  @media screen and (max-width: 530px){
+    font-size: 15px;
+    top: -199px;
+  }
+  @media ${device.laptopL}{
+    font-size: 13px;
+    top: -180px;
+  }
+  @media screen and (max-width: 331px){
+    font-size: 13px;
+    top: -180px;
   }
 `
 export const EditorSettingsLabel = styled.label`
@@ -973,6 +1055,9 @@ const TaskAidItem = styled.a`
   @media ${device.laptopS} {
     height: 50px;
   }
+  @media ${device.tablet}{
+    height: 47px;
+  }
 `
 
 export const TaskAidItemVideo = styled(TaskAidItem)`
@@ -1029,6 +1114,14 @@ const TaskAidIcon = styled.div`
     width: 56px;
     font-size: 27px;
   }
+  @media ${device.tablet}{
+    width: 53px;
+    font-size: 25px;
+  }
+  @media ${device.mobileM}{
+    width: 56px;
+    font-size: 29px;
+  }
 `
 export const TaskAidIconVideo = styled(TaskAidIcon)`
   background: #3a86ff;
@@ -1067,10 +1160,13 @@ const TaskAidTitle = styled.div`
     font-size: 13px;
     max-height: 28px;
   }
-  @media ${device.mobileM} {
-    padding: 1px 1px;
+  @media ${device.mobileL}{
     font-size: 12px;
-    max-height: 25px;
+    max-height: 26px;
+  }
+  @media ${device.mobileM} {
+    font-size: 13px;
+    max-height: 28px;
   }
 `
 export const TaskAidTitleVideo = styled(TaskAidTitle)`
@@ -1100,6 +1196,9 @@ const TaskAidAuthor = styled.span`
   }
   @media ${device.mobileM} {
     padding: 2px 2px;
+  }
+  @media ${device.mobileL}{
+    font-size: 11px;
   }
 `
 export const TaskAidAuthorVideo = styled(TaskAidAuthor)`
@@ -1171,13 +1270,17 @@ export const MobileTaskDetail = styled.div`
 export const MobileTaskEditorWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: calc(50vh - 30px);
+  height: 67vh;
+  min-height: 620px;
   padding-bottom: 30px;
   background: black;
+  @media ${device.mobileL}{
+    min-height: 500px;
+  }
 `
 export const MobileTaskResult = styled.div`
   height: 85vh;
-  padding: 30px;
+  padding: 13px;
   @media ${device.mobileM} {
     padding: 10px;
   }
@@ -1197,6 +1300,12 @@ font-size: 20px;
   font-size: 14px;
 }
 @media ${device.laptopS}{
+  font-size: 12px;
+}
+@media ${device.tablet}{
+  font-size: 13px;
+}
+@media ${device.mobileL}{
   font-size: 12px;
 }
 `
