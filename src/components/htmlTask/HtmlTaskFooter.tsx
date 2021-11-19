@@ -36,17 +36,17 @@ export const HtmlTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, 
     // toggle flag state -> toggle tasks list
     const handleChangeFlag = (): void => setFlag(!flag);
 
-    return <TaskFooter background={footerBg}>
+    return <TaskFooter background={footerBg} reverse>
 
         {/*title, link to home page*/}
-        <TaskFooterTitle>
+        <TaskFooterTitle >
             <Link to="/">
                 DOMINO LEARN
             </Link>
         </TaskFooterTitle>
 
         {/*current task number*/}
-        <TaskFooterTaskNumber> {taskNumber} / {allTasks.length}</TaskFooterTaskNumber>
+        <TaskFooterTaskNumber reverse> {taskNumber} / {allTasks.length}</TaskFooterTaskNumber>
 
  {/*panel by which user can moving between available tasks*/}
         <TaskFooterSwitchBar>

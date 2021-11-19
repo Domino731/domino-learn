@@ -30,7 +30,7 @@ export const JsTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({ allTasks, t
 
     const scrollToTop = (): void => window.scrollTo(0, 0);
 
-    return <TaskFooter background={footerBg}>
+    return <TaskFooter background={footerBg} reverse>
 
         {/*title, link to home page*/}
         <TaskFooterTitle>
@@ -40,7 +40,7 @@ export const JsTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({ allTasks, t
         </TaskFooterTitle>
 
         {/*current task number*/}
-        <TaskFooterTaskNumber> {taskNumber} / {allTasks.length}</TaskFooterTaskNumber>
+        <TaskFooterTaskNumber reverse> {taskNumber} / {allTasks.length}</TaskFooterTaskNumber>
 
         {/*panel by which user can moving between available tasks*/}
         <TaskFooterSwitchBar>

@@ -100,6 +100,7 @@ export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
 
 interface PropsTaskFooter {
   background: string;
+  reverse?: boolean;
 }
 export const TaskFooter = styled.footer< PropsTaskFooter >`
   position: relative;
@@ -129,6 +130,9 @@ export const TaskFooter = styled.footer< PropsTaskFooter >`
   @media screen and (max-width: 709px){
     font-size: 15px;
   }
+  @media screen and (max-width: 667px) {
+    ${props => props.reverse && 'flex-flow: row wrap-reverse'};
+  }
   @media ${device.mobileL}{
     font-size: 14px;
   }
@@ -136,6 +140,7 @@ export const TaskFooter = styled.footer< PropsTaskFooter >`
     font-size: 13px;
   }
 `
+
 export const TaskFooterTitle = styled.div`
   display: block;
   width: 33%;
@@ -153,7 +158,6 @@ export const TaskFooterTitle = styled.div`
   }
   }
 
- 
 
   @media screen and (max-width: 667px){
     width: 100%;
@@ -171,7 +175,11 @@ export const TaskFooterIcons = styled.div`
   display: block;
   width: 33%;
 `
-export const TaskFooterTaskNumber = styled.div`
+
+interface PropsTaskFooterTaskNumber  {
+  reverse?: boolean;
+}
+export const TaskFooterTaskNumber = styled.div<PropsTaskFooterTaskNumber >`
   font-size: 2em;
   font-family: 'Recursive', sans-serif;
   font-weight: 900;
@@ -182,7 +190,7 @@ export const TaskFooterTaskNumber = styled.div`
   }
   @media screen and (max-width: 667px){
     width: 50%;
-    text-align: right;
+    text-align: ${props => props.reverse ? 'left' : 'end'};
   }
 `
 
