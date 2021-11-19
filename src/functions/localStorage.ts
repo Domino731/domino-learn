@@ -215,8 +215,6 @@ export const getHtmlTaskTargetsFromLS = (taskTitle: string, defaultValue: IFTask
         // Numbers of targets that have been executed are stored in local storage.
         // If there is a number then set the solved key  to true in specific element in targetsData array
         // This will make the checkbox color will be green, and user will be know what left
-       
-
         if (data.length !== 0) {
              data[0].solvedTargets.forEach(el => {
             const solved = defaultValue.find(e => e.number === el);
@@ -256,6 +254,9 @@ export const getCssTaskTargetsFromLS = (
         // array with task targets
         const targetsData = defaultValue;
 
+
+        if (taskTargets.length !== 0) {
+
         // Numbers of targets that have been executed are stored in local storage.
         // If there is a number then set the solved key  to true in specific element in targetsData array
         // This will make the checkbox color will be green, and user will be know what left
@@ -268,7 +269,6 @@ export const getCssTaskTargetsFromLS = (
         });
 
 
-        if (taskTargets.length !== 0) {
             return targetsData;
         } else {
             return defaultValue;
@@ -297,6 +297,9 @@ export const getJsTaskTargetsFromLS = (taskTitle: string, defaultValue: IFJsTask
         // array with task targets
         const targetsData = defaultValue;
 
+
+        if (taskTargets.length > 0) {
+
         // Numbers of targets that have been executed are stored in local storage.
         // If there is a number then set the solved key  to true in specific element in targetsData array
         // This will make the checkbox color will be green, and user will be know what left
@@ -308,7 +311,6 @@ export const getJsTaskTargetsFromLS = (taskTitle: string, defaultValue: IFJsTask
             }
         });
 
-        if (taskTargets.length > 0) {
             return targetsData;
         } else {
             return defaultValue;
