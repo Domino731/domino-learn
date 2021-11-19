@@ -154,7 +154,7 @@ export interface IFTaskAid {
 
 export interface IFTaskTargets {
     target: string;
-    solution: string;
+    solutions: string[];
     number: number;
     solved: null | boolean;
 }

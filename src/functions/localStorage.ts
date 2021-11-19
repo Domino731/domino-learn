@@ -62,7 +62,7 @@ export const getEditorTheme = (): string => {
  * @param taskTitle - task title, needed to search this data basis on this title
  * @param userCode - code with solution, when user comes back he will have this code
  */
-export const saveHtmlTaskSolutionToLS = (taskTargets: TypeHtmlTaskSolution[], taskTitle: string, userCode: string): void => {
+export const saveHtmlTaskSolutionToLS = (taskTargets: IFTaskTargets[], taskTitle: string, userCode: string): void => {
 
     // array with solved targets
     const solvedTargets: number[] = [];
@@ -252,7 +252,7 @@ export const getCssTaskTargetsFromLS = (
         const taskTargets: IFLSCssTaskSolutions[] = localStorageData.filter(el => el.title === taskTitle);
 
         // check if the task has been saved
-        let data : IFLSCssTaskSolutions[] = localStorageData.filter(el => el.title === taskTitle);
+        let data: IFLSCssTaskSolutions[] = localStorageData.filter(el => el.title === taskTitle);
 
         // array with task targets
         const targetsData: (IFCssTaskTargetCss | IfCssTaskTargetHtml)[] = defaultValue;
@@ -286,26 +286,26 @@ export const getCssTaskTargetsFromLS = (
  */
 export const getJsTaskTargetsFromLS = (taskTitle: string, defaultValue: IFJsTaskTargets[]): IFJsTaskTargets[] => {
 
-    
+
     // check if storage exists
     if (localStorage.getItem("jsTasksSolutions") != null) {
         // @ts-ignore
         let localStorageData: IFLSjsTaskSolutions[] = JSON.parse(localStorage.getItem("jsTasksSolutions"));
 
         // check if the task has been saved
-        const taskTargets : IFLSjsTaskSolutions[] = localStorageData.filter(el => el.title === taskTitle);
+        const taskTargets: IFLSjsTaskSolutions[] = localStorageData.filter(el => el.title === taskTitle);
 
         // check if the task has been saved
-        let data : IFLSjsTaskSolutions[] = localStorageData.filter(el => el.title === taskTitle);
+        let data: IFLSjsTaskSolutions[] = localStorageData.filter(el => el.title === taskTitle);
 
         // array with task targets
-        const targetsData : IFJsTaskTargets[] = defaultValue;
+        const targetsData: IFJsTaskTargets[] = defaultValue;
 
-     // Numbers of targets that have been executed are stored in local storage.
+        // Numbers of targets that have been executed are stored in local storage.
         // so check what targets were executed by user
         if (taskTargets.length > 0) {
 
-              // using forEach find these targets
+            // using forEach find these targets
             data[0].solvedTargets.forEach(el => {
                 const solved = defaultValue.find(e => e.number === el);
                 if (solved !== undefined) {
@@ -410,36 +410,36 @@ export const getJsTaskCodeFromLS = (taskTitle: string, defaultValue: string) => 
  * @param taskType - local storage name in which you want to save
  */
 export const saveSolvedTaskToLS = (taskTitle: string, taskType: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks"): void => {
-         // check if storage exists
-        if (localStorage.getItem(taskType) != null) {
-            // @ts-ignore
-            let localStorageData: string[] = JSON.parse(localStorage.getItem(item));
-            // add new task to solved
-            localStorageData.push(taskTitle);
+    // check if storage exists
+    if (localStorage.getItem(taskType) != null) {
+        // @ts-ignore
+        let localStorageData: string[] = JSON.parse(localStorage.getItem(item));
+        // add new task to solved
+        localStorageData.push(taskTitle);
 
-            //  array with updated local storage data
-            let updatedLocalStorageData: string[] = [];
+        //  array with updated local storage data
+        let updatedLocalStorageData: string[] = [];
 
-            //prevention of duplicates
-            localStorageData.forEach(el => {
-                if (el !== taskTitle) {
-                    updatedLocalStorageData.push(el);
-                }
-            });
+        //prevention of duplicates
+        localStorageData.forEach(el => {
+            if (el !== taskTitle) {
+                updatedLocalStorageData.push(el);
+            }
+        });
 
-            // push new task title
-            updatedLocalStorageData.push(taskTitle);
+        // push new task title
+        updatedLocalStorageData.push(taskTitle);
 
-            // set updated array with task titles
-            localStorage.setItem(taskType, JSON.stringify(updatedLocalStorageData));
-        } 
-        // if storage doesnt exists then create new
-        else {
-            let localStorageData: string[] = [];
-            localStorageData.push(taskTitle);
-            localStorage.setItem(taskType, JSON.stringify(localStorageData));
-        }
+        // set updated array with task titles
+        localStorage.setItem(taskType, JSON.stringify(updatedLocalStorageData));
     }
+    // if storage doesnt exists then create new
+    else {
+        let localStorageData: string[] = [];
+        localStorageData.push(taskTitle);
+        localStorage.setItem(taskType, JSON.stringify(localStorageData));
+    }
+}
 
 /**
  * remove solved task title from local storage
@@ -452,7 +452,7 @@ export const removeSolvedTaskFormLS = (taskTitle: string, taskType: "solvedJsTas
 
     // check if storage exists
     if (localStorageData != null) {
-        
+
         // remove this task from solved
         const index = localStorageData.indexOf(taskTitle);
         if (index > -1) {
@@ -518,10 +518,13 @@ export const saveQuizCoinsToLS = (coins: number, item: string): void => {
 
     // check if storage exists
     if (localStorageData != null) {
+        // add new coins to current
         let oldLocalStorageData = JSON.parse(localStorageData);
         oldLocalStorageData[item] = oldLocalStorageData[item] + coins;
         return localStorage.setItem("quizCoins", JSON.stringify(oldLocalStorageData));
-    } else {
+    }
+    // if storage doeant exists then create new
+    else {
         const quizCoins = {
             html: 0,
             css: 0,
@@ -533,14 +536,14 @@ export const saveQuizCoinsToLS = (coins: number, item: string): void => {
 }
 
 /**
- * get quiz coins
- * @param item - name of local storage from where data will be retrieved
+ * get quiz coins for particular quiz type
+ * @param quizType - name of local storage from where data will be retrieved
  */
-export const getQuizCoins = (item: string): number => {
+export const getQuizCoins = (quizType: string): number => {
     const localStorageData = localStorage.getItem("quizCoins");
     if (localStorageData != null) {
         const quizCoins = JSON.parse(localStorageData);
-        return quizCoins[item];
+        return quizCoins[quizType];
     } else {
         return 0;
     }
