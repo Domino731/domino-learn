@@ -25,7 +25,6 @@ export const taskValidationHtml = (code: string, taskTarget: IFTaskTargets, addP
     taskTarget.solutions.forEach(solution => {
         // task solution with lower case (without task comments and spaces)
         const taskSolution: string = solution.replace(/\s/g, '').toLowerCase();
-        console.log(taskSolution)
         // change taskTargets state to inform user what he did correctly and what he did wrong -> checkboxes
         // in task targets list will change their color
 
