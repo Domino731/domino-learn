@@ -26,6 +26,22 @@ export const TaskContentWrapper = styled.main`
 export const TaskSuccessfulImg = styled.img`
   width: 60%;
   height: auto;
+  @media ${device.desktopS}{
+    width: 57%;
+  }
+  @media ${device.laptopL}{
+    width: 50%;
+  }
+  @media ${device.tablet}{
+    width: 35%;
+  }
+  @media (max-width: 650px) {
+    width: 45%;
+  }
+  @media ${device.mobileM} {
+    margin-top: 10px;
+    width: 45%;
+  }
 `
 export const TaskSuccessfulTitle = styled.h2`
   margin-top: 10px;
@@ -34,15 +50,29 @@ export const TaskSuccessfulTitle = styled.h2`
   font-size: 39px;
   text-align: center;
   background: ${props => props.theme.color.gray};
-
-  @media ${device.laptopL} {
-    font-size: 36px;
-  }
-  @media ${device.laptopSM} {
+  @media ${device.desktopS}{
+    margin-top: 9px;
+    padding: 9px 31px;
     font-size: 30px;
   }
+  @media ${device.laptopL} {
+    margin-top: 8px;
+    padding: 7px 31px;
+    font-size: 28px;
+  }
+  @media ${device.laptopM} {
+    font-size: 28px;
+  }
+  @media ${device.laptopSM} {
+    padding: 7px 13px;
+    font-size: 23px;
+  }
+  @media ${device.tablet}{
+    padding: 7px 3px;
+    font-size: 20px;
+  }
   @media (max-width: 650px) {
-    padding: 15px;
+    padding: 7px 3px;
     font-size: 17px;
   }
 `
@@ -77,10 +107,24 @@ export const TaskSuccessfulBar = styled.div<TaskSuccessfulBarProps>`
       letter-spacing: 0.125rem;
     }
   }
-
+  @media ${device.laptopL}{
+    a, button {
+      font-size: 21px;
+    }
+  }
+  @media ${device.laptopM}{
+    a, button {
+      font-size: 18px;
+    }
+  }
   @media ${device.laptopSM} {
     a, button {
-      font-size: 24px;
+      font-size: 17px;
+    }
+  }
+  @media ${device.tablet}{
+    a, button {
+      font-size: 16px;
     }
   }
   @media (max-width: 650px) {
