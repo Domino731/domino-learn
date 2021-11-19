@@ -5,9 +5,10 @@ import {
     TypeHtmlTaskSolution,
     TypeLSHtmlTaskSolutions
 } from "../types/types";
-import {IFTaskTargets} from "../types/types";
-import {codeEditorAreas} from "../properties/codeEditorAreas";
-import {formatCode} from "./formatCode";
+import { IFTaskTargets } from "../types/types";
+import { codeEditorAreas } from "../properties/codeEditorAreas";
+import { formatCode } from "./formatCode";
+import { exists } from "fs";
 
 const width = window.innerWidth;
 
@@ -56,26 +57,25 @@ export const getEditorTheme = (): string => {
 }
 
 /**
- * Save task solution into localStorage, so that when the user returns to this task, he will have+ his solution
- * @param taskSolutions - taskSolutions that you want to save in local storage,
- * is needed, it has keys (false or true) that display the single task target has been completed (checkboxes)
- * @param taskTitle - task name for solutions, is needed after to download specific solutions for task
+ * Save html task solution into localStorage, so that when the user returns to this task, he will be have his solution
+ * @param taskTargets - executed task targets
+ * @param taskTitle - task title, needed to search this data basis on this title
  * @param userCode - code with solution, when user comes back he will have this code
  */
-export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], taskTitle: string, userCode: string): void => {
+export const saveHtmlTaskSolutionToLS = (taskTargets: TypeHtmlTaskSolution[], taskTitle: string, userCode: string): void => {
 
+    // array with solved targets
     const solvedTargets: number[] = [];
+    taskTargets.forEach(el => el.solved && solvedTargets.push(el.number));
 
-    taskSolutions.forEach(el => el.solved && solvedTargets.push(el.number));
-
-    // object with task name, solutions, code
+    // data about task which will be saved in local storage
     const taskObj: TypeLSHtmlTaskSolutions = {
         title: taskTitle,
         code: userCode,
         solvedTargets
     };
 
-    // save solution into local storage
+    // check if storage exists
     if (localStorage.getItem("htmlTasksSolutions") != null) {
         // @ts-ignore
         let localStorageData: TypeLSHtmlTaskSolutions[] = JSON.parse(localStorage.getItem("htmlTasksSolutions"));
@@ -83,7 +83,7 @@ export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], 
         //  array with updated local storage data
         let updatedLocalStorageData: TypeLSHtmlTaskSolutions[] = [];
 
-        //prevention of duplicates
+        // prevention of duplicates
         localStorageData.forEach(el => {
             if (el.title !== taskTitle) {
                 updatedLocalStorageData.push(el);
@@ -94,8 +94,7 @@ export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], 
         updatedLocalStorageData.push(taskObj);
         return localStorage.setItem("htmlTasksSolutions", JSON.stringify(updatedLocalStorageData));
     } else {
-
-        // if cssTasksSolutions doesnt exist in local storage create new data
+        // if htmlTasksSolutions doesnt exist in local storage then create new storage
         let localStorageData: TypeLSHtmlTaskSolutions[] = [];
         localStorageData.push(taskObj);
         return localStorage.setItem("htmlTasksSolutions", JSON.stringify(localStorageData));
@@ -103,17 +102,16 @@ export const saveHtmlTaskSolutionToLS = (taskSolutions: TypeHtmlTaskSolution[], 
 };
 
 /**
- * Save task solution into localStorage, so that when the user returns to this task, he will have his solution
- * @param taskSolutions - taskSolutions that you want to save in local storage,
- * is needed, it has keys (false or true) that display the single task target has been completed (checkboxes)
- * @param taskTitle - task name for solutions, is needed after to download specific solutions for task
+ * Save css task solution into localStorage, so that when the user returns to this task, he will be have his solution
+ * @param taskTargets - executed task targets
+ * @param taskTitle - task title, needed to search this data basis on this title
  * @param userCode - code with solution, when user comes back he will have this code
  */
-export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfCssTaskTargetHtml) [], taskTitle: string, userCode: { html: string, css: string }): void => {
+export const saveCssTaskSolutionToLS = (taskTargets: (IFCssTaskTargetCss | IfCssTaskTargetHtml)[], taskTitle: string, userCode: { html: string, css: string }): void => {
 
+    // array with solved targets
     const solvedTargets: number[] = [];
-
-    taskSolutions.forEach(el => el.solved && solvedTargets.push(el.number));
+    taskTargets.forEach(el => el.solved && solvedTargets.push(el.number));
 
     // object with task name, solutions, code
     const taskObj: IFLSCssTaskSolutions = {
@@ -122,7 +120,7 @@ export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfC
         solvedTargets
     };
 
-    // save solution into local storage
+    // check if storage exists
     if (localStorage.getItem("cssTasksSolutions") != null) {
         // @ts-ignore
         let localStorageData: IFLSCssTaskSolutions[] = JSON.parse(localStorage.getItem("cssTasksSolutions"));
@@ -137,12 +135,12 @@ export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfC
             }
         })
 
-        // add new data into local storage
+        // push new data into local storage
         updatedLocalStorageData.push(taskObj);
         return localStorage.setItem("cssTasksSolutions", JSON.stringify(updatedLocalStorageData));
     } else {
 
-        // if cssTasksSolutions doesnt exist in local storage create new data
+        // if cssTasksSolutions doesnt exist in local storage then create new storage
         let localStorageData: IFLSCssTaskSolutions[] = [];
         localStorageData.push(taskObj);
         return localStorage.setItem("cssTasksSolutions", JSON.stringify(localStorageData));
@@ -150,17 +148,16 @@ export const saveCssTaskSolutionToLS = (taskSolutions: (IFCssTaskTargetCss | IfC
 };
 
 /**
- * Save task solution into localStorage, so that when the user returns to this task, he will have his solution
- * @param taskSolutions - taskSolutions that you want to save in local storage,
- * is needed, it has keys (false or true) that display the single task target has been completed (checkboxes)
- * @param taskTitle - task name for solutions, is needed after to download specific solutions for task
+ * Save css task solution into localStorage, so that when the user returns to this task, he will be have his solution
+ * @param taskTargets - executed task targets
+ * @param taskTitle - task title, needed to search this data basis on this title
  * @param userCode - code with solution, when user comes back he will have this code
  */
-export const saveJsTaskSolutionToLS = (taskSolutions: IFJsTaskTargets[], taskTitle: string, userCode: string): void => {
+export const saveJsTaskSolutionToLS = (taskTargets: IFJsTaskTargets[], taskTitle: string, userCode: string): void => {
 
+    // array with solved targets
     const solvedTargets: number[] = [];
-
-    taskSolutions.forEach(el => el.solved && solvedTargets.push(el.number));
+    taskTargets.forEach(el => el.solved && solvedTargets.push(el.number));
 
     // object with task name, solutions, code
     const taskObj: IFLSjsTaskSolutions = {
@@ -169,7 +166,7 @@ export const saveJsTaskSolutionToLS = (taskSolutions: IFJsTaskTargets[], taskTit
         solvedTargets
     };
 
-    // save solution into local storage
+    // check if storage exists
     if (localStorage.getItem("jsTasksSolutions") != null) {
         // @ts-ignore
         let localStorageData: IFLSjsTaskSolutions[] = JSON.parse(localStorage.getItem("jsTasksSolutions"));
@@ -177,7 +174,7 @@ export const saveJsTaskSolutionToLS = (taskSolutions: IFJsTaskTargets[], taskTit
         //  array with updated local storage data
         let updatedLocalStorageData: IFLSjsTaskSolutions[] = [];
 
-        //prevention of duplicates
+        // prevention of duplicates
         localStorageData.forEach(el => {
             if (el.title !== taskTitle) {
                 updatedLocalStorageData.push(el);
@@ -189,7 +186,7 @@ export const saveJsTaskSolutionToLS = (taskSolutions: IFJsTaskTargets[], taskTit
         return localStorage.setItem("jsTasksSolutions", JSON.stringify(updatedLocalStorageData));
     } else {
 
-        // if cssTasksSolutions doesnt exist in local storage create new data
+        // if cssTasksSolutions doesnt exist in local storage then create storage
         let localStorageData: IFLSjsTaskSolutions[] = [];
         localStorageData.push(taskObj);
         return localStorage.setItem("jsTasksSolutions", JSON.stringify(localStorageData));
@@ -197,34 +194,37 @@ export const saveJsTaskSolutionToLS = (taskSolutions: IFJsTaskTargets[], taskTit
 }
 
 /**
- * Get html task targets - information about which task is completed (color in checkbox will be red or green)
- * @param taskTitle - name of task
- * @param defaultValue - the default value to be saved to the state if the user has not solved this task
+ * Get html task targets - information about which task target is completed
+ * @param taskTitle - title of task
+ * @param defaultValue - the default value to be return if the user has not solved this task yet
  */
-export const getHtmlTaskTargetsFromLS = (taskTitle: string, defaultValue: IFTaskTargets []) => {
+export const getHtmlTaskTargetsFromLS = (taskTitle: string, defaultValue: IFTaskTargets[]): IFTaskTargets[] => {
+    // check if storage exists
     if (localStorage.getItem("htmlTasksSolutions") != null) {
         // @ts-ignore
         let localStorageData: TypeLSHtmlTaskSolutions[] = JSON.parse(localStorage.getItem("htmlTasksSolutions"));
 
         // check if the task has been saved
-        let data = localStorageData.filter(el => el.title === taskTitle);
-        console.log(data)
+        let data: TypeLSHtmlTaskSolutions[] = localStorageData.filter(el => el.title === taskTitle);
+
         // array with task targets
-        const targetsData = defaultValue;
+        const targetsData: IFTaskTargets[] = defaultValue;
 
         // Numbers of targets that have been executed are stored in local storage.
-        // If there is a number then set the solved key  to true in specific element in targetsData array
-        // This will make the checkbox color will be green, and user will be know what left
+        // so check what targets were executed by user
         if (data.length !== 0) {
-             data[0].solvedTargets.forEach(el => {
-            const solved = defaultValue.find(e => e.number === el);
-            if (solved !== undefined) {
-                const index = defaultValue.indexOf(solved);
-                return targetsData[index].solved = true;
-            }
-        });
+            // using forEach find these targets
+            data[0].solvedTargets.forEach(el => {
+                const solved = defaultValue.find(e => e.number === el);
+
+                if (solved !== undefined) {
+                    const index = defaultValue.indexOf(solved);
+                    return targetsData[index].solved = true;
+                }
+            });
             return targetsData;
-        } else {
+        }
+        else {
             return defaultValue;
         }
     } else {
@@ -233,41 +233,42 @@ export const getHtmlTaskTargetsFromLS = (taskTitle: string, defaultValue: IFTask
 }
 
 /**
- * Get css task targets - information about which task is completed  (color in checkbox will be red or green)
- * @param taskTitle - name of task
- * @param defaultValue - the default value to be saved to the state if the user has not solved this task
+ * Get css task targets - information about which task target is completed
+ * @param taskTitle - title of task
+ * @param defaultValue - the default value to be return if the user has not solved this task yet
  */
 export const getCssTaskTargetsFromLS = (
     taskTitle: string,
-    defaultValue: (IFCssTaskTargetCss | IfCssTaskTargetHtml) []) => {
+    defaultValue: (IFCssTaskTargetCss | IfCssTaskTargetHtml)[])
+    : (IFCssTaskTargetCss | IfCssTaskTargetHtml)[] => {
+
+    // check if storage exists
     if (localStorage.getItem("cssTasksSolutions") != null) {
 
         // @ts-ignore
         let localStorageData: IFLSCssTaskSolutions[] = JSON.parse(localStorage.getItem("cssTasksSolutions"));
 
         // check if the task has been saved
-        const taskTargets = localStorageData.filter(el => el.title === taskTitle);
+        const taskTargets: IFLSCssTaskSolutions[] = localStorageData.filter(el => el.title === taskTitle);
 
         // check if the task has been saved
-        let data = localStorageData.filter(el => el.title === taskTitle);
+        let data : IFLSCssTaskSolutions[] = localStorageData.filter(el => el.title === taskTitle);
 
         // array with task targets
-        const targetsData = defaultValue;
-
-
-        if (taskTargets.length !== 0) {
+        const targetsData: (IFCssTaskTargetCss | IfCssTaskTargetHtml)[] = defaultValue;
 
         // Numbers of targets that have been executed are stored in local storage.
-        // If there is a number then set the solved key  to true in specific element in targetsData array
-        // This will make the checkbox color will be green, and user will be know what left
-        data[0].solvedTargets.forEach(el => {
-            const solved = defaultValue.find(e => e.number === el);
-            if (solved !== undefined) {
-                const index = defaultValue.indexOf(solved);
-                return targetsData[index].solved = true;
-            }
-        });
+        // so check what targets were executed by user
+        if (taskTargets.length !== 0) {
 
+            // using forEach find these targets
+            data[0].solvedTargets.forEach(el => {
+                const solved = defaultValue.find(e => e.number === el);
+                if (solved !== undefined) {
+                    const index = defaultValue.indexOf(solved);
+                    return targetsData[index].solved = true;
+                }
+            });
 
             return targetsData;
         } else {
@@ -279,37 +280,39 @@ export const getCssTaskTargetsFromLS = (
 }
 
 /**
- * Get js task targets - information about which task is completed  (color in checkbox will be red or green)
- * @param taskTitle - name of task
- * @param defaultValue - the default value to be saved to the state if the user has not solved this task
+ * Get js task targets - information about which task target is completed
+ * @param taskTitle - title of task
+ * @param defaultValue - the default value to be return if the user has not solved this task yet
  */
-export const getJsTaskTargetsFromLS = (taskTitle: string, defaultValue: IFJsTaskTargets []) => {
+export const getJsTaskTargetsFromLS = (taskTitle: string, defaultValue: IFJsTaskTargets[]): IFJsTaskTargets[] => {
+
+    
+    // check if storage exists
     if (localStorage.getItem("jsTasksSolutions") != null) {
         // @ts-ignore
         let localStorageData: IFLSjsTaskSolutions[] = JSON.parse(localStorage.getItem("jsTasksSolutions"));
 
         // check if the task has been saved
-        const taskTargets = localStorageData.filter(el => el.title === taskTitle);
+        const taskTargets : IFLSjsTaskSolutions[] = localStorageData.filter(el => el.title === taskTitle);
 
         // check if the task has been saved
-        let data = localStorageData.filter(el => el.title === taskTitle);
+        let data : IFLSjsTaskSolutions[] = localStorageData.filter(el => el.title === taskTitle);
 
         // array with task targets
-        const targetsData = defaultValue;
+        const targetsData : IFJsTaskTargets[] = defaultValue;
 
-
+     // Numbers of targets that have been executed are stored in local storage.
+        // so check what targets were executed by user
         if (taskTargets.length > 0) {
 
-        // Numbers of targets that have been executed are stored in local storage.
-        // If there is a number then set the solved key  to true in specific element in targetsData array
-        // This will make the checkbox color will be green, and user will be know what left
-        data[0].solvedTargets.forEach(el => {
-            const solved = defaultValue.find(e => e.number === el);
-            if (solved !== undefined) {
-                const index = defaultValue.indexOf(solved);
-                return targetsData[index].solved = true;
-            }
-        });
+              // using forEach find these targets
+            data[0].solvedTargets.forEach(el => {
+                const solved = defaultValue.find(e => e.number === el);
+                if (solved !== undefined) {
+                    const index = defaultValue.indexOf(solved);
+                    return targetsData[index].solved = true;
+                }
+            });
 
             return targetsData;
         } else {
@@ -322,9 +325,9 @@ export const getJsTaskTargetsFromLS = (taskTitle: string, defaultValue: IFJsTask
 
 
 /**
- * Get user's html task solution code
- * @param taskTitle - name of task
- * @param defaultValue - the default value to be saved to the state if the user has not solved this task
+ * Get user's html task code for particular task from last session
+ * @param taskTitle - title of task
+ * @param defaultValue - the default value to be return if the user has not solved this task
  */
 export const getHtmlTaskCodeFromLS = (taskTitle: string, defaultValue: string) => {
     if (localStorage.getItem("htmlTasksSolutions") != null) {
@@ -332,6 +335,7 @@ export const getHtmlTaskCodeFromLS = (taskTitle: string, defaultValue: string) =
         // @ts-ignore
         let localStorageData: TypeLSHtmlTaskSolutions[] = JSON.parse(localStorage.getItem("htmlTasksSolutions"));
 
+        // find this code
         const taskSolutionCode = localStorageData.filter(el => el.title === taskTitle);
         if (taskSolutionCode.length !== 0) {
             return formatCode("html", taskSolutionCode[0].code);
@@ -344,22 +348,25 @@ export const getHtmlTaskCodeFromLS = (taskTitle: string, defaultValue: string) =
 }
 
 /**
- * Get user's html task solution code
- * @param taskTitle - name of task
- * @param defaultValue - the default value to be saved to the state if the user has not solved this task
+ * Get user's css task code for particular task from last session
+ * @param taskTitle - title of task
+ * @param defaultValue - the default value to be return if the user has not solved this task
  */
 export const getCssTaskCodeFromLS = (taskTitle: string, defaultValue: { html: string, css: string }) => {
 
-    // formatted default code that will be returned if this job is not saved in local storage
+    // formatted default code that will be returned if the task is not saved in local storage yet
     const defaultCode: { html: string, css: string } = {
         html: formatCode("html", defaultValue.html),
         css: formatCode("css", defaultValue.css)
     };
 
+    // find this code
     if (localStorage.getItem("cssTasksSolutions") != null) {
         // @ts-ignore
         let localStorageData: IFLSCssTaskSolutions[] = JSON.parse(localStorage.getItem("cssTasksSolutions"));
-        const taskSolution = localStorageData.filter(el => el.title === taskTitle)
+
+        // the particular task data
+        const taskSolution = localStorageData.filter(el => el.title === taskTitle);
         if (taskSolution.length !== 0) {
             const taskCode: { html: string, css: string } = {
                 html: formatCode("html", taskSolution[0].userCode.html),
@@ -375,84 +382,94 @@ export const getCssTaskCodeFromLS = (taskTitle: string, defaultValue: { html: st
 };
 
 /**
- * Get user's html task solution code
- * @param taskTitle - name of task
- * @param defaultValue - the default value to be saved to the state if the user has not solved this task
+ * Get user's html task code for particular task from last session
+ * @param taskTitle - title of task
+ * @param defaultValue - the default value to be return if the user has not solved this task
  */
 export const getJsTaskCodeFromLS = (taskTitle: string, defaultValue: string) => {
-
     if (localStorage.getItem("jsTasksSolutions") != null) {
 
         // @ts-ignore
         let localStorageData: IFLSjsTaskSolutions[] = JSON.parse(localStorage.getItem("jsTasksSolutions"));
 
+        // find this code
         const taskSolutionCode = localStorageData.filter(el => el.title === taskTitle);
-
         if (taskSolutionCode.length !== 0) {
-            return formatCode("js", taskSolutionCode[0].userCode)
+            return formatCode("js", taskSolutionCode[0].userCode);
         } else {
-            return defaultValue
+            return defaultValue;
         }
     } else {
-        return defaultValue
+        return defaultValue;
     }
 };
 
 /**
- * save solved task title to ls, so that the user knows which tasks he has completed
+ * save solved task title to ls, so that the user will be know which task has been completed
  * @param taskTitle - task title
- * @param item - local storage name in which you want to save
+ * @param taskType - local storage name in which you want to save
  */
-export const saveSolvedTaskToLS =
-    (taskTitle: string, item: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks"): void => {
-        if (localStorage.getItem(item) != null) {
+export const saveSolvedTaskToLS = (taskTitle: string, taskType: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks"): void => {
+         // check if storage exists
+        if (localStorage.getItem(taskType) != null) {
             // @ts-ignore
             let localStorageData: string[] = JSON.parse(localStorage.getItem(item));
+            // add new task to solved
             localStorageData.push(taskTitle);
+
             //  array with updated local storage data
             let updatedLocalStorageData: string[] = [];
+
             //prevention of duplicates
             localStorageData.forEach(el => {
                 if (el !== taskTitle) {
                     updatedLocalStorageData.push(el);
                 }
-            })
+            });
+
+            // push new task title
             updatedLocalStorageData.push(taskTitle);
-            localStorage.setItem(item, JSON.stringify(updatedLocalStorageData));
-        } else {
-            // if item that you want to save doesn't exist, create new data
+
+            // set updated array with task titles
+            localStorage.setItem(taskType, JSON.stringify(updatedLocalStorageData));
+        } 
+        // if storage doesnt exists then create new
+        else {
             let localStorageData: string[] = [];
             localStorageData.push(taskTitle);
-            localStorage.setItem(item, JSON.stringify(localStorageData));
+            localStorage.setItem(taskType, JSON.stringify(localStorageData));
         }
     }
 
 /**
- * remove solved task from local storage
+ * remove solved task title from local storage
  * @param taskTitle - task title
- * @param item - local storage name in which you want to save
+ * @param taskType - local storage name from which you want remove a task
  */
-export const removeSolvedTaskFormLS = (taskTitle: string, item: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks") => {
+export const removeSolvedTaskFormLS = (taskTitle: string, taskType: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks") => {
     // @ts-ignore
-    let localStorageData: string[] = JSON.parse(localStorage.getItem(item));
-    if (localStorageData != null) {
+    let localStorageData: string[] = JSON.parse(localStorage.getItem(taskType));
 
+    // check if storage exists
+    if (localStorageData != null) {
+        
+        // remove this task from solved
         const index = localStorageData.indexOf(taskTitle);
         if (index > -1) {
             localStorageData.splice(index, 1);
         }
-        localStorage.setItem(item, JSON.stringify(localStorageData));
+        localStorage.setItem(taskType, JSON.stringify(localStorageData));
     }
 }
 /**
- * check if the task has been solved correctly
- * @param taskTitle
- * @param item
+ * check if the task has been completed
+ * @param taskTitle - task title
+ * @param taskType - name of local storage item in which you want to check if tasks has been completed
  */
-export const checkSolvedTask = (taskTitle: string, item: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks"): boolean => {
-    if (localStorage.getItem(item) != null) {
+export const checkSolvedTask = (taskTitle: string, taskType: "solvedJsTasks" | "solvedHtmlTasks" | "solvedCssTasks"): boolean => {
+    if (localStorage.getItem(taskType) != null) {
         // @ts-ignore
-        let localStorageData: string[] = JSON.parse(localStorage.getItem(item));
+        let localStorageData: string[] = JSON.parse(localStorage.getItem(taskType));
         return localStorageData.includes(taskTitle);
     } else {
         return false;
@@ -465,17 +482,23 @@ export const checkSolvedTask = (taskTitle: string, item: "solvedJsTasks" | "solv
  */
 export const saveEditorCodeToLS = (code: IFEditorCode): void => localStorage.setItem("EditorCode", JSON.stringify(code));
 
-// get code for sandbox editor from last session
+/**
+ * get code for sandbox editor from last session
+ * @param defaultValue - the default data that will be returned if local storage data doesnt exists
+ * @returns 
+ */
 export const getEditorCodeFromLS = (defaultValue: IFEditorCode): IFEditorCode => {
     const localStorageData = localStorage.getItem("EditorCode");
     if (localStorageData != null) {
-        return JSON.parse(localStorageData)
+        return JSON.parse(localStorageData);
     } else {
-        return defaultValue
+        return defaultValue;
     }
 }
 
-// get editor areas from local storage
+/**
+ * get grid areas for editor from local storage 
+ */
 export const getEditorAreas = (): string => {
     const localStorageData = localStorage.getItem("editorAreas");
     if (localStorageData != null) {
@@ -488,14 +511,16 @@ export const getEditorAreas = (): string => {
 /**
  * save gained quiz coins into local storage
  * @param coins - amount of coins that you want to save
- * @param item - name where you want to save data
+ * @param item - local storage place where you want to save data
  */
 export const saveQuizCoinsToLS = (coins: number, item: string): void => {
-    const localStorageData = localStorage.getItem("quizCoins")
+    const localStorageData = localStorage.getItem("quizCoins");
+
+    // check if storage exists
     if (localStorageData != null) {
-        let oldLocalStorageData = JSON.parse(localStorageData)
-        oldLocalStorageData[item] = oldLocalStorageData[item] + coins
-        return localStorage.setItem("quizCoins", JSON.stringify(oldLocalStorageData))
+        let oldLocalStorageData = JSON.parse(localStorageData);
+        oldLocalStorageData[item] = oldLocalStorageData[item] + coins;
+        return localStorage.setItem("quizCoins", JSON.stringify(oldLocalStorageData));
     } else {
         const quizCoins = {
             html: 0,
@@ -503,7 +528,7 @@ export const saveQuizCoinsToLS = (coins: number, item: string): void => {
             js: 0,
             [item]: coins
         }
-        return localStorage.setItem("quizCoins", JSON.stringify(quizCoins))
+        return localStorage.setItem("quizCoins", JSON.stringify(quizCoins));
     }
 }
 
