@@ -155,8 +155,8 @@ export const getSpecificJsTask = (taskNumber: number,
                if (doc.data().number === taskNumber) {
                   // The beautify module does not support formatting javascript comments,
                 // and they are important for checking the task, so you have to do it manually.
-                // Any code in firestore will contain "@",
-                // which gives you the ability to create comment formatting.
+                // Any javascript task code should contain "@" in order to make spaces for user solution,
+                // "@" gives the ability to create comment formatting.
                 const formattedCode = doc.data().code.replaceAll("@", "\n");
 
                 specificTask = {

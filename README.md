@@ -53,6 +53,33 @@ There are documents which every is including `type` key, which is pointing at th
 **Remember, if you want to add new task, first thing is to do, is to add above data**
 
 ## **HTML tasks data**
+The data which is responsible for particular html tasks comes from `htmlTasks/` collection. Each document has a general data for task (this data is described above) and 2 additional keys that are required for html tasks:
+|key| type| description |
+|-|-|-|
+|code | string | that code will be displayed in task code editor. The most important thing is you must add comments on basis which the `taskValidationHtml()` function will be checking the if particular task target was completed correctly. For example if you want to user create a h1 heading the code must be like this `<!-- Place your code for task 1 below --> {hero user is writing code} <!--1-->`. Number 1 is means this fragment of code is for task target number 1|
+|targets|{object} array| an array with necessary data to complete task. Each element is containg following data: <ul><li>number - number - index of comment in code on the basis which `taskValidationHtml()` function will cut the piece of code that is between these comments and check if it fits the solution. It's also needed for `getHtmlTaskTargetsFromLS()` function which is checking if the target was completed</li><li>solutions - string array - array with solutions for the target. For example if you want to user create `div` tag with id attribute with `cat` value it must looks like that: [`<div id='cat'></div>`, `<div id="cat"></div>`]</li><li>solved - null - you must assing null value. This key is changing in `taskValidationHtml()` function. This key is important beacuse user will be know he complete the task target correctly -> checkbox color will change in `<TaskTargets/>` component</li><li>target - string - target instruction, what user must do</li></ul> |
+
+
+**If you want to add new html task, you must add above data and general data for the new task**
+
+## **CSS tasks data**
+The data which is responsible for particular tasks comes from `cssTasks/` collection. Each document has a general data for task (this data is described above) and 3 additional keys that are required for css tasks :
+
+|key| type| description |
+|-|-|-|
+|code | {object}| code that will be displayed in edtior: <ul><li>html - string - the code that determines html structure</li><li>css - string - code with css styles, without any comments</li></ul>| 
+|includeHhtml|boolean | value that determinse if user has access to html code editor. In `<CSSTaskContent` component he has opportunity to toggle editor (between css and html). If you want to user makes some changes in html, then  set this key to true|
+|targets|{object} array| an array with necessary data to complete task. Each element is containg following data: <ul><li>type - 'css' or 'html' - target type, if you want to user makes changes in html code (inline styles for example) then set html type, and dont add below keys, add these keys like in html target. if you set css type then add below keys</li><li>solved - boolean - solved - null - you must assing null value. This key is changing in `taskValidationCss()` function. This key is important beacuse user will be know he complete the task target correctly -> checkbox color will change in `<TaskTargets/>` component</li><li>target - string - target instruction,requirements</li><li>number - number - number of the task target, in css tasks it's needed only for checkig if the task target was completed by `getCssTaskTargetsFromLS()` function</li><li>selector - string - css selector needed for `taskValidationCss()` function which checks is the selector has the required styles from `delcarations` array </li><li>delcarations - string array - array with declarations which are must be in specific selector `selector` key. Example: ['font-size: 44px;', 'text-align:center;']</li></ul> 
+
+**If you want to add new css task, you must add above data and general data for the new task**
+
+## **JS tasks data**
+The data which is responsible for particular tasks comes from `jsTasks/` collection. Each document has a general data for task (this data is described above) and 2 additional keys that are required for javascript tasks :
+|key| type| description |
+|-|-|-|
+|code | string | javascript that will be displayed in code editor. You must notice that js-beautify doesn't support comments breaks, it's important for `taskValidationJs()` which is cutting user's code and comparing this code to declared solutions for task target. So if you want to create space then add '@' character to your code -> `/* Place your code for task 1 below */ @@  /* 1 */`. In `getSpecificJsTask()` function these '@' will be replaced with '\n' in order to create space. This example will have 2 free lines in editor. Write code for task like for html but use these 'task syntax' -> `/* Place your code for task {place here task target number} below */ @@  /* {place here task target number} */`. Function `taskValidationJs()` will be known where funcition will know what piece of code to cut and compare it to declared solutions in specific task target|
+|targets|{object} array| an array with necessary data to complete task. Each element is containg following data: <ul><li>type - 'console' or 'code' - specify whether the task target is to be checked in `taskValidationJs()` function by 'clean' code written by user in code editor, or by messages from console. For example if you want to check check that user has printed in console 'Hello World' you must set this key to 'console' value, otherwise when you want to user create a variable with 'cat' value, then you must set this key to 'code' value</li><li>console - string - if you set above key to code, then set this key to empty string, otherwise set there a value that must be printed in the console</li>solved - boolean -  set null, `taskValidationJs()` function will set this key to true or false and the color of the checkbox will change.<li>number - number -number of the task needed to `taskValidationJs()` function which will cut the code between comments and will check if it is included in the declared solutions</li> </ul>
+
 
 
 
