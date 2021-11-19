@@ -1,15 +1,15 @@
 import {FunctionComponent, useEffect, useState} from "react";
 import {TaskContainer} from "../../style/elements/tasks/task";
-import {CssTaskContent} from "./CssTaskContent";
 import {IFAllTasks, IFCssTask, IFPropsTask} from "../../types/types";
 import {getAllTasks, getSpecificCssTask} from "../../firebase/operations";
-import {CssTaskFooter} from "./CssTaskFooter";
 import {Error404} from "../other/Error404";
 import {Loading} from "../other/Loading";
 import { useParams } from "react-router";
+import { CSSTaskFooter } from "./CSSTaskFooter";
+import { CSSTaskContent } from "./CSSTaskContent";
 
 /** Component with CSS Task */
-export const CssTask: FunctionComponent<IFPropsTask> = (): JSX.Element => {
+export const CSSTask: FunctionComponent<IFPropsTask> = (): JSX.Element => {
 
     // references
     // @ts-ignore
@@ -37,7 +37,7 @@ export const CssTask: FunctionComponent<IFPropsTask> = (): JSX.Element => {
     }
 
     return <TaskContainer>
-        <CssTaskContent taskData={task} allTaskLength={allTasks.length}/>
-        <CssTaskFooter allTasks={allTasks} taskNumber={task.number}/>
+        <CSSTaskContent taskData={task} allTaskLength={allTasks.length}/>
+        <CSSTaskFooter allTasks={allTasks} taskNumber={task.number}/>
     </TaskContainer>
 }

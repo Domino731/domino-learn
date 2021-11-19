@@ -50,6 +50,28 @@ export const HtmlTaskCodeEditor = styled.div`
   grid-row: 1 / -1;
   max-width: 100%;
   padding-bottom: 53px;
+
+  @media ${device.desktopS}{
+    padding-bottom: 49px ;
+  }
+  @media ${device.laptopL}{
+    padding-bottom: 47px ;
+  }
+  @media ${device.laptopM}{
+    padding-bottom: 41px ;
+  }
+  @media ${device.laptopS}{
+    padding-bottom: 34px ;
+  }
+  @media ${device.tablet} {
+    padding-bottom: 48px;
+  }
+  @media ${device.mobileL}{
+    padding-bottom: 43px;
+  }
+  @media screen and (max-width: 340px){
+    padding-bottom: 40px;
+  }
 `
 
 export const HtmlTaskResult = styled.div`

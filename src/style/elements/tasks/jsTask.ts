@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {TaskFooter, TaskFooterDecoration, TaskFooterTasksWrapper, TaskIntroductionDecoration} from "./task";
-
+import { device } from "../../general/breakpoints";
+import successfulBg from "../../../images/task_successful_js.svg"
 export const JsResult = styled.div`
   grid-column: 2 / 2;
   grid-row: 1 / 3;
@@ -33,6 +34,28 @@ export const JsCodeEditorWrapper = styled.div`
   position: relative;
   overflow: auto;
   padding-bottom: 53px;
+  
+  @media ${device.desktopS}{
+    padding-bottom: 49px ;
+  }
+  @media ${device.laptopL}{
+    padding-bottom: 47px ;
+  }
+  @media ${device.laptopM}{
+    padding-bottom: 41px ;
+  }
+  @media ${device.laptopS}{
+    padding-bottom: 34px ;
+  }
+  @media ${device.tablet} {
+    padding-bottom: 48px;
+  }
+  @media ${device.mobileL}{
+    padding-bottom: 43px;
+  }
+  @media screen and (max-width: 340px){
+    padding-bottom: 40px;
+  }
 `
 
 export const JsIntroduction = styled.div`
@@ -76,11 +99,8 @@ export const JsTaskSuccessful = styled.div`
   justify-content: center;
   grid-column: 1/ 1;
   grid-row: 1 / 3;
-  background-color: #4cc9f0;
-  background-image: linear-gradient(135deg, #480ca8 25%, transparent 25%), linear-gradient(225deg, #b5179e 25%, transparent 25%), linear-gradient(315deg, #480ca8 25%, transparent 25%), linear-gradient(45deg, #b5179e 25%, transparent 25%);
-  background-position: -30px 0, -30px 0, 0 0, 0 0;
-  background-size: 60px 60px;
-  background-repeat: repeat;
+  background-image: url(${successfulBg});
+  background-size: cover;
 `
 export const JsFooter = styled(TaskFooter)`
   background-color: #4cc9f0;

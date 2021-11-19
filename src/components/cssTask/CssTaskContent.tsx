@@ -61,7 +61,7 @@ import runIcon from "../../images/play_icon.svg";
  * @param taskData - data about css task -> targets, introduction, code, solution...
  * @param allTaskLength - number of all task of particular type
  */
-export const CssTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({ taskData, allTaskLength }): JSX.Element => {
+export const CSSTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({ taskData, allTaskLength }): JSX.Element => {
 
     const [task, setTask] = useState<IFCssTask>(taskData)
     // state with css code

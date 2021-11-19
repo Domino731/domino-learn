@@ -25,7 +25,7 @@ import footerBg from "../../images/quiz_css_background.svg";
  * @param allTasks - array with tasks, which will be used to render the list with tasks
  * @param taskNumber - current task number
  */
-export const CssTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, taskNumber}): JSX.Element => {
+export const CSSTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({allTasks, taskNumber}): JSX.Element => {
 
     // flag to toggle list all javascript tasks
     const [flag, setFlag] = useState<boolean>(false);

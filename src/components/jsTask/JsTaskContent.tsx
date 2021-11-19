@@ -56,7 +56,9 @@ import { TaskIntroduction } from "../task/TaskIntroduction";
 import { TaskTargets } from "../task/TaskTargets";
 import { TaskAceEditorSettings } from "../task/TaskAceEditorSettings";
 import { formatCode } from "../../functions/formatCode";
-
+import settingsIcon from "../../images/settings_icon.svg";
+import resetIcon from "../../images/reset_icon.svg";
+import runIcon from "../../images/play_icon.svg";
 /**
  * Component with the main content for js task -> targets, introduction, editor.
  * @param task - task data (targets, introduction, code, solution...)
@@ -249,7 +251,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
             {successfulFlag && <JsTaskSuccessful>
                 <TaskSuccessfulImg src={JSData.getFigureSrc()} alt={JSData.getFigureAlt()} />
                 <TaskSuccessfulTitle>Congratulations, you have completed the task correctly</TaskSuccessfulTitle>
-                <TaskSuccessfulBar color="#b5179e">
+                <TaskSuccessfulBar color="#ffbe0b">
 
                     {/*user has a choice to stay with the task or move to another task if there is one*/}
                     <button onClick={()=> setSuccessfulFlag(false)}>Close</button>
@@ -308,12 +310,16 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
                             handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
                             toggleForm={handleToggleEditorSettings} />}
 
-                    {/*buttons*/}
-                    <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                        className="fas fa-cogs" /> Settings</CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser" /> Reset
-                    </CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play" /> Run </CodeEditorPanelBtn>
+                     {/*action buttons*/}
+                    {/* toggle settings container*/}
+                    <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}>
+                       <img src={settingsIcon} alt='Gears'/> Settings</CodeEditorPanelBtn>
+
+                    {/* reset code  */}
+                    <CodeEditorPanelBtn onClick={handleResetCode}> <img src={resetIcon} alt='Erase'/>  Reset </CodeEditorPanelBtn>
+
+                    {/* run code */}
+                    <CodeEditorPanelBtn onClick={checkTask}> <img src={runIcon} alt='Play'/>  Run </CodeEditorPanelBtn>
 
                 </CodeEditorPanel>
 
@@ -410,12 +416,17 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
                             handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
                             toggleForm={handleToggleEditorSettings} />}
 
-                    {/*buttons*/}
-                    <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}><i
-                        className="fas fa-cogs" /> Settings</CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={handleResetCode}><i className="fas fa-eraser" /> Reset
-                    </CodeEditorPanelBtn>
-                    <CodeEditorPanelBtn onClick={checkTask}><i className="fas fa-play" /> Run </CodeEditorPanelBtn>
+                        {/*action buttons*/}
+                    {/* toggle settings container*/}
+                    <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}>
+                       <img src={settingsIcon} alt='Gears'/> Settings</CodeEditorPanelBtn>
+
+                    {/* reset code  */}
+                    <CodeEditorPanelBtn onClick={handleResetCode}> <img src={resetIcon} alt='Erase'/>  Reset </CodeEditorPanelBtn>
+
+                    {/* run code */}
+                    <CodeEditorPanelBtn onClick={checkTask}> <img src={runIcon} alt='Play'/>  Run </CodeEditorPanelBtn>
+
 
                     {/*Notification that user code contains errors*/}
                 </CodeEditorPanel>
