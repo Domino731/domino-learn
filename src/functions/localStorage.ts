@@ -208,22 +208,23 @@ export const getHtmlTaskTargetsFromLS = (taskTitle: string, defaultValue: IFTask
 
         // check if the task has been saved
         let data = localStorageData.filter(el => el.title === taskTitle);
-
+        console.log(data)
         // array with task targets
         const targetsData = defaultValue;
 
         // Numbers of targets that have been executed are stored in local storage.
         // If there is a number then set the solved key  to true in specific element in targetsData array
         // This will make the checkbox color will be green, and user will be know what left
-        data[0].solvedTargets.forEach(el => {
+       
+
+        if (data.length !== 0) {
+             data[0].solvedTargets.forEach(el => {
             const solved = defaultValue.find(e => e.number === el);
             if (solved !== undefined) {
                 const index = defaultValue.indexOf(solved);
                 return targetsData[index].solved = true;
             }
         });
-
-        if (data.length !== 0) {
             return targetsData;
         } else {
             return defaultValue;
