@@ -1,13 +1,11 @@
 import styled from "styled-components";
 import {
     MobileTaskEditorWrapper,
-    TaskFooter,
     TaskFooterDecoration,
     TaskFooterSwitchBar,
     TaskFooterTasksWrapper, TaskIntroductionDecoration,
 } from "./task";
 import {device} from "../../general/breakpoints";
-import footerBg from "../../../images/quiz_css_background.svg";
 import successfulBg from "../../../images/task_successful_css.svg"
 
 export const CssIntroduction = styled.div`

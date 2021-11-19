@@ -1,7 +1,7 @@
 import {FunctionComponent, useEffect, useState} from "react";
 import {TaskContainer} from "../../style/elements/tasks/task";
 import {IFAllTasks, IFCssTask, IFPropsTask} from "../../types/types";
-import {getAllTasks, getSpecificCssTask} from "../../firebase/operations";
+import {getSpecificCssTask} from "../../firebase/operations";
 import {Error404} from "../other/Error404";
 import {Loading} from "../other/Loading";
 import { useParams } from "react-router";

@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { EditorHeaderLink } from "../codeEditor/codeEditor";
 import { device } from "../../general/breakpoints";
 import bg from "../../../images/quiz_menu_background.svg";

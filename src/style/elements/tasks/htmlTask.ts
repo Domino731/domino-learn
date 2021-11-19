@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import {
-    TaskFooter,
-    TaskFooterTasksWrapper, TaskFooterDecoration, TaskIntroductionDecoration
+    TaskFooterTasksWrapper, TaskIntroductionDecoration
 } from "./task";
 import {device} from "../../general/breakpoints";
 import successfulBg from "../../../images/task_successful_html.svg"

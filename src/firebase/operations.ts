@@ -37,7 +37,7 @@ export const getSpecificHtmlTask = (taskNumber: number,
                 tasks.push(data);
 
                 // find the particular one
-                if (doc.data().number == taskNumber) {
+                if (doc.data().number === taskNumber) {
                     specificTask = {
                         title: doc.data().title,
                         introduction: doc.data().introduction,
@@ -92,7 +92,7 @@ export const getSpecificCssTask = (taskNumber: number,
                 tasks.push(data);
 
                 // find the particular one
-                if (doc.data().number == taskNumber) {
+                if (doc.data().number === taskNumber) {
                     specificTask = {
                         title: doc.data().title,
                         number: doc.data().number,
@@ -152,7 +152,7 @@ export const getSpecificJsTask = (taskNumber: number,
                tasks.push(data);
 
                // find the particular one
-               if (doc.data().number == taskNumber) {
+               if (doc.data().number === taskNumber) {
                   // The beautify module does not support formatting javascript comments,
                 // and they are important for checking the task, so you have to do it manually.
                 // Any code in firestore will contain "@",

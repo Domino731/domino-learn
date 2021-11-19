@@ -7,7 +7,6 @@ import {
     QuizSummaryGeneral,
     QuizSummaryPanel,
     QuizSummaryCoins,
-    QuizSummaryIcons,
     QuizSummaryFigure,
     QuizSummaryIcon
 } from "../../style/elements/quiz/quiz";

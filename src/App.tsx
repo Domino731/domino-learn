@@ -8,7 +8,6 @@ import {QuizMenu} from "./components/quiz/QuizMenu";
 import {CodeEditor} from "./components/CodeEditor/CodeEditor";
 import {Quiz} from "./components/quiz/Quiz";
 import {RouterScrollToTop} from "./components/other/RouterScrollToTop";
-import { Loading } from './components/other/Loading';
 import { Error404 } from './components/other/Error404';
 import { CSSTask } from './components/cssTask/CSSTask';
 function App() {
@@ -22,7 +21,7 @@ function App() {
             <Route path="/code-editor" component={CodeEditor}/>
             <Route path="/quiz-menu" component={QuizMenu}/>
             <Route path="/quiz/:quizType" component={Quiz}/>
-            <Route path="/test" component={Error404}/>
+            <Route component={Error404}/>
         </Router>
     );
 }

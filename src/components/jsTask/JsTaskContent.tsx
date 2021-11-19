@@ -59,14 +59,17 @@ import { formatCode } from "../../functions/formatCode";
 import settingsIcon from "../../images/settings_icon.svg";
 import resetIcon from "../../images/reset_icon.svg";
 import runIcon from "../../images/play_icon.svg";
+
 /**
  * Component with the main content for js task -> targets, introduction, editor.
- * @param task - task data (targets, introduction, code, solution...)
+ * @param taskData - task data (targets, introduction, code, solution...)
  * @param allTaskLength - number of all task of particular type
  */
 export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allTaskLength }): JSX.Element => {
 
-    const [task, setTask] = useState<IFJsTask>(taskData)
+    // data
+    const [task, setTask] = useState<IFJsTask>(taskData);
+
     // state with userCode from editor output
     const [userCode, setUserCode] = useState<string>(task.code);
 
@@ -95,40 +98,43 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
     // for devices below 768px width there is a different arrangement of elements
     const [windowWidth, setWindowWidth] = useState<number>(0);
 
-    // array with logs from console
-    const [consoleTextArr, setConsoleTextArr] = useState<any[]>([]);
-
-    // logic responsible for task validation
     useEffect(() => {
-        setConsoleTextArr(logs.map(el => el.data[0]))
-    }, [logs.length]);
 
-
-    useEffect(() => {
         const unSubscribe = () => {
+            // array with logs from console
             const consoleTextArr = logs.map(el => el.data[0]);
+
+            // check if user has wrote anything in console and check if his code has no errors
             if (consoleTextArr.length > 0 && annotations.length === 0) {
 
-                // points needed to pass
+                // points needed to complete task
                 const pointsNeeded: number = task.targets.length;
 
                 // user points
                 let userPoints = 0;
 
-                // function that add pun when user complete task correctly
-                const addPoints= (): number => userPoints++;
+                // function that add one opoints when user complete task target correctly
+                const addPoints = (): number => userPoints++;
 
+                // check if user has executed each task target
                 task.targets.forEach(el => taskValidationJS(consoleTextArr, userCode, el, addPoints));
 
                 // check if user solved all targets
-                if(userPoints === pointsNeeded){
+                if (userPoints === pointsNeeded) {
+                    // save this task title into local storage, so user will be known what task he completed
                     saveSolvedTaskToLS(task.title, "solvedJsTasks");
+
+                    // display animation
                     setSuccessfulFlag(true);
                 }
                 else {
-                    removeSolvedTaskFormLS(task.title, "solvedJsTasks")
-                     setSuccessfulFlag(false);
+                    // remove this task from solved
+                    removeSolvedTaskFormLS(task.title, "solvedJsTasks");
+
+                    // remove animation
+                    setSuccessfulFlag(false);
                 }
+                // save current user's code to localStorage, so when he back, he will be have his code from session
                 return saveJsTaskSolutionToLS(task.targets, task.title, userCode);
             }
         }
@@ -145,11 +151,10 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
     }, []);
 
     // when the user solves the task correctly, scroll up to know that he did it correctly.
-    // This works for mobile devices
+    // This works mainly for mobile devices
     useEffect(() => {
         windowWidth <= 768 && successfulFlag && window.scrollTo(0, 0);
     }, [successfulFlag]);
-
 
     // save editor settings into local storage, when the user changes it
     useEffect(() => {
@@ -157,9 +162,8 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
         localStorage.setItem("editorTheme", editorSettings.theme);
     }, [editorSettings]);
 
-
     // run once!, logic responsible for converting a string into an array of data that
-    // contains console logs and is passed to the state, which in turn is passed into Console component
+    // contains console logs and is passed to the state, which is passed into Console component
     // @ts-ignore
     useEffect(() => {
         Hook(
@@ -182,33 +186,33 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
     }, [annotations]);
 
 
-    // change editor font-size
+    /** change editorSettings.fontSize state -> change font size for editor */
     const handleChangeFs = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
         ...prev,
         fontSize: parseFloat(e.target.value)
     }));
 
-    // change theme
+    /** change editorSettings.theme state -> change theme for editor */
     const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>): void => setEditorSettings(prev => ({
         ...prev,
         theme: e.target.value
     }));
 
-    // change code from
+    /** change userCode state */
     const changeUserCode = (newValue: string): void => setUserCode(newValue)
 
-    // reset code in editor by original code from task
+    /** bring current editor code to original task code */
     const handleResetCode = (): void => {
         return setUserCode(formatCode("js", task.originalCode));
     };
 
-    // change editorFormFlag -> show or hide editor settings form
+    /** change  editorFormFlag -> toggle container with editor settings */
     const handleToggleEditorSettings = () => setEditorFormFlag(!editorFormFlag);
 
-    // set the console logs by which useEffect will start the task validation
+    /** set the console logs by which useEffect will start the task validation */
     const checkTask = () => {
+        // first at all, check if user's code has no errors
         if (annotations.length === 0) {
-
             // format user code
             setUserCode(formatCode("js", userCode));
 
@@ -217,13 +221,12 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
 
             // transform user code to ready to display,
             // the display of the user code is handled by the above defined useEffect
-            Logs(userCode);
-
+            return Logs(userCode);
         }
 
         // display the error window when user code have warnings
         else {
-            setErrorFlag(true);
+            return setErrorFlag(true);
         }
     };
 
@@ -254,7 +257,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
                 <TaskSuccessfulBar color="#ffbe0b">
 
                     {/*user has a choice to stay with the task or move to another task if there is one*/}
-                    <button onClick={()=> setSuccessfulFlag(false)}>Close</button>
+                    <button onClick={() => setSuccessfulFlag(false)}>Close</button>
                     {task.number < allTaskLength && <Link to={`/js-task/${task.number + 1}`}>Next task</Link>}
 
                 </TaskSuccessfulBar>
@@ -263,11 +266,14 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
             {/*console with user code*/}
             <JsResult>
                 <WebBrowserWindow>
+                    {/* 'browser buttons' */}
                     <WebBrowserTopBar>
                         <WebBrowserGreenBox />
                         <WebBrowserYellowBox />
                         <WebBrowserRedBox />
                     </WebBrowserTopBar>
+
+                    {/* logs */}
                     <JsConsoleWrapper>
                         <Console logs={logs} variant="light" />
                     </JsConsoleWrapper>
@@ -276,7 +282,8 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
 
             {/*editor*/}
             <JsCodeEditorWrapper>
-                {/*code editor - ace*/}
+
+                {/*code editor*/}
                 <AceEditor
                     enableBasicAutocompletion={true}
                     enableLiveAutocompletion={true}
@@ -310,16 +317,16 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
                             handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
                             toggleForm={handleToggleEditorSettings} />}
 
-                     {/*action buttons*/}
+                    {/*action buttons*/}
                     {/* toggle settings container*/}
                     <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}>
-                       <img src={settingsIcon} alt='Gears'/> Settings</CodeEditorPanelBtn>
+                        <img src={settingsIcon} alt='Gears' /> Settings</CodeEditorPanelBtn>
 
                     {/* reset code  */}
-                    <CodeEditorPanelBtn onClick={handleResetCode}> <img src={resetIcon} alt='Erase'/>  Reset </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={handleResetCode}> <img src={resetIcon} alt='Erase' />  Reset </CodeEditorPanelBtn>
 
                     {/* run code */}
-                    <CodeEditorPanelBtn onClick={checkTask}> <img src={runIcon} alt='Play'/>  Run </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={checkTask}> <img src={runIcon} alt='Play' />  Run </CodeEditorPanelBtn>
 
                 </CodeEditorPanel>
 
@@ -364,7 +371,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
 
                         <TaskSuccessfulBar color="#b5179e">
                             {/*user has a choice to stay with the task or move to another task if there is one*/}
-                            <button onClick={()=> setSuccessfulFlag(false)}>Close</button>
+                            <button onClick={() => setSuccessfulFlag(false)}>Close</button>
                             {task.number < allTaskLength && <Link to={`/js-task/${task.number + 1}`}>Next task</Link>}
                         </TaskSuccessfulBar>
                     </JsTaskSuccessful>}
@@ -416,16 +423,16 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
                             handleChangeFs={handleChangeFs} editorFs={editorSettings.fontSize}
                             toggleForm={handleToggleEditorSettings} />}
 
-                        {/*action buttons*/}
+                    {/*action buttons*/}
                     {/* toggle settings container*/}
                     <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}>
-                       <img src={settingsIcon} alt='Gears'/> Settings</CodeEditorPanelBtn>
+                        <img src={settingsIcon} alt='Gears' /> Settings</CodeEditorPanelBtn>
 
                     {/* reset code  */}
-                    <CodeEditorPanelBtn onClick={handleResetCode}> <img src={resetIcon} alt='Erase'/>  Reset </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={handleResetCode}> <img src={resetIcon} alt='Erase' />  Reset </CodeEditorPanelBtn>
 
                     {/* run code */}
-                    <CodeEditorPanelBtn onClick={checkTask}> <img src={runIcon} alt='Play'/>  Run </CodeEditorPanelBtn>
+                    <CodeEditorPanelBtn onClick={checkTask}> <img src={runIcon} alt='Play' />  Run </CodeEditorPanelBtn>
 
 
                     {/*Notification that user code contains errors*/}

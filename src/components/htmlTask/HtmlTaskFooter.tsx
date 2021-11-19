@@ -11,7 +11,6 @@ import {
     TaskFooterTasksPlanet3,
     TaskFooterTasksItem,
     TaskFooterTasksPlanets,
-    TaskFooterIcons,
     TaskFooterTitle,
     TaskFooterSwitchButton,
     TaskFooterListBtn,

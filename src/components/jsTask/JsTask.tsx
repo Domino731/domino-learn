@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { TaskContainer } from "../../style/elements/tasks/task";
 import { IFAllTasks, IFJsTask, IFPropsTask } from "../../types/types";
 import { JsTaskContent } from "./JsTaskContent";
-import { getAllTasks, getSpecificJsTask } from "../../firebase/operations";
+import {  getSpecificJsTask } from "../../firebase/operations";
 import { JsTaskFooter } from "./JsTaskFooter";
 import { Loading } from "../other/Loading";
 import { useParams } from "react-router";

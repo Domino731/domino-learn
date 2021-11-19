@@ -358,18 +358,18 @@ export const CSSTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({ taskD
                     {/*action buttons*/}
                     {/* toggle container with settings */}
                     <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}>
-                        <img src={settingsIcon} />
+                        <img src={settingsIcon} alt='Gears' />
                         Settings</CodeEditorPanelBtn>
 
                     {/* reset code     */}
                     <CodeEditorPanelBtn onClick={handleResetCode}>
-                        <img src={resetIcon} />
+                        <img src={resetIcon} alt='Erase' />
                         Reset
                     </CodeEditorPanelBtn>
 
                     {/* execute user's code */}
                     <CodeEditorPanelBtn onClick={checkTask}>
-                        <img src={runIcon} />
+                        <img src={runIcon} alt='Run icon'/>
                         Run </CodeEditorPanelBtn>
 
                 </CodeEditorPanel>
@@ -543,14 +543,14 @@ export const CSSTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({ taskD
 
                     {/*buttons*/}
                     <CodeEditorPanelBtn onClick={() => setEditorFormFlag(!editorFormFlag)}>
-                        <img src={settingsIcon} />
+                        <img src={settingsIcon} alt='Gears'/>
                         Settings</CodeEditorPanelBtn>
                     <CodeEditorPanelBtn onClick={handleResetCode}>
-                        <img src={resetIcon} />
+                        <img src={resetIcon} alt='Erase'/>
                         Reset
                     </CodeEditorPanelBtn>
                     <CodeEditorPanelBtn onClick={checkTask}>
-                        <img src={runIcon} />
+                        <img src={runIcon} alt='Play icon'/>
                         Run </CodeEditorPanelBtn>
 
                 </CodeEditorPanel>

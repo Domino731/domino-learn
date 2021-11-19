@@ -24,7 +24,7 @@ export const Footer: FunctionComponent = (): JSX.Element => {
 
         <CopyrightWrapper>2021 &copy; Copyright Dominik Orzechowski</CopyrightWrapper>
         <FooterFreepik>
-             <a href='https://www.freepik.com/vectors/star' target="_blank">Star vector created by vectorpouch - www.freepik.com</a> 
+             <a href='https://www.freepik.com/vectors/star' rel="noopener noreferrer" target="_blank">Star vector created by vectorpouch - www.freepik.com</a> 
         </FooterFreepik>
       
     </FooterContainer>
