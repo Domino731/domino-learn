@@ -1,4 +1,4 @@
-/** array with grid areas for sandbox editor layout */
+/** array with grid areas for sandbox editor layout, If you want to add new areas add new element to this array (6x6 grid) */
 export const codeEditorAreas: string[] = [
     `"html html html html result result"
     "html html html html result result"

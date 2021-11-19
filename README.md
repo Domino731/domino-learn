@@ -78,79 +78,39 @@ The data which is responsible for particular tasks comes from `jsTasks/` collect
 |key| type| description |
 |-|-|-|
 |code | string | javascript that will be displayed in code editor. You must notice that js-beautify doesn't support comments breaks, it's important for `taskValidationJs()` which is cutting user's code and comparing this code to declared solutions for task target. So if you want to create space then add '@' character to your code -> `/* Place your code for task 1 below */ @@  /* 1 */`. In `getSpecificJsTask()` function these '@' will be replaced with '\n' in order to create space. This example will have 2 free lines in editor. Write code for task like for html but use these 'task syntax' -> `/* Place your code for task {place here task target number} below */ @@  /* {place here task target number} */`. Function `taskValidationJs()` will be known where funcition will know what piece of code to cut and compare it to declared solutions in specific task target|
-|targets|{object} array| an array with necessary data to complete task. Each element is containg following data: <ul><li>type - 'console' or 'code' - specify whether the task target is to be checked in `taskValidationJs()` function by 'clean' code written by user in code editor, or by messages from console. For example if you want to check check that user has printed in console 'Hello World' you must set this key to 'console' value, otherwise when you want to user create a variable with 'cat' value, then you must set this key to 'code' value</li><li>console - string - if you set above key to code, then set this key to empty string, otherwise set there a value that must be printed in the console</li>solved - boolean -  set null, `taskValidationJs()` function will set this key to true or false and the color of the checkbox will change.<li>number - number -number of the task needed to `taskValidationJs()` function which will cut the code between comments and will check if it is included in the declared solutions</li> </ul>
+|targets|{object} array| an array with necessary data to complete task. Each element is containg following data: <ul><li>type - 'console' or 'code' - specify whether the task target is to be checked in `taskValidationJs()` function by 'clean' code written by user in code editor, or by messages from console. For example if you want to check check that user has printed in console 'Hello World' you must set this key to 'console' value, otherwise when you want to user create a variable with 'cat' value, then you must set this key to 'code' value</li><li>console - string - if you set above key to code, then set this key to empty string, otherwise set there a value that must be printed in the console</li>solved - boolean -  set null, `taskValidationJs()` function will set this key to true or false and the color of the checkbox will change.<li>number - number -number of the task needed to `taskValidationJs()` function which will cut the code between comments and will check if it is included in the declared solutions</li> <li>solutions - string array - array with solutions for the task. If you want to user print in console 'Hello World' then you must add  following solutions - [`console.log('Hello World')`, `console.log("Hello World");`...]</li></ul>
 
+**If you want to add new javascript task, you must add above data and general data for the new task**
 
+## **Local storage data structure**
+Saving task progress, quiz coins, editor settings and sandbox editor code was achived by localStorage.
 
+**Editor Settings**
+* `editorFontSize` - font size for editor (default it depends by device width )
+* `editorTheme` - theme for editor (monokai is default)
+**Sandbox editor settings**
+* `EditorCode` - sandbox editor code
+* `editorAreas` - grid areas which are responsible for sandbox editor layout
+**Quiz coins**
+* `quizCoins` - object (`js`, `html`, `css` keys) with coins for particular quiz 
+**Tasks**
+**solvedJsTasks, solvedCssTasks, solvedHtmlTasks**
+array with task titles which are completed by user.
+**htmlTasksSolutions, jsTasksSolutions, cssTasksSolutions**
+|key| type| description |
+|-|-|-|
+|title | string | task title, needed in `get{X}TaskCodeFromLS()` and `get{X}TaskSolutionsFromLS`|
+|userCode| string | user's code from task, needed in `get{X}TaskCodeFromLS()` in order to recover code from last session|
+|solvedTargets| number array | array with numbers that are completed in specific task, needed in `get{X}TaskTargetsFromLS`|
 
-### Other
+## Properties
+* `codeEditorAreas` - array with available grid areas for the sandbox editor. If you want to add new areas add new element to this array (6x6 grid);
+* `CSSData` - data about css -> character source, alt, icon source, alt, description and with the examplary code link
+* `JSData` - data about javascript -> character source, alt, icon source, alt, description and with the examplary code link
+* `HTMLData` - data about html -> character source, alt, icon source, alt, description and with the examplary code link
 
-* `Error404` - responsible for 404 error handling and redirecting the user to a specific page after 10s.
-* `Loading` - loading screen with astronaut :).
-* `RouterScrollToTop` - allows for scrolling to the top of the page.
-
-## Local storage functions
-
-### For editor
-
-* `getEditorFSize` - get editor font size from local storage
-* `getEditorTheme` - get editor theme from local storage, it not exist return default theme - monokai
-
-### Save the solution to the task for a specific language (e.g. html) so that when the user returns to this task, he will have its solution
-
-* `saveHtmlTaskSolutionToLS`
-* `saveCssTaskSolutionToLS`
-* `saveJsTaskSolutionToLS`
-
-### Get task targets - information about which task has been completed (color in checkbox will be red or green)
-
-* `getHtmlTaskTargetsFromLS`
-* `getCssTaskTargetsFromLS`
-* `getJsTaskTargetsFromLS`
-
-### Get user's solution code for task
-
-* `getHtmlTaskCodeFromLS`
-* `getCssTaskCodeFromLS`
-* `getJsTaskCodeFromLS`
-
-### General for task
-
-* ` saveSolvedTaskToLS ` - save solved task title to ls, so that the user knows which tasks he has completed
-* `checkSolvedTask` - check if the task has been solved correctly
-
-### For sandbox editor
-
-* `saveEditorCodeToLS` - save user code to local storage so that when he comes back he has his code from the previous
-  session
-* `getEditorAreas` - get editor areas from local storage
-
-### For quiz
-
-* `saveQuizCoinsToLS` - save gained quiz coins into local storage
-* `getQuizCoins` - get quiz coins
-
-## Firebase operations
-
-* getSpecificHtmlTask - fetch specific html task
-* getSpecificCssTask - fetch specific css task
-* getSpecificJsTask - fetch specific js task
-* getAllTasks - fetch all tasks
-* getQuizQuestions - fetch random quiz questions (max 10 questions)
-
-## How to get language information
-
-There are three objects `htmlClass`, `cssClass`, `jsClass`. They have been opened with the `ProgrammingLanguage`
-constructor and contain the following data
-
-* name of language
-* icon source
-* icon alt
-* figure source
-* figure alt
-* exemplary code
-* description
-
+## Google firestore operations
+* ``
 ## Available Scripts
 
 In the project directory, you can run:

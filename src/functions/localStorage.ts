@@ -8,7 +8,6 @@ import {
 import { IFTaskTargets } from "../types/types";
 import { codeEditorAreas } from "../properties/codeEditorAreas";
 import { formatCode } from "./formatCode";
-import { exists } from "fs";
 
 const width = window.innerWidth;
 
