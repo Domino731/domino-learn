@@ -17,7 +17,8 @@ export const QuizHeaderLink = styled(EditorHeaderLink)``
 
 export const QuizMenuWrapper = styled.main`
   max-width: 1920px;
-  height: calc(100vh - 53px);
+  padding-top: 53px
+  height: 100vh;
   min-height: 704px;
   display: grid;
   grid-template-rows: repeat(8, 1fr);
@@ -28,34 +29,34 @@ export const QuizMenuWrapper = styled.main`
     width: 90%;
   } 
   @media ${device.desktopS}{
-    height: calc(100vh - 46px);
+    padding-top: 46px;
   }
   @media ${device.laptopL}{
-    height: calc(100vh - 43px);
+    padding-top:- 43px;
   }
   @media ${device.laptopM}{
     min-height: 600px;
-    height: calc(100vh - 40px);
+    padding-top: 40px;
   }
   @media ${device.laptopSM}{
-    height: calc(100vh - 38px);
+    padding-top:38px;
   }
   @media ${device.laptopS}{
     min-height: 500px;
-    height: calc(100vh - 36px);
+    padding-top: 36px);
   }
   @media screen and (max-width: 1023px){
-    height: calc(100vh - 44px);
+    padding-top: 44px;
   }
   @media ${device.mobileXL}{
     min-height: 763px;
-    height: calc(100vh - 42px);
+    padding-top: 42px;
     display: flex;
     flex-wrap: wrap;
   }
   @media screen and (max-width: 500px){
     min-height: 718px;
-    height: calc(100vh - 41px);
+    padding-top: 41px;
   }
   @media ${device.mobileL}{
     flex-wrap: nowrap;
@@ -66,10 +67,10 @@ export const QuizMenuWrapper = styled.main`
     }
   }
   @media ${device.mobileM}{
-    height: calc(100vh - 38px);
+    padding-top:- 38px;
   }
   @media screen and (max-width: 340px){
-    height: calc(100vh - 37px);
+    padding-top: 37px;
   }
 `
 const QuizColumn = styled.div`
