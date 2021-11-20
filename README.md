@@ -160,6 +160,23 @@ array with task titles which are completed by user.
       5.2 - There are two types of targets, - console and code. If type is equal to 'code' then just check if
        the user's code is matching to one of solutions. If type is console, then check if
        the user's code is matching to one of solutions, and that the console returns the required text. then add new point and change `task.solved` key to true (checkbox will be green), otherwise set this key to false (checkbox will be have red color)
+
+6. After forEach, save task progress into local storage, so when user comes back he will have his task status from last session
+7. Check if user has enough points to complete task (compate userPoints to pointsNeeded), if he has then display animation about successfully completed task and save this task title to localStorage (`jsTasksSolutions`) so user will be know he was completed this task (task link will be have green background color), otherwise if user doesnt have enough points then remove this task from solved task in local storage.
+
+
+## **Components**
+**Home page**
+* `<HomePage/>` - component which is gathering all content for home page
+* `<Hero/>` - subcomponent for `<HomePage/>`, responsible for page introduction
+* `<Description/>` - subcomponent for `<HomePage/>`, renders description for every front-end language
+* `<ChoseTask/>` - subcomponent for `<HomePage/>` by which user can select tasks
+* `<TaskBoard/>` - subbomponent for `<ChoseTask/>` will tasks list
+* `<TaskSelectSingle/>` - subcomponent for `<ChoseTask/>`, renders single box with checkbox, by which user can select tasks type
+* `<Additions/>` - Subcomponent for `<HomePage/>`, renders menu by which user can choose quiz or code editor
+* `<Footer/>` - Subcomponent for `<HomePage/>` - footer for home page
+
+
 ## Available Scripts
 
 In the project directory, you can run:

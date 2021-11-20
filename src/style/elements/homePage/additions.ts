@@ -83,7 +83,7 @@ export const AdditionItem = styled.div`
   @media screen and (max-width: 648px){
     width: 177px;
   }
-  @media ${device.laptopL}{
+  @media ${device.mobileL}{
     width: 165px;
   }
   @media screen and (max-width: 330px){

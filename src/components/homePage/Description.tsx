@@ -5,7 +5,7 @@ import { HTMLData } from "../../properties/htmlData";
 import { CSSData } from "../../properties/cssData";
 import { JSData } from "../../properties/jsData";
 
-/** Subcomponent for HomePage, renders description for every language */
+/** Subcomponent for HomePage, renders description for every front-end language */
 export const Description: FunctionComponent = (): JSX.Element => {
     return <DscContainer>
         
