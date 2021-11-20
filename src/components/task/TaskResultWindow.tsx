@@ -8,7 +8,7 @@ import {
 import {IFPropsTaskResultWindow} from "../../types/types";
 
 /**
- * Component which return iframe window with user's code inside
+ * Component with iframe window with user's code inside
  * @param srcDoc - code which will be passed into iframe
  */
 export const TaskResultWindow : FunctionComponent< IFPropsTaskResultWindow> = ({srcDoc}) : JSX.Element => {

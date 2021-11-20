@@ -16,6 +16,22 @@ Project is created with:
 * [React Ace Editor](https://github.com/securingsincity/react-ace)
 * [React-create-app](https://github.com/facebook/create-react-app)
 
+## table of contents
+* [Routing](#routing)
+* [Google Firestore data structure](#google-firestore-data-structure)
+* [General data for tasks](#general-data-for-tasks)
+* [HTML tasks data, how to add new task](#html-tasks-data)
+* [JavaScript tasks data, how to add new task](#javascript-tasks-data)
+* [CSS tasks data, how to add new task](#css-tasks-data)
+* [Local storage data structure](#local-storage-data-structure)
+* [Properties](#properties)
+* [Google firestore operations](#google-firestore-operations)
+* [How task validation for html works?](#how-task-validation-for-html-works)
+* [How task validation for css works?](#how-task-validation-for-css-works)
+* [How task validation for javascript works?](#how-task-validation-for-javascript-works)
+* [Components](#components)
+* [Available Scripts](#available-Scripts)
+
 ## **Routing**
 Routing in this projec was created with `react-router`
 
@@ -73,7 +89,7 @@ The data which is responsible for particular tasks comes from `cssTasks/` collec
 
 **If you want to add new css task, you must add above data and general data for the new task**
 
-## **JS tasks data**
+## **JavaScript tasks data**
 The data which is responsible for particular tasks comes from `jsTasks/` collection. Each document has a general data for task (this data is described above) and 2 additional keys that are required for javascript tasks :
 |key| type| description |
 |-|-|-|
@@ -103,20 +119,20 @@ array with task titles which are completed by user.
 |userCode| string | user's code from task, needed in `get{X}TaskCodeFromLS()` in order to recover code from last session|
 |solvedTargets| number array | array with numbers that are completed in specific task, needed in `get{X}TaskTargetsFromLS`|
 
-## Properties
+## **Properties**
 * `codeEditorAreas` - array with available grid areas for the sandbox editor. If you want to add new areas add new element to this array (6x6 grid);
 * `CSSData` - data about css -> character source, alt, icon source, alt, description and with the examplary code link
 * `JSData` - data about javascript -> character source, alt, icon source, alt, description and with the examplary code link
 * `HTMLData` - data about html -> character source, alt, icon source, alt, description and with the examplary code link
 
-## Google firestore operations
+## **Google firestore operations**
 * `getSpecificHtmlTask()` - fetch data about specific html task
 * `getSpecificCssTask()` - fetch data about specific css task
 * `getSpecificJsTask()` - fetch data about specific javascript task
 * `getAllTasks()` - get data about all tasks (js, html or css)
 * `getQuizQuestions()` - fetch random quiz questions ( 10 questions)
 
-## How task validation for html works?
+## **How task validation for html works**
 1. user presses the run button which is responsible for triggering `checkTask()` function which is responsible for task validation
 2. first checks for errors in the user's code. If the code contains errors, an information about incorrect syntax is displayed, and if the code has no errors, the task checking begins
 3. the code which is passed into iframe window is created -> user can see code result
@@ -130,7 +146,7 @@ array with task titles which are completed by user.
 6. After forEach, save task progress into local storage, so when user comes back he will have his task status from last session
 7. Check if user has enough points to complete task (compate userPoints to pointsNeeded), if he has then display animation about successfully completed task and save this task title to localStorage (`htmlTasksSolutions`) so user will be know he was completed this task (task link will be have green background color), otherwise if user doesnt have enough points then remove this task from solved task in local storage.
 
-## How task validation for css works?
+## **How task validation for css works**
 1. user presses the run button which is responsible for triggering `checkTask()` function which is responsible for task validation
 2. first checks for errors in the user's (html and css) code. If the code contains errors, an information about incorrect syntax is displayed, and if the code has no errors, the task checking begins
 3. the code which is passed into iframe window is created -> user can see code result
@@ -148,7 +164,7 @@ array with task titles which are completed by user.
 6. After forEach, save task progress into local storage, so when user comes back he will have his task status from last session
 7. Check if user has enough points to complete task (compate userPoints to pointsNeeded), if he has then display animation about successfully completed task and save this task title to localStorage (`cssTasksSolutions`) so user will be know he was completed this task (task link will be have green background color), otherwise if user doesnt have enough points then remove this task from solved task in local storage.
 
-## How task validation for js works?
+## **How task validation for javascript works**
 1. user presses the run button which is responsible for triggering `checkTask()` function which is responsible for task validation
 2. first checks for errors in the user's code. If the code contains errors, an information about incorrect syntax is displayed, and if the code has no errors, the task checking begins. Sets the `logs` state so that useEffect() will trigger logic behind task validation (It's needed to handle validation by useEffect() hook becouse as we know changing sate is asynchronous operation in react, and the `logs` state is holding necessary data for task validation -> messages from console)
 3. useEffect is creating array with console logs, and it is checking if user has write anything in code editor, if he has then start task validation
@@ -175,7 +191,39 @@ array with task titles which are completed by user.
 * `<TaskSelectSingle/>` - subcomponent for `<ChoseTask/>`, renders single box with checkbox, by which user can select tasks type
 * `<Additions/>` - Subcomponent for `<HomePage/>`, renders menu by which user can choose quiz or code editor
 * `<Footer/>` - Subcomponent for `<HomePage/>` - footer for home page
+**Quiz**
+* `<QuizMenu/>` - component with navagation to particular quiz - html, js, css
+* `<Quiz/>` - quiz with random 10 questions about specific language
+* `<QuizQuestion/>` - subcomponent for `<Quiz/>` with single quiz question
+* `<QuizSummary/>` - subcomponent for `<Quiz/>` with summary panel for quiz - correct user's answers, coins, and action panel where user is deciding what's next -> repeat quiz with new questions or back to `<QuizMenu/>` route
+**Sandbox editor**
+* `<CodeEditor/>` - component which is gathering subcomponent for editor
+* `<CodeEditorContent/>` - subcomponent for  `<CodeEditor/>` with 3 code editors, console panel, and iframe window
+* `<CodeEditorHeader` -  subcomponent for  `<CodeEditor/>` with container with editor settings
+**Components for tasks**
+* `<TaskAceEditorSettings/>` - component which allows to change editor settings - font size, theme
+* `<TaskAid/>` - Component which renders aid for task - link to a page that helps the user solve the task,or become fimiliar with specific technology
+ there are two color themes which are depending on the support material type -> article or video
+* `<TaskIntroduction/>` - introduction for task
+* `<TaskResultLoading/>` - loading screen which is displaying while function is checking task
+* `<TaskResultWindow/>` -  Component with iframe window with user's code inside
+* `<TaskTargets/>` - Component which renders list with task targets, and support resources
+**HTML tasks**
+* `<HtmlTask/>` - component which is gathering subcomponent html task
+* `<HtmlFooter/>` - subcomponent for `<HtmlTask/>` with footer, where user can moving between tasks
+* `<HtmlContent/>` - subcomponent for `<HtmlTask/>`, content for task -> introduction, targets, support materials, editor and iframe
+**CSS tasks**
+* `<CSSTask/>` - component which is gathering subcomponent css task
+* `<CSSFooter/>` - subcomponent for `<CSSTask/>` with footer, where user can moving between tasks
+* `<CSSContent/>` - subcomponent for `<CSSTask/>`, content for task -> introduction, targets, support materials, editor and iframe
+**HTML tasks**
+* `<JsTask/>` - component which is gathering subcomponent javascript task
+* `<JsFooter/>` - subcomponent for `<JsTask/>` with footer, where user can moving between tasks
+* `<JsContent/>` - subcomponent for `<JsTask/>`, content for task -> introduction, targets, support materials, editor and iframe
 
+**Other**
+* `<Loading/>` - loading screen
+* `<Error404/>` - handling 404 error, and redirecting user user to particular route
 
 ## Available Scripts
 

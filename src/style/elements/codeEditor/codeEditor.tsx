@@ -660,6 +660,9 @@ export const EditorResetCSSChekbox = styled.label`
     height: 100%;
     appearance: none;
     border: none;
+    &:hover {
+      cursor: pointer;
+    }
     &:checked ~ i {
       background: #70e000;
     }
@@ -668,6 +671,7 @@ export const EditorResetCSSChekbox = styled.label`
     color: ${props => props.theme.color.white};
   }
   i {
+    min-width: 0.6em;
     display: inline-block;
     padding: 0.2em;
     border-radius: 0.2em;

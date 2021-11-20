@@ -76,7 +76,8 @@ export const CodeEditorHeader: FunctionComponent<IFPropsCodeEditorHeader> = ({
             {/* add css reset */}
             <EditorResetCSSChekbox>
                 <input type='checkbox' checked={includeResetCSS} onChange={changeResetCSS} />
-                <i className="fas fa-check"></i>
+                {/* <i className="fas fa-check"/> */}
+                <i className={includeResetCSS ? "fas fa-check" : "fas fa-times"}/>
                 <span>
                     Add CSS reset from meyerweb.com
                 </span>

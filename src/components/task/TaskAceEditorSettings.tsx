@@ -8,7 +8,7 @@ import {
 import {IFPropsTaskAceEditorSettings} from "../../types/types";
 
 /**
- * Component which allows to change editor settings
+ * Component which allows to change editor settings - font size, theme
  * @param handleChangeTheme - function that change theme
  * @param editorTheme - selected theme
  * @param handleChangeFs - function that change font size

@@ -270,7 +270,6 @@ export const TaskFooterSwitchButton = styled.div<TaskFooterSwitchButtonProps>`
   background: ${props => props.theme.color.gray};
   transition: 0.1s;
   margin: 0 0.313rem;
-
   &:hover {
     cursor: pointer;
     transition: 0.1s;
@@ -322,7 +321,9 @@ export const TaskFooterTasksWrapper = styled.div`
   ::-webkit-scrollbar-thumb {
     background: ${props => props.theme.color.gray};
   }
-
+  @media ${device.desktopS}{
+    top: -351px;
+  }
   @media ${device.laptopS} {
     width: 170px;
     height: 290px;
@@ -479,7 +480,7 @@ export const TaskIntroductionText = styled.div`
   margin-top: 1em;
   padding: 0.3em 0.4em 0;
   line-height: 1.438rem;
-
+  background: white;
   p {
     margin-top: 0.4em;
     text-align: justify;
@@ -526,7 +527,10 @@ export const TaskIntroductionText = styled.div`
       }
     }
   }
-
+  a{
+    text-decoration: underline;
+    text-decoration-color: ${props => props.theme.color.blue}
+  }
 `
 
 export const TaskTargetsWrapper = styled.div`

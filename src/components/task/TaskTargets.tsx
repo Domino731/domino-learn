@@ -14,7 +14,7 @@ import {TaskAid} from "./TaskAid";
 import {IFPropsTaskTargets} from "../../types/types";
 
 /**
- * Component which renders task target, and support resources
+ * Component which renders list with task targets, and support resources
  * @param targets - array with data about task target
  * @param title - string used to create key
  * @param aidArr - array with data about task aid

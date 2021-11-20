@@ -14,7 +14,7 @@ import { TaskAidProps } from "../../types/types";
 
 /**
  * Component which renders aid for task - link to a page that helps the user solve the task,or become fimiliar with specific technology
- * there are two color themes which are depending on the type
+ * there are two color themes which are depending on the support material type -> article or video
  * @param aid - data about task aid with title, link, type, author
  */
 export const TaskAid: FunctionComponent<TaskAidProps> = ({ aid }): JSX.Element | null => {

@@ -412,7 +412,7 @@ export const saveSolvedTaskToLS = (taskTitle: string, taskType: "solvedJsTasks" 
     // check if storage exists
     if (localStorage.getItem(taskType) != null) {
         // @ts-ignore
-        let localStorageData: string[] = JSON.parse(localStorage.getItem(item));
+        let localStorageData: string[] = JSON.parse(localStorage.getItem(taskType));
         // add new task to solved
         localStorageData.push(taskTitle);
 

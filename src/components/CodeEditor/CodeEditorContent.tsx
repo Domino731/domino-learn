@@ -38,8 +38,7 @@ import { Logs } from "../../functions/jsConsole";
 import { cssReset } from "../../properties/cssReset"
 
 /**
- * Component which is responsible for the editor, he two versions - for mobile devices (below 900px window width)
- * and for larger devices (above 900px)
+ * component with 3 code editors, console panel, and iframe window
  * @param editorSettings - settings for editor - theme, font size, grid-areas
  */
 export const CodeEditorContent: FunctionComponent<IFPropsCodeEditorContent> = ({ editorSettings }): JSX.Element => {
