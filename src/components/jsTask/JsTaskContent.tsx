@@ -98,6 +98,7 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
     // for devices below 768px width there is a different arrangement of elements
     const [windowWidth, setWindowWidth] = useState<number>(0);
 
+    // hook which is responsible for task validation
     useEffect(() => {
 
         const unSubscribe = () => {

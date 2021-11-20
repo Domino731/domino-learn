@@ -252,7 +252,7 @@ export const CSSTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({ taskD
                 removeSolvedTaskFormLS(task.title, "solvedCssTasks")
             }
 
-            // save solution into local storage, so when user comes back he will have their code from last session
+            // save task progress into local storage, so when user comes back he will have their task status from last session
             return saveCssTaskSolutionToLS(task.targets, task.title, userCode);
         } else {
             return setErrorFlag(true);

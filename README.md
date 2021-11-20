@@ -143,7 +143,23 @@ array with task titles which are completed by user.
    
    5.3 - using forEach check if user code has required styles, if he has then increase `userDeclarations` variable
 
-   5.4 - after forEach check if `userDeclarations` is 
+   5.4 - after forEach check if `userDeclarations` is equal to `equiredDeclaration`, if it is then add new point and change `task.solved` key to true (checkbox will be green), otherwise set this key to false (checkbox will be have red color)
+
+6. After forEach, save task progress into local storage, so when user comes back he will have his task status from last session
+7. Check if user has enough points to complete task (compate userPoints to pointsNeeded), if he has then display animation about successfully completed task and save this task title to localStorage (`cssTasksSolutions`) so user will be know he was completed this task (task link will be have green background color), otherwise if user doesnt have enough points then remove this task from solved task in local storage.
+
+## How task validation for js works?
+1. user presses the run button which is responsible for triggering `checkTask()` function which is responsible for task validation
+2. first checks for errors in the user's code. If the code contains errors, an information about incorrect syntax is displayed, and if the code has no errors, the task checking begins. Sets the `logs` state so that useEffect() will trigger logic behind task validation (It's needed to handle validation by useEffect() hook becouse as we know changing sate is asynchronous operation in react, and the `logs` state is holding necessary data for task validation -> messages from console)
+3. useEffect is creating array with console logs, and it is checking if user has write anything in code editor, if he has then start task validation
+4. user points (0 at start), and points needed to complete the task are created (depends on task targets amount)
+5. using forEach to check if user has executed all task targets (by `taskValidationCss()`)
+
+      5.1 - the function is creating code for the particular task target. It is search comments lines with the particular number, and it creates the code without these comments so it can compare user's code if it does this code match one of the solutions
+
+      5.2 - There are two types of targets, - console and code. If type is equal to 'code' then just check if
+       the user's code is matching to one of solutions. If type is console, then check if
+       the user's code is matching to one of solutions, and that the console returns the required text. then add new point and change `task.solved` key to true (checkbox will be green), otherwise set this key to false (checkbox will be have red color)
 ## Available Scripts
 
 In the project directory, you can run:
