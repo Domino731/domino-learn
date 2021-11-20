@@ -4,12 +4,12 @@ import { IFTaskTargets } from "../types/types";
  * Function that checks if user's solution matches one of task targets solution
  * @param code -  string from which the solution will be extracted
  * @param taskTarget - object with necessary information to validate task
- * @param addPoints -> function that add points
+ * @param addPoint -> function that will add point
  */
-export const taskValidationHtml = (code: string, taskTarget: IFTaskTargets, addPoints: () => void) => {
+export const taskValidationHtml = (code: string, taskTarget: IFTaskTargets, addPoint: () => void) => {
 
     // locations of comments based on which it will be possible to get
-    // clean html code without comments and check user solution
+    // clean html code without comments in order to check user solution is correct
     const startPoint: number = code.indexOf(`<!-- Place your code for task ${taskTarget.number} below -->`);
     const endPoint: number = code.indexOf(`<!--${taskTarget.number}-->`);
 
@@ -29,7 +29,7 @@ export const taskValidationHtml = (code: string, taskTarget: IFTaskTargets, addP
         // if correctly
         if (taskSolution === userSolution) {
             // add point
-            addPoints();
+            addPoint();
 
             // change checkbox to green color by state change
             taskTarget.solved = true;

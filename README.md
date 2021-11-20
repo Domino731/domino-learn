@@ -110,7 +110,25 @@ array with task titles which are completed by user.
 * `HTMLData` - data about html -> character source, alt, icon source, alt, description and with the examplary code link
 
 ## Google firestore operations
-* ``
+* `getSpecificHtmlTask()` - fetch data about specific html task
+* `getSpecificCssTask()` - fetch data about specific css task
+* `getSpecificJsTask()` - fetch data about specific javascript task
+* `getAllTasks()` - get data about all tasks (js, html or css)
+* `getQuizQuestions()` - fetch random quiz questions ( 10 questions)
+
+## How task validation for html works?
+1. user presses the run button which is responsible for triggering `checkTask()` function which is responsible for task validation
+2. first checks for errors in the user code. If the code contains errors, an information about incorrect syntax is displayed, and if the code has no errors, the task checking begins
+3. the code which is passed into iframe window is created -> user can see code result
+4. user points (0 at start), and points needed to complete the task are created (depends on task targets amount)
+5. using forEach, each task target is checked if it was executed correctly by the user. On each task target element `taskValidationHtml()` function is invoking.
+
+     5.1 - the function is creating code for the particular task target. It is search comments lines with the particular number, and it creates the code without these comments so it can compare user's code if it does this code match one of the solutions
+
+     5.2 -  using forEach, it is checked if the solution matches one of the declared solutions for the task target. If user's code matches, then add new point and change `task.solved` key to true (checkbox will be green), otherwise set this key to false (checkbox will be have red color)
+
+6. After forEach, save task progress into local storage, so when user comes back he will have his task status from last session
+7. Check if user has enough points to complete task (compate userPoints to pointsNeeded), if he has then display animation about successfully completed task and save this task title to localStorage (`htmlTasksSolutions`) so user will be know he was completed this task (task link will be have green background color)
 ## Available Scripts
 
 In the project directory, you can run:

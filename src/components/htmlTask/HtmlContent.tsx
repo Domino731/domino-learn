@@ -155,13 +155,14 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
         // start the task checking only if the user code does not contain errors
         if (annotations.length === 0) {
-            // set the result (display user html code)
+
+            // set the code which will be passed into iframe window (display user code)
             setSrcDoc(`
           <!DOCTYPE html>
           <html lang="en">
           <head><title>${task.title}</title></head>
           <body>${userCode}</body>
-          </html>`)
+             </html>`)
 
             // points needed to complete the task
             const pointsNeeded: number = task.targets.length;
@@ -175,7 +176,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
             //  checking each solution to a task is equal to the user's solution
             task.targets.forEach(el => taskValidationHtml(userCode, el, changeUserPoints));
 
-            // save solution into local storage, so when user comes back he will have their solution from last session
+            // save task progress into local storage, so when user comes back he will have his task status from last session
             saveHtmlTaskSolutionToLS(task.targets, task.title, userCode);
 
             // check if user has executed all targets, if he did then display animation
