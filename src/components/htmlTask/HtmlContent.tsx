@@ -181,6 +181,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
 
             // check if user has executed all targets, if he did then display animation
             if (userPoints === pointsNeeded) {
+                
                 // set the animation
                 setSuccessfulFlag(true);
 

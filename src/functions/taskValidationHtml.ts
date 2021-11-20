@@ -20,14 +20,9 @@ export const taskValidationHtml = (code: string, taskTarget: IFTaskTargets, addP
         .replace(/\s/g, '')
         .toLowerCase();
 
-   taskTarget.solutions.forEach(solution => {
-        // task solution with lower case (without task comments and spaces)
-        const taskSolution: string = solution.replace(/\s/g, '').toLowerCase();
-        // change taskTargets state to inform user what he did correctly and what he did wrong -> checkboxes
-        // in task targets list will change their color
 
-        // if correctly
-        if (taskSolution === userSolution) {
+        // check if user solution is matching to one of decalred for task target
+        if (taskTarget.solutions.findIndex(solution => solution.replace(/\s/g, '').toLowerCase() === userSolution) >= 0) {
             // add point
             addPoint();
 
@@ -40,5 +35,4 @@ export const taskValidationHtml = (code: string, taskTarget: IFTaskTargets, addP
             //change checkbox to red color by state change
             taskTarget.solved = false;
         }
-   });
 };

@@ -1,21 +1,37 @@
 <div>
-    <p>When we create a website, its most important thing is the content on this page. We often want to give some meaning to the text
-        - underline, cross out, bold.Giving meaning to the text will attract the user's attention. </p>
-    <p> In the text editor, we can easily cross out text or write in italics. In HTML there are over a hundred tags to
-        format our text. Full list can be found at <a
-            href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#text-level-semantics" target="_blank"
-            rel="noopener noreferrer"> html.spec.whatwg.org</a>. However, usually only these basic tags are used. Below
-        is a list of them. </p>
+    <p> When we visit a website, our web browser will format the html document according to the information in the
+        stylesheet. </p>
+    <p> In order to have access to modify the visual layer of our page we need to know how to insert our styles into the
+        HTML code. There are three ways of inserting styles to our .html file.</p>
     <ul>
-        <li><code>&lt;strong&gt;</code> - makes the text bold. It marks the fragment of text that you want to draw attention
-            to and gives it a semantic meaning.</li>
-        <li><code>&lt;b&gt;</code> - like the above, it boldens the text but doesn't give it semantic meaning.</li>
-        <li><code>&lt;i&gt;</code> - makes the text that is in it become slanted. Can be used for technical words or
-            names.</li>
-        <li><code>&lt;small&gt;</code> - used to shrink text. Most commonly found in the footer of a page, e.g. for
-            license text.</li>
-        <li><code>&lt;del&gt;</code> - text surrounded by this tag becomes crossed out.</li>
-        <li><code>&lt;span&gt;</code> - is a tag that does not give any meaning to the text, it is a very useful tag for
-            styling in CSS.</li>
+        <li>External CSS</li>
+        <li>Internal CSS</li>
+        <li>Inline Css</li>
     </ul>
+    <div>
+        <h3>External</h3>
+        <p> This is the best method. It helps us to keep our design in order. To change the look of our page we only
+            need to change one CSS file. To add it we need to add a link in the head section of the HTML document:
+            <code> &lt;link rel = "stylesheet" type = "text/css" href = "style.css" &gt; </code> </p>
+    </div>
+    <div>
+        <h3>Internal</h3>
+        <p> If you don't want to create a new stylesheet, you can add styles inside the <code>&lt;style&gt; </code>
+            element inside the <code>&lt;head&gt; </code> section; </p>
+    </div>
+    <div>
+        <h3>Inline</h3>
+        <p> With inline style we can create a unique style for a single HTML element:
+            <code>&lt;div style="color: red; font-size: 20px; margin-top: 10px"&gt; &lt;div&gt;</code>. This is not the
+            recommended approach, use it as a last resort. </p>
+    </div>
+    <p>While styling our elements, we need to keep the hierachy in mind. For example, if a div element has a red
+        background in a separate stylesheet and a blue background in an inline style, it will have a blue background
+        because inline styling is the highest in the hierarchy. </p>
+    <ol>
+        <li>Inline styles</li>
+        <li>Internal Style Sheets (Embedded)</li>
+        <li>External Style Sheets (Linked or Imported)</li>
+        <li>Browser Defaults</li>
+    </ol>
 </div>

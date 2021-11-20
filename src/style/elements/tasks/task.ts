@@ -479,6 +479,7 @@ export const TaskIntroductionBar = styled.div`
 export const TaskIntroductionText = styled.div`
   margin-top: 1em;
   padding: 0.3em 0.4em 0;
+  padding-bottom: 13px;
   line-height: 1.438rem;
   background: white;
   p {
@@ -1075,7 +1076,7 @@ export const TaskAidsWrapper = styled.div`
   padding: 0 0.7em;
 `
 export const TaskAidsList = styled.div`
-
+padding-bottom: 13px;
 `
 
 const TaskAidItem = styled.a`
