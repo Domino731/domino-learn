@@ -37,9 +37,8 @@ export const taskValidationCss = (code: string, taskTarget: IFCssTaskTargetCss, 
         }
     });
 
-    // change taskTargets state to inform user what he did correctly and what he did wrong -> checkboxes
-    // in task targets list will change their color
-
+    // check if user styles have all required css declarations
+    
     // if correctly
     if (userDeclarations === requiredDeclarations) {
         addPoints();

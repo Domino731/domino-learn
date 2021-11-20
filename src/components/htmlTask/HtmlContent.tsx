@@ -184,7 +184,7 @@ export const HtmlTaskContent: FunctionComponent<IFPropsHtmlTaskContent> = ({
                 // set the animation
                 setSuccessfulFlag(true);
 
-                // save solved task title to ls, so that the user knows which tasks he has completed
+                // save task title into localStorage, so user will be know he was completed this task (task link will be have green background color
                 return saveSolvedTaskToLS(task.title, "solvedHtmlTasks");
             } else {
                 setSuccessfulFlag(false);

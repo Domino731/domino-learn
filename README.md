@@ -118,7 +118,7 @@ array with task titles which are completed by user.
 
 ## How task validation for html works?
 1. user presses the run button which is responsible for triggering `checkTask()` function which is responsible for task validation
-2. first checks for errors in the user code. If the code contains errors, an information about incorrect syntax is displayed, and if the code has no errors, the task checking begins
+2. first checks for errors in the user's code. If the code contains errors, an information about incorrect syntax is displayed, and if the code has no errors, the task checking begins
 3. the code which is passed into iframe window is created -> user can see code result
 4. user points (0 at start), and points needed to complete the task are created (depends on task targets amount)
 5. using forEach, each task target is checked if it was executed correctly by the user. On each task target element `taskValidationHtml()` function is invoking.
@@ -128,7 +128,22 @@ array with task titles which are completed by user.
      5.2 -  using forEach, it is checked if the solution matches one of the declared solutions for the task target. If user's code matches, then add new point and change `task.solved` key to true (checkbox will be green), otherwise set this key to false (checkbox will be have red color)
 
 6. After forEach, save task progress into local storage, so when user comes back he will have his task status from last session
-7. Check if user has enough points to complete task (compate userPoints to pointsNeeded), if he has then display animation about successfully completed task and save this task title to localStorage (`htmlTasksSolutions`) so user will be know he was completed this task (task link will be have green background color)
+7. Check if user has enough points to complete task (compate userPoints to pointsNeeded), if he has then display animation about successfully completed task and save this task title to localStorage (`htmlTasksSolutions`) so user will be know he was completed this task (task link will be have green background color), otherwise if user doesnt have enough points then remove this task from solved task in local storage.
+
+## How task validation for css works?
+1. user presses the run button which is responsible for triggering `checkTask()` function which is responsible for task validation
+2. first checks for errors in the user's (html and css) code. If the code contains errors, an information about incorrect syntax is displayed, and if the code has no errors, the task checking begins
+3. the code which is passed into iframe window is created -> user can see code result
+4. user points (0 at start), and points needed to complete the task are created (depends on task targets amount)
+5. using forEach, each task target is checked if it was executed correctly by the user. But first at all, check the type of target (html or css). HTML type require changes in .html code, css type require changes in .css code. If the type is html the task task target using `taskValidationHtml()` (described above), if the type is css then invoke `taskValidationCss` on each target ->
+
+   5.1 - create the string which is containg css declarations inside specific selector in order to check if the user has entered all the required styles
+
+   5.2 - create number of required css declarations (`equiredDeclaration`) which are needed to complete the task target , and initialize variable which is holding amount of user's declarations (`userDeclarations`)
+   
+   5.3 - using forEach check if user code has required styles, if he has then increase `userDeclarations` variable
+
+   5.4 - after forEach check if `userDeclarations` is 
 ## Available Scripts
 
 In the project directory, you can run:

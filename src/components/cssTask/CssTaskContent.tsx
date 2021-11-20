@@ -227,11 +227,9 @@ export const CSSTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({ taskD
             // function that add point when user complete task target correctly
             const changeUserPoints = (): number => userPoints++;
 
-            // checking if each task target solution is equal to the user's solution,
-            // if yes, changes state and sets checkbox color to green, otherwise set red checkbox
+            // checking user has executed all required task targets to complete task
             task.targets.forEach(el => {
-                // check task type, because targets may have 2 diffrent types - css or html
-                // html type need to change styles in .html file
+                // check task type, because targets may have 2 diffrent types - css or html (html type need to change styles in .html file)
                 if (el.type === "css") {
                     return taskValidationCss(userCode.css, el, changeUserPoints);
                 } else if (el.type === "html") {
