@@ -26,3 +26,4 @@ export const device = {
     desktopS: `screen and (max-width: ${size.desktopS})`,
     desktopM: `screen and (max-width: ${size.desktopM})`,
 };
+export const onlyOnDesktop = `screen and (min-width: 769px)`

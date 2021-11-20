@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { EditorHeaderLink } from "../codeEditor/codeEditor";
-import { device } from "../../general/breakpoints";
-import bg from "../../../images/quiz_menu_background.svg";
+import { device, onlyOnDesktop } from "../../general/breakpoints";
 
 
 export const QuizHeader = styled.header`
+  position: fixed;
+  width: 100%;
+  top: 0;
   background: ${props => props.theme.color.yellow};
   padding: 5px 0;
   @media ${device.desktopS}{
@@ -17,8 +19,6 @@ export const QuizMenuWrapper = styled.main`
   max-width: 1920px;
   height: calc(100vh - 53px);
   min-height: 704px;
-  background-image: url(${bg});
-  background-size: cover;
   display: grid;
   grid-template-rows: repeat(8, 1fr);
   grid-template-columns:  repeat(3, 1fr);
@@ -177,9 +177,28 @@ margin: 0 auto;
  box-shadow: 17px 17px ${props => props.theme.color.gray};
  color: ${props => props.theme.color.gray};
  transition: .3s;
+
+@media ${onlyOnDesktop}{
  &:hover{
   box-shadow: 21px 21px ${props => props.theme.color.gray};
  }
+}
+@media ${onlyOnDesktop} and (max-width: 1600px){
+  &:hover{
+    box-shadow: 19px 19px ${props => props.theme.color.gray};
+   }
+}
+@media ${onlyOnDesktop} and (max-width: 1024px ){
+   &:hover{
+    box-shadow: 16px 16px ${props => props.theme.color.gray};
+   }
+}
+
+
+
+
+
+
  @media ${device.desktopS}{
   width: 85%;
   border-radius: 27px;
@@ -187,27 +206,23 @@ margin: 0 auto;
  @media ${device.laptopM}{
    border-radius: 25px;
    box-shadow: 15px 15px ${props => props.theme.color.gray};
-   &:hover{
-    box-shadow: 19px 19px ${props => props.theme.color.gray};
-   }
  }
  @media ${device.laptopS}{
   padding: 9px 0;
    border-radius: 20px;
    box-shadow: 13px 13px ${props => props.theme.color.gray};
-   &:hover{
-    box-shadow: 16px 16px ${props => props.theme.color.gray};
-   }
+  
  }
  @media screen and (max-width: 960px){
    width: 91%;
   padding: 21px 0;
    border-radius: 24px;
    box-shadow: 15px 15px ${props => props.theme.color.gray};
-   &:hover{
-    box-shadow: 18px 18px ${props => props.theme.color.gray};
-   }
  }
+
+
+
+
  @media screen and (max-width: 831px){
   box-shadow: 12px 12px ${props => props.theme.color.gray};
  }

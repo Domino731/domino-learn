@@ -12,8 +12,21 @@ export const QuizContainer = styled.main<PropsQuizContainer>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(${props => props.background});
+  &::before {
+  content: "";
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  background: url(${props => props.background}) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
+}
   @media ${device.desktopS}{
     min-height: 700px;
   }

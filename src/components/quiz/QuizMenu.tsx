@@ -21,10 +21,11 @@ import { CSSData } from "../../properties/cssData";
 import { JSData } from "../../properties/jsData";
 import coins from "../../images/coins.svg";
 import { getQuizCoins } from "../../functions/localStorage";
-
+import { BackgroundAttachmentFixed } from "../../style/general/generalStyles";
+import bg from "../../images/quiz_menu_background.svg";
 // Component renders menu by which the user can select the particular quiz
 export const QuizMenu: FunctionComponent = (): JSX.Element => {
-    return <main>
+    return <BackgroundAttachmentFixed bgSource={bg} >
 
         {/* header */}
         <QuizHeader>
@@ -34,7 +35,7 @@ export const QuizMenu: FunctionComponent = (): JSX.Element => {
         {/* available quizes */}
         <QuizMenuWrapper>
             <QuizMenuTitle>
-                CHOSE THE QUIZ
+                CHOOSE THE QUIZ
             </QuizMenuTitle>
 
             {/* html card */}
@@ -101,5 +102,5 @@ export const QuizMenu: FunctionComponent = (): JSX.Element => {
             </QuizJSColumn>
 
         </QuizMenuWrapper>
-    </main>
+    </BackgroundAttachmentFixed>
 }

@@ -24,4 +24,21 @@ export const FreepikThanks = styled.div`
     }
   }
 `
+interface PropsBackgroundAttachmentFixed{
+  bgSource: string
+}
+export const BackgroundAttachmentFixed = styled.div<PropsBackgroundAttachmentFixed>`
+overflow: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  background: url(${props => props.bgSource}) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+`;
 
