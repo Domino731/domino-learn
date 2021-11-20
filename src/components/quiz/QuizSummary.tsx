@@ -14,6 +14,7 @@ import coins from "../../images/coins.png";
 import {IFPropsQuizSummary} from "../../types/types";
 import {Link} from "react-router-dom";
 import {getQuizCoins, saveQuizCoinsToLS} from "../../functions/localStorage";
+import { useParams } from "react-router";
 
 /**
  * Component which renders quiz summary panel - gained coins, all coins, correct answers,

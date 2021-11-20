@@ -17,7 +17,7 @@ export const QuizHeaderLink = styled(EditorHeaderLink)``
 
 export const QuizMenuWrapper = styled.main`
   max-width: 1920px;
-  padding-top: 53px
+  padding-top: 53px;
   height: 100vh;
   min-height: 704px;
   display: grid;
@@ -32,7 +32,7 @@ export const QuizMenuWrapper = styled.main`
     padding-top: 46px;
   }
   @media ${device.laptopL}{
-    padding-top:- 43px;
+    padding-top: 43px;
   }
   @media ${device.laptopM}{
     min-height: 600px;
@@ -43,7 +43,7 @@ export const QuizMenuWrapper = styled.main`
   }
   @media ${device.laptopS}{
     min-height: 500px;
-    padding-top: 36px);
+    padding-top: 36px;
   }
   @media screen and (max-width: 1023px){
     padding-top: 44px;
@@ -67,7 +67,7 @@ export const QuizMenuWrapper = styled.main`
     }
   }
   @media ${device.mobileM}{
-    padding-top:- 38px;
+    padding-top: 38px;
   }
   @media screen and (max-width: 340px){
     padding-top: 37px;
