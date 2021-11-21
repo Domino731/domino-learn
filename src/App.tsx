@@ -9,8 +9,7 @@ import {CodeEditor} from "./components/CodeEditor/CodeEditor";
 import {Quiz} from "./components/quiz/Quiz";
 import {RouterScrollToTop} from "./components/other/RouterScrollToTop";
 import { Error404 } from './components/other/Error404';
-import { CSSTask } from './components/cssTask/CSSTask';
-const NotFound  = () => <Error404  redirectPath='/'/>
+import { CSSTask } from './components/cssTask/CssTask';
 
 function App() {
     return (

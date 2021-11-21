@@ -5,8 +5,8 @@ import {getSpecificCssTask} from "../../firebase/operations";
 import {Error404} from "../other/Error404";
 import {Loading} from "../other/Loading";
 import { useParams } from "react-router";
-import { CSSTaskFooter } from "./CSSTaskFooter";
-import { CSSTaskContent } from "./CSSTaskContent";
+import { CSSTaskFooter } from "./CssTaskFooter";
+import { CSSTaskContent } from "./CssTaskContent";
 
 /** Component with CSS Task */
 export const CSSTask: FunctionComponent<IFPropsTask> = (): JSX.Element => {
