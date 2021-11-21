@@ -52,11 +52,11 @@ export const JsTaskFooter: FunctionComponent<IFPropsTaskFooter> = ({ allTasks, t
 
             {/* previous task */}
             {taskNumber !== 1 &&
-                <TaskFooterSwitchButton onClick={scrollToTop} color="#ffe57e"> <Link to={`/html-task/${taskNumber - 1}`}>Back</Link></TaskFooterSwitchButton>}
+                <TaskFooterSwitchButton onClick={scrollToTop} color="#ffe57e"> <Link to={`/js-task/${taskNumber - 1}`}>Back</Link></TaskFooterSwitchButton>}
 
             {/* next tasks    */}
             {taskNumber < allTasks.length &&
-                <TaskFooterSwitchButton onClick={scrollToTop} color="#ffe57e"><Link to={`/html-task/${taskNumber + 1}`}>Next</Link></TaskFooterSwitchButton>}
+                <TaskFooterSwitchButton onClick={scrollToTop} color="#ffe57e"><Link to={`/js-task/${taskNumber + 1}`}>Next</Link></TaskFooterSwitchButton>}
 
             {/* list with tasks */}
             {flag && <JsFooterTasksWrapper>

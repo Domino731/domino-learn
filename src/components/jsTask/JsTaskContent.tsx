@@ -220,8 +220,9 @@ export const JsTaskContent: FunctionComponent<IFPropsJsTask> = ({ taskData, allT
             // prevent of console duplicates
             setLogs([]);
 
-            // transform user code to ready to display,
+            // transform user code to 'real code' which is ready to display in the console,
             // the display of the user code is handled by the above defined useEffect
+            Logs(userCode);
             return Logs(userCode);
         }
 

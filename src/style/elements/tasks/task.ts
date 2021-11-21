@@ -530,7 +530,11 @@ export const TaskIntroductionText = styled.div`
   }
   a{
     text-decoration: underline;
-    text-decoration-color: ${props => props.theme.color.blue}
+    text-decoration-color: ${props => props.theme.color.blue};
+    code {
+    text-decoration: underline;
+    text-decoration-color: ${props => props.theme.color.blue};
+    }
   }
 `
 

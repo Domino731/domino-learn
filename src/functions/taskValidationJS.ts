@@ -52,7 +52,7 @@ export const taskValidationJS =  (logs: any[], userCode: string, taskTarget: IFJ
     }
 
     // checking by console
-    if (taskTarget.type === "console") {
+    else if (taskTarget.type === "console") {
 
         // set the array with logs with no spaces or in json notation
         const consoleText = logs.map(el => {
