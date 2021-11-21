@@ -317,9 +317,9 @@ export const CSSTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({ taskD
                                 tabSize: 2,
                             }}
                         />}
-
                     {currentEditor === "html" &&
                         <AceEditor
+                            readOnly={!task.editableHTML}
                             enableBasicAutocompletion={true}
                             enableLiveAutocompletion={true}
                             enableSnippets={true}
@@ -506,6 +506,7 @@ export const CSSTaskContent: FunctionComponent<IFPropsCssTaskContent> = ({ taskD
                     {/* html editor */}
                     {currentEditor === "html" &&
                         <AceEditor
+                            readOnly={!task.editableHTML}
                             enableBasicAutocompletion={true}
                             enableLiveAutocompletion={true}
                             enableSnippets={true}

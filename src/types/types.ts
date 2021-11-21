@@ -200,6 +200,7 @@ export interface IFCssTask {
         html: string;
         css: string;
     };
+    editableHTML: boolean;
     targets: (IFCssTaskTargetCss | IfCssTaskTargetHtml) [];
 }
 

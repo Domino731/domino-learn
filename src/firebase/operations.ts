@@ -103,6 +103,7 @@ export const getSpecificCssTask = (taskNumber: number,
                             html: formatCode("html", doc.data().code.html),
                             css: formatCode("css", doc.data().code.css)
                         },
+                        editableHTML: doc.data().editableHTML,
                         // check if the user hasn't already solved the task, if he  has solved it,
                         // get it from local storage and if not, return the default value (task.targets)
                         // @ts-ignore

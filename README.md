@@ -79,12 +79,13 @@ The data which is responsible for particular html tasks comes from `htmlTasks/` 
 **If you want to add new html task, you must add above data and general data for the new task**
 
 ## **CSS tasks data**
-The data which is responsible for particular tasks comes from `cssTasks/` collection. Each document has a general data for task (this data is described above) and 3 additional keys that are required for css tasks :
+The data which is responsible for particular tasks comes from `cssTasks/` collection. Each document has a general data for task (this data is described above) and 4 additional keys that are required for css tasks :
 
 |key| type| description |
 |-|-|-|
 |code | {object}| code that will be displayed in edtior: <ul><li>html - string - the code that determines html structure</li><li>css - string - code with css styles, without any comments</li></ul>| 
 |includeHhtml|boolean | value that determinse if user has access to html code editor. In `<CSSTaskContent` component he has opportunity to toggle editor (between css and html). If you want to user makes some changes in html, then  set this key to true|
+|editableHTML| boolean| this value gives ability to user to change html code |
 |targets|{object} array| an array with necessary data to complete task. Each element is containg following data: <ul><li>type - 'css' or 'html' - target type, if you want to user makes changes in html code (inline styles for example) then set html type, and dont add below keys, add these keys like in html target. if you set css type then add below keys</li><li>solved - boolean - solved - null - you must assing null value. This key is changing in `taskValidationCss()` function. This key is important beacuse user will be know he complete the task target correctly -> checkbox color will change in `<TaskTargets/>` component</li><li>target - string - target instruction,requirements</li><li>number - number - number of the task target, in css tasks it's needed only for checkig if the task target was completed by `getCssTaskTargetsFromLS()` function</li><li>selector - string - css selector needed for `taskValidationCss()` function which checks is the selector has the required styles from `delcarations` array </li><li>delcarations - string array - array with declarations which are must be in specific selector `selector` key. Example: ['font-size: 44px;', 'text-align:center;']</li></ul> 
 
 **If you want to add new css task, you must add above data and general data for the new task**
@@ -141,7 +142,7 @@ array with task titles which are completed by user.
 
      5.1 - the function is creating code for the particular task target. It is search comments lines with the particular number, and it creates the code without these comments so it can compare user's code if it does this code match one of the solutions
 
-     5.2 -  using forEach, it is checked if the solution matches one of the declared solutions for the task target. If user's code matches, then add new point and change `task.solved` key to true (checkbox will be green), otherwise set this key to false (checkbox will be have red color)
+     5.2 -  check if user solution is matching to one of declared for task target. If user's code matches, then add new point and change `task.solved` key to true (checkbox will be green), otherwise set this key to false (checkbox will be have red color)
 
 6. After forEach, save task progress into local storage, so when user comes back he will have his task status from last session
 7. Check if user has enough points to complete task (compate userPoints to pointsNeeded), if he has then display animation about successfully completed task and save this task title to localStorage (`htmlTasksSolutions`) so user will be know he was completed this task (task link will be have green background color), otherwise if user doesnt have enough points then remove this task from solved task in local storage.

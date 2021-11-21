@@ -1,30 +1,32 @@
-import {IFCssTaskTargetCss,} from "../types/types";
+import { IFCssTaskTargetCss, } from "../types/types";
 
 /**
  * Function that checks if user's solution matches one of task targets solution
- * @param code -  string from which the solution will be extracted
+ * @param userCode -  string from which the solution will be extracted
  * @param taskTarget - object with necessary information to validate task
  * @param addPoints -> function that add points
  */
-export const taskValidationCss = (code: string, taskTarget: IFCssTaskTargetCss, addPoints: () => void,): void => {
+export const taskValidationCss = (userCode: string, taskTarget: IFCssTaskTargetCss, addPoints: () => void,): void => {
 
+    // remove spaces
+    let code = userCode.replace(/\s/g, '');
     // locations from which the string with the  style declarations will be extracted
-    const startPoint: number = code.indexOf(`${taskTarget.selector}{`);
-    const endPoint: number = code.indexOf(`}`);
+    const startPoint: number = code.indexOf(`${taskTarget.selector}`);
+    code = code.substring(startPoint);
 
     // user code with lower case (without task comments and spaces)
     const userSolution: string = code
-        .substring(startPoint, endPoint)
-        .replace(`${taskTarget.selector}{`, "")
+        .replace(`${taskTarget.selector}`, "")
         .replace(/\s/g, '')
         .toLowerCase()
-
     // number of declarations required to pass the target
     let requiredDeclarations: number = taskTarget.declarations.length;
 
     // number of user declarations
     let userDeclarations: number = 0;
 
+
+    
     // checking if the user's solution (userSolution) contains required style declarations
     taskTarget.declarations.forEach(el => {
 
@@ -38,7 +40,7 @@ export const taskValidationCss = (code: string, taskTarget: IFCssTaskTargetCss, 
     });
 
     // check if user styles have all required css declarations
-    
+
     // if correctly
     if (userDeclarations === requiredDeclarations) {
         addPoints();

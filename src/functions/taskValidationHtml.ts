@@ -21,7 +21,7 @@ export const taskValidationHtml = (code: string, taskTarget: IFTaskTargets, addP
         .toLowerCase();
 
 
-        // check if user solution is matching to one of decalred for task target
+        // check if user solution is matching to one of declared for task target
         if (taskTarget.solutions.findIndex(solution => solution.replace(/\s/g, '').toLowerCase() === userSolution) >= 0) {
             // add point
             addPoint();
