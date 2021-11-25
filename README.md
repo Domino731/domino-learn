@@ -1,7 +1,6 @@
 # DOMINO LEARN
 This project aims to help begginers to acquainted with front-end world. The app has a space theme beacuse as we know programming is very large topic, and for the easiest things we have a hundred of approches. I nested 3 different types of tasks in there - js, html and css, and everything was made for automation. The tasks for particular section comes from firestore database so you have ability to adding new tasks in simple way. I also created my own website sandbox code editor using `ace-editor` package. Sandbox editor has an ability to change layout for editor, this was achived by use grid-area property. Each editor (in js, html, css tasks too)on site has also ability to change theme and font-size, moreover user apply css reset in sandbox editor. The last section in this project is quiz section with js, html and css questions. All questions comes from firestore database, so you can easily add new. Each question has a coins which are available to gain when the user has correctly selected the answer.
-Tasks progress, sandbox editor code and the quiz coins are saving in local storage. Everything in this project was made with automation in mind, so if you want add new task for specific section or new quiz question, everythind is described below
-section comes from firestore 
+Tasks progress, sandbox editor code and the quiz coins are saving in local storage. Everything in this project was made with automation in mind, so if you want add new task for specific section or new quiz question, everythink is described below. Available at https://domino-learn-6d629.web.app/
 
 ## **Technologies**
 
